@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Assetto Corsa Drift OMT Banner (One More Time)</title>
+  <link rel="stylesheet" href="omt.css">
+</head>
+<body>
+
+  <div class="omt-stage" id="omtStage">
+    <!-- Outer Shockwave Ring -->
+    <div class="omt-shockwave" id="omtShockwave"></div>
+
+    <!-- Slanted Drift Plate -->
+    <div class="omt-card" id="omtCard">
+      <!-- Light streak shine sweep -->
+      <div class="omt-shine"></div>
+
+      <!-- Counter-skewed inner content -->
+      <div class="omt-card-inner">
+        
+        <!-- Top line: Badges -->
+        <div class="omt-top-line">
+          <span class="omt-badge left">JUDGES DECISION</span>
+          <span class="omt-icon">&#9889;</span>
+          <span class="omt-badge right">&#1057;&#1059;&#1044;&#1045;&#1049;&#1057;&#1050;&#1054;&#1045; &#1056;&#1045;&#1068;&#1045;&#1053;&#1048;&#1045;</span>
+        </div>
+
+        <!-- Center Hero: Wings + OMT -->
+        <div class="omt-hero">
+          <div class="omt-wing left-wing">
+            <span class="wing-bar"></span>
+            <span class="wing-bar"></span>
+            <span class="wing-bar"></span>
+          </div>
+
+          <div class="omt-title-box">
+            <span class="omt-letters">OMT</span>
+          </div>
+
+          <div class="omt-wing right-wing">
+            <span class="wing-bar"></span>
+            <span class="wing-bar"></span>
+            <span class="wing-bar"></span>
+          </div>
+        </div>
+
+        <!-- Subtitle: ONE MORE TIME -->
+        <div class="omt-subtitle">
+          <span class="omt-sub-text">ONE MORE TIME</span>
+        </div>
+
+        <!-- Bottom line: Russian Translation & Battle Roles -->
+        <div class="omt-bottom-line">
+          <span class="omt-role-pill lead">&#1051;&#1048;&#1044;&#1045;&#1056;</span>
+          <span class="omt-ru-tag">&#9876; &#1055;&#1045;&#1056;&#1045;&#1047;&#1040;&#1045;&#1047;&#1044; &#9876;</span>
+          <span class="omt-role-pill chase">&#1063;&#1045;&#1049;&#1047;</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Configuration & URL Query Parameters
+    var params = new URLSearchParams(window.location.search);
+    var isTestMode = params.has('test') || params.has('preview');
+    var autoHideSeconds = parseInt(params.get('autohide') || 0, 10);
+    var enableSound = params.has('sound');
+
+    var omtStage = document.getElementById('omtStage');
+    var omtCard = document.getElementById('omtCard');
+    var isVisible = true;
+    var autoHideTimer = null;
+    var lastOmtActive = false;
+
+    // Optional synthesized cinematic impact sound (pure Web Audio API, no files needed)
+    function playImpactSound() {
+      if (!enableSound) return;
+      try {
+        var AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        var ctx = new AudioCtx();
+        var osc = ctx.createOscillator();
+        var gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(130, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(34, ctx.currentTime + 0.45);
+        gain.gain.setValueAtTime(0.35, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.55);
+      } catch (e) {}
+    }
+
+    // Triggers or replays the dramatic entrance animation
+    function triggerEntrance() {
+      if (!omtStage || !omtCard) return;
+      omtStage.classList.remove('is-hidden');
+      omtCard.classList.remove('is-dismissing');
+      
+      // Force CSS animation restart
+      omtCard.style.animation = 'none';
+      void omtCard.offsetWidth; // trigger reflow
+      omtCard.style.animation = '';
+
+      isVisible = true;
+      playImpactSound();
+
+      if (autoHideSeconds > 0) {
+        if (autoHideTimer) clearTimeout(autoHideTimer);
+        autoHideTimer = setTimeout(function() {
+          hideOmt();
+        }, autoHideSeconds * 1000);
+      }
+    }
+
+    // Dismiss animation
+    function hideOmt() {
+      if (!omtCard || !isVisible) return;
+      omtCard.classList.add('is-dismissing');
+      setTimeout(function() {
+        if (omtStage) omtStage.classList.add('is-hidden');
+        isVisible = false;
+      }, 420);
+    }
+
+    // Interactive controls: click or Space/Enter to trigger/replay
+    document.addEventListener('click', function() {
+      triggerEntrance();
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === ' ' || e.key === 'Enter') {
+        triggerEntrance();
+      }
+    });
+
+    // If not in test/preview mode, initially wait for game trigger from drivers.json
+    if (!isTestMode && !params.has('always')) {
+      // Start in hidden mode until active in game
+      if (omtStage) omtStage.classList.add('is-hidden');
+      isVisible = false;
+    }
+
+    // Live poller for Assetto Corsa drivers.json
+    var isPolling = false;
+    function pollOmtData() {
+      if (isPolling) return;
+      isPolling = true;
+
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'drivers.json?nocache=' + Date.now(), true);
+      xhr.timeout = 250;
+
+      xhr.onload = function() {
+        isPolling = false;
+        if (xhr.status === 200 || xhr.status === 0) {
+          try {
+            var data = JSON.parse(xhr.responseText);
+            if (data) {
+              handleData(data);
+              return;
+            }
+          } catch(e) {}
+        }
+        pollScriptFallback();
+      };
+
+      xhr.onerror = function() {
+        isPolling = false;
+        pollScriptFallback();
+      };
+
+      xhr.ontimeout = function() {
+        isPolling = false;
+        pollScriptFallback();
+      };
+
+      try {
+        xhr.send();
+      } catch (e) {
+        isPolling = false;
+        pollScriptFallback();
+      }
+    }
+
+    var scriptPending = false;
+    function pollScriptFallback() {
+      if (scriptPending) return;
+      scriptPending = true;
+
+      var old = document.getElementById('data-script');
+      if (old) old.remove();
+
+      var script = document.createElement('script');
+      script.id = 'data-script';
+      script.src = 'drivers_data.js?nocache=' + Date.now();
+
+      script.onload = function() {
+        scriptPending = false;
+        if (window.AC_OBS_DATA) {
+          handleData(window.AC_OBS_DATA);
+        }
+      };
+
+      script.onerror = function() {
+        scriptPending = false;
+      };
+
+      document.body.appendChild(script);
+    }
+
+    function handleData(data) {
+      if (isTestMode || params.has('always')) return;
+
+      var omtActive = false;
+      if (data.omt && data.omt.active) {
+        omtActive = true;
+      } else if (data.battle && data.battle.omt && data.battle.omt.active) {
+        omtActive = true;
+      }
+
+      if (omtActive && !lastOmtActive) {
+        // Just activated in game!
+        triggerEntrance();
+      } else if (!omtActive && lastOmtActive) {
+        // Just deactivated in game!
+        hideOmt();
+      }
+
+      lastOmtActive = omtActive;
+    }
+
+    // Polling interval 200ms
+    setInterval(pollOmtData, 200);
+    pollOmtData();
+  </script>
+</body>
+</html>

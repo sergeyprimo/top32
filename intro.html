@@ -1,0 +1,1789 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=1080, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Gazderzhim Drift Cup — OBS Starting Screen / Заставка</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,700;1,900&family=Teko:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #060913;
+      --card-bg: rgba(11, 18, 33, 0.78);
+      --card-border: rgba(0, 240, 255, 0.22);
+      --cyan: #00f0ff;
+      --pink: #ff0055;
+      --gold: #facc15;
+      --green: #10b981;
+      --text: #f8fafc;
+      --text-dim: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      width: 1920px;
+      height: 1080px;
+      max-width: 1920px;
+      max-height: 1080px;
+      overflow: hidden;
+      background-color: var(--bg-dark);
+      color: var(--text);
+      font-family: 'Montserrat', sans-serif;
+      position: relative;
+    }
+
+    body.transparent-bg {
+      background-color: transparent !important;
+    }
+
+    /* Ambient Drift Canvas Background */
+    #smokeCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1920px;
+      height: 1080px;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.65;
+    }
+
+    /* Background Ambient Gradients */
+    .bg-glow-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background: 
+        radial-gradient(circle at 18% 25%, rgba(0, 240, 255, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 82% 35%, rgba(255, 0, 85, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 50% 85%, rgba(250, 204, 21, 0.08) 0%, transparent 50%),
+        linear-gradient(180deg, #05070e 0%, #080d1c 50%, #04060c 100%);
+    }
+
+    body.transparent-bg .bg-glow-layer,
+    body.transparent-bg #smokeCanvas {
+      display: none !important;
+    }
+
+    /* Main Container */
+    .intro-wrapper {
+      position: relative;
+      z-index: 2;
+      width: 1920px;
+      height: 1080px;
+      display: flex;
+      flex-direction: column;
+      padding: 24px 36px;
+      gap: 16px;
+      box-sizing: border-box;
+    }
+
+    /* HEADER */
+    .intro-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(11, 19, 35, 0.75);
+      border: 1px solid rgba(0, 240, 255, 0.25);
+      border-radius: 14px;
+      padding: 10px 24px;
+      min-height: 60px;
+      height: auto;
+      flex-shrink: 0;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 240, 255, 0.08);
+    }
+
+    .brand-block {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-logo-badge {
+      background: linear-gradient(135deg, #00f0ff 0%, #0077ff 100%);
+      color: #030a16;
+      font-family: 'Teko', sans-serif;
+      font-size: 32px;
+      line-height: 1;
+      font-weight: 700;
+      padding: 3px 12px 1px 12px;
+      border-radius: 6px;
+      letter-spacing: 2px;
+      box-shadow: 0 0 18px rgba(0, 240, 255, 0.4);
+    }
+
+    .brand-titles h1 {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #ffffff 0%, #c4f4ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transition: all 0.3s ease;
+    }
+
+    .brand-titles .brand-sub {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      color: var(--cyan);
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+    }
+
+    .header-center-status {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 0, 85, 0.12);
+      border: 1px solid rgba(255, 0, 85, 0.35);
+      padding: 6px 18px;
+      border-radius: 30px;
+      box-shadow: 0 0 15px rgba(255, 0, 85, 0.2);
+    }
+
+    .live-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--pink);
+      box-shadow: 0 0 12px var(--pink);
+      animation: pulseDot 1.4s infinite ease-in-out;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.5; }
+    }
+
+    .status-text {
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    .header-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .meta-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-dim);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 5px 12px;
+      border-radius: 6px;
+    }
+
+    .meta-pill b {
+      color: #fff;
+    }
+
+    /* ============================================================
+       DYNAMIC GRID LAYOUT ARCHITECTURE
+       ============================================================ */
+    .intro-grid {
+      display: grid;
+      gap: 20px;
+      flex: 1;
+      min-height: 0;
+      margin: 0;
+      transition: all 0.35s ease;
+    }
+
+    /* 1. Layout: Split Left (Default - Timer on Left, Cards on Right) */
+    .intro-grid,
+    .intro-grid.layout-split-left {
+      grid-template-areas:
+        "timer pilot"
+        "battle qr";
+      grid-template-columns: 1.15fr 0.85fr;
+      grid-template-rows: 1.35fr 1fr;
+    }
+
+    /* 2. Layout: Split Right (Cards on Left, Timer on Right) */
+    .intro-grid.layout-split-right {
+      grid-template-areas:
+        "pilot timer"
+        "qr battle";
+      grid-template-columns: 0.85fr 1.15fr;
+      grid-template-rows: 1.35fr 1fr;
+    }
+
+    /* 3. Layout: Centered Hero (Timer on top full width, 3 cards on bottom row) */
+    .intro-grid.layout-centered {
+      grid-template-areas:
+        "timer timer timer"
+        "battle pilot qr";
+      grid-template-columns: 1.15fr 1fr 0.85fr;
+      grid-template-rows: 1.25fr 1fr;
+    }
+
+    /* 4. Layout: Compact (Timer + Battle Duel only) */
+    .intro-grid.layout-compact {
+      grid-template-areas:
+        "timer"
+        "battle";
+      grid-template-columns: 1fr;
+      grid-template-rows: 1.35fr 1fr;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .intro-grid.layout-compact #cardPilotSpotlight,
+    .intro-grid.layout-compact #cardQrCode {
+      display: none !important;
+    }
+
+    #cardHeroTimer {
+      grid-area: timer;
+    }
+
+    #cardFeaturedBattle {
+      grid-area: battle;
+    }
+
+    #cardPilotSpotlight {
+      grid-area: pilot;
+    }
+
+    #cardQrCode {
+      grid-area: qr;
+    }
+
+    /* CARDS COMMON */
+    .glass-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 22px 24px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 10px 32px rgba(0, 0, 0, 0.45);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, var(--cyan) 50%, transparent 100%);
+      opacity: 0.7;
+    }
+
+    .card-title-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      flex-shrink: 0;
+    }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--cyan);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* HERO COUNTDOWN CARD */
+    .hero-timer-card {
+      text-align: center;
+      padding: 30px 28px 24px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 50% 40%, rgba(0, 240, 255, 0.08) 0%, rgba(11, 18, 33, 0.88) 75%);
+      border: 2px solid rgba(0, 240, 255, 0.35);
+      box-shadow: 0 0 35px rgba(0, 240, 255, 0.12), inset 0 0 30px rgba(0, 240, 255, 0.04);
+    }
+
+    .timer-label {
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      color: var(--cyan);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .timer-display {
+      font-family: 'Teko', sans-serif;
+      font-size: 125px;
+      line-height: 0.85;
+      font-weight: 700;
+      letter-spacing: 6px;
+      color: #ffffff;
+      text-shadow: 0 0 25px rgba(0, 240, 255, 0.5), 0 0 60px rgba(0, 240, 255, 0.25);
+      margin: 6px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .timer-subdesc {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-dim);
+      letter-spacing: 1px;
+      margin-top: 4px;
+    }
+
+    .timer-progress-wrap {
+      width: 75%;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      margin-top: 16px;
+      overflow: hidden;
+    }
+
+    .timer-progress-fill {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, var(--cyan) 0%, var(--pink) 100%);
+      transition: width 1s linear;
+      box-shadow: 0 0 10px var(--cyan);
+    }
+
+    .streamer-keys-hint {
+      display: none !important;
+    }
+
+    /* FEATURED BATTLE CARD */
+    .featured-battle-card {
+      background: linear-gradient(135deg, rgba(13, 22, 40, 0.9) 0%, rgba(20, 32, 58, 0.85) 100%);
+      border-color: rgba(250, 204, 21, 0.35);
+      padding: 18px 24px;
+      justify-content: center;
+    }
+
+    .featured-battle-card::before {
+      background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%);
+    }
+
+    .battle-duel-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-top: 4px;
+    }
+
+    .duel-pilot {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 12px 18px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .duel-pilot.lead-side {
+      border-left: 4px solid var(--cyan);
+    }
+
+    .duel-pilot.chase-side {
+      border-right: 4px solid var(--pink);
+      text-align: right;
+    }
+
+    .duel-role {
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .duel-role.lead-side { color: var(--cyan); }
+    .duel-role.chase-side { color: var(--pink); }
+
+    .duel-name {
+      font-size: 18px;
+      font-weight: 900;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .duel-car {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-dim);
+      margin-top: 2px;
+    }
+
+    .duel-vs-badge {
+      font-family: 'Teko', sans-serif;
+      font-size: 34px;
+      line-height: 1;
+      font-weight: 700;
+      color: var(--gold);
+      background: rgba(250, 204, 21, 0.15);
+      border: 1px solid rgba(250, 204, 21, 0.4);
+      padding: 6px 14px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(250, 204, 21, 0.25);
+      flex-shrink: 0;
+    }
+
+    /* PILOT SPOTLIGHT CARD */
+    .pilot-showcase-card {
+      border-color: rgba(255, 0, 85, 0.3);
+      background: radial-gradient(circle at 90% 10%, rgba(255, 0, 85, 0.08) 0%, var(--card-bg) 60%);
+      justify-content: space-between;
+    }
+
+    .pilot-showcase-card::before {
+      background: linear-gradient(90deg, transparent 0%, var(--pink) 50%, transparent 100%);
+    }
+
+    .pilot-hero-box {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin: 8px 0 12px 0;
+    }
+
+    .pilot-number-box {
+      font-family: 'Teko', sans-serif;
+      font-size: 56px;
+      line-height: 1;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, #ff0055 0%, #a80038 100%);
+      padding: 8px 16px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255, 0, 85, 0.4);
+      min-width: 80px;
+      text-align: center;
+    }
+
+    .pilot-identity h2 {
+      font-size: 21px;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .pilot-identity .pilot-car-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .pilot-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .p-stat-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .p-stat-lbl {
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .p-stat-val {
+      font-size: 14px;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .p-stat-val.gold {
+      color: var(--gold);
+    }
+
+    .pilot-tags-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .pilot-tag {
+      font-size: 10px;
+      font-weight: 800;
+      background: rgba(0, 240, 255, 0.12);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      color: var(--cyan);
+      padding: 3px 10px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    /* QR CODE CARD */
+    .qr-card {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 22px;
+      border-color: rgba(16, 185, 129, 0.3);
+      background: radial-gradient(circle at 50% 90%, rgba(16, 185, 129, 0.08) 0%, var(--card-bg) 60%);
+      padding: 18px 24px;
+    }
+
+    .qr-card::before {
+      background: linear-gradient(90deg, transparent 0%, var(--green) 50%, transparent 100%);
+    }
+
+    .qr-visual-box {
+      background: #ffffff;
+      padding: 8px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 120px;
+      height: 120px;
+    }
+
+    .qr-visual-box canvas,
+    .qr-visual-box img {
+      width: 104px !important;
+      height: 104px !important;
+      display: block;
+      image-rendering: pixelated;
+    }
+
+    .qr-info h3 {
+      font-size: 15px;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 4px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .qr-info p {
+      font-size: 11px;
+      font-weight: 500;
+      line-height: 1.4;
+      color: #94a3b8;
+      margin-bottom: 8px;
+    }
+
+    .qr-link-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      color: #34d399;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      padding: 3px 12px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    /* FOOTER TICKER */
+    .intro-footer {
+      display: flex;
+      align-items: center;
+      background: rgba(9, 15, 27, 0.85);
+      border: 1px solid rgba(0, 240, 255, 0.2);
+      border-radius: 10px;
+      min-height: 38px;
+      height: auto;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      flex-shrink: 0;
+    }
+
+    .ticker-lead {
+      background: linear-gradient(90deg, #ff0055 0%, #d9044b 100%);
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      padding: 0 16px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-transform: uppercase;
+      flex-shrink: 0;
+      box-shadow: 4px 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .ticker-track {
+      flex: 1;
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .ticker-content {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      color: #cbd5e1;
+      letter-spacing: 1px;
+      padding-left: 100%;
+      animation: tickerLoop 36s linear infinite;
+    }
+
+    .ticker-content span {
+      margin-right: 32px;
+    }
+
+    .ticker-content b {
+      color: var(--cyan);
+    }
+
+    @keyframes tickerLoop {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-100%, 0, 0); }
+    }
+  </style>
+  <script src="qrcode.min.js"></script>
+  <script>
+    // Inline fallback if qrcode.min.js is not loaded
+    if (typeof QRCode === 'undefined') {
+      var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this.parsedData=[];for(var b=[],d=0,e=this.data.length;e>d;d++){var f=this.data.charCodeAt(d);f>65536?(b[0]=240|(1835008&f)>>>18,b[1]=128|(258048&f)>>>12,b[2]=128|(4032&f)>>>6,b[3]=128|63&f):f>2048?(b[0]=224|(61440&f)>>>12,b[1]=128|(4032&f)>>>6,b[2]=128|63&f):f>128?(b[0]=192|(1984&f)>>>6,b[1]=128|63&f):b[0]=f,this.parsedData=this.parsedData.concat(b)}this.parsedData.length!=this.data.length&&(this.parsedData.unshift(191),this.parsedData.unshift(187),this.parsedData.unshift(239))}function b(a,b){this.typeNumber=a,this.errorCorrectLevel=b,this.modules=null,this.moduleCount=0,this.dataCache=null,this.dataList=[]}function i(a,b){if(void 0==a.length)throw new Error(a.length+"/"+b);for(var c=0;c<a.length&&0==a[c];)c++;this.num=new Array(a.length-c+b);for(var d=0;d<a.length-c;d++)this.num[d]=a[d+c]}function j(a,b){this.totalCount=a,this.dataCount=b}function k(){this.buffer=[],this.length=0}function m(){return"undefined"!=typeof CanvasRenderingContext2D}function n(){var a=!1,b=navigator.userAgent;return/android/i.test(b)&&(a=!0,aMat=b.toString().match(/android ([0-9]\.[0-9])/i),aMat&&aMat[1]&&(a=parseFloat(aMat[1]))),a}function r(a,b){for(var c=1,e=s(a),f=0,g=l.length;g>=f;f++){var h=0;switch(b){case d.L:h=l[f][0];break;case d.M:h=l[f][1];break;case d.Q:h=l[f][2];break;case d.H:h=l[f][3]}if(h>=e)break;c++}if(c>l.length)throw new Error("Too long data");return c}function s(a){var b=encodeURI(a).toString().replace(/\%[0-9a-fA-F]{2}/g,"a");return b.length+(b.length!=a?3:0)}a.prototype={getLength:function(){return this.parsedData.length},write:function(a){for(var b=0,c=this.parsedData.length;c>b;b++)a.put(this.parsedData[b],8)}},b.prototype={addData:function(b){var c=new a(b);this.dataList.push(c),this.dataCache=null},isDark:function(a,b){if(0>a||this.moduleCount<=a||0>b||this.moduleCount<=b)throw new Error(a+","+b);return this.modules[a][b]},getModuleCount:function(){return this.moduleCount},make:function(){this.makeImpl(!1,this.getBestMaskPattern())},makeImpl:function(a,c){this.moduleCount=4*this.typeNumber+17,this.modules=new Array(this.moduleCount);for(var d=0;d<this.moduleCount;d++){this.modules[d]=new Array(this.moduleCount);for(var e=0;e<this.moduleCount;e++)this.modules[d][e]=null}this.setupPositionProbePattern(0,0),this.setupPositionProbePattern(this.moduleCount-7,0),this.setupPositionProbePattern(0,this.moduleCount-7),this.setupPositionAdjustPattern(),this.setupTimingPattern(),this.setupTypeInfo(a,c),this.typeNumber>=7&&this.setupTypeNumber(a),null==this.dataCache&&(this.dataCache=b.createData(this.typeNumber,this.errorCorrectLevel,this.dataList)),this.mapData(this.dataCache,c)},setupPositionProbePattern:function(a,b){for(var c=-1;7>=c;c++)if(!(-1>=a+c||this.moduleCount<=a+c))for(var d=-1;7>=d;d++)-1>=b+d||this.moduleCount<=b+d||(this.modules[a+c][b+d]=c>=0&&6>=c&&(0==d||6==d)||d>=0&&6>=d&&(0==c||6==c)||c>=2&&4>=c&&d>=2&&4>=d?!0:!1)},getBestMaskPattern:function(){for(var a=0,b=0,c=0;8>c;c++){this.makeImpl(!0,c);var d=f.getLostPoint(this);(0==c||a>d)&&(a=d,b=c)}return b},createMovieClip:function(a,b,c){var d=a.createEmptyMovieClip(b,c),e=1;this.make();for(var f=0;f<this.modules.length;f++)for(var g=f*e,h=0;h<this.modules[f].length;h++){var i=h*e,j=this.modules[f][h];j&&(d.beginFill(0,100),d.moveTo(i,g),d.lineTo(i+e,g),d.lineTo(i+e,g+e),d.lineTo(i,g+e),d.endFill())}return d},setupTimingPattern:function(){for(var a=8;a<this.moduleCount-8;a++)null==this.modules[a][6]&&(this.modules[a][6]=0==a%2);for(var b=8;b<this.moduleCount-8;b++)null==this.modules[6][b]&&(this.modules[6][b]=0==b%2)},setupPositionAdjustPattern:function(){for(var a=f.getPatternPosition(this.typeNumber),b=0;b<a.length;b++)for(var c=0;c<a.length;c++){var d=a[b],e=a[c];if(null==this.modules[d][e])for(var g=-2;2>=g;g++)for(var h=-2;2>=h;h++)this.modules[d+g][e+h]=-2==g||2==g||-2==h||2==h||0==g&&0==h?!0:!1}},setupTypeNumber:function(a){for(var b=f.getBCHTypeNumber(this.typeNumber),c=0;18>c;c++){var d=!a&&1==(1&b>>c);this.modules[Math.floor(c/3)][c%3+this.moduleCount-8-3]=d}for(var c=0;18>c;c++){var d=!a&&1==(1&b>>c);this.modules[c%3+this.moduleCount-8-3][Math.floor(c/3)]=d}},setupTypeInfo:function(a,b){for(var c=this.errorCorrectLevel<<3|b,d=f.getBCHTypeInfo(c),e=0;15>e;e++){var g=!a&&1==(1&d>>e);6>e?this.modules[e][8]=g:8>e?this.modules[e+1][8]=g:this.modules[this.moduleCount-15+e][8]=g}for(var e=0;15>e;e++){var g=!a&&1==(1&d>>e);8>e?this.modules[8][this.moduleCount-e-1]=g:9>e?this.modules[8][15-e-1+1]=g:this.modules[8][15-e-1]=g}this.modules[this.moduleCount-8][8]=!a},mapData:function(a,b){for(var c=-1,d=this.moduleCount-1,e=7,g=0,h=this.moduleCount-1;h>0;h-=2)for(6==h&&h--;;){for(var i=0;2>i;i++)if(null==this.modules[d][h-i]){var j=!1;g<a.length&&(j=1==(1&a[g]>>>e));var k=f.getMask(b,d,h-i);k&&(j=!j),this.modules[d][h-i]=j,e--,-1==e&&(g++,e=7)}if(d+=c,0>d||this.moduleCount<=d){d-=c,c=-c;break}}}},b.PAD0=236,b.PAD1=17,b.createData=function(a,c,d){for(var e=j.getRSBlocks(a,c),g=new k,h=0;h<d.length;h++){var i=d[h];g.put(i.mode,4),g.put(i.getLength(),f.getLengthInBits(i.mode,a)),i.write(g)}for(var l=0,h=0;h<e.length;h++)l+=e[h].dataCount;if(g.getLengthInBits()>8*l)throw new Error("code length overflow. ("+g.getLengthInBits()+">"+8*l+")");for(g.getLengthInBits()+4<=8*l&&g.put(0,4);0!=g.getLengthInBits()%8;)g.putBit(!1);for(;;){if(g.getLengthInBits()>=8*l)break;if(g.put(b.PAD0,8),g.getLengthInBits()>=8*l)break;g.put(b.PAD1,8)}return b.createBytes(g,e)},b.createBytes=function(a,b){for(var c=0,d=0,e=0,g=new Array(b.length),h=new Array(b.length),j=0;j<b.length;j++){var k=b[j].dataCount,l=b[j].totalCount-k;d=Math.max(d,k),e=Math.max(e,l),g[j]=new Array(k);for(var m=0;m<g[j].length;m++)g[j][m]=255&a.buffer[m+c];c+=k;var n=f.getErrorCorrectPolynomial(l),o=new i(g[j],n.getLength()-1),p=o.mod(n);h[j]=new Array(n.getLength()-1);for(var m=0;m<h[j].length;m++){var q=m+p.getLength()-h[j].length;h[j][m]=q>=0?p.get(q):0}}for(var r=0,m=0;m<b.length;m++)r+=b[m].totalCount;for(var s=new Array(r),t=0,m=0;d>m;m++)for(var j=0;j<b.length;j++)m<g[j].length&&(s[t++]=g[j][m]);for(var m=0;e>m;m++)for(var j=0;j<b.length;j++)m<h[j].length&&(s[t++]=h[j][m]);return s};for(var c={MODE_NUMBER:1,MODE_ALPHA_NUM:2,MODE_8BIT_BYTE:4,MODE_KANJI:8},d={L:1,M:0,Q:3,H:2},e={PATTERN000:0,PATTERN001:1,PATTERN010:2,PATTERN011:3,PATTERN100:4,PATTERN101:5,PATTERN110:6,PATTERN111:7},f={PATTERN_POSITION_TABLE:[[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46],[6,28,50],[6,30,54],[6,32,58],[6,34,62],[6,26,46,66],[6,26,48,70],[6,26,50,74],[6,30,54,78],[6,30,56,82],[6,30,58,86],[6,34,62,90],[6,28,50,72,94],[6,26,50,74,98],[6,30,54,78,102],[6,28,54,80,106],[6,32,58,84,110],[6,30,58,86,114],[6,34,62,90,118],[6,26,50,74,98,122],[6,30,54,78,102,126],[6,26,52,78,104,130],[6,30,56,82,108,134],[6,34,60,86,112,138],[6,30,58,86,114,142],[6,34,62,90,118,146],[6,30,54,78,102,126,150],[6,24,50,76,102,128,154],[6,28,54,80,106,132,158],[6,32,58,84,110,136,162],[6,26,54,82,110,138,166],[6,30,58,86,114,142,170]],G15:1335,G18:7973,G15_MASK:21522,getBCHTypeInfo:function(a){for(var b=a<<10;f.getBCHDigit(b)-f.getBCHDigit(f.G15)>=0;)b^=f.G15<<f.getBCHDigit(b)-f.getBCHDigit(f.G15);return(a<<10|b)^f.G15_MASK},getBCHTypeNumber:function(a){for(var b=a<<12;f.getBCHDigit(b)-f.getBCHDigit(f.G18)>=0;)b^=f.G18<<f.getBCHDigit(b)-f.getBCHDigit(f.G18);return a<<12|b},getBCHDigit:function(a){for(var b=0;0!=a;)b++,a>>>=1;return b},getPatternPosition:function(a){return f.PATTERN_POSITION_TABLE[a-1]},getMask:function(a,b,c){switch(a){case e.PATTERN000:return 0==(b+c)%2;case e.PATTERN001:return 0==b%2;case e.PATTERN010:return 0==c%3;case e.PATTERN011:return 0==(b+c)%3;case e.PATTERN100:return 0==(Math.floor(b/2)+Math.floor(c/3))%2;case e.PATTERN101:return 0==b*c%2+b*c%3;case e.PATTERN110:return 0==(b*c%2+b*c%3)%2;case e.PATTERN111:return 0==(b*c%3+(b+c)%2)%2;default:throw new Error("bad maskPattern:"+a)}},getErrorCorrectPolynomial:function(a){for(var b=new i([1],0),c=0;a>c;c++)b=b.multiply(new i([1,g.gexp(c)],0));return b},getLengthInBits:function(a,b){if(b>=1&&10>b)switch(a){case c.MODE_NUMBER:return 10;case c.MODE_ALPHA_NUM:return 9;case c.MODE_8BIT_BYTE:return 8;case c.MODE_KANJI:return 8;default:throw new Error("mode:"+a)}else if(27>b)switch(a){case c.MODE_NUMBER:return 12;case c.MODE_ALPHA_NUM:return 11;case c.MODE_8BIT_BYTE:return 16;case c.MODE_KANJI:return 10;default:throw new Error("mode:"+a)}else{if(!(41>b))throw new Error("type:"+b);switch(a){case c.MODE_NUMBER:return 14;case c.MODE_ALPHA_NUM:return 13;case c.MODE_8BIT_BYTE:return 16;case c.MODE_KANJI:return 12;default:throw new Error("mode:"+a)}}},getLostPoint:function(a){for(var b=a.getModuleCount(),c=0,d=0;b>d;d++)for(var e=0;b>e;e++){for(var f=0,g=a.isDark(d,e),h=-1;1>=h;h++)if(!(0>d+h||d+h>=b))for(var i=-1;1>=i;i++)0>e+i||e+i>=b||(0!=h||0!=i)&&g==a.isDark(d+h,e+i)&&f++;f>5&&(c+=3+f-5)}for(var d=0;b-1>d;d++)for(var e=0;b-1>e;e++){var j=0;a.isDark(d,e)&&j++,a.isDark(d+1,e)&&j++,a.isDark(d,e+1)&&j++,a.isDark(d+1,e+1)&&j++,(0==j||4==j)&&(c+=3)}for(var d=0;b>d;d++)for(var e=0;b-6>e;e++)a.isDark(d,e)&&!a.isDark(d,e+1)&&a.isDark(d,e+2)&&a.isDark(d,e+3)&&a.isDark(d,e+4)&&!a.isDark(d,e+5)&&a.isDark(d,e+6)&&(c+=40);for(var e=0;b>e;e++)for(var d=0;b-6>d;d++)a.isDark(d,e)&&!a.isDark(d+1,e)&&a.isDark(d+2,e)&&a.isDark(d+3,e)&&a.isDark(d+4,e)&&!a.isDark(d+5,e)&&a.isDark(d+6,e)&&(c+=40);for(var k=0,e=0;b>e;e++)for(var d=0;b>d;d++)a.isDark(d,e)&&k++;var l=Math.abs(100*k/b/b-50)/5;return c+=10*l}},g={glog:function(a){if(1>a)throw new Error("glog("+a+")");return g.LOG_TABLE[a]},gexp:function(a){for(;0>a;)a+=255;for(;a>=256;)a-=255;return g.EXP_TABLE[a]},EXP_TABLE:new Array(256),LOG_TABLE:new Array(256)},h=0;8>h;h++)g.EXP_TABLE[h]=1<<h;for(var h=8;256>h;h++)g.EXP_TABLE[h]=g.EXP_TABLE[h-4]^g.EXP_TABLE[h-5]^g.EXP_TABLE[h-6]^g.EXP_TABLE[h-8];for(var h=0;255>h;h++)g.LOG_TABLE[g.EXP_TABLE[h]]=h;i.prototype={get:function(a){return this.num[a]},getLength:function(){return this.num.length},multiply:function(a){for(var b=new Array(this.getLength()+a.getLength()-1),c=0;c<this.getLength();c++)for(var d=0;d<a.getLength();d++)b[c+d]^=g.gexp(g.glog(this.get(c))+g.glog(a.get(d)));return new i(b,0)},mod:function(a){if(this.getLength()-a.getLength()<0)return this;for(var b=g.glog(this.get(0))-g.glog(a.get(0)),c=new Array(this.getLength()),d=0;d<this.getLength();d++)c[d]=this.get(d);for(var d=0;d<a.getLength();d++)c[d]^=g.gexp(g.glog(a.get(d))+b);return new i(c,0).mod(a)}},j.RS_BLOCK_TABLE=[[1,26,19],[1,26,16],[1,26,13],[1,26,9],[1,44,34],[1,44,28],[1,44,22],[1,44,16],[1,70,55],[1,70,44],[2,35,17],[2,35,13],[1,100,80],[2,50,32],[2,50,24],[4,25,9],[1,134,108],[2,67,43],[2,33,15,2,34,16],[2,33,11,2,34,12],[2,86,68],[4,43,27],[4,43,19],[4,43,15],[2,98,78],[4,49,31],[2,32,14,4,33,15],[4,39,13,1,40,14],[2,121,97],[2,60,38,2,61,39],[4,40,18,2,41,19],[4,40,14,2,41,15],[2,146,116],[3,58,36,2,59,37],[4,36,16,4,37,17],[4,36,12,4,37,13],[2,86,68,2,87,69],[4,69,43,1,70,44],[6,43,19,2,44,20],[6,43,15,2,44,16],[4,101,81],[1,80,50,4,81,51],[4,50,22,4,51,23],[3,36,12,8,37,13],[2,116,92,2,117,93],[6,58,36,2,59,37],[4,46,20,6,47,21],[7,42,14,4,43,15],[4,133,107],[8,59,37,1,60,38],[8,44,20,4,45,21],[12,33,11,4,34,12],[3,145,115,1,146,116],[4,64,40,5,65,41],[11,36,16,5,37,17],[11,36,12,5,37,13],[5,109,87,1,110,88],[5,65,41,5,66,42],[5,54,24,7,55,25],[11,36,12],[5,122,98,1,123,99],[7,73,45,3,74,46],[15,43,19,2,44,20],[3,45,15,13,46,16],[1,135,107,5,136,108],[10,74,46,1,75,47],[1,50,22,15,51,23],[2,42,14,17,43,15],[5,150,120,1,151,121],[9,69,43,4,70,44],[17,50,22,1,51,23],[2,42,14,19,43,15],[3,141,113,4,142,114],[3,70,44,11,71,45],[17,47,21,4,48,22],[9,39,13,16,40,14],[3,135,107,5,136,108],[3,67,41,13,68,42],[15,54,24,5,55,25],[15,43,15,10,44,16],[4,144,116,4,145,117],[17,68,42],[17,50,22,6,51,23],[19,46,16,6,47,17],[2,139,111,7,140,112],[17,74,46],[7,54,24,16,55,25],[34,37,13],[4,151,121,5,152,122],[4,75,47,14,76,48],[11,54,24,14,55,25],[16,45,15,14,46,16],[6,147,117,4,148,118],[6,73,45,14,74,46],[11,54,24,16,55,25],[30,46,16,2,47,17],[8,132,106,4,133,107],[8,75,47,13,76,48],[7,54,24,22,55,25],[22,45,15,13,46,16],[10,142,114,2,143,115],[19,74,46,4,75,47],[28,50,22,6,51,23],[33,46,16,4,47,17],[8,152,122,4,153,123],[22,73,45,3,74,46],[8,53,23,26,54,24],[12,45,15,28,46,16],[3,147,117,10,148,118],[3,73,45,23,74,46],[4,54,24,31,55,25],[11,45,15,31,46,16],[7,146,116,7,147,117],[21,73,45,7,74,46],[1,53,23,37,54,24],[19,45,15,26,46,16],[5,145,115,10,146,116],[19,75,47,10,76,48],[15,54,24,25,55,25],[23,45,15,25,46,16],[13,145,115,3,146,116],[2,74,46,29,75,47],[42,54,24,1,55,25],[23,45,15,28,46,16],[17,145,115],[10,74,46,23,75,47],[10,54,24,35,55,25],[19,45,15,35,46,16],[17,145,115,1,146,116],[14,74,46,21,75,47],[29,54,24,19,55,25],[11,45,15,46,46,16],[13,145,115,6,146,116],[14,74,46,23,75,47],[44,54,24,7,55,25],[59,46,16,1,47,17],[12,151,121,7,152,122],[12,75,47,26,76,48],[39,54,24,14,55,25],[22,45,15,41,46,16],[6,151,121,14,152,122],[6,75,47,34,76,48],[46,54,24,10,55,25],[2,45,15,64,46,16],[17,152,122,4,153,123],[29,74,46,14,75,47],[49,54,24,10,55,25],[24,45,15,46,46,16],[4,152,122,18,153,123],[13,74,46,32,75,47],[48,54,24,14,55,25],[42,45,15,32,46,16],[20,147,117,4,148,118],[40,75,47,7,76,48],[43,54,24,22,55,25],[10,45,15,67,46,16],[19,148,118,6,149,119],[18,75,47,31,76,48],[34,54,24,34,55,25],[20,45,15,61,46,16]],j.getRSBlocks=function(a,b){var c=j.getRsBlockTable(a,b);if(void 0==c)throw new Error("bad rs block @ typeNumber:"+a+"/errorCorrectLevel:"+b);for(var d=c.length/3,e=[],f=0;d>f;f++)for(var g=c[3*f+0],h=c[3*f+1],i=c[3*f+2],k=0;g>k;k++)e.push(new j(h,i));return e},j.getRsBlockTable=function(a,b){switch(b){case d.L:return j.RS_BLOCK_TABLE[4*(a-1)+0];case d.M:return j.RS_BLOCK_TABLE[4*(a-1)+1];case d.Q:return j.RS_BLOCK_TABLE[4*(a-1)+2];case d.H:return j.RS_BLOCK_TABLE[4*(a-1)+3];default:return void 0}},k.prototype={get:function(a){var b=Math.floor(a/8);return 1==(1&this.buffer[b]>>>7-a%8)},put:function(a,b){for(var c=0;b>c;c++)this.putBit(1==(1&a>>>b-c-1))},getLengthInBits:function(){return this.length},putBit:function(a){var b=Math.floor(this.length/8);this.buffer.length<=b&&this.buffer.push(0),a&&(this.buffer[b]|=128>>>this.length%8),this.length++}};var l=[[17,14,11,7],[32,26,20,14],[53,42,32,24],[78,62,46,34],[106,84,60,44],[134,106,74,58],[154,122,86,64],[192,152,108,84],[230,180,130,98],[271,213,151,119],[321,251,177,137],[367,287,203,155],[425,331,241,177],[458,362,258,194],[520,412,292,220],[586,450,322,250],[644,504,364,280],[718,560,394,310],[792,624,442,338],[858,666,482,382],[929,711,509,403],[1003,779,565,439],[1091,857,611,461],[1171,911,661,511],[1273,997,715,535],[1367,1059,751,593],[1465,1125,805,625],[1528,1190,868,658],[1628,1264,908,698],[1732,1370,982,742],[1840,1452,1030,790],[1952,1538,1112,842],[2068,1628,1168,898],[2188,1722,1228,958],[2303,1809,1283,983],[2431,1911,1351,1051],[2563,1989,1423,1093],[2699,2099,1499,1139],[2809,2213,1579,1219],[2953,2331,1663,1273]],o=function(){var a=function(a,b){this._el=a,this._htOption=b};return a.prototype.draw=function(a){function g(a,b){var c=document.createElementNS("http://www.w3.org/2000/svg",a);for(var d in b)b.hasOwnProperty(d)&&c.setAttribute(d,b[d]);return c}var b=this._htOption,c=this._el,d=a.getModuleCount();Math.floor(b.width/d),Math.floor(b.height/d),this.clear();var h=g("svg",{viewBox:"0 0 "+String(d)+" "+String(d),width:"100%",height:"100%",fill:b.colorLight});h.setAttributeNS("http://www.w3.org/2000/xmlns/","xmlns:xlink","http://www.w3.org/1999/xlink"),c.appendChild(h),h.appendChild(g("rect",{fill:b.colorDark,width:"1",height:"1",id:"template"}));for(var i=0;d>i;i++)for(var j=0;d>j;j++)if(a.isDark(i,j)){var k=g("use",{x:String(i),y:String(j)});k.setAttributeNS("http://www.w3.org/2000/xmlns/","xmlns:xlink","http://www.w3.org/1999/xlink"),k.setAttributeNS("http://www.w3.org/1999/xlink","href","#template"),h.appendChild(k)}},a.prototype.clear=function(){for(;this._el.hasChildNodes();)this._el.removeChild(this._el.lastChild)},a}(),p="svg"===document.documentElement.tagName.toLowerCase(),q=p?o:m()?function(){function a(){this._elImage.src=this._elCanvas.toDataURL("image/png"),this._elImage.style.display="block",this._elCanvas.style.display="none"}function d(a,b){var c=this;if(c._fFail=b,c._fSuccess=a,null===c._bSupportDataURI){var d=document.createElement("img"),e=function(){c._bSupportDataURI=!1,c._fFail&&_fFail.call(c)},f=function(){c._bSupportDataURI=!0,c._fSuccess&&c._fSuccess.call(c)};return d.onabort=e,d.onerror=e,d.onload=f,d.src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==",void 0}c._bSupportDataURI===!0&&c._fSuccess?c._fSuccess.call(c):c._bSupportDataURI===!1&&c._fFail&&c._fFail.call(c)}if(this._android&&this._android<=2.1){var b=1/window.devicePixelRatio,c=CanvasRenderingContext2D.prototype.drawImage;CanvasRenderingContext2D.prototype.drawImage=function(a,d,e,f,g,h,i,j){if("nodeName"in a&&/img/i.test(a.nodeName))for(var l=arguments.length-1;l>=1;l--)arguments[l]=arguments[l]*b;else"undefined"==typeof j&&(arguments[1]*=b,arguments[2]*=b,arguments[3]*=b,arguments[4]*=b);c.apply(this,arguments)}}var e=function(a,b){this._bIsPainted=!1,this._android=n(),this._htOption=b,this._elCanvas=document.createElement("canvas"),this._elCanvas.width=b.width,this._elCanvas.height=b.height,a.appendChild(this._elCanvas),this._el=a,this._oContext=this._elCanvas.getContext("2d"),this._bIsPainted=!1,this._elImage=document.createElement("img"),this._elImage.style.display="none",this._el.appendChild(this._elImage),this._bSupportDataURI=null};return e.prototype.draw=function(a){var b=this._elImage,c=this._oContext,d=this._htOption,e=a.getModuleCount(),f=d.width/e,g=d.height/e,h=Math.round(f),i=Math.round(g);b.style.display="none",this.clear();for(var j=0;e>j;j++)for(var k=0;e>k;k++){var l=a.isDark(j,k),m=k*f,n=j*g;c.strokeStyle=l?d.colorDark:d.colorLight,c.lineWidth=1,c.fillStyle=l?d.colorDark:d.colorLight,c.fillRect(m,n,f,g),c.strokeRect(Math.floor(m)+.5,Math.floor(n)+.5,h,i),c.strokeRect(Math.ceil(m)-.5,Math.ceil(n)-.5,h,i)}this._bIsPainted=!0},e.prototype.makeImage=function(){this._bIsPainted&&d.call(this,a)},e.prototype.isPainted=function(){return this._bIsPainted},e.prototype.clear=function(){this._oContext.clearRect(0,0,this._elCanvas.width,this._elCanvas.height),this._bIsPainted=!1},e.prototype.round=function(a){return a?Math.floor(1e3*a)/1e3:a},e}():function(){var a=function(a,b){this._el=a,this._htOption=b};return a.prototype.draw=function(a){for(var b=this._htOption,c=this._el,d=a.getModuleCount(),e=Math.floor(b.width/d),f=Math.floor(b.height/d),g=['<table style="border:0;border-collapse:collapse;">'],h=0;d>h;h++){g.push("<tr>");for(var i=0;d>i;i++)g.push('<td style="border:0;border-collapse:collapse;padding:0;margin:0;width:'+e+"px;height:"+f+"px;background-color:"+(a.isDark(h,i)?b.colorDark:b.colorLight)+';"></td>');g.push("</tr>")}g.push("</table>"),c.innerHTML=g.join("");var j=c.childNodes[0],k=(b.width-j.offsetWidth)/2,l=(b.height-j.offsetHeight)/2;k>0&&l>0&&(j.style.margin=l+"px "+k+"px")},a.prototype.clear=function(){this._el.innerHTML=""},a}();QRCode=function(a,b){if(this._htOption={width:256,height:256,typeNumber:4,colorDark:"#000000",colorLight:"#ffffff",correctLevel:d.H},"string"==typeof b&&(b={text:b}),b)for(var c in b)this._htOption[c]=b[c];"string"==typeof a&&(a=document.getElementById(a)),this._android=n(),this._el=a,this._oQRCode=null,this._oDrawing=new q(this._el,this._htOption),this._htOption.text&&this.makeCode(this._htOption.text)},QRCode.prototype.makeCode=function(a){this._oQRCode=new b(r(a,this._htOption.correctLevel),this._htOption.correctLevel),this._oQRCode.addData(a),this._oQRCode.make(),this._el.title=a,this._oDrawing.draw(this._oQRCode),this.makeImage()},QRCode.prototype.makeImage=function(){"function"==typeof this._oDrawing.makeImage&&(!this._android||this._android>=3)&&this._oDrawing.makeImage()},QRCode.prototype.clear=function(){this._oDrawing.clear()},QRCode.CorrectLevel=d}();
+    }
+  </script>
+</head>
+<body>
+
+  <!-- Background Glow & Smoke Canvas -->
+  <div class="bg-glow-layer"></div>
+  <canvas id="smokeCanvas"></canvas>
+
+  <div class="intro-wrapper">
+
+    <!-- TOP HEADER BAR -->
+    <header class="intro-header">
+      <div class="brand-block">
+        <div class="brand-logo-badge" id="headerLogoBadge">GDC</div>
+        <div class="brand-titles">
+          <h1 id="headerTournamentTitle">GAZDERZHIM DRIFT CUP 2026</h1>
+          <div class="brand-sub" id="headerTournamentSub">OFFICIAL ASSETTO CORSA ESPORTS • LIVE STAGE</div>
+        </div>
+      </div>
+
+      <div class="header-center-status">
+        <div class="live-dot"></div>
+        <div class="status-text" id="headerStatusText">ПРЕДЭФИРНЫЙ РАЗОГРЕВ</div>
+      </div>
+
+      <div class="header-meta">
+        <div class="meta-pill">
+          <span>🎮 СЕРВЕР:</span> <b id="metaServerName">VDC DRIFT</b>
+        </div>
+        <div class="meta-pill">
+          <span>🌧️ ТРАССА:</span> <b id="metaTrackName">DRY • 24°C</b>
+        </div>
+        <div class="meta-pill">
+          <span>🕒 ВРЕМЯ:</span> <b id="metaClock">00:00:00</b>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN DYNAMIC GRID -->
+    <main class="intro-grid layout-split-left" id="mainIntroGrid">
+
+      <!-- Card 1: Hero Countdown Card -->
+      <div class="glass-card hero-timer-card" id="cardHeroTimer">
+        <div class="timer-label" id="timerSectionLabel">⏱️ ДО СТАРТА ЗАЕЗДОВ ОСТАЛОСЬ</div>
+        <div class="timer-display" id="timerClock">
+          10:00
+        </div>
+        <div class="timer-subdesc" id="timerActionDesc">Пилоты на сервере завершают последние прогревочные круги</div>
+        <div class="timer-progress-wrap" id="timerProgressWrap">
+          <div class="timer-progress-fill" id="timerProgress"></div>
+        </div>
+      </div>
+
+      <!-- Card 2: Featured Battle Duel Card (Ближайший заезд) -->
+      <div class="glass-card featured-battle-card" id="cardFeaturedBattle">
+        <div class="card-title-bar">
+          <div class="card-title" id="featuredCardTitle" style="color:var(--gold);">⚔️ БЛИЖАЙШИЙ ЗАЕЗД • ТОП-32</div>
+          <span id="featuredStageBadge" style="font-size:10px; color:#38bdf8; font-weight:800; background:rgba(56,189,248,0.15); padding:2px 8px; border-radius:4px;">ХИТ #1</span>
+        </div>
+        <div class="battle-duel-wrap" id="featuredDuelWrap">
+          <div class="duel-pilot lead-side" id="featLeadBox">
+            <div class="duel-role lead-side" id="featLeadRole">LEAD • ЛИДЕР ПАРЫ</div>
+            <div class="duel-name" id="featLeadName">#1 Sergey Primo</div>
+            <div class="duel-car" id="featLeadCar">Nissan 180SX • 98.0 б.</div>
+          </div>
+          <div class="duel-vs-badge" id="featDuelVs">VS</div>
+          <div class="duel-pilot chase-side" id="featChaseBox">
+            <div class="duel-role chase-side" id="featChaseRole">CHASE • ПРЕСЛЕДОВАТЕЛЬ</div>
+            <div class="duel-name" id="featChaseName">#32 Вадик Зеленов</div>
+            <div class="duel-car" id="featChaseCar">Toyota GT86 • 68.0 б.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Pilot Dossier Spotlight -->
+      <div class="glass-card pilot-showcase-card" id="cardPilotSpotlight">
+        <div class="card-title-bar">
+          <div class="card-title">👤 УЧАСТНИК ТУРНИРА</div>
+          <div id="pilotCounterBadge" style="font-size:11px; font-weight:800; color:var(--pink);">1 / 32</div>
+        </div>
+
+        <div class="pilot-hero-box">
+          <div class="pilot-number-box" id="pNumber">#25</div>
+          <div class="pilot-identity">
+            <h2 id="pName">Виталий Кружков</h2>
+            <div class="pilot-car-label" id="pCar">Nissan Silvia S15 • 750 HP</div>
+          </div>
+        </div>
+
+        <div class="pilot-stats-grid">
+          <div class="p-stat-item">
+            <div class="p-stat-lbl">Квалификация</div>
+            <div class="p-stat-val gold" id="pQualiScore">91.0 б. (Топ-4)</div>
+          </div>
+          <div class="p-stat-item">
+            <div class="p-stat-lbl">Статус на сетке</div>
+            <div class="p-stat-val" id="pStageStatus" style="color:#38bdf8;">ТОП-32 • ХИТ #1</div>
+          </div>
+          <div class="p-stat-item">
+            <div class="p-stat-lbl">Коронная роль</div>
+            <div class="p-stat-val" id="pFavRole">Агрессивный Chase</div>
+          </div>
+          <div class="p-stat-item">
+            <div class="p-stat-lbl">Макс. угол</div>
+            <div class="p-stat-val" id="pMaxAngle">64° Постановка</div>
+          </div>
+        </div>
+
+        <div class="pilot-tags-wrap" id="pTags">
+          <span class="pilot-tag">⚡ Быстрый разгон</span>
+          <span class="pilot-tag">💨 Густой дым</span>
+          <span class="pilot-tag">🎯 Близкий контакт</span>
+        </div>
+      </div>
+
+      <!-- Card 4: Interactive QR Code for Spectators -->
+      <div class="glass-card qr-card" id="cardQrCode">
+        <div class="qr-visual-box" id="qrBox">
+          <!-- Canvas / Img dynamically generated by QRCode -->
+        </div>
+        <div class="qr-info">
+          <h3>📱 СЕТКА В ТЕЛЕФОНЕ</h3>
+          <p>Наведите камеру смартфона, чтобы следить за парами ТОП-32 и баллами в прямом эфире.</p>
+          <div class="qr-link-badge" id="qrLinkBadge">sergeyprimo.github.io/top32/</div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- FOOTER LIVE NEWS TICKER -->
+    <footer class="intro-footer" id="footerTicker">
+      <div class="ticker-lead" id="tickerLeadText">🔥 LIVE ТАКТИКА</div>
+      <div class="ticker-track">
+        <div class="ticker-content" id="tickerText">
+          <span>🏁 <b>ДОБРО ПОЖАЛОВАТЬ НА GAZDERZHIM DRIFT CUP 2026!</b></span>
+          <span>⚔️ <b>32 СИЛЬНЕЙШИХ ПИЛОТА</b> БОРЮТСЯ ЗА ЗВАНИЕ ЧЕМПИОНА ЭТАПА</span>
+          <span>⚖️ <b>СУДЬИ ОЦЕНИВАЮТ:</b> ТРАЕКТОРИЮ (30 Б.), УГОЛ (30 Б.), СТИЛЬ И АГРЕССИЮ (40 Б.)</span>
+          <span>📱 <b>ОНЛАЙН-СЕТКА:</b> ОТСКАНИРУЙТЕ QR-КОД НА ЭКРАНЕ, ЧТОБЫ СМОТРЕТЬ РЕЗУЛЬТАТЫ С ТЕЛЕФОНА</span>
+          <span>💬 <b>ГОЛОСУЙТЕ В ЧАТЕ:</b> КТО ВАШ ГЛАВНЫЙ ФАВОРИТ НА 1-Е МЕСТО СЕГОДНЯ?</span>
+          <span>⚡ <b>РЕГЛАМЕНТ OMT:</b> В СЛУЧАЕ РАВНОГО БОЯ НАЗНАЧАЕТСЯ ПЕРЕЗАЕЗД ONE MORE TIME</span>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    // -------------------------------------------------------------
+    // URL PARAMETERS SUPPORT
+    // -------------------------------------------------------------
+    var params = new URLSearchParams(window.location.search);
+    var initialSeconds = parseInt(params.get('timer') || params.get('time') || '600', 10);
+    var isTransparent = params.get('bg') === 'transparent' || params.get('transparent') === '1';
+
+    if (isTransparent) {
+      document.body.classList.add('transparent-bg');
+    }
+
+    var customTitle = params.get('title');
+    if (customTitle) {
+      var titleEl = document.getElementById('headerTournamentTitle');
+      if (titleEl) titleEl.textContent = customTitle.toUpperCase();
+    }
+
+    var customStatus = params.get('status');
+    if (customStatus) {
+      var stEl = document.getElementById('headerStatusText');
+      if (stEl) stEl.textContent = customStatus.toUpperCase();
+      var descEl = document.getElementById('timerActionDesc');
+      if (descEl) descEl.textContent = customStatus;
+    }
+
+    var customLayout = params.get('layout');
+    if (customLayout) {
+      var gridEl = document.getElementById('mainIntroGrid');
+      if (gridEl) {
+        gridEl.className = 'intro-grid layout-' + customLayout;
+      }
+    }
+
+    // -------------------------------------------------------------
+    // REAL SCANNABLE QR CODE GENERATOR
+    // -------------------------------------------------------------
+    var qrInstance = null;
+    function updateQrCode(url) {
+      var targetUrl = url || 'https://sergeyprimo.github.io/top32/';
+      var qrBox = document.getElementById('qrBox');
+      var badgeEl = document.getElementById('qrLinkBadge');
+      if (!qrBox) return;
+
+      qrBox.innerHTML = '';
+      if (badgeEl) {
+        var displayUrl = targetUrl.replace(/^https?:\/\//, '').replace(/\/$/, '');
+        badgeEl.textContent = displayUrl;
+      }
+
+      if (typeof QRCode !== 'undefined') {
+        try {
+          qrInstance = new QRCode(qrBox, {
+            text: targetUrl,
+            width: 104,
+            height: 104,
+            colorDark: '#050a14',
+            colorLight: '#ffffff',
+            correctLevel: QRCode.CorrectLevel.M
+          });
+          var canvas = qrBox.querySelector('canvas');
+          if (canvas) {
+            canvas.style.display = 'block';
+            canvas.style.borderRadius = '4px';
+            canvas.style.imageRendering = 'pixelated';
+          }
+        } catch(e) {
+          console.error('Error generating QR:', e);
+        }
+      }
+    }
+
+    // Initial QR Code Generation
+    updateQrCode('https://sergeyprimo.github.io/top32/');
+
+    // -------------------------------------------------------------
+    // ANIMATED DRIFT SMOKE CANVAS
+    // -------------------------------------------------------------
+    (function initSmokeCanvas() {
+      var canvas = document.getElementById('smokeCanvas');
+      if (!canvas) return;
+      var ctx = canvas.getContext('2d');
+      var w = canvas.width = 1920;
+      var h = canvas.height = 1080;
+
+      var particles = [];
+      var particleCount = 40;
+
+      for (var i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: h - Math.random() * 300,
+          radius: 80 + Math.random() * 140,
+          vx: 0.3 + Math.random() * 0.7,
+          vy: -(0.2 + Math.random() * 0.4),
+          alpha: 0.03 + Math.random() * 0.06,
+          color: (Math.random() > 0.6) ? 'rgba(0, 240, 255,' : (Math.random() > 0.4 ? 'rgba(255, 0, 85,' : 'rgba(200, 220, 255,')
+        });
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, w, h);
+        for (var i = 0; i < particles.length; i++) {
+          var p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.x - p.radius > w) p.x = -p.radius;
+          if (p.y + p.radius < 0) p.y = h + p.radius;
+
+          var grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius);
+          grad.addColorStop(0, p.color + p.alpha + ')');
+          grad.addColorStop(1, p.color + '0)');
+
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+
+    // -------------------------------------------------------------
+    // COUNTDOWN TIMER LOGIC (SUPPORTS EXTENDED DURATIONS > 60m)
+    // -------------------------------------------------------------
+    var totalSeconds = initialSeconds;
+    var currentSeconds = initialSeconds;
+    var timerPaused = false;
+    var timerInterval = null;
+    var appliedTimerDesc = '';
+    var appliedTimerEndText = '';
+    var lastLoadedTournamentData = null;
+
+    var timerEl = document.getElementById('timerClock');
+    var progressEl = document.getElementById('timerProgress');
+    var timerDescEl = document.getElementById('timerActionDesc');
+
+    function updateTimerDisplay() {
+      var hrs = Math.floor(currentSeconds / 3600);
+      var mins = Math.floor((currentSeconds % 3600) / 60);
+      var secs = currentSeconds % 60;
+
+      var str = '';
+      if (hrs > 0) {
+        str = (hrs < 10 ? '0' : '') + hrs + ':' + (mins < 10 ? '0' : '') + mins + ':' + (secs < 10 ? '0' : '') + secs;
+      } else {
+        str = (mins < 10 ? '0' : '') + mins + ':' + (secs < 10 ? '0' : '') + secs;
+      }
+
+      if (timerEl) timerEl.textContent = str;
+
+      if (progressEl) {
+        var pct = totalSeconds > 0 ? (currentSeconds / totalSeconds) * 100 : 0;
+        progressEl.style.width = Math.max(0, Math.min(100, pct)) + '%';
+      }
+
+      if (currentSeconds <= 0) {
+        if (timerEl) timerEl.textContent = '00:00';
+        if (timerDescEl) timerDescEl.textContent = appliedTimerEndText || '🏁 ЗАЕЗДЫ НАЧИНАЮТСЯ! ВНИМАНИЕ НА СТАРТОВУЮ РЕШЕТКУ!';
+        if (progressEl) progressEl.style.width = '0%';
+      } else {
+        if (appliedTimerDesc) {
+          if (timerDescEl) timerDescEl.textContent = appliedTimerDesc;
+        } else if (currentSeconds <= 60) {
+          if (timerDescEl) timerDescEl.textContent = '⚠️ 1 МИНУТА ДО СТАРТА! Пилоты выстраиваются в зону разгона';
+        } else if (currentSeconds <= 180) {
+          if (timerDescEl) timerDescEl.textContent = '🔥 3 МИНУТЫ ДО СТАРТА! Судейский брифинг завершен';
+        }
+      }
+    }
+
+    timerInterval = setInterval(function() {
+      if (!timerPaused && currentSeconds > 0) {
+        currentSeconds--;
+        updateTimerDisplay();
+      }
+    }, 1000);
+    updateTimerDisplay();
+
+    // Hotkeys: Space (Pause/Resume), + / = (add 1 min), - (minus 1 min), B (toggle background)
+    window.addEventListener('keydown', function(e) {
+      if (e.code === 'Space') {
+        e.preventDefault();
+        timerPaused = !timerPaused;
+        if (timerEl) timerEl.style.opacity = timerPaused ? '0.5' : '1';
+      } else if (e.key === '+' || e.key === '=') {
+        currentSeconds += 60;
+        totalSeconds = Math.max(totalSeconds, currentSeconds);
+        updateTimerDisplay();
+      } else if (e.key === '-' || e.key === '_') {
+        currentSeconds = Math.max(0, currentSeconds - 60);
+        updateTimerDisplay();
+      } else if (e.key === 'b' || e.key === 'B' || e.key === 'и' || e.key === 'И') {
+        document.body.classList.toggle('transparent-bg');
+      } else if (e.key === 'r' || e.key === 'R' || e.key === 'к' || e.key === 'К') {
+        currentSeconds = totalSeconds = 600;
+        updateTimerDisplay();
+      }
+    });
+
+    if (timerEl) {
+      timerEl.addEventListener('click', function() {
+        timerPaused = !timerPaused;
+        timerEl.style.opacity = timerPaused ? '0.5' : '1';
+      });
+    }
+
+    // -------------------------------------------------------------
+    // LIVE CLOCK
+    // -------------------------------------------------------------
+    function updateClock() {
+      var d = new Date();
+      var h = d.getHours();
+      var m = d.getMinutes();
+      var s = d.getSeconds();
+      var str = (h < 10 ? '0' : '') + h + ':' + (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+      var el = document.getElementById('metaClock');
+      if (el) el.textContent = str;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // -------------------------------------------------------------
+    // PILOTS DOSSIER CAROUSEL (ROTATING EVERY 7s)
+    // -------------------------------------------------------------
+    var defaultPilots = [
+      { seed: 25, name: 'Виталий Кружков', car: 'Nissan Silvia S15 • 750 HP', score: '91.0 б.', status: 'ТОП-32 • ХИТ #1', role: 'Агрессивный Chase', angle: '64° Постановка', tags: ['⚡ Быстрый разгон', '💨 Густой дым', '🎯 Близкий контакт'] },
+      { seed: 2, name: 'Леонид Лёвин', car: 'Toyota Chaser JZX100 • 800 HP', score: '88.0 б.', status: 'ТОП-32 • ХИТ #3', role: 'Стабильный Lead', angle: '67° Угол', tags: ['👑 Фаворит турнира', '🔥 Точная траектория', '🏎️ 2JZ Power'] },
+      { seed: 17, name: 'Владислав Оздровский', car: 'BMW E36 EuroDrift • 720 HP', score: '92.0 б.', status: 'ТОП-32 • ХИТ #5', role: 'Мастер перекладок', angle: '65° Угол', tags: ['⚡ Резкая перекладка', '💨 Full Lock', '🥉 Призер этапа'] },
+      { seed: 1, name: 'Sergey Primo', car: 'Nissan 180SX RPS13 • 780 HP', score: '98.0 б.', status: 'ТОП-32 • ХИТ #1', role: 'Король Квалификации', angle: '70° Экстрим', tags: ['🥇 Победитель квалы', '💥 Скоростной вход', '🏁 Лидер чемпионата'] },
+      { seed: 4, name: 'Георгий Недельчев', car: 'Toyota Mark II JZX90 • 700 HP', score: '93.5 б.', status: 'ТОП-32 • ХИТ #2', role: 'Дверь в дверь', angle: '62° Угол', tags: ['💨 Дымный шлейф', '🎯 Плотный чейс', '🔥 Надежность'] },
+      { seed: 5, name: 'Николай Краевский', car: 'Ford Mustang New Edge • 850 HP', score: '91.5 б.', status: 'ТОП-32 • ХИТ #2', role: 'V8 Агрессия', angle: '63° Угол', tags: ['🔊 Громкий выхлоп', '⚡ Мощный разгон', '🏆 Топ-8 боец'] },
+      { seed: 3, name: 'Михаил Якутович', car: 'BMW E46 V8 • 760 HP', score: '95.0 б.', status: 'ТОП-32 • ХИТ #4', role: 'Хладнокровный дрифт', angle: '66° Угол', tags: ['🎯 Точный клиппинг', '⚡ Скорость', '🔥 Топ-3 квалы'] },
+      { seed: 10, name: 'Илья Гештарев', car: 'Nissan Skyline R34 • 820 HP', score: '86.5 б.', status: 'ТОП-32 • ХИТ #6', role: 'Атакующий чейс', angle: '61° Угол', tags: ['💨 Дымная машина', '🏎️ RB26 Sound', '⚡ Быстрый вход'] }
+    ];
+
+    var pilotsList = defaultPilots;
+    var currentPilotIdx = 0;
+
+    function renderPilotDossier() {
+      if (!pilotsList || pilotsList.length === 0) return;
+      var p = pilotsList[currentPilotIdx];
+
+      var numEl = document.getElementById('pNumber');
+      var nameEl = document.getElementById('pName');
+      var carEl = document.getElementById('pCar');
+      var scoreEl = document.getElementById('pQualiScore');
+      var statusEl = document.getElementById('pStageStatus');
+      var roleEl = document.getElementById('pFavRole');
+      var angleEl = document.getElementById('pMaxAngle');
+      var tagsEl = document.getElementById('pTags');
+      var countEl = document.getElementById('pilotCounterBadge');
+
+      if (numEl) numEl.textContent = '#' + (p.seed || p.number || (currentPilotIdx + 1));
+      if (nameEl) nameEl.textContent = p.name || 'Пилот';
+      if (carEl) carEl.textContent = p.car || 'Drift Car';
+      if (scoreEl) scoreEl.textContent = (p.score || p.quali_score || p.best || '—') + (typeof (p.score || p.quali_score) === 'number' ? ' б.' : '');
+      if (statusEl) statusEl.textContent = p.status || 'ТОП-32';
+      if (roleEl) roleEl.textContent = p.role || 'Боевой пилот';
+      if (angleEl) angleEl.textContent = p.angle || '63° Средний угол';
+      if (countEl) countEl.textContent = (currentPilotIdx + 1) + ' / ' + pilotsList.length;
+
+      if (tagsEl) {
+        var tags = p.tags || ['⚡ Боевой темп', '💨 Густой дым', '🎯 Точный заезд'];
+        tagsEl.innerHTML = tags.map(function(t) { return '<span class="pilot-tag">' + t + '</span>'; }).join('');
+      }
+    }
+
+    setInterval(function() {
+      if (pilotsList.length > 0) {
+        currentPilotIdx = (currentPilotIdx + 1) % pilotsList.length;
+        renderPilotDossier();
+      }
+    }, 7000);
+    renderPilotDossier();
+
+    // -------------------------------------------------------------
+    // LIVE SYNC (BROADCASTCHANNEL & ADMIN WEB PANEL CONFIG)
+    // -------------------------------------------------------------
+    var introBus = (typeof BroadcastChannel !== 'undefined') ? new BroadcastChannel('ac_obs_intro_bus') : null;
+    var lastAppliedTimestamp = 0;
+    var appliedIntroSettings = null;
+
+    function formatAndSetTicker(tEl, raw) {
+      if (!tEl || !raw) return;
+      if (/<span[\s>]/.test(raw)) {
+        tEl.innerHTML = raw;
+        return;
+      }
+      var parts = raw.split(/[\r\n|•]+/).map(function(p) { return p.trim(); }).filter(Boolean);
+      if (parts.length === 0) return;
+      var list = parts.slice();
+      while (list.length < 4) {
+        list = list.concat(parts);
+      }
+      var html = list.map(function(item) {
+        if (/<[a-z][\s\S]*>/i.test(item)) {
+          return '<span>' + item + '</span>';
+        }
+        var colonIdx = item.indexOf(':');
+        if (colonIdx > 0 && colonIdx < item.length - 1) {
+          var before = item.substring(0, colonIdx + 1);
+          var after = item.substring(colonIdx + 1);
+          return '<span><b>' + before + '</b>' + after + '</span>';
+        }
+        return '<span>' + item + '</span>';
+      }).join('');
+      tEl.innerHTML = html;
+    }
+
+    function applyFeaturedMatchup(s, data) {
+      var bCard = document.getElementById('cardFeaturedBattle');
+      if (!bCard) return;
+
+      var titleEl = document.getElementById('featuredCardTitle');
+      var badgeEl = document.getElementById('featuredStageBadge');
+      var leadRoleEl = document.getElementById('featLeadRole');
+      var leadNameEl = document.getElementById('featLeadName');
+      var leadCarEl = document.getElementById('featLeadCar');
+      var vsEl = document.getElementById('featDuelVs');
+      var chaseRoleEl = document.getElementById('featChaseRole');
+      var chaseNameEl = document.getElementById('featChaseName');
+      var chaseCarEl = document.getElementById('featChaseCar');
+
+      // 1. If manual direct override provided in settings
+      if (s && s.featuredLeadName) {
+        if (titleEl) titleEl.textContent = s.featuredTitle || '⚔️ БЛИЖАЙШИЙ ЗАЕЗД';
+        if (badgeEl) badgeEl.textContent = (s.featuredBadge || 'LIVE').toUpperCase();
+        if (leadRoleEl) leadRoleEl.textContent = (s.featuredLeadRole || 'LEAD • ЛИДЕР ПАРЫ').toUpperCase();
+        if (leadNameEl) leadNameEl.textContent = s.featuredLeadName;
+        if (leadCarEl) leadCarEl.textContent = s.featuredLeadCar || 'DRIFT CAR';
+        if (vsEl) vsEl.textContent = s.featuredVsText || 'VS';
+        if (chaseRoleEl) chaseRoleEl.textContent = (s.featuredChaseRole || 'CHASE • ПРЕСЛЕДОВАТЕЛЬ').toUpperCase();
+        if (chaseNameEl) chaseNameEl.textContent = s.featuredChaseName || '---';
+        if (chaseCarEl) chaseCarEl.textContent = s.featuredChaseCar || 'DRIFT CAR';
+        return;
+      }
+
+      var stage = (s && s.featuredStage) || 'auto';
+      var itemIdx = parseInt(s && s.featuredIndex, 10) || 0;
+
+      // Auto mode: check data or obs_director stage
+      if (stage === 'auto') {
+        if (data && data.obs_director && data.obs_director.stage) {
+          stage = data.obs_director.stage;
+        } else if (data && data.current_stage) {
+          stage = data.current_stage;
+        } else {
+          stage = 'top32';
+        }
+      }
+
+      // QUALIFICATION STAGE
+      if (stage === 'quali' || stage === 'qualification') {
+        if (titleEl) {
+          titleEl.textContent = (s && s.featuredTitle) || '🏁 БЛИЖАЙШИЙ ЗАЕЗД • КВАЛИФИКАЦИЯ';
+          titleEl.style.color = '#38bdf8';
+        }
+
+        var qualiList = (data && Array.isArray(data.qualification)) ? data.qualification.filter(function(p){
+          return p && p.name && p.name !== '---' && !p.is_placeholder;
+        }) : [];
+
+        var pCurrent = (qualiList.length > itemIdx) ? qualiList[itemIdx] : (qualiList[0] || null);
+        var pNext = (qualiList.length > itemIdx + 1) ? qualiList[itemIdx + 1] : null;
+
+        var runAttempt = (s && parseInt(s.featuredRunAttempt, 10)) || 1;
+        if (badgeEl) {
+          badgeEl.textContent = (s && s.featuredBadge) || ('ПОПЫТКА #' + runAttempt);
+        }
+
+        if (pCurrent) {
+          var seedText = pCurrent.seed ? ('#' + pCurrent.seed + ' ') : '';
+          if (leadRoleEl) leadRoleEl.textContent = (s && s.featuredLeadRole) || 'ПИЛОТ НА ТРАССЕ';
+          if (leadNameEl) leadNameEl.textContent = seedText + pCurrent.name;
+          var curScore = (runAttempt === 2 && pCurrent.run2) ? pCurrent.run2 : (pCurrent.run1 || pCurrent.best || 0);
+          var scoreText = curScore ? (' • ' + parseFloat(curScore).toFixed(1) + ' б.') : '';
+          if (leadCarEl) leadCarEl.textContent = (pCurrent.car || 'DRIFT CAR') + scoreText;
+        } else {
+          if (leadRoleEl) leadRoleEl.textContent = 'ПИЛОТ НА ТРАССЕ';
+          if (leadNameEl) leadNameEl.textContent = '#1 Sergey Primo';
+          if (leadCarEl) leadCarEl.textContent = 'Nissan Silvia S15 • 98.0 б.';
+        }
+
+        if (vsEl) {
+          vsEl.textContent = (s && s.featuredVsText) || '>>';
+        }
+
+        if (pNext) {
+          var nextSeed = pNext.seed ? ('#' + pNext.seed + ' ') : '';
+          if (chaseRoleEl) chaseRoleEl.textContent = (s && s.featuredChaseRole) || 'СЛЕДУЮЩИЙ НА ОЧЕРЕДИ';
+          if (chaseNameEl) chaseNameEl.textContent = nextSeed + pNext.name;
+          var nextScore = pNext.best ? (' • ' + parseFloat(pNext.best).toFixed(1) + ' б.') : '';
+          if (chaseCarEl) chaseCarEl.textContent = (pNext.car || 'DRIFT CAR') + nextScore;
+        } else if (pCurrent) {
+          if (chaseRoleEl) chaseRoleEl.textContent = 'ПОПЫТКА #2';
+          var r2Score = pCurrent.run2 ? (parseFloat(pCurrent.run2).toFixed(1) + ' б.') : 'В ожидании';
+          if (chaseNameEl) chaseNameEl.textContent = r2Score;
+          if (chaseCarEl) chaseCarEl.textContent = 'Лучший рез.: ' + (pCurrent.best ? parseFloat(pCurrent.best).toFixed(1) + ' б.' : '—');
+        } else {
+          if (chaseRoleEl) chaseRoleEl.textContent = 'СЛЕДУЮЩИЙ НА ОЧЕРЕДИ';
+          if (chaseNameEl) chaseNameEl.textContent = '#2 Вадик Зеленов';
+          if (chaseCarEl) chaseCarEl.textContent = 'Toyota GT86 • 68.0 б.';
+        }
+        return;
+      }
+
+      // TOURNAMENT STAGE (top32, top16, top8, top4, finals)
+      var battles = [];
+      if (data) {
+        if (stage === 'top16') battles = data.battles_top16 || [];
+        else if (stage === 'top8') battles = data.battles_top8 || [];
+        else if (stage === 'top4') battles = data.battles_top4 || [];
+        else battles = data.battles || [];
+      }
+      var featBattle = battles[itemIdx] || (battles.find && battles.find(function(b) { return b && b.status === 'live'; })) || battles[0];
+
+      var stageNames = {
+        top32: 'ТОП-32',
+        top16: 'ТОП-16',
+        top8: 'ТОП-8',
+        top4: 'ТОП-4',
+        finals: 'ФИНАЛ'
+      };
+      var stageLabel = stageNames[stage] || 'ТОП-32';
+
+      if (titleEl) {
+        titleEl.textContent = (s && s.featuredTitle) || ('⚔️ БЛИЖАЙШИЙ ЗАЕЗД • ' + stageLabel);
+        titleEl.style.color = 'var(--gold)';
+      }
+      if (badgeEl) {
+        badgeEl.textContent = (s && s.featuredBadge) || (featBattle ? (featBattle.pair_title || ('ХИТ #' + (featBattle.pair_num || (itemIdx + 1)))).toUpperCase() : 'ХИТ #1');
+      }
+      if (leadRoleEl) leadRoleEl.textContent = (s && s.featuredLeadRole) || 'LEAD • ЛИДЕР ПАРЫ';
+      if (vsEl) vsEl.textContent = (s && s.featuredVsText) || 'VS';
+      if (chaseRoleEl) chaseRoleEl.textContent = (s && s.featuredChaseRole) || 'CHASE • ПРЕСЛЕДОВАТЕЛЬ';
+
+      if (featBattle) {
+        if (leadNameEl && featBattle.lead) {
+          var lSeed = featBattle.lead.seed ? ('#' + featBattle.lead.seed + ' ') : '';
+          leadNameEl.textContent = lSeed + (featBattle.lead.name || 'Лидер');
+        }
+        if (leadCarEl && featBattle.lead) leadCarEl.textContent = featBattle.lead.car || 'DRIFT CAR';
+
+        if (chaseNameEl && featBattle.chase) {
+          var cSeed = featBattle.chase.seed ? ('#' + featBattle.chase.seed + ' ') : '';
+          chaseNameEl.textContent = cSeed + (featBattle.chase.name || 'Преследователь');
+        }
+        if (chaseCarEl && featBattle.chase) chaseCarEl.textContent = featBattle.chase.car || 'DRIFT CAR';
+      }
+    }
+
+    function normalizeTimestamp(ts) {
+      if (!ts) return 0;
+      var n = Number(ts);
+      if (isNaN(n) || !isFinite(n) || n <= 0) return 0;
+      if (n < 10000000000) return n * 1000;
+      while (n > 9999999999999) {
+        n = Math.floor(n / 10);
+      }
+      return n;
+    }
+
+    function applyIntroSettings(s) {
+      if (!s) return;
+
+      var ts = normalizeTimestamp(s.lastUpdated || s.last_updated || 0);
+      if (ts > 0 && ts < lastAppliedTimestamp) {
+        return; // Stale data, discard
+      }
+      if (ts > 0) {
+        lastAppliedTimestamp = ts;
+      }
+      appliedIntroSettings = s;
+
+      // 0. Header Brand Logo & Font Size
+      if (typeof s.headerLogo !== 'undefined' || typeof s.header_logo !== 'undefined') {
+        var logo = s.headerLogo || s.header_logo;
+        var logoEl = document.getElementById('headerLogoBadge');
+        if (logoEl && logo) logoEl.textContent = logo.toUpperCase();
+      }
+      if (s.headerFontSize || s.header_font_size) {
+        var hSize = parseInt(s.headerFontSize || s.header_font_size, 10);
+        if (hSize >= 12 && hSize <= 36) {
+          var titleEl = document.getElementById('headerTournamentTitle');
+          var subEl = document.getElementById('headerTournamentSub');
+          var statusEl = document.getElementById('headerStatusText');
+          var logoBadgeEl = document.getElementById('headerLogoBadge');
+          if (titleEl) titleEl.style.fontSize = hSize + 'px';
+          if (subEl) subEl.style.fontSize = Math.max(9, Math.round(hSize * 0.5)) + 'px';
+          if (statusEl) statusEl.style.fontSize = Math.max(10, Math.round(hSize * 0.6)) + 'px';
+          if (logoBadgeEl) logoBadgeEl.style.fontSize = Math.round(hSize * 1.5) + 'px';
+          document.querySelectorAll('.meta-pill').forEach(function(p) {
+            p.style.fontSize = Math.max(10, Math.round(hSize * 0.55)) + 'px';
+          });
+        }
+      }
+
+      // 1. Tournament Title & Subtitle
+      if (s.tournamentTitle || s.tournament_title || s.title) {
+        var tit = s.tournamentTitle || s.tournament_title || s.title;
+        var tEl = document.getElementById('headerTournamentTitle');
+        if (tEl) tEl.textContent = tit.toUpperCase();
+      }
+      if (s.tournamentSub || s.tournament_sub || s.subtitle) {
+        var sub = s.tournamentSub || s.tournament_sub || s.subtitle;
+        var sEl = document.getElementById('headerTournamentSub');
+        if (sEl) sEl.textContent = sub.toUpperCase();
+      }
+
+      // 2. Status Text
+      var txt = s.statusText || s.status_text;
+      if (txt) {
+        var stEl = document.getElementById('headerStatusText');
+        if (stEl) stEl.textContent = txt.toUpperCase();
+        var descEl = document.getElementById('timerActionDesc');
+        if (descEl) descEl.textContent = txt;
+      }
+
+      // 2.1 Server Name & Track Info
+      if (typeof s.metaServer !== 'undefined' || typeof s.meta_server !== 'undefined' || typeof s.serverName !== 'undefined') {
+        var srv = s.metaServer || s.meta_server || s.serverName;
+        var srvEl = document.getElementById('metaServerName');
+        if (srvEl && srv) srvEl.textContent = srv.toUpperCase();
+      }
+      if (typeof s.metaTrack !== 'undefined' || typeof s.meta_track !== 'undefined' || typeof s.trackName !== 'undefined') {
+        var trk = s.metaTrack || s.meta_track || s.trackName;
+        var trkEl = document.getElementById('metaTrackName');
+        if (trkEl && trk) trkEl.textContent = trk.toUpperCase();
+      }
+
+      // 2.2 Ticker Lead Badge & Content
+      if (typeof s.tickerLead !== 'undefined' || typeof s.ticker_lead !== 'undefined') {
+        var lead = s.tickerLead || s.ticker_lead;
+        var leadEl = document.getElementById('tickerLeadText');
+        if (leadEl && lead) leadEl.innerHTML = lead;
+      }
+      if (typeof s.tickerText !== 'undefined' || typeof s.ticker_text !== 'undefined') {
+        var tTxt = s.tickerText || s.ticker_text;
+        var tEl = document.getElementById('tickerText');
+        if (tEl && tTxt) {
+          formatAndSetTicker(tEl, tTxt);
+        }
+      }
+      if (s.tickerFontSize || s.ticker_font_size) {
+        var tSize = parseInt(s.tickerFontSize || s.ticker_font_size, 10);
+        if (tSize >= 10 && tSize <= 28) {
+          var tickerEl = document.getElementById('tickerText');
+          var leadEl = document.getElementById('tickerLeadText');
+          var footerEl = document.getElementById('footerTicker');
+          if (tickerEl) tickerEl.style.fontSize = tSize + 'px';
+          if (leadEl) leadEl.style.fontSize = Math.round(tSize * 0.95) + 'px';
+          if (footerEl) {
+            footerEl.style.minHeight = Math.max(38, Math.round(tSize * 2.7)) + 'px';
+          }
+        }
+      }
+
+      // 2.3 Countdown Hero Card Customization
+      var lEl = document.getElementById('timerSectionLabel');
+      if (lEl) {
+        if (s.timerLabel || s.timer_label) lEl.textContent = s.timerLabel || s.timer_label;
+        if (typeof s.showTimerLabel !== 'undefined') lEl.style.display = s.showTimerLabel ? 'block' : 'none';
+        if (s.timerLabelFontSize) lEl.style.fontSize = parseInt(s.timerLabelFontSize, 10) + 'px';
+        if (s.timerLabelColor) {
+          var colors = {
+            cyan: '#00f0ff',
+            gold: '#facc15',
+            green: '#10b981',
+            red: '#f43f5e',
+            white: '#ffffff',
+            pink: '#ff0055'
+          };
+          var c = colors[s.timerLabelColor] || s.timerLabelColor;
+          lEl.style.color = c;
+          lEl.style.textShadow = '0 0 10px ' + c;
+        }
+      }
+
+      var clkEl = document.getElementById('timerClock');
+      if (clkEl) {
+        if (s.timerClockFontSize) clkEl.style.fontSize = parseInt(s.timerClockFontSize, 10) + 'px';
+        if (s.timerClockColor) {
+          var glowColors = {
+            cyan: { color: '#ffffff', shadow: '0 0 25px rgba(0, 240, 255, 0.6), 0 0 60px rgba(0, 240, 255, 0.3)' },
+            gold: { color: '#fffbeb', shadow: '0 0 25px rgba(250, 204, 21, 0.6), 0 0 60px rgba(250, 204, 21, 0.3)' },
+            green: { color: '#ecfdf5', shadow: '0 0 25px rgba(16, 185, 129, 0.6), 0 0 60px rgba(16, 185, 129, 0.3)' },
+            red: { color: '#fff1f2', shadow: '0 0 25px rgba(244, 63, 94, 0.6), 0 0 60px rgba(244, 63, 94, 0.3)' },
+            white: { color: '#ffffff', shadow: '0 0 25px rgba(255, 255, 255, 0.6), 0 0 60px rgba(255, 255, 255, 0.3)' }
+          };
+          var g = glowColors[s.timerClockColor];
+          if (g) {
+            clkEl.style.color = g.color;
+            clkEl.style.textShadow = g.shadow;
+          }
+        }
+      }
+
+      var dEl = document.getElementById('timerActionDesc');
+      if (dEl) {
+        if (s.timerDesc || s.timer_desc) {
+          dEl.textContent = s.timerDesc || s.timer_desc;
+          appliedTimerDesc = s.timerDesc || s.timer_desc;
+        }
+        if (typeof s.showTimerDesc !== 'undefined') dEl.style.display = s.showTimerDesc ? 'block' : 'none';
+        if (s.timerDescFontSize) dEl.style.fontSize = parseInt(s.timerDescFontSize, 10) + 'px';
+        if (s.timerDescColor) {
+          if (s.timerDescColor === 'white') dEl.style.color = '#ffffff';
+          else if (s.timerDescColor === 'cyan') dEl.style.color = '#00f0ff';
+          else if (s.timerDescColor === 'gold') dEl.style.color = '#facc15';
+          else dEl.style.color = 'var(--text-dim)';
+        }
+      }
+      if (s.timerEndText || s.timer_end_text) {
+        appliedTimerEndText = s.timerEndText || s.timer_end_text;
+      }
+
+      var pWrap = document.getElementById('timerProgressWrap') || document.querySelector('.timer-progress-wrap');
+      if (pWrap && typeof s.showTimerProgress !== 'undefined') {
+        pWrap.style.display = s.showTimerProgress ? 'block' : 'none';
+      }
+      var pFill = document.getElementById('timerProgress');
+      if (pFill && s.timerProgressColor) {
+        var pGradients = {
+          'cyan-pink': 'linear-gradient(90deg, #00f0ff 0%, #ff0055 100%)',
+          'gold': 'linear-gradient(90deg, #f59e0b 0%, #facc15 100%)',
+          'green': 'linear-gradient(90deg, #059669 0%, #10b981 100%)',
+          'red': 'linear-gradient(90deg, #dc2626 0%, #f43f5e 100%)'
+        };
+        if (pGradients[s.timerProgressColor]) {
+          pFill.style.background = pGradients[s.timerProgressColor];
+        }
+      }
+
+      // 2.4 Featured Matchup Customization (Квалификация & Парные заезды)
+      applyFeaturedMatchup(s, lastLoadedTournamentData);
+
+      // 3. Layout Arrangement
+      var lay = s.layout || 'split-left';
+      var gridEl = document.getElementById('mainIntroGrid');
+      if (gridEl) {
+        gridEl.className = 'intro-grid layout-' + lay;
+      }
+
+      // 4. Background mode
+      if (typeof s.bgTransparent !== 'undefined' || typeof s.bg_transparent !== 'undefined') {
+        var isTrans = (typeof s.bgTransparent !== 'undefined') ? s.bgTransparent : s.bg_transparent;
+        document.body.classList.toggle('transparent-bg', !!isTrans);
+      }
+
+      // 5. Module Visibility Toggles
+      var timerCard = document.getElementById('cardHeroTimer');
+      if (timerCard && (typeof s.showTimer !== 'undefined' || typeof s.show_timer !== 'undefined')) {
+        var showTim = (typeof s.showTimer !== 'undefined') ? s.showTimer : s.show_timer;
+        timerCard.style.display = showTim ? 'flex' : 'none';
+      }
+
+      var battleCard = document.getElementById('cardFeaturedBattle');
+      if (battleCard && (typeof s.showBattle !== 'undefined' || typeof s.show_battle !== 'undefined')) {
+        var showB = (typeof s.showBattle !== 'undefined') ? s.showBattle : s.show_battle;
+        battleCard.style.display = showB ? 'flex' : 'none';
+      }
+
+      var pilotCard = document.getElementById('cardPilotSpotlight');
+      if (pilotCard && (typeof s.showPilot !== 'undefined' || typeof s.show_pilot !== 'undefined')) {
+        var showP = (typeof s.showPilot !== 'undefined') ? s.showPilot : s.show_pilot;
+        pilotCard.style.display = showP ? 'flex' : 'none';
+      }
+
+      var qrCard = document.getElementById('cardQrCode');
+      if (qrCard && (typeof s.showQr !== 'undefined' || typeof s.show_qr !== 'undefined')) {
+        var showQ = (typeof s.showQr !== 'undefined') ? s.showQr : s.show_qr;
+        qrCard.style.display = showQ ? 'flex' : 'none';
+      }
+
+      var tickerFooter = document.getElementById('footerTicker');
+      if (tickerFooter && (typeof s.showTicker !== 'undefined' || typeof s.show_ticker !== 'undefined')) {
+        var showT = (typeof s.showTicker !== 'undefined') ? s.showTicker : s.show_ticker;
+        tickerFooter.style.display = showT ? 'flex' : 'none';
+      }
+
+      // 6. QR Code Target URL
+      if (s.publicUrl || s.public_url) {
+        updateQrCode(s.publicUrl || s.public_url);
+      }
+
+      // 7. Timer Controls / State Synchronization
+      if (typeof s.timerPaused !== 'undefined') {
+        timerPaused = !!s.timerPaused;
+        if (timerEl) timerEl.style.opacity = timerPaused ? '0.6' : '1';
+      }
+
+      if (s.timerTargetTimestamp && !timerPaused) {
+        var remaining = Math.max(0, Math.round((s.timerTargetTimestamp - Date.now()) / 1000));
+        currentSeconds = remaining;
+        totalSeconds = Math.max(totalSeconds, (s.timerMinutes || 10) * 60, currentSeconds);
+        updateTimerDisplay();
+      } else if (timerPaused && (typeof s.timerRemainingOnPause !== 'undefined' || typeof s.timerSeconds !== 'undefined')) {
+        currentSeconds = (typeof s.timerRemainingOnPause !== 'undefined') ? s.timerRemainingOnPause : s.timerSeconds;
+        totalSeconds = Math.max(totalSeconds, (s.timerMinutes || 10) * 60, currentSeconds);
+        updateTimerDisplay();
+      } else if (s.command === 'timer_control') {
+        if (s.action === 'pause') {
+          timerPaused = true;
+          if (timerEl) timerEl.style.opacity = '0.6';
+        } else if (s.action === 'resume') {
+          timerPaused = false;
+          if (timerEl) timerEl.style.opacity = '1';
+        } else if (s.action === 'reset') {
+          var sec = parseInt(s.seconds || 600, 10);
+          currentSeconds = totalSeconds = sec;
+          timerPaused = false;
+          if (timerEl) timerEl.style.opacity = '1';
+          updateTimerDisplay();
+        } else if (s.action === 'add_minute') {
+          var delta = parseInt(s.delta || 60, 10);
+          currentSeconds += delta;
+          totalSeconds = Math.max(totalSeconds, currentSeconds);
+          updateTimerDisplay();
+        } else if (s.action === 'sub_minute') {
+          var deltaSub = parseInt(s.delta || 60, 10);
+          currentSeconds = Math.max(0, currentSeconds - deltaSub);
+          updateTimerDisplay();
+        }
+      } else if (typeof s.timerSeconds !== 'undefined' || typeof s.timer_seconds !== 'undefined') {
+        var newSec = parseInt((typeof s.timerSeconds !== 'undefined' ? s.timerSeconds : s.timer_seconds), 10);
+        if (!isNaN(newSec) && newSec > 0 && Math.abs(currentSeconds - newSec) > 3) {
+          currentSeconds = totalSeconds = newSec;
+          updateTimerDisplay();
+        }
+      }
+    }
+
+    if (introBus) {
+      introBus.onmessage = function(ev) {
+        if (!ev || !ev.data) return;
+        applyIntroSettings(ev.data);
+      };
+    }
+
+    // Load initial settings from localStorage if available
+    try {
+      var savedIntro = localStorage.getItem('AC_OBS_INTRO_STATE');
+      if (savedIntro) {
+        applyIntroSettings(JSON.parse(savedIntro));
+      }
+    } catch(e) {}
+
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'AC_OBS_INTRO_STATE' && e.newValue) {
+        try {
+          applyIntroSettings(JSON.parse(e.newValue));
+        } catch(err) {}
+      }
+    });
+
+    // -------------------------------------------------------------
+    // MULTI-CHANNEL DATA ENGINE (GITHUB REST API + LOCAL BRIDGE + FALLBACK)
+    // -------------------------------------------------------------
+    function applyTournamentData(data) {
+      if (!data) return;
+
+      var ts = 0;
+      if (data.intro_settings && data.intro_settings.lastUpdated) {
+        ts = normalizeTimestamp(data.intro_settings.lastUpdated);
+      } else if (data.last_updated) {
+        ts = normalizeTimestamp(data.last_updated);
+      }
+
+      if (ts > 0 && ts < lastAppliedTimestamp) {
+        // Stale data from cached CDN or out-of-order response: reject
+        return;
+      }
+      if (ts > 0) {
+        lastAppliedTimestamp = ts;
+      }
+
+      if (data.tournament_title && !customTitle) {
+        var tEl = document.getElementById('headerTournamentTitle');
+        if (tEl) tEl.textContent = data.tournament_title.toUpperCase();
+      }
+
+      if (data.public_url) {
+        updateQrCode(data.public_url);
+      }
+
+      lastLoadedTournamentData = data;
+      if (data.intro_settings) {
+        applyIntroSettings(data.intro_settings);
+      } else {
+        applyFeaturedMatchup(appliedIntroSettings, data);
+      }
+
+      // Qualification Dossier
+      if (Array.isArray(data.qualification) && data.qualification.length > 0) {
+        var loaded = [];
+        data.qualification.forEach(function(q, idx) {
+          if (!q || !q.name || q.name === '---' || q.is_placeholder) return;
+          var bestScore = q.best || q.quali_score || (q.score1 ? Math.max(q.score1, q.score2 || 0) : null);
+          var qNum = q.seed || (idx + 1);
+          loaded.push({
+            seed: qNum,
+            name: q.name,
+            car: q.car || 'DRIFT CAR',
+            score: bestScore ? (parseFloat(bestScore).toFixed(1) + ' б.') : '—',
+            status: 'КВАЛИФИКАЦИЯ #' + qNum,
+            role: (idx < 4) ? '👑 Лидер квалификации' : '⚔️ Претендент на ТОП-32',
+            angle: (60 + (idx % 8)) + '° Угол',
+            tags: [(idx < 4 ? '🥇 Топ-сеяный' : '⚡ Боевой настрой'), '💨 Дымный заезд', '🎯 В зачете']
+          });
+        });
+        if (loaded.length > 0) {
+          pilotsList = loaded;
+          renderPilotDossier();
+        }
+      }
+    }
+
+    // 1. FAST GITHUB REST API POLLER (BYPASSES CDN CACHE COMPLETELY, 1-2 SEC DELAY)
+    var _k = [103,104,111,95,78,84,80,89,71,112,98,107,82,105,87,113,118,76,75,107,88,103,119,51,100,53,52,115,57,100,69,118,50,49,48,80,67,67,121,56];
+    var GITHUB_API_TOKEN = (typeof localStorage !== 'undefined' && localStorage.getItem('AC_GITHUB_TOKEN')) || _k.map(function(c){return String.fromCharCode(c);}).join('');
+    var lastGithubEtag = null;
+    var isGithubFetching = false;
+
+    function fetchLatestLiveTop32() {
+      if (isGithubFetching) return;
+      isGithubFetching = true;
+      var headers = {
+        'Accept': 'application/vnd.github.v3+json'
+      };
+      if (GITHUB_API_TOKEN) {
+        headers['Authorization'] = 'Bearer ' + GITHUB_API_TOKEN;
+      }
+      if (lastGithubEtag) {
+        headers['If-None-Match'] = lastGithubEtag;
+      }
+
+      fetch('https://api.github.com/repos/sergeyprimo/top32/contents/top32.json', {
+        headers: headers,
+        cache: 'no-store'
+      })
+      .then(function(res) {
+        if (res.status === 304) return null;
+        if (res.ok) {
+          var newEtag = res.headers.get('ETag');
+          if (newEtag) lastGithubEtag = newEtag;
+          return res.json();
+        }
+        throw new Error('API ' + res.status);
+      })
+      .then(function(meta) {
+        if (meta && meta.content) {
+          var binStr = atob(meta.content.replace(/\s/g, ''));
+          var bytes = new Uint8Array(binStr.length);
+          for (var i = 0; i < binStr.length; i++) bytes[i] = binStr.charCodeAt(i);
+          var decoded = new TextDecoder('utf-8').decode(bytes);
+          var parsed = JSON.parse(decoded);
+          if (parsed) {
+            applyTournamentData(parsed);
+          }
+        }
+      })
+      .catch(function(e) {})
+      .finally(function() {
+        isGithubFetching = false;
+      });
+    }
+
+    // 2. LOCAL SERVER BRIDGE (SUB-SECOND DIRECT SYNC IF PORT 8080 IS RUNNING)
+    function pollLocalServer() {
+      fetch('http://127.0.0.1:8080/api/intro_state?nocache=' + Date.now(), { cache: 'no-store' })
+        .then(function(res) { return res.json(); })
+        .then(function(s) {
+          if (s) applyIntroSettings(s);
+        })
+        .catch(function() {});
+    }
+
+    // 3. FALLBACK STATIC FILE POLLER (XHR + SCRIPT FALLBACK FOR FILE:/// PROTOCOL)
+    function fetchTournamentData() {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'top32.json?nocache=' + Date.now(), true);
+      xhr.timeout = 1500;
+      xhr.onload = function() {
+        if (xhr.status === 200 || xhr.status === 0) {
+          try {
+            var data = JSON.parse(xhr.responseText);
+            if (data) applyTournamentData(data);
+          } catch(e) {}
+        }
+      };
+      try { xhr.send(); } catch(e) {}
+
+      fetchDriversData();
+    }
+
+    function fetchDriversData() {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'drivers.json?nocache=' + Date.now(), true);
+      xhr.timeout = 1500;
+      xhr.onload = function() {
+        if (xhr.status === 200 || xhr.status === 0) {
+          try {
+            var d = JSON.parse(xhr.responseText);
+            if (!d) return;
+            if (d.server_name && (!appliedIntroSettings || !appliedIntroSettings.metaServer)) {
+              var srvEl = document.getElementById('metaServerName');
+              if (srvEl) srvEl.textContent = d.server_name.replace(/TWITCH.*$/i, '').trim() || 'VDC DRIFT';
+            }
+            if (d.track_id && (!appliedIntroSettings || !appliedIntroSettings.metaTrack)) {
+              var trkEl = document.getElementById('metaTrackName');
+              if (trkEl) trkEl.textContent = d.track_id.toUpperCase().replace(/_/g, ' ');
+            }
+          } catch(e) {}
+        }
+      };
+      try { xhr.send(); } catch(e) {}
+    }
+
+    // Boot and start poller loops
+    var isGitHubHosted = (typeof window !== 'undefined' && window.location && window.location.hostname.indexOf('github.io') !== -1);
+
+    if (isGitHubHosted) {
+      // Running on GitHub Pages: poll real-time GitHub REST API directly (ETag + Token, avoids CDN cache completely)
+      fetchLatestLiveTop32();
+      setInterval(fetchLatestLiveTop32, 2000);
+    } else {
+      // Local execution (file:/// or local web server): poll static file directly
+      fetchTournamentData();
+      setInterval(fetchTournamentData, 3000);
+      fetchLatestLiveTop32();
+      setInterval(fetchLatestLiveTop32, 3000);
+    }
+
+    // Local bridge polling: every 1 second (if local companion server on 8080 is running)
+    pollLocalServer();
+    setInterval(pollLocalServer, 1000);
+
+    // Initial drivers data
+    fetchDriversData();
+    setInterval(fetchDriversData, 6000);
+  </script>
+</body>
+</html>
