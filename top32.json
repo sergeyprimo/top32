@@ -1,1674 +1,1788 @@
-﻿{
-    "tournament_name":  "RDS GP / DRIFT BATTLE CHAMPIONSHIP",
-    "badge_text":  "ГАЗДЕРЖИМ.РФ",
-    "badge_brand":  "ГАЗДЕРЖИМ",
-    "badge_domain":  "РФ",
-    "badge_logo":  "",
-    "public_url":  "https://sergeyprimo.github.io/top32/",
-    "stage":  "top32",
-    "active_battle_id":  1,
-    "google_sheet_url":  "",
-    "last_updated":  1793421520446,
-    "judges_names":  [
-                         "Судья 1 (Траектория)",
-                         "Судья 2 (Угол)",
-                         "Судья 3 (Стиль/Темп)"
-                     ],
-    "qualification":  [
-                          {
-                              "rank":  1,
-                              "seed":  1,
-                              "name":  "Sergey Primo",
-                              "car":  "Bdc V6 0 Rps13",
-                              "run1":  96.5,
-                              "run2":  98,
-                              "best":  98,
-                              "status":  "qualified",
-                              "total":  194.5,
-                              "single_best":  98,
-                              "worse":  96.5
-                          },
-                          {
-                              "rank":  2,
-                              "seed":  2,
-                              "name":  "SENSEI",
-                              "car":  "Bdc V6 0 350Z",
-                              "run1":  95,
-                              "run2":  96.5,
-                              "best":  96.5,
-                              "status":  "qualified",
-                              "total":  191.5,
-                              "single_best":  96.5,
-                              "worse":  95
-                          },
-                          {
-                              "rank":  3,
-                              "seed":  3,
-                              "name":  "Mikhail Yakutovich",
-                              "car":  "Bdc V6 0 E36",
-                              "run1":  93.5,
-                              "run2":  95,
-                              "best":  95,
-                              "status":  "qualified",
-                              "total":  188.5,
-                              "single_best":  95,
-                              "worse":  93.5
-                          },
-                          {
-                              "rank":  4,
-                              "seed":  4,
-                              "name":  "Georgi Nedelchev",
-                              "car":  "Bdc V6 0 Mark2",
-                              "run1":  91,
-                              "run2":  93.5,
-                              "best":  93.5,
-                              "status":  "qualified",
-                              "total":  184.5,
-                              "single_best":  93.5,
-                              "worse":  91
-                          },
-                          {
-                              "rank":  5,
-                              "seed":  5,
-                              "name":  "Nikolay Kraevskiy",
-                              "car":  "Bdc V6 0 Newedge",
-                              "run1":  89.5,
-                              "run2":  91.5,
-                              "best":  91.5,
-                              "status":  "qualified",
-                              "total":  181,
-                              "single_best":  91.5,
-                              "worse":  89.5
-                          },
-                          {
-                              "rank":  6,
-                              "seed":  6,
-                              "name":  "Nikita Yaparov",
-                              "car":  "Bdc V6 0 S13 Onevia",
-                              "run1":  88,
-                              "run2":  89.5,
-                              "best":  89.5,
-                              "status":  "qualified",
-                              "total":  177.5,
-                              "single_best":  89.5,
-                              "worse":  88
-                          },
-                          {
-                              "rank":  7,
-                              "seed":  7,
-                              "name":  "Oleg Shpiner | Fools Raci",
-                              "car":  "Bdc V6 0 S13 Bn",
-                              "run1":  86,
-                              "run2":  87.5,
-                              "best":  87.5,
-                              "status":  "qualified",
-                              "total":  173.5,
-                              "single_best":  87.5,
-                              "worse":  86
-                          },
-                          {
-                              "rank":  8,
-                              "seed":  8,
-                              "name":  "Istratiy Dima #99",
-                              "car":  "Bdc V6 0 E46",
-                              "run1":  83.5,
-                              "run2":  85.5,
-                              "best":  85.5,
-                              "status":  "qualified",
-                              "total":  169,
-                              "single_best":  85.5,
-                              "worse":  83.5
-                          },
-                          {
-                              "rank":  9,
-                              "seed":  9,
-                              "name":  "Marat Avanesov",
-                              "car":  "Bdc V6 0 Ps13",
-                              "run1":  81,
-                              "run2":  83,
-                              "best":  83,
-                              "status":  "qualified",
-                              "total":  164,
-                              "single_best":  83,
-                              "worse":  81
-                          },
-                          {
-                              "rank":  10,
-                              "seed":  10,
-                              "name":  "Kuloff04",
-                              "car":  "Bdc V6 0 S14 Kouki",
-                              "run1":  78.5,
-                              "run2":  80.5,
-                              "best":  80.5,
-                              "status":  "qualified",
-                              "total":  159,
-                              "single_best":  80.5,
-                              "worse":  78.5
-                          },
-                          {
-                              "rank":  11,
-                              "seed":  11,
-                              "name":  "freeeze",
-                              "car":  "Bdc V6 0 Zenki",
-                              "run1":  75,
-                              "run2":  78,
-                              "best":  78,
-                              "status":  "qualified",
-                              "total":  153,
-                              "single_best":  78,
-                              "worse":  75
-                          },
-                          {
-                              "rank":  12,
-                              "seed":  12,
-                              "name":  "ОЖИДАНИЕ ПИЛОТА",
-                              "car":  "---",
-                              "run1":  0,
-                              "run2":  0,
-                              "best":  0,
-                              "status":  "pending",
-                              "total":  0,
-                              "single_best":  0,
-                              "worse":  0
-                          },
-                          {
-                              "rank":  13,
-                              "seed":  13,
-                              "name":  "ОЖИДАНИЕ ПИЛОТА",
-                              "car":  "---",
-                              "run1":  0,
-                              "run2":  0,
-                              "best":  0,
-                              "status":  "pending",
-                              "total":  0,
-                              "single_best":  0,
-                              "worse":  0
-                          },
-                          {
-                              "rank":  14,
-                              "seed":  14,
-                              "name":  "ОЖИДАНИЕ ПИЛОТА",
-                              "car":  "---",
-                              "run1":  0,
-                              "run2":  0,
-                              "best":  0,
-                              "status":  "pending",
-                              "total":  0,
-                              "single_best":  0,
-                              "worse":  0
-                          },
-                          {
-                              "rank":  15,
-                              "seed":  15,
-                              "name":  "ОЖИДАНИЕ ПИЛОТА",
-                              "car":  "---",
-                              "run1":  0,
-                              "run2":  0,
-                              "best":  0,
-                              "status":  "pending",
-                              "total":  0,
-                              "single_best":  0,
-                              "worse":  0
-                          },
-                          {
-                              "rank":  16,
-                              "seed":  16,
-                              "name":  "ОЖИДАНИЕ ПИЛОТА",
-                              "car":  "---",
-                              "run1":  0,
-                              "run2":  0,
-                              "best":  0,
-                              "status":  "pending",
-                              "total":  0,
-                              "single_best":  0,
-                              "worse":  0
-                          },
-                          {
-                              "rank":  17,
-                              "seed":  17,
-                              "name":  "ОЖИДАНИЕ ПИЛОТА",
-                              "car":  "---",
-                              "run1":  0,
-                              "run2":  0,
-                              "best":  0,
-                              "status":  "pending",
-                              "total":  0,
-                              "single_best":  0,
-                              "worse":  0
-                          },
-                          {
-                              "rank":  18,
-                              "seed":  18,
-                              "name":  "ОЖИДАНИЕ ПИЛОТА",
-                              "car":  "---",
-                              "run1":  0,
-                              "run2":  0,
-                              "best":  0,
-                              "status":  "pending",
-                              "total":  0,
-                              "single_best":  0,
-                              "worse":  0
-                          },
-                          {
-                              "rank":  19,
-                              "seed":  19,
-                              "name":  "ОЖИДАНИЕ ПИЛОТА",
-                              "car":  "---",
-                              "run1":  0,
-                              "run2":  0,
-                              "best":  0,
-                              "status":  "pending",
-                              "total":  0,
-                              "single_best":  0,
-                              "worse":  0
-                          },
-                          {
-                              "rank":  20,
-                              "seed":  20,
-                              "name":  "ОЖИДАНИЕ ПИЛОТА",
-                              "car":  "---",
-                              "run1":  0,
-                              "run2":  0,
-                              "best":  0,
-                              "status":  "pending",
-                              "total":  0,
-                              "single_best":  0,
-                              "worse":  0
-                          },
-                          {
-                              "rank":  21,
-                              "seed":  21,
-                              "name":  "ОЖИДАНИЕ ПИЛОТА",
-                              "car":  "---",
-                              "run1":  0,
-                              "run2":  0,
-                              "best":  0,
-                              "status":  "pending",
-                              "total":  0,
-                              "single_best":  0,
-                              "worse":  0
-                          },
-                          {
-                              "rank":  22,
-                              "seed":  22,
-                              "name":  "ОЖИДАНИЕ ПИЛОТА",
-                              "car":  "---",
-                              "run1":  0,
-                              "run2":  0,
-                              "best":  0,
-                              "status":  "pending",
-                              "total":  0,
-                              "single_best":  0,
-                              "worse":  0
-                          },
-                          {
-                              "rank":  23,
-                              "seed":  23,
-                              "name":  "ОЖИДАНИЕ ПИЛОТА",
-                              "car":  "---",
-                              "run1":  0,
-                              "run2":  0,
-                              "best":  0,
-                              "status":  "pending",
-                              "total":  0,
-                              "single_best":  0,
-                              "worse":  0
-                          },
-                          {
-                              "rank":  24,
-                              "seed":  24,
-                              "name":  "ОЖИДАНИЕ ПИЛОТА",
-                              "car":  "---",
-                              "run1":  0,
-                              "run2":  0,
-                              "best":  0,
-                              "status":  "pending",
-                              "total":  0,
-                              "single_best":  0,
-                              "worse":  0
-                          },
-                          {
-                              "rank":  25,
-                              "seed":  25,
-                              "name":  "ОЖИДАНИЕ ПИЛОТА",
-                              "car":  "---",
-                              "run1":  0,
-                              "run2":  0,
-                              "best":  0,
-                              "status":  "pending",
-                              "total":  0,
-                              "single_best":  0,
-                              "worse":  0
-                          },
-                          {
-                              "rank":  26,
-                              "seed":  26,
-                              "name":  "ОЖИДАНИЕ ПИЛОТА",
-                              "car":  "---",
-                              "run1":  0,
-                              "run2":  0,
-                              "best":  0,
-                              "status":  "pending",
-                              "total":  0,
-                              "single_best":  0,
-                              "worse":  0
-                          },
-                          {
-                              "rank":  27,
-                              "seed":  27,
-                              "name":  "ОЖИДАНИЕ ПИЛОТА",
-                              "car":  "---",
-                              "run1":  0,
-                              "run2":  0,
-                              "best":  0,
-                              "status":  "pending",
-                              "total":  0,
-                              "single_best":  0,
-                              "worse":  0
-                          },
-                          {
-                              "rank":  28,
-                              "seed":  28,
-                              "name":  "ОЖИДАНИЕ ПИЛОТА",
-                              "car":  "---",
-                              "run1":  0,
-                              "run2":  0,
-                              "best":  0,
-                              "status":  "pending",
-                              "total":  0,
-                              "single_best":  0,
-                              "worse":  0
-                          },
-                          {
-                              "rank":  29,
-                              "seed":  29,
-                              "name":  "ОЖИДАНИЕ ПИЛОТА",
-                              "car":  "---",
-                              "run1":  0,
-                              "run2":  0,
-                              "best":  0,
-                              "status":  "pending",
-                              "total":  0,
-                              "single_best":  0,
-                              "worse":  0
-                          },
-                          {
-                              "rank":  30,
-                              "seed":  30,
-                              "name":  "ОЖИДАНИЕ ПИЛОТА",
-                              "car":  "---",
-                              "run1":  0,
-                              "run2":  0,
-                              "best":  0,
-                              "status":  "pending",
-                              "total":  0,
-                              "single_best":  0,
-                              "worse":  0
-                          },
-                          {
-                              "rank":  31,
-                              "seed":  31,
-                              "name":  "ОЖИДАНИЕ ПИЛОТА",
-                              "car":  "---",
-                              "run1":  0,
-                              "run2":  0,
-                              "best":  0,
-                              "status":  "pending",
-                              "total":  0,
-                              "single_best":  0,
-                              "worse":  0
-                          },
-                          {
-                              "rank":  32,
-                              "seed":  32,
-                              "name":  "ОЖИДАНИЕ ПИЛОТА",
-                              "car":  "---",
-                              "run1":  0,
-                              "run2":  0,
-                              "best":  0,
-                              "status":  "pending",
-                              "total":  0,
-                              "single_best":  0,
-                              "worse":  0
-                          }
-                      ],
-    "battles":  [
-                    {
-                        "id":  1,
-                        "pair_num":  1,
-                        "bracket":  "left",
-                        "stage":  "top32",
-                        "lead":  {
-                                     "seed":  1,
-                                     "name":  "Sergey Primo",
-                                     "car":  "Bdc V6 0 Rps13",
-                                     "number":  "1",
-                                     "country":  "RU",
-                                     "quali_score":  98
-                                 },
-                        "chase":  {
-                                      "seed":  "—",
-                                      "name":  "BYE-RUN (АВТОПРОХОД)",
-                                      "car":  "Технический автопроход",
-                                      "number":  "BYE",
-                                      "country":  "RU",
-                                      "is_placeholder":  true
-                                  },
-                        "winner":  "lead",
-                        "status":  "finished",
-                        "judges":  [
-                                       {
-                                           "name":  "С1",
-                                           "vote":  "lead"
-                                       },
-                                       {
-                                           "name":  "С2",
-                                           "vote":  "lead"
-                                       },
-                                       {
-                                           "name":  "С3",
-                                           "vote":  "lead"
-                                       }
-                                   ]
-                    },
-                    {
-                        "id":  2,
-                        "pair_num":  2,
-                        "bracket":  "left",
-                        "stage":  "top32",
-                        "lead":  {
-                                     "seed":  "—",
-                                     "name":  "ОЖИДАНИЕ ПИЛОТА",
-                                     "car":  "---",
-                                     "number":  "—",
-                                     "country":  "RU",
-                                     "is_placeholder":  true
-                                 },
-                        "chase":  {
-                                      "seed":  "—",
-                                      "name":  "ОЖИДАНИЕ ПИЛОТА",
-                                      "car":  "---",
-                                      "number":  "—",
-                                      "country":  "RU",
-                                      "is_placeholder":  true
-                                  },
-                        "winner":  null,
-                        "status":  "waiting",
-                        "judges":  [
-                                       {
-                                           "name":  "С1",
-                                           "vote":  null
-                                       },
-                                       {
-                                           "name":  "С2",
-                                           "vote":  null
-                                       },
-                                       {
-                                           "name":  "С3",
-                                           "vote":  null
-                                       }
-                                   ]
-                    },
-                    {
-                        "id":  3,
-                        "pair_num":  3,
-                        "bracket":  "left",
-                        "stage":  "top32",
-                        "lead":  {
-                                     "seed":  8,
-                                     "name":  "Istratiy Dima #99",
-                                     "car":  "Bdc V6 0 E46",
-                                     "number":  "8",
-                                     "country":  "RU",
-                                     "quali_score":  85.5
-                                 },
-                        "chase":  {
-                                      "seed":  "—",
-                                      "name":  "BYE-RUN (АВТОПРОХОД)",
-                                      "car":  "Технический автопроход",
-                                      "number":  "BYE",
-                                      "country":  "RU",
-                                      "is_placeholder":  true
-                                  },
-                        "winner":  "lead",
-                        "status":  "finished",
-                        "judges":  [
-                                       {
-                                           "name":  "С1",
-                                           "vote":  "lead"
-                                       },
-                                       {
-                                           "name":  "С2",
-                                           "vote":  "lead"
-                                       },
-                                       {
-                                           "name":  "С3",
-                                           "vote":  "lead"
-                                       }
-                                   ]
-                    },
-                    {
-                        "id":  4,
-                        "pair_num":  4,
-                        "bracket":  "left",
-                        "stage":  "top32",
-                        "lead":  {
-                                     "seed":  9,
-                                     "name":  "Marat Avanesov",
-                                     "car":  "Bdc V6 0 Ps13",
-                                     "number":  "9",
-                                     "country":  "RU",
-                                     "quali_score":  83
-                                 },
-                        "chase":  {
-                                      "seed":  "—",
-                                      "name":  "BYE-RUN (АВТОПРОХОД)",
-                                      "car":  "Технический автопроход",
-                                      "number":  "BYE",
-                                      "country":  "RU",
-                                      "is_placeholder":  true
-                                  },
-                        "winner":  "lead",
-                        "status":  "finished",
-                        "judges":  [
-                                       {
-                                           "name":  "С1",
-                                           "vote":  "lead"
-                                       },
-                                       {
-                                           "name":  "С2",
-                                           "vote":  "lead"
-                                       },
-                                       {
-                                           "name":  "С3",
-                                           "vote":  "lead"
-                                       }
-                                   ]
-                    },
-                    {
-                        "id":  5,
-                        "pair_num":  5,
-                        "bracket":  "left",
-                        "stage":  "top32",
-                        "lead":  {
-                                     "seed":  4,
-                                     "name":  "Georgi Nedelchev",
-                                     "car":  "Bdc V6 0 Mark2",
-                                     "number":  "4",
-                                     "country":  "RU",
-                                     "quali_score":  93.5
-                                 },
-                        "chase":  {
-                                      "seed":  "—",
-                                      "name":  "BYE-RUN (АВТОПРОХОД)",
-                                      "car":  "Технический автопроход",
-                                      "number":  "BYE",
-                                      "country":  "RU",
-                                      "is_placeholder":  true
-                                  },
-                        "winner":  "lead",
-                        "status":  "finished",
-                        "judges":  [
-                                       {
-                                           "name":  "С1",
-                                           "vote":  "lead"
-                                       },
-                                       {
-                                           "name":  "С2",
-                                           "vote":  "lead"
-                                       },
-                                       {
-                                           "name":  "С3",
-                                           "vote":  "lead"
-                                       }
-                                   ]
-                    },
-                    {
-                        "id":  6,
-                        "pair_num":  6,
-                        "bracket":  "left",
-                        "stage":  "top32",
-                        "lead":  {
-                                     "seed":  "—",
-                                     "name":  "ОЖИДАНИЕ ПИЛОТА",
-                                     "car":  "---",
-                                     "number":  "—",
-                                     "country":  "RU",
-                                     "is_placeholder":  true
-                                 },
-                        "chase":  {
-                                      "seed":  "—",
-                                      "name":  "ОЖИДАНИЕ ПИЛОТА",
-                                      "car":  "---",
-                                      "number":  "—",
-                                      "country":  "RU",
-                                      "is_placeholder":  true
-                                  },
-                        "winner":  null,
-                        "status":  "waiting",
-                        "judges":  [
-                                       {
-                                           "name":  "С1",
-                                           "vote":  null
-                                       },
-                                       {
-                                           "name":  "С2",
-                                           "vote":  null
-                                       },
-                                       {
-                                           "name":  "С3",
-                                           "vote":  null
-                                       }
-                                   ]
-                    },
-                    {
-                        "id":  7,
-                        "pair_num":  7,
-                        "bracket":  "left",
-                        "stage":  "top32",
-                        "lead":  {
-                                     "seed":  5,
-                                     "name":  "Nikolay Kraevskiy",
-                                     "car":  "Bdc V6 0 Newedge",
-                                     "number":  "5",
-                                     "country":  "RU",
-                                     "quali_score":  91.5
-                                 },
-                        "chase":  {
-                                      "seed":  "—",
-                                      "name":  "BYE-RUN (АВТОПРОХОД)",
-                                      "car":  "Технический автопроход",
-                                      "number":  "BYE",
-                                      "country":  "RU",
-                                      "is_placeholder":  true
-                                  },
-                        "winner":  "lead",
-                        "status":  "finished",
-                        "judges":  [
-                                       {
-                                           "name":  "С1",
-                                           "vote":  "lead"
-                                       },
-                                       {
-                                           "name":  "С2",
-                                           "vote":  "lead"
-                                       },
-                                       {
-                                           "name":  "С3",
-                                           "vote":  "lead"
-                                       }
-                                   ]
-                    },
-                    {
-                        "id":  8,
-                        "pair_num":  8,
-                        "bracket":  "left",
-                        "stage":  "top32",
-                        "lead":  {
-                                     "seed":  "—",
-                                     "name":  "ОЖИДАНИЕ ПИЛОТА",
-                                     "car":  "---",
-                                     "number":  "—",
-                                     "country":  "RU",
-                                     "is_placeholder":  true
-                                 },
-                        "chase":  {
-                                      "seed":  "—",
-                                      "name":  "ОЖИДАНИЕ ПИЛОТА",
-                                      "car":  "---",
-                                      "number":  "—",
-                                      "country":  "RU",
-                                      "is_placeholder":  true
-                                  },
-                        "winner":  null,
-                        "status":  "waiting",
-                        "judges":  [
-                                       {
-                                           "name":  "С1",
-                                           "vote":  null
-                                       },
-                                       {
-                                           "name":  "С2",
-                                           "vote":  null
-                                       },
-                                       {
-                                           "name":  "С3",
-                                           "vote":  null
-                                       }
-                                   ]
-                    },
-                    {
-                        "id":  9,
-                        "pair_num":  9,
-                        "bracket":  "right",
-                        "stage":  "top32",
-                        "lead":  {
-                                     "seed":  2,
-                                     "name":  "SENSEI",
-                                     "car":  "Bdc V6 0 350Z",
-                                     "number":  "2",
-                                     "country":  "RU",
-                                     "quali_score":  96.5
-                                 },
-                        "chase":  {
-                                      "seed":  "—",
-                                      "name":  "BYE-RUN (АВТОПРОХОД)",
-                                      "car":  "Технический автопроход",
-                                      "number":  "BYE",
-                                      "country":  "RU",
-                                      "is_placeholder":  true
-                                  },
-                        "winner":  "lead",
-                        "status":  "finished",
-                        "judges":  [
-                                       {
-                                           "name":  "С1",
-                                           "vote":  "lead"
-                                       },
-                                       {
-                                           "name":  "С2",
-                                           "vote":  "lead"
-                                       },
-                                       {
-                                           "name":  "С3",
-                                           "vote":  "lead"
-                                       }
-                                   ]
-                    },
-                    {
-                        "id":  10,
-                        "pair_num":  10,
-                        "bracket":  "right",
-                        "stage":  "top32",
-                        "lead":  {
-                                     "seed":  "—",
-                                     "name":  "ОЖИДАНИЕ ПИЛОТА",
-                                     "car":  "---",
-                                     "number":  "—",
-                                     "country":  "RU",
-                                     "is_placeholder":  true
-                                 },
-                        "chase":  {
-                                      "seed":  "—",
-                                      "name":  "ОЖИДАНИЕ ПИЛОТА",
-                                      "car":  "---",
-                                      "number":  "—",
-                                      "country":  "RU",
-                                      "is_placeholder":  true
-                                  },
-                        "winner":  null,
-                        "status":  "waiting",
-                        "judges":  [
-                                       {
-                                           "name":  "С1",
-                                           "vote":  null
-                                       },
-                                       {
-                                           "name":  "С2",
-                                           "vote":  null
-                                       },
-                                       {
-                                           "name":  "С3",
-                                           "vote":  null
-                                       }
-                                   ]
-                    },
-                    {
-                        "id":  11,
-                        "pair_num":  11,
-                        "bracket":  "right",
-                        "stage":  "top32",
-                        "lead":  {
-                                     "seed":  7,
-                                     "name":  "Oleg Shpiner | Fools Raci",
-                                     "car":  "Bdc V6 0 S13 Bn",
-                                     "number":  "7",
-                                     "country":  "RU",
-                                     "quali_score":  87.5
-                                 },
-                        "chase":  {
-                                      "seed":  "—",
-                                      "name":  "BYE-RUN (АВТОПРОХОД)",
-                                      "car":  "Технический автопроход",
-                                      "number":  "BYE",
-                                      "country":  "RU",
-                                      "is_placeholder":  true
-                                  },
-                        "winner":  "lead",
-                        "status":  "finished",
-                        "judges":  [
-                                       {
-                                           "name":  "С1",
-                                           "vote":  "lead"
-                                       },
-                                       {
-                                           "name":  "С2",
-                                           "vote":  "lead"
-                                       },
-                                       {
-                                           "name":  "С3",
-                                           "vote":  "lead"
-                                       }
-                                   ]
-                    },
-                    {
-                        "id":  12,
-                        "pair_num":  12,
-                        "bracket":  "right",
-                        "stage":  "top32",
-                        "lead":  {
-                                     "seed":  10,
-                                     "name":  "Kuloff04",
-                                     "car":  "Bdc V6 0 S14 Kouki",
-                                     "number":  "10",
-                                     "country":  "RU",
-                                     "quali_score":  80.5
-                                 },
-                        "chase":  {
-                                      "seed":  "—",
-                                      "name":  "BYE-RUN (АВТОПРОХОД)",
-                                      "car":  "Технический автопроход",
-                                      "number":  "BYE",
-                                      "country":  "RU",
-                                      "is_placeholder":  true
-                                  },
-                        "winner":  "lead",
-                        "status":  "finished",
-                        "judges":  [
-                                       {
-                                           "name":  "С1",
-                                           "vote":  "lead"
-                                       },
-                                       {
-                                           "name":  "С2",
-                                           "vote":  "lead"
-                                       },
-                                       {
-                                           "name":  "С3",
-                                           "vote":  "lead"
-                                       }
-                                   ]
-                    },
-                    {
-                        "id":  13,
-                        "pair_num":  13,
-                        "bracket":  "right",
-                        "stage":  "top32",
-                        "lead":  {
-                                     "seed":  3,
-                                     "name":  "Mikhail Yakutovich",
-                                     "car":  "Bdc V6 0 E36",
-                                     "number":  "3",
-                                     "country":  "RU",
-                                     "quali_score":  95
-                                 },
-                        "chase":  {
-                                      "seed":  "—",
-                                      "name":  "BYE-RUN (АВТОПРОХОД)",
-                                      "car":  "Технический автопроход",
-                                      "number":  "BYE",
-                                      "country":  "RU",
-                                      "is_placeholder":  true
-                                  },
-                        "winner":  "lead",
-                        "status":  "finished",
-                        "judges":  [
-                                       {
-                                           "name":  "С1",
-                                           "vote":  "lead"
-                                       },
-                                       {
-                                           "name":  "С2",
-                                           "vote":  "lead"
-                                       },
-                                       {
-                                           "name":  "С3",
-                                           "vote":  "lead"
-                                       }
-                                   ]
-                    },
-                    {
-                        "id":  14,
-                        "pair_num":  14,
-                        "bracket":  "right",
-                        "stage":  "top32",
-                        "lead":  {
-                                     "seed":  "—",
-                                     "name":  "ОЖИДАНИЕ ПИЛОТА",
-                                     "car":  "---",
-                                     "number":  "—",
-                                     "country":  "RU",
-                                     "is_placeholder":  true
-                                 },
-                        "chase":  {
-                                      "seed":  "—",
-                                      "name":  "ОЖИДАНИЕ ПИЛОТА",
-                                      "car":  "---",
-                                      "number":  "—",
-                                      "country":  "RU",
-                                      "is_placeholder":  true
-                                  },
-                        "winner":  null,
-                        "status":  "waiting",
-                        "judges":  [
-                                       {
-                                           "name":  "С1",
-                                           "vote":  null
-                                       },
-                                       {
-                                           "name":  "С2",
-                                           "vote":  null
-                                       },
-                                       {
-                                           "name":  "С3",
-                                           "vote":  null
-                                       }
-                                   ]
-                    },
-                    {
-                        "id":  15,
-                        "pair_num":  15,
-                        "bracket":  "right",
-                        "stage":  "top32",
-                        "lead":  {
-                                     "seed":  6,
-                                     "name":  "Nikita Yaparov",
-                                     "car":  "Bdc V6 0 S13 Onevia",
-                                     "number":  "6",
-                                     "country":  "RU",
-                                     "quali_score":  89.5
-                                 },
-                        "chase":  {
-                                      "seed":  "—",
-                                      "name":  "BYE-RUN (АВТОПРОХОД)",
-                                      "car":  "Технический автопроход",
-                                      "number":  "BYE",
-                                      "country":  "RU",
-                                      "is_placeholder":  true
-                                  },
-                        "winner":  "lead",
-                        "status":  "finished",
-                        "judges":  [
-                                       {
-                                           "name":  "С1",
-                                           "vote":  "lead"
-                                       },
-                                       {
-                                           "name":  "С2",
-                                           "vote":  "lead"
-                                       },
-                                       {
-                                           "name":  "С3",
-                                           "vote":  "lead"
-                                       }
-                                   ]
-                    },
-                    {
-                        "id":  16,
-                        "pair_num":  16,
-                        "bracket":  "right",
-                        "stage":  "top32",
-                        "lead":  {
-                                     "seed":  11,
-                                     "name":  "freeeze",
-                                     "car":  "Bdc V6 0 Zenki",
-                                     "number":  "11",
-                                     "country":  "RU",
-                                     "quali_score":  78
-                                 },
-                        "chase":  {
-                                      "seed":  "—",
-                                      "name":  "BYE-RUN (АВТОПРОХОД)",
-                                      "car":  "Технический автопроход",
-                                      "number":  "BYE",
-                                      "country":  "RU",
-                                      "is_placeholder":  true
-                                  },
-                        "winner":  "lead",
-                        "status":  "finished",
-                        "judges":  [
-                                       {
-                                           "name":  "С1",
-                                           "vote":  "lead"
-                                       },
-                                       {
-                                           "name":  "С2",
-                                           "vote":  "lead"
-                                       },
-                                       {
-                                           "name":  "С3",
-                                           "vote":  "lead"
-                                       }
-                                   ]
-                    }
-                ],
-    "battles_top16":  [
-                          {
-                              "id":  101,
-                              "pair_num":  1,
-                              "bracket":  "left",
-                              "stage":  "top16",
-                              "lead":  {
-                                           "seed":  1,
-                                           "name":  "Sergey Primo",
-                                           "car":  "Bdc V6 0 Rps13",
-                                           "number":  "1",
-                                           "country":  "RU",
-                                           "quali_score":  98,
-                                           "is_placeholder":  false
-                                       },
-                              "chase":  {
-                                            "seed":  "—",
-                                            "name":  "BYE-RUN (АВТОПРОХОД)",
-                                            "car":  "Технический автопроход",
-                                            "number":  "BYE",
-                                            "is_placeholder":  true
-                                        },
-                              "winner":  "lead",
-                              "status":  "finished",
-                              "judges":  [
-                                             {
-                                                 "name":  "С1",
-                                                 "vote":  "lead"
-                                             },
-                                             {
-                                                 "name":  "С2",
-                                                 "vote":  "lead"
-                                             },
-                                             {
-                                                 "name":  "С3",
-                                                 "vote":  "lead"
-                                             }
-                                         ]
-                          },
-                          {
-                              "id":  102,
-                              "pair_num":  2,
-                              "bracket":  "left",
-                              "stage":  "top16",
-                              "lead":  {
-                                           "seed":  8,
-                                           "name":  "Istratiy Dima #99",
-                                           "car":  "Bdc V6 0 E46",
-                                           "number":  "8",
-                                           "country":  "RU",
-                                           "quali_score":  85.5,
-                                           "is_placeholder":  false
-                                       },
-                              "chase":  {
-                                            "seed":  9,
-                                            "name":  "Marat Avanesov",
-                                            "car":  "Bdc V6 0 Ps13",
-                                            "number":  "9",
-                                            "country":  "RU",
-                                            "quali_score":  83,
-                                            "is_placeholder":  false
-                                        },
-                              "winner":  null,
-                              "status":  "live",
-                              "judges":  [
-                                             {
-                                                 "name":  "С1",
-                                                 "vote":  null
-                                             },
-                                             {
-                                                 "name":  "С2",
-                                                 "vote":  null
-                                             },
-                                             {
-                                                 "name":  "С3",
-                                                 "vote":  null
-                                             }
-                                         ],
-                              "pair_title":  "ТОП-16 • ХИТ #2"
-                          },
-                          {
-                              "id":  103,
-                              "pair_num":  3,
-                              "bracket":  "left",
-                              "stage":  "top16",
-                              "lead":  {
-                                           "seed":  4,
-                                           "name":  "Georgi Nedelchev",
-                                           "car":  "Bdc V6 0 Mark2",
-                                           "number":  "4",
-                                           "country":  "RU",
-                                           "quali_score":  93.5,
-                                           "is_placeholder":  false
-                                       },
-                              "chase":  {
-                                            "seed":  "—",
-                                            "name":  "BYE-RUN (АВТОПРОХОД)",
-                                            "car":  "Технический автопроход",
-                                            "number":  "BYE",
-                                            "is_placeholder":  true
-                                        },
-                              "winner":  "lead",
-                              "status":  "finished",
-                              "judges":  [
-                                             {
-                                                 "name":  "С1",
-                                                 "vote":  "lead"
-                                             },
-                                             {
-                                                 "name":  "С2",
-                                                 "vote":  "lead"
-                                             },
-                                             {
-                                                 "name":  "С3",
-                                                 "vote":  "lead"
-                                             }
-                                         ]
-                          },
-                          {
-                              "id":  104,
-                              "pair_num":  4,
-                              "bracket":  "left",
-                              "stage":  "top16",
-                              "lead":  {
-                                           "seed":  5,
-                                           "name":  "Nikolay Kraevskiy",
-                                           "car":  "Bdc V6 0 Newedge",
-                                           "number":  "5",
-                                           "country":  "RU",
-                                           "quali_score":  91.5,
-                                           "is_placeholder":  false
-                                       },
-                              "chase":  {
-                                            "seed":  "—",
-                                            "name":  "BYE-RUN (АВТОПРОХОД)",
-                                            "car":  "Технический автопроход",
-                                            "number":  "BYE",
-                                            "is_placeholder":  true
-                                        },
-                              "winner":  "lead",
-                              "status":  "finished",
-                              "judges":  [
-                                             {
-                                                 "name":  "С1",
-                                                 "vote":  "lead"
-                                             },
-                                             {
-                                                 "name":  "С2",
-                                                 "vote":  "lead"
-                                             },
-                                             {
-                                                 "name":  "С3",
-                                                 "vote":  "lead"
-                                             }
-                                         ]
-                          },
-                          {
-                              "id":  105,
-                              "pair_num":  5,
-                              "bracket":  "right",
-                              "stage":  "top16",
-                              "lead":  {
-                                           "seed":  2,
-                                           "name":  "SENSEI",
-                                           "car":  "Bdc V6 0 350Z",
-                                           "number":  "2",
-                                           "country":  "RU",
-                                           "quali_score":  96.5,
-                                           "is_placeholder":  false
-                                       },
-                              "chase":  {
-                                            "seed":  "—",
-                                            "name":  "BYE-RUN (АВТОПРОХОД)",
-                                            "car":  "Технический автопроход",
-                                            "number":  "BYE",
-                                            "is_placeholder":  true
-                                        },
-                              "winner":  "lead",
-                              "status":  "finished",
-                              "judges":  [
-                                             {
-                                                 "name":  "С1",
-                                                 "vote":  "lead"
-                                             },
-                                             {
-                                                 "name":  "С2",
-                                                 "vote":  "lead"
-                                             },
-                                             {
-                                                 "name":  "С3",
-                                                 "vote":  "lead"
-                                             }
-                                         ]
-                          },
-                          {
-                              "id":  106,
-                              "pair_num":  6,
-                              "bracket":  "right",
-                              "stage":  "top16",
-                              "lead":  {
-                                           "seed":  7,
-                                           "name":  "Oleg Shpiner | Fools Raci",
-                                           "car":  "Bdc V6 0 S13 Bn",
-                                           "number":  "7",
-                                           "country":  "RU",
-                                           "quali_score":  87.5,
-                                           "is_placeholder":  false
-                                       },
-                              "chase":  {
-                                            "seed":  10,
-                                            "name":  "Kuloff04",
-                                            "car":  "Bdc V6 0 S14 Kouki",
-                                            "number":  "10",
-                                            "country":  "RU",
-                                            "quali_score":  80.5,
-                                            "is_placeholder":  false
-                                        },
-                              "winner":  null,
-                              "status":  "upcoming",
-                              "judges":  [
-                                             {
-                                                 "name":  "С1",
-                                                 "vote":  null
-                                             },
-                                             {
-                                                 "name":  "С2",
-                                                 "vote":  null
-                                             },
-                                             {
-                                                 "name":  "С3",
-                                                 "vote":  null
-                                             }
-                                         ],
-                              "pair_title":  "ТОП-16 • ХИТ #6"
-                          },
-                          {
-                              "id":  107,
-                              "pair_num":  7,
-                              "bracket":  "right",
-                              "stage":  "top16",
-                              "lead":  {
-                                           "seed":  3,
-                                           "name":  "Mikhail Yakutovich",
-                                           "car":  "Bdc V6 0 E36",
-                                           "number":  "3",
-                                           "country":  "RU",
-                                           "quali_score":  95,
-                                           "is_placeholder":  false
-                                       },
-                              "chase":  {
-                                            "seed":  "—",
-                                            "name":  "BYE-RUN (АВТОПРОХОД)",
-                                            "car":  "Технический автопроход",
-                                            "number":  "BYE",
-                                            "is_placeholder":  true
-                                        },
-                              "winner":  "lead",
-                              "status":  "finished",
-                              "judges":  [
-                                             {
-                                                 "name":  "С1",
-                                                 "vote":  "lead"
-                                             },
-                                             {
-                                                 "name":  "С2",
-                                                 "vote":  "lead"
-                                             },
-                                             {
-                                                 "name":  "С3",
-                                                 "vote":  "lead"
-                                             }
-                                         ]
-                          },
-                          {
-                              "id":  108,
-                              "pair_num":  8,
-                              "bracket":  "right",
-                              "stage":  "top16",
-                              "lead":  {
-                                           "seed":  6,
-                                           "name":  "Nikita Yaparov",
-                                           "car":  "Bdc V6 0 S13 Onevia",
-                                           "number":  "6",
-                                           "country":  "RU",
-                                           "quali_score":  89.5,
-                                           "is_placeholder":  false
-                                       },
-                              "chase":  {
-                                            "seed":  11,
-                                            "name":  "freeeze",
-                                            "car":  "Bdc V6 0 Zenki",
-                                            "number":  "11",
-                                            "country":  "RU",
-                                            "quali_score":  78,
-                                            "is_placeholder":  false
-                                        },
-                              "winner":  null,
-                              "status":  "upcoming",
-                              "judges":  [
-                                             {
-                                                 "name":  "С1",
-                                                 "vote":  null
-                                             },
-                                             {
-                                                 "name":  "С2",
-                                                 "vote":  null
-                                             },
-                                             {
-                                                 "name":  "С3",
-                                                 "vote":  null
-                                             }
-                                         ],
-                              "pair_title":  "ТОП-16 • ХИТ #8"
-                          }
-                      ],
-    "battles_top8":  [
-                         {
-                             "id":  201,
-                             "pair_num":  1,
-                             "bracket":  "left",
-                             "stage":  "top8",
-                             "lead":  {
-                                          "seed":  1,
-                                          "name":  "Sergey Primo",
-                                          "car":  "Bdc V6 0 Rps13",
-                                          "number":  "1",
-                                          "country":  "RU",
-                                          "quali_score":  98
-                                      },
-                             "chase":  {
-                                           "seed":  "—",
-                                           "name":  "Победитель Хит 2 (ТОП-16)",
-                                           "car":  "Ожидание заезда",
-                                           "number":  "—",
-                                           "country":  "RU",
-                                           "is_placeholder":  true
-                                       },
-                             "winner":  null,
-                             "status":  "upcoming",
-                             "judges":  [
-                                            {
-                                                "name":  "С1",
-                                                "vote":  null
-                                            },
-                                            {
-                                                "name":  "С2",
-                                                "vote":  null
-                                            },
-                                            {
-                                                "name":  "С3",
-                                                "vote":  null
-                                            }
-                                        ]
-                         },
-                         {
-                             "id":  202,
-                             "pair_num":  2,
-                             "bracket":  "left",
-                             "stage":  "top8",
-                             "lead":  {
-                                          "seed":  4,
-                                          "name":  "Georgi Nedelchev",
-                                          "car":  "Bdc V6 0 Mark2",
-                                          "number":  "4",
-                                          "country":  "RU",
-                                          "quali_score":  93.5
-                                      },
-                             "chase":  {
-                                           "seed":  5,
-                                           "name":  "Nikolay Kraevskiy",
-                                           "car":  "Bdc V6 0 Newedge",
-                                           "number":  "5",
-                                           "country":  "RU",
-                                           "quali_score":  91.5
-                                       },
-                             "winner":  null,
-                             "status":  "upcoming",
-                             "judges":  [
-                                            {
-                                                "name":  "С1",
-                                                "vote":  null
-                                            },
-                                            {
-                                                "name":  "С2",
-                                                "vote":  null
-                                            },
-                                            {
-                                                "name":  "С3",
-                                                "vote":  null
-                                            }
-                                        ]
-                         },
-                         {
-                             "id":  203,
-                             "pair_num":  3,
-                             "bracket":  "right",
-                             "stage":  "top8",
-                             "lead":  {
-                                          "seed":  2,
-                                          "name":  "SENSEI",
-                                          "car":  "Bdc V6 0 350Z",
-                                          "number":  "2",
-                                          "country":  "RU",
-                                          "quali_score":  96.5
-                                      },
-                             "chase":  {
-                                           "seed":  "—",
-                                           "name":  "Победитель Хит 6 (ТОП-16)",
-                                           "car":  "Ожидание заезда",
-                                           "number":  "—",
-                                           "country":  "RU",
-                                           "is_placeholder":  true
-                                       },
-                             "winner":  null,
-                             "status":  "upcoming",
-                             "judges":  [
-                                            {
-                                                "name":  "С1",
-                                                "vote":  null
-                                            },
-                                            {
-                                                "name":  "С2",
-                                                "vote":  null
-                                            },
-                                            {
-                                                "name":  "С3",
-                                                "vote":  null
-                                            }
-                                        ]
-                         },
-                         {
-                             "id":  204,
-                             "pair_num":  4,
-                             "bracket":  "right",
-                             "stage":  "top8",
-                             "lead":  {
-                                          "seed":  3,
-                                          "name":  "Mikhail Yakutovich",
-                                          "car":  "Bdc V6 0 E36",
-                                          "number":  "3",
-                                          "country":  "RU",
-                                          "quali_score":  95
-                                      },
-                             "chase":  {
-                                           "seed":  "—",
-                                           "name":  "Победитель Хит 8 (ТОП-16)",
-                                           "car":  "Ожидание заезда",
-                                           "number":  "—",
-                                           "country":  "RU",
-                                           "is_placeholder":  true
-                                       },
-                             "winner":  null,
-                             "status":  "upcoming",
-                             "judges":  [
-                                            {
-                                                "name":  "С1",
-                                                "vote":  null
-                                            },
-                                            {
-                                                "name":  "С2",
-                                                "vote":  null
-                                            },
-                                            {
-                                                "name":  "С3",
-                                                "vote":  null
-                                            }
-                                        ]
-                         }
-                     ],
-    "battles_top4":  [
-                         {
-                             "id":  301,
-                             "pair_num":  1,
-                             "bracket":  "left",
-                             "stage":  "semifinal",
-                             "pair_title":  "ПОЛУФИНАЛ 1",
-                             "lead":  {
-                                          "seed":  "—",
-                                          "name":  "Победитель ТОП-8 #1",
-                                          "car":  "Ожидание заезда",
-                                          "is_placeholder":  true
-                                      },
-                             "chase":  {
-                                           "seed":  "—",
-                                           "name":  "Победитель ТОП-8 #2",
-                                           "car":  "Ожидание заезда",
-                                           "is_placeholder":  true
-                                       },
-                             "winner":  null,
-                             "status":  "waiting",
-                             "judges":  [
-                                            {
-                                                "name":  "С1",
-                                                "vote":  null
-                                            },
-                                            {
-                                                "name":  "С2",
-                                                "vote":  null
-                                            },
-                                            {
-                                                "name":  "С3",
-                                                "vote":  null
-                                            }
-                                        ]
-                         },
-                         {
-                             "id":  302,
-                             "pair_num":  2,
-                             "bracket":  "right",
-                             "stage":  "semifinal",
-                             "pair_title":  "ПОЛУФИНАЛ 2",
-                             "lead":  {
-                                          "seed":  "—",
-                                          "name":  "Победитель ТОП-8 #3",
-                                          "car":  "Ожидание заезда",
-                                          "is_placeholder":  true
-                                      },
-                             "chase":  {
-                                           "seed":  "—",
-                                           "name":  "Победитель ТОП-8 #4",
-                                           "car":  "Ожидание заезда",
-                                           "is_placeholder":  true
-                                       },
-                             "winner":  null,
-                             "status":  "waiting",
-                             "judges":  [
-                                            {
-                                                "name":  "С1",
-                                                "vote":  null
-                                            },
-                                            {
-                                                "name":  "С2",
-                                                "vote":  null
-                                            },
-                                            {
-                                                "name":  "С3",
-                                                "vote":  null
-                                            }
-                                        ]
-                         },
-                         {
-                             "id":  303,
-                             "pair_num":  3,
-                             "bracket":  "left",
-                             "stage":  "bronze",
-                             "pair_title":  "🥉 ЗАЕЗД ЗА 3-Е МЕСТО (БРОНЗА)",
-                             "lead":  {
-                                          "seed":  "—",
-                                          "name":  "Проигравший ПФ 1",
-                                          "car":  "Ожидание заезда",
-                                          "is_placeholder":  true
-                                      },
-                             "chase":  {
-                                           "seed":  "—",
-                                           "name":  "Проигравший ПФ 2",
-                                           "car":  "Ожидание заезда",
-                                           "is_placeholder":  true
-                                       },
-                             "winner":  null,
-                             "status":  "waiting",
-                             "judges":  [
-                                            {
-                                                "name":  "С1",
-                                                "vote":  null
-                                            },
-                                            {
-                                                "name":  "С2",
-                                                "vote":  null
-                                            },
-                                            {
-                                                "name":  "С3",
-                                                "vote":  null
-                                            }
-                                        ]
-                         },
-                         {
-                             "id":  304,
-                             "pair_num":  4,
-                             "bracket":  "right",
-                             "stage":  "final",
-                             "pair_title":  "🥇 ГЛАВНЫЙ ФИНАЛ (1-Е И 2-Е МЕСТО) 🏆",
-                             "lead":  {
-                                          "seed":  "—",
-                                          "name":  "Победитель ПФ 1",
-                                          "car":  "Ожидание заезда",
-                                          "is_placeholder":  true
-                                      },
-                             "chase":  {
-                                           "seed":  "—",
-                                           "name":  "Победитель ПФ 2",
-                                           "car":  "Ожидание заезда",
-                                           "is_placeholder":  true
-                                       },
-                             "winner":  null,
-                             "status":  "waiting",
-                             "judges":  [
-                                            {
-                                                "name":  "С1",
-                                                "vote":  null
-                                            },
-                                            {
-                                                "name":  "С2",
-                                                "vote":  null
-                                            },
-                                            {
-                                                "name":  "С3",
-                                                "vote":  null
-                                            }
-                                        ]
-                         }
-                     ],
-    "quali_calc_mode":  "best",
-    "tournament_title":  "GAZDERZHIM DRIFT CUP 2026",
-    "intro_settings":  {
-                           "tournamentTitle":  "GAZDERZHIM DRIFT CUP 2026",
-                           "tournamentSub":  "OFFICIAL ASSETTO CORSA ESPORTS - LIVE STAGE",
-                           "statusText":  "ПРЕДЭФИРНЫЙ РАЗОГРЕВ",
-                           "layout":  "split-left",
-                           "timerMinutes":  10,
-                           "timerSeconds":  600,
-                           "timerTargetTimestamp":  1793412465187,
-                           "timerPaused":  false,
-                           "bgTransparent":  true,
-                           "showBattle":  true,
-                           "showPilot":  true,
-                           "showQr":  true,
-                           "showTicker":  true,
-                           "lastUpdated":  1793411865187
-                       }
+{
+  "tournament_name": "RDS GP / DRIFT BATTLE CHAMPIONSHIP",
+  "badge_text": "ГАЗДЕРЖИМ.РФ",
+  "badge_brand": "ГАЗДЕРЖИМ",
+  "badge_domain": "РФ",
+  "badge_logo": "",
+  "public_url": "https://sergeyprimo.github.io/top32/",
+  "stage": "top32",
+  "active_battle_id": 1,
+  "google_sheet_url": "",
+  "last_updated": 1793421994282,
+  "judges_names": [
+    "Судья 1 (Траектория)",
+    "Судья 2 (Угол)",
+    "Судья 3 (Стиль/Темп)"
+  ],
+  "qualification": [
+    {
+      "rank": 1,
+      "seed": 1,
+      "name": "",
+      "car": "",
+      "number": "1",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 2,
+      "seed": 2,
+      "name": "",
+      "car": "",
+      "number": "2",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 3,
+      "seed": 3,
+      "name": "",
+      "car": "",
+      "number": "3",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 4,
+      "seed": 4,
+      "name": "",
+      "car": "",
+      "number": "4",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 5,
+      "seed": 5,
+      "name": "",
+      "car": "",
+      "number": "5",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 6,
+      "seed": 6,
+      "name": "",
+      "car": "",
+      "number": "6",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 7,
+      "seed": 7,
+      "name": "",
+      "car": "",
+      "number": "7",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 8,
+      "seed": 8,
+      "name": "",
+      "car": "",
+      "number": "8",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 9,
+      "seed": 9,
+      "name": "",
+      "car": "",
+      "number": "9",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 10,
+      "seed": 10,
+      "name": "",
+      "car": "",
+      "number": "10",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 11,
+      "seed": 11,
+      "name": "",
+      "car": "",
+      "number": "11",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 12,
+      "seed": 12,
+      "name": "",
+      "car": "",
+      "number": "12",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 13,
+      "seed": 13,
+      "name": "",
+      "car": "",
+      "number": "13",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 14,
+      "seed": 14,
+      "name": "",
+      "car": "",
+      "number": "14",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 15,
+      "seed": 15,
+      "name": "",
+      "car": "",
+      "number": "15",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 16,
+      "seed": 16,
+      "name": "",
+      "car": "",
+      "number": "16",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 17,
+      "seed": 17,
+      "name": "",
+      "car": "",
+      "number": "17",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 18,
+      "seed": 18,
+      "name": "",
+      "car": "",
+      "number": "18",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 19,
+      "seed": 19,
+      "name": "",
+      "car": "",
+      "number": "19",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 20,
+      "seed": 20,
+      "name": "",
+      "car": "",
+      "number": "20",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 21,
+      "seed": 21,
+      "name": "",
+      "car": "",
+      "number": "21",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 22,
+      "seed": 22,
+      "name": "",
+      "car": "",
+      "number": "22",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 23,
+      "seed": 23,
+      "name": "",
+      "car": "",
+      "number": "23",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 24,
+      "seed": 24,
+      "name": "",
+      "car": "",
+      "number": "24",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 25,
+      "seed": 25,
+      "name": "",
+      "car": "",
+      "number": "25",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 26,
+      "seed": 26,
+      "name": "",
+      "car": "",
+      "number": "26",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 27,
+      "seed": 27,
+      "name": "",
+      "car": "",
+      "number": "27",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 28,
+      "seed": 28,
+      "name": "",
+      "car": "",
+      "number": "28",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 29,
+      "seed": 29,
+      "name": "",
+      "car": "",
+      "number": "29",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 30,
+      "seed": 30,
+      "name": "",
+      "car": "",
+      "number": "30",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 31,
+      "seed": 31,
+      "name": "",
+      "car": "",
+      "number": "31",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    },
+    {
+      "rank": 32,
+      "seed": 32,
+      "name": "",
+      "car": "",
+      "number": "32",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "status": "pending",
+      "is_placeholder": true
+    }
+  ],
+  "battles": [
+    {
+      "id": 1,
+      "pair_num": 1,
+      "bracket": "left",
+      "stage": "top32",
+      "lead": {
+        "seed": 1,
+        "name": "Sergey Primo",
+        "car": "Bdc V6 0 Rps13",
+        "number": "1",
+        "country": "RU",
+        "quali_score": 98
+      },
+      "chase": {
+        "seed": "—",
+        "name": "BYE-RUN (АВТОПРОХОД)",
+        "car": "Технический автопроход",
+        "number": "BYE",
+        "country": "RU",
+        "is_placeholder": true
+      },
+      "winner": "lead",
+      "status": "finished",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": "lead"
+        },
+        {
+          "name": "С2",
+          "vote": "lead"
+        },
+        {
+          "name": "С3",
+          "vote": "lead"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "pair_num": 2,
+      "bracket": "left",
+      "stage": "top32",
+      "lead": {
+        "seed": "—",
+        "name": "ОЖИДАНИЕ ПИЛОТА",
+        "car": "---",
+        "number": "—",
+        "country": "RU",
+        "is_placeholder": true
+      },
+      "chase": {
+        "seed": "—",
+        "name": "ОЖИДАНИЕ ПИЛОТА",
+        "car": "---",
+        "number": "—",
+        "country": "RU",
+        "is_placeholder": true
+      },
+      "winner": null,
+      "status": "waiting",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": null
+        },
+        {
+          "name": "С2",
+          "vote": null
+        },
+        {
+          "name": "С3",
+          "vote": null
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "pair_num": 3,
+      "bracket": "left",
+      "stage": "top32",
+      "lead": {
+        "seed": 8,
+        "name": "Istratiy Dima #99",
+        "car": "Bdc V6 0 E46",
+        "number": "8",
+        "country": "RU",
+        "quali_score": 85.5
+      },
+      "chase": {
+        "seed": "—",
+        "name": "BYE-RUN (АВТОПРОХОД)",
+        "car": "Технический автопроход",
+        "number": "BYE",
+        "country": "RU",
+        "is_placeholder": true
+      },
+      "winner": "lead",
+      "status": "finished",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": "lead"
+        },
+        {
+          "name": "С2",
+          "vote": "lead"
+        },
+        {
+          "name": "С3",
+          "vote": "lead"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "pair_num": 4,
+      "bracket": "left",
+      "stage": "top32",
+      "lead": {
+        "seed": 9,
+        "name": "Marat Avanesov",
+        "car": "Bdc V6 0 Ps13",
+        "number": "9",
+        "country": "RU",
+        "quali_score": 83
+      },
+      "chase": {
+        "seed": "—",
+        "name": "BYE-RUN (АВТОПРОХОД)",
+        "car": "Технический автопроход",
+        "number": "BYE",
+        "country": "RU",
+        "is_placeholder": true
+      },
+      "winner": "lead",
+      "status": "finished",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": "lead"
+        },
+        {
+          "name": "С2",
+          "vote": "lead"
+        },
+        {
+          "name": "С3",
+          "vote": "lead"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "pair_num": 5,
+      "bracket": "left",
+      "stage": "top32",
+      "lead": {
+        "seed": 4,
+        "name": "Georgi Nedelchev",
+        "car": "Bdc V6 0 Mark2",
+        "number": "4",
+        "country": "RU",
+        "quali_score": 93.5
+      },
+      "chase": {
+        "seed": "—",
+        "name": "BYE-RUN (АВТОПРОХОД)",
+        "car": "Технический автопроход",
+        "number": "BYE",
+        "country": "RU",
+        "is_placeholder": true
+      },
+      "winner": "lead",
+      "status": "finished",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": "lead"
+        },
+        {
+          "name": "С2",
+          "vote": "lead"
+        },
+        {
+          "name": "С3",
+          "vote": "lead"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "pair_num": 6,
+      "bracket": "left",
+      "stage": "top32",
+      "lead": {
+        "seed": "—",
+        "name": "ОЖИДАНИЕ ПИЛОТА",
+        "car": "---",
+        "number": "—",
+        "country": "RU",
+        "is_placeholder": true
+      },
+      "chase": {
+        "seed": "—",
+        "name": "ОЖИДАНИЕ ПИЛОТА",
+        "car": "---",
+        "number": "—",
+        "country": "RU",
+        "is_placeholder": true
+      },
+      "winner": null,
+      "status": "waiting",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": null
+        },
+        {
+          "name": "С2",
+          "vote": null
+        },
+        {
+          "name": "С3",
+          "vote": null
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "pair_num": 7,
+      "bracket": "left",
+      "stage": "top32",
+      "lead": {
+        "seed": 5,
+        "name": "Nikolay Kraevskiy",
+        "car": "Bdc V6 0 Newedge",
+        "number": "5",
+        "country": "RU",
+        "quali_score": 91.5
+      },
+      "chase": {
+        "seed": "—",
+        "name": "BYE-RUN (АВТОПРОХОД)",
+        "car": "Технический автопроход",
+        "number": "BYE",
+        "country": "RU",
+        "is_placeholder": true
+      },
+      "winner": "lead",
+      "status": "finished",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": "lead"
+        },
+        {
+          "name": "С2",
+          "vote": "lead"
+        },
+        {
+          "name": "С3",
+          "vote": "lead"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "pair_num": 8,
+      "bracket": "left",
+      "stage": "top32",
+      "lead": {
+        "seed": "—",
+        "name": "ОЖИДАНИЕ ПИЛОТА",
+        "car": "---",
+        "number": "—",
+        "country": "RU",
+        "is_placeholder": true
+      },
+      "chase": {
+        "seed": "—",
+        "name": "ОЖИДАНИЕ ПИЛОТА",
+        "car": "---",
+        "number": "—",
+        "country": "RU",
+        "is_placeholder": true
+      },
+      "winner": null,
+      "status": "waiting",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": null
+        },
+        {
+          "name": "С2",
+          "vote": null
+        },
+        {
+          "name": "С3",
+          "vote": null
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "pair_num": 9,
+      "bracket": "right",
+      "stage": "top32",
+      "lead": {
+        "seed": 2,
+        "name": "SENSEI",
+        "car": "Bdc V6 0 350Z",
+        "number": "2",
+        "country": "RU",
+        "quali_score": 96.5
+      },
+      "chase": {
+        "seed": "—",
+        "name": "BYE-RUN (АВТОПРОХОД)",
+        "car": "Технический автопроход",
+        "number": "BYE",
+        "country": "RU",
+        "is_placeholder": true
+      },
+      "winner": "lead",
+      "status": "finished",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": "lead"
+        },
+        {
+          "name": "С2",
+          "vote": "lead"
+        },
+        {
+          "name": "С3",
+          "vote": "lead"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "pair_num": 10,
+      "bracket": "right",
+      "stage": "top32",
+      "lead": {
+        "seed": "—",
+        "name": "ОЖИДАНИЕ ПИЛОТА",
+        "car": "---",
+        "number": "—",
+        "country": "RU",
+        "is_placeholder": true
+      },
+      "chase": {
+        "seed": "—",
+        "name": "ОЖИДАНИЕ ПИЛОТА",
+        "car": "---",
+        "number": "—",
+        "country": "RU",
+        "is_placeholder": true
+      },
+      "winner": null,
+      "status": "waiting",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": null
+        },
+        {
+          "name": "С2",
+          "vote": null
+        },
+        {
+          "name": "С3",
+          "vote": null
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "pair_num": 11,
+      "bracket": "right",
+      "stage": "top32",
+      "lead": {
+        "seed": 7,
+        "name": "Oleg Shpiner | Fools Raci",
+        "car": "Bdc V6 0 S13 Bn",
+        "number": "7",
+        "country": "RU",
+        "quali_score": 87.5
+      },
+      "chase": {
+        "seed": "—",
+        "name": "BYE-RUN (АВТОПРОХОД)",
+        "car": "Технический автопроход",
+        "number": "BYE",
+        "country": "RU",
+        "is_placeholder": true
+      },
+      "winner": "lead",
+      "status": "finished",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": "lead"
+        },
+        {
+          "name": "С2",
+          "vote": "lead"
+        },
+        {
+          "name": "С3",
+          "vote": "lead"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "pair_num": 12,
+      "bracket": "right",
+      "stage": "top32",
+      "lead": {
+        "seed": 10,
+        "name": "Kuloff04",
+        "car": "Bdc V6 0 S14 Kouki",
+        "number": "10",
+        "country": "RU",
+        "quali_score": 80.5
+      },
+      "chase": {
+        "seed": "—",
+        "name": "BYE-RUN (АВТОПРОХОД)",
+        "car": "Технический автопроход",
+        "number": "BYE",
+        "country": "RU",
+        "is_placeholder": true
+      },
+      "winner": "lead",
+      "status": "finished",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": "lead"
+        },
+        {
+          "name": "С2",
+          "vote": "lead"
+        },
+        {
+          "name": "С3",
+          "vote": "lead"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "pair_num": 13,
+      "bracket": "right",
+      "stage": "top32",
+      "lead": {
+        "seed": 3,
+        "name": "Mikhail Yakutovich",
+        "car": "Bdc V6 0 E36",
+        "number": "3",
+        "country": "RU",
+        "quali_score": 95
+      },
+      "chase": {
+        "seed": "—",
+        "name": "BYE-RUN (АВТОПРОХОД)",
+        "car": "Технический автопроход",
+        "number": "BYE",
+        "country": "RU",
+        "is_placeholder": true
+      },
+      "winner": "lead",
+      "status": "finished",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": "lead"
+        },
+        {
+          "name": "С2",
+          "vote": "lead"
+        },
+        {
+          "name": "С3",
+          "vote": "lead"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "pair_num": 14,
+      "bracket": "right",
+      "stage": "top32",
+      "lead": {
+        "seed": "—",
+        "name": "ОЖИДАНИЕ ПИЛОТА",
+        "car": "---",
+        "number": "—",
+        "country": "RU",
+        "is_placeholder": true
+      },
+      "chase": {
+        "seed": "—",
+        "name": "ОЖИДАНИЕ ПИЛОТА",
+        "car": "---",
+        "number": "—",
+        "country": "RU",
+        "is_placeholder": true
+      },
+      "winner": null,
+      "status": "waiting",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": null
+        },
+        {
+          "name": "С2",
+          "vote": null
+        },
+        {
+          "name": "С3",
+          "vote": null
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "pair_num": 15,
+      "bracket": "right",
+      "stage": "top32",
+      "lead": {
+        "seed": 6,
+        "name": "Nikita Yaparov",
+        "car": "Bdc V6 0 S13 Onevia",
+        "number": "6",
+        "country": "RU",
+        "quali_score": 89.5
+      },
+      "chase": {
+        "seed": "—",
+        "name": "BYE-RUN (АВТОПРОХОД)",
+        "car": "Технический автопроход",
+        "number": "BYE",
+        "country": "RU",
+        "is_placeholder": true
+      },
+      "winner": "lead",
+      "status": "finished",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": "lead"
+        },
+        {
+          "name": "С2",
+          "vote": "lead"
+        },
+        {
+          "name": "С3",
+          "vote": "lead"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "pair_num": 16,
+      "bracket": "right",
+      "stage": "top32",
+      "lead": {
+        "seed": 11,
+        "name": "freeeze",
+        "car": "Bdc V6 0 Zenki",
+        "number": "11",
+        "country": "RU",
+        "quali_score": 78
+      },
+      "chase": {
+        "seed": "—",
+        "name": "BYE-RUN (АВТОПРОХОД)",
+        "car": "Технический автопроход",
+        "number": "BYE",
+        "country": "RU",
+        "is_placeholder": true
+      },
+      "winner": "lead",
+      "status": "finished",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": "lead"
+        },
+        {
+          "name": "С2",
+          "vote": "lead"
+        },
+        {
+          "name": "С3",
+          "vote": "lead"
+        }
+      ]
+    }
+  ],
+  "battles_top16": [
+    {
+      "id": 101,
+      "pair_num": 1,
+      "bracket": "left",
+      "stage": "top16",
+      "lead": {
+        "seed": 1,
+        "name": "Sergey Primo",
+        "car": "Bdc V6 0 Rps13",
+        "number": "1",
+        "country": "RU",
+        "quali_score": 98,
+        "is_placeholder": false
+      },
+      "chase": {
+        "seed": "—",
+        "name": "BYE-RUN (АВТОПРОХОД)",
+        "car": "Технический автопроход",
+        "number": "BYE",
+        "is_placeholder": true
+      },
+      "winner": "lead",
+      "status": "finished",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": "lead"
+        },
+        {
+          "name": "С2",
+          "vote": "lead"
+        },
+        {
+          "name": "С3",
+          "vote": "lead"
+        }
+      ]
+    },
+    {
+      "id": 102,
+      "pair_num": 2,
+      "bracket": "left",
+      "stage": "top16",
+      "lead": {
+        "seed": 8,
+        "name": "Istratiy Dima #99",
+        "car": "Bdc V6 0 E46",
+        "number": "8",
+        "country": "RU",
+        "quali_score": 85.5,
+        "is_placeholder": false
+      },
+      "chase": {
+        "seed": 9,
+        "name": "Marat Avanesov",
+        "car": "Bdc V6 0 Ps13",
+        "number": "9",
+        "country": "RU",
+        "quali_score": 83,
+        "is_placeholder": false
+      },
+      "winner": null,
+      "status": "live",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": null
+        },
+        {
+          "name": "С2",
+          "vote": null
+        },
+        {
+          "name": "С3",
+          "vote": null
+        }
+      ],
+      "pair_title": "ТОП-16 • ХИТ #2"
+    },
+    {
+      "id": 103,
+      "pair_num": 3,
+      "bracket": "left",
+      "stage": "top16",
+      "lead": {
+        "seed": 4,
+        "name": "Georgi Nedelchev",
+        "car": "Bdc V6 0 Mark2",
+        "number": "4",
+        "country": "RU",
+        "quali_score": 93.5,
+        "is_placeholder": false
+      },
+      "chase": {
+        "seed": "—",
+        "name": "BYE-RUN (АВТОПРОХОД)",
+        "car": "Технический автопроход",
+        "number": "BYE",
+        "is_placeholder": true
+      },
+      "winner": "lead",
+      "status": "finished",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": "lead"
+        },
+        {
+          "name": "С2",
+          "vote": "lead"
+        },
+        {
+          "name": "С3",
+          "vote": "lead"
+        }
+      ]
+    },
+    {
+      "id": 104,
+      "pair_num": 4,
+      "bracket": "left",
+      "stage": "top16",
+      "lead": {
+        "seed": 5,
+        "name": "Nikolay Kraevskiy",
+        "car": "Bdc V6 0 Newedge",
+        "number": "5",
+        "country": "RU",
+        "quali_score": 91.5,
+        "is_placeholder": false
+      },
+      "chase": {
+        "seed": "—",
+        "name": "BYE-RUN (АВТОПРОХОД)",
+        "car": "Технический автопроход",
+        "number": "BYE",
+        "is_placeholder": true
+      },
+      "winner": "lead",
+      "status": "finished",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": "lead"
+        },
+        {
+          "name": "С2",
+          "vote": "lead"
+        },
+        {
+          "name": "С3",
+          "vote": "lead"
+        }
+      ]
+    },
+    {
+      "id": 105,
+      "pair_num": 5,
+      "bracket": "right",
+      "stage": "top16",
+      "lead": {
+        "seed": 2,
+        "name": "SENSEI",
+        "car": "Bdc V6 0 350Z",
+        "number": "2",
+        "country": "RU",
+        "quali_score": 96.5,
+        "is_placeholder": false
+      },
+      "chase": {
+        "seed": "—",
+        "name": "BYE-RUN (АВТОПРОХОД)",
+        "car": "Технический автопроход",
+        "number": "BYE",
+        "is_placeholder": true
+      },
+      "winner": "lead",
+      "status": "finished",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": "lead"
+        },
+        {
+          "name": "С2",
+          "vote": "lead"
+        },
+        {
+          "name": "С3",
+          "vote": "lead"
+        }
+      ]
+    },
+    {
+      "id": 106,
+      "pair_num": 6,
+      "bracket": "right",
+      "stage": "top16",
+      "lead": {
+        "seed": 7,
+        "name": "Oleg Shpiner | Fools Raci",
+        "car": "Bdc V6 0 S13 Bn",
+        "number": "7",
+        "country": "RU",
+        "quali_score": 87.5,
+        "is_placeholder": false
+      },
+      "chase": {
+        "seed": 10,
+        "name": "Kuloff04",
+        "car": "Bdc V6 0 S14 Kouki",
+        "number": "10",
+        "country": "RU",
+        "quali_score": 80.5,
+        "is_placeholder": false
+      },
+      "winner": null,
+      "status": "upcoming",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": null
+        },
+        {
+          "name": "С2",
+          "vote": null
+        },
+        {
+          "name": "С3",
+          "vote": null
+        }
+      ],
+      "pair_title": "ТОП-16 • ХИТ #6"
+    },
+    {
+      "id": 107,
+      "pair_num": 7,
+      "bracket": "right",
+      "stage": "top16",
+      "lead": {
+        "seed": 3,
+        "name": "Mikhail Yakutovich",
+        "car": "Bdc V6 0 E36",
+        "number": "3",
+        "country": "RU",
+        "quali_score": 95,
+        "is_placeholder": false
+      },
+      "chase": {
+        "seed": "—",
+        "name": "BYE-RUN (АВТОПРОХОД)",
+        "car": "Технический автопроход",
+        "number": "BYE",
+        "is_placeholder": true
+      },
+      "winner": "lead",
+      "status": "finished",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": "lead"
+        },
+        {
+          "name": "С2",
+          "vote": "lead"
+        },
+        {
+          "name": "С3",
+          "vote": "lead"
+        }
+      ]
+    },
+    {
+      "id": 108,
+      "pair_num": 8,
+      "bracket": "right",
+      "stage": "top16",
+      "lead": {
+        "seed": 6,
+        "name": "Nikita Yaparov",
+        "car": "Bdc V6 0 S13 Onevia",
+        "number": "6",
+        "country": "RU",
+        "quali_score": 89.5,
+        "is_placeholder": false
+      },
+      "chase": {
+        "seed": 11,
+        "name": "freeeze",
+        "car": "Bdc V6 0 Zenki",
+        "number": "11",
+        "country": "RU",
+        "quali_score": 78,
+        "is_placeholder": false
+      },
+      "winner": null,
+      "status": "upcoming",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": null
+        },
+        {
+          "name": "С2",
+          "vote": null
+        },
+        {
+          "name": "С3",
+          "vote": null
+        }
+      ],
+      "pair_title": "ТОП-16 • ХИТ #8"
+    }
+  ],
+  "battles_top8": [
+    {
+      "id": 201,
+      "pair_num": 1,
+      "bracket": "left",
+      "stage": "top8",
+      "lead": {
+        "seed": 1,
+        "name": "Sergey Primo",
+        "car": "Bdc V6 0 Rps13",
+        "number": "1",
+        "country": "RU",
+        "quali_score": 98,
+        "is_placeholder": false
+      },
+      "chase": {
+        "seed": "—",
+        "name": "Победитель ТОП-16 #2",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
+      },
+      "winner": null,
+      "status": "waiting",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": null
+        },
+        {
+          "name": "С2",
+          "vote": null
+        },
+        {
+          "name": "С3",
+          "vote": null
+        }
+      ],
+      "pair_title": "ТОП-8 • ХИТ #1"
+    },
+    {
+      "id": 202,
+      "pair_num": 2,
+      "bracket": "left",
+      "stage": "top8",
+      "lead": {
+        "seed": 4,
+        "name": "Georgi Nedelchev",
+        "car": "Bdc V6 0 Mark2",
+        "number": "4",
+        "country": "RU",
+        "quali_score": 93.5,
+        "is_placeholder": false
+      },
+      "chase": {
+        "seed": 5,
+        "name": "Nikolay Kraevskiy",
+        "car": "Bdc V6 0 Newedge",
+        "number": "5",
+        "country": "RU",
+        "quali_score": 91.5,
+        "is_placeholder": false
+      },
+      "winner": null,
+      "status": "upcoming",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": null
+        },
+        {
+          "name": "С2",
+          "vote": null
+        },
+        {
+          "name": "С3",
+          "vote": null
+        }
+      ],
+      "pair_title": "ТОП-8 • ХИТ #2"
+    },
+    {
+      "id": 203,
+      "pair_num": 3,
+      "bracket": "right",
+      "stage": "top8",
+      "lead": {
+        "seed": 2,
+        "name": "SENSEI",
+        "car": "Bdc V6 0 350Z",
+        "number": "2",
+        "country": "RU",
+        "quali_score": 96.5,
+        "is_placeholder": false
+      },
+      "chase": {
+        "seed": "—",
+        "name": "Победитель ТОП-16 #6",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
+      },
+      "winner": null,
+      "status": "waiting",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": null
+        },
+        {
+          "name": "С2",
+          "vote": null
+        },
+        {
+          "name": "С3",
+          "vote": null
+        }
+      ],
+      "pair_title": "ТОП-8 • ХИТ #3"
+    },
+    {
+      "id": 204,
+      "pair_num": 4,
+      "bracket": "right",
+      "stage": "top8",
+      "lead": {
+        "seed": 3,
+        "name": "Mikhail Yakutovich",
+        "car": "Bdc V6 0 E36",
+        "number": "3",
+        "country": "RU",
+        "quali_score": 95,
+        "is_placeholder": false
+      },
+      "chase": {
+        "seed": "—",
+        "name": "Победитель ТОП-16 #8",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
+      },
+      "winner": null,
+      "status": "waiting",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": null
+        },
+        {
+          "name": "С2",
+          "vote": null
+        },
+        {
+          "name": "С3",
+          "vote": null
+        }
+      ],
+      "pair_title": "ТОП-8 • ХИТ #4"
+    }
+  ],
+  "battles_top4": [
+    {
+      "id": 301,
+      "pair_num": 1,
+      "bracket": "left",
+      "stage": "semifinal",
+      "pair_title": "ПОЛУФИНАЛ 1",
+      "lead": {
+        "seed": "—",
+        "name": "Победитель ТОП-8 #1",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
+      },
+      "chase": {
+        "seed": "—",
+        "name": "Победитель ТОП-8 #2",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
+      },
+      "winner": null,
+      "status": "waiting",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": null
+        },
+        {
+          "name": "С2",
+          "vote": null
+        },
+        {
+          "name": "С3",
+          "vote": null
+        }
+      ]
+    },
+    {
+      "id": 302,
+      "pair_num": 2,
+      "bracket": "right",
+      "stage": "semifinal",
+      "pair_title": "ПОЛУФИНАЛ 2",
+      "lead": {
+        "seed": "—",
+        "name": "Победитель ТОП-8 #3",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
+      },
+      "chase": {
+        "seed": "—",
+        "name": "Победитель ТОП-8 #4",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
+      },
+      "winner": null,
+      "status": "waiting",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": null
+        },
+        {
+          "name": "С2",
+          "vote": null
+        },
+        {
+          "name": "С3",
+          "vote": null
+        }
+      ]
+    },
+    {
+      "id": 303,
+      "pair_num": 3,
+      "bracket": "left",
+      "stage": "bronze",
+      "pair_title": "🥉 ЗАЕЗД ЗА 3-Е МЕСТО (БРОНЗА)",
+      "lead": {
+        "seed": "—",
+        "name": "Проигравший ПФ 1",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
+      },
+      "chase": {
+        "seed": "—",
+        "name": "Проигравший ПФ 2",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
+      },
+      "winner": null,
+      "status": "waiting",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": null
+        },
+        {
+          "name": "С2",
+          "vote": null
+        },
+        {
+          "name": "С3",
+          "vote": null
+        }
+      ]
+    },
+    {
+      "id": 304,
+      "pair_num": 4,
+      "bracket": "right",
+      "stage": "final",
+      "pair_title": "🥇 ГЛАВНЫЙ ФИНАЛ (1-Е И 2-Е МЕСТО) 🏆",
+      "lead": {
+        "seed": "—",
+        "name": "Победитель ПФ 1",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
+      },
+      "chase": {
+        "seed": "—",
+        "name": "Победитель ПФ 2",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
+      },
+      "winner": null,
+      "status": "waiting",
+      "judges": [
+        {
+          "name": "С1",
+          "vote": null
+        },
+        {
+          "name": "С2",
+          "vote": null
+        },
+        {
+          "name": "С3",
+          "vote": null
+        }
+      ]
+    }
+  ],
+  "quali_calc_mode": "best",
+  "tournament_title": "GAZDERZHIM DRIFT CUP 2026",
+  "intro_settings": {
+    "headerLogo": "RCD",
+    "tournamentTitle": "GAZDERZHIM DRIFT CUP 2026",
+    "tournamentSub": "OFFICIAL ASSETTO CORSA ESPORTS - LIVE STAGE",
+    "statusText": "ПРЕДЭФИРНЫЙ РАЗОГРЕВ",
+    "metaServer": "Race Crew Drift",
+    "metaTrack": "STK PILOT 1 Round",
+    "headerFontSize": 20,
+    "tickerLead": "📢 ИНФОРМАЦИЯ",
+    "tickerText": "📺 ПРЯМАЯ ТРАНСЛЯЦИЯ В FULL HD | 💬 ПИШИТЕ В ЧАТ: Поддерживайте своих фаворитов! | 🔔 ПОДПИСЫВАЙТЕСЬ НА КАНАЛ, СТАВЬТЕ ЛАЙКИ И ВКЛЮЧАЙТЕ КОЛОКОЛЬЧИК",
+    "tickerFontSize": 15,
+    "timerLabel": "🏁 Идет брифинг пилотов",
+    "showTimerLabel": true,
+    "timerLabelFontSize": 17,
+    "timerLabelColor": "gold",
+    "timerClockFontSize": 110,
+    "timerClockColor": "white",
+    "timerDesc": "Скоро старт заездов ТОП-32!",
+    "showTimerDesc": false,
+    "timerDescFontSize": 13,
+    "timerDescColor": "dim",
+    "timerEndText": "🏁 ЗАЕЗДЫ НАЧИНАЮТСЯ! ВНИМАНИЕ НА СТАРТОВУЮ РЕШЕТКУ!",
+    "showTimerProgress": true,
+    "timerProgressColor": "red",
+    "featuredStage": "quali",
+    "featuredIndex": 0,
+    "featuredRunAttempt": 1,
+    "featuredTitle": "🏁 БЛИЖАЙШИЙ ЗАЕЗД • КВАЛИФИКАЦИЯ",
+    "featuredBadge": "ПОПЫТКА #1",
+    "featuredLeadName": "",
+    "featuredLeadCar": "",
+    "featuredChaseName": "",
+    "featuredChaseCar": "",
+    "layout": "split-left",
+    "timerMinutes": 10,
+    "timerSeconds": 600,
+    "timerPaused": false,
+    "bgTransparent": true,
+    "showTimer": true,
+    "showBattle": true,
+    "showPilot": true,
+    "showQr": true,
+    "showTicker": true,
+    "lastUpdated": 1793411865187,
+    "timerTargetTimestamp": 1793412465187,
+    "timerRemainingOnPause": 900
+  },
+  "stage_mode": "top32",
+  "qualification_cleared": true,
+  "obs_director": {
+    "mode": "grid",
+    "stage": "top32",
+    "activeBattleIndex": 0,
+    "cleanBorder": true,
+    "heroPos": "top",
+    "scale": 100,
+    "opacity": 100,
+    "accentColor": "gold",
+    "omtActive": false,
+    "omtDuration": 5,
+    "omtTimestamp": 1792982334808,
+    "lastUpdated": 1792982347833
+  }
 }
