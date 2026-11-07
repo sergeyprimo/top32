@@ -1,0 +1,2597 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Регистрация пилотов — DRIFT CHAMPIONSHIP</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22><text y=%2222%22 font-size=%2220%22>🏎️</text></svg>">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,800&family=JetBrains+Mono:wght@500;700&display=swap');
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #080d1a;
+      color: #f1f5f9;
+    }
+    .font-mono-tech {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .theme-btn-primary {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: #030712;
+      font-weight: 800;
+    }
+    .theme-btn-primary:hover {
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    }
+    .rds-card {
+      background: #11172a;
+      border: 1px solid #1e2842;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#080d1a] text-slate-100 flex flex-col justify-between selection:bg-amber-500 selection:text-black">
+
+  <!-- Header -->
+  <header class="border-b border-[#1c2642] bg-[#0c1224]/90 backdrop-blur-md sticky top-0 z-40">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-yellow-400 flex items-center justify-center text-xl shadow-lg shadow-amber-500/20 font-black text-slate-950">
+          🏎️
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 id="displayTournamentTitle" class="text-sm sm:text-base font-black uppercase tracking-tight text-white">
+              DRIFT CHAMPIONSHIP
+            </h1>
+            <span id="displayStageBadge" class="text-[10px] bg-amber-950/80 text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded font-bold font-mono">
+              ЭТАП 1
+            </span>
+          </div>
+          <p class="text-[11px] text-slate-400 hidden sm:block">
+            Официальная онлайн-регистрация пилотов со всего мира
+          </p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a href="judges.html" class="text-xs bg-[#162038] hover:bg-[#202e52] border border-[#2b3a5f] text-cyan-300 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1.5 transition">
+          <span>⚖️</span> <span class="hidden sm:inline">Судейская сетка</span>
+        </a>
+        <button type="button" onclick="openJudgeAuthModal()" class="text-xs bg-[#1e1735] hover:bg-[#2e2050] border border-purple-500/40 text-purple-300 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1.5 transition shadow-sm cursor-pointer" title="Тонкие настройки интерфейса регистрации (доступ по паролю)">
+          <span>🔐</span> <span>Админ</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-3xl mx-auto px-4 py-8 w-full flex-1">
+    
+    <!-- Title Card -->
+    <div class="mb-6 text-center sm:text-left">
+      <h2 class="text-xl sm:text-2xl font-black text-white uppercase tracking-tight">
+        ОФИЦИАЛЬНАЯ РЕГИСТРАЦИЯ ПИЛОТА
+      </h2>
+      <p class="text-xs sm:text-sm text-slate-400 mt-1">
+        Пройдите 3 простых шага для подачи заявки на участие в чемпионате по дрифту Assetto Corsa.
+      </p>
+    </div>
+
+    <!-- Multi-Step Registration Form Card -->
+    <div class="rds-card rounded-2xl p-6 sm:p-8 shadow-2xl border border-[#1e2a47]">
+      <form id="pilotRegistrationForm" onsubmit="handleRegistrationSubmit(event)" class="space-y-6">
+
+        <!-- Stepper Indicator -->
+        <div class="mb-6 pb-4 border-b border-[#1c2642]">
+          <div class="flex items-center justify-between relative">
+            <div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-[#1a233b] z-0">
+              <div id="stepProgressTrack" class="h-full bg-gradient-to-r from-amber-500 to-yellow-400 transition-all duration-300" style="width: 0%;"></div>
+            </div>
+
+            <button type="button" onclick="goToRegStep(1)" id="stepTabBtn1" class="relative z-10 flex flex-col items-center gap-1.5 focus:outline-none cursor-pointer">
+              <div id="stepBadge1" class="w-10 h-10 rounded-full flex items-center justify-center font-black text-sm border-2 border-amber-400 bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/30">
+                1
+              </div>
+              <span id="stepLabel1" class="text-xs font-bold text-amber-300">Данные пилота</span>
+            </button>
+
+            <button type="button" onclick="goToRegStep(2)" id="stepTabBtn2" class="relative z-10 flex flex-col items-center gap-1.5 focus:outline-none cursor-pointer">
+              <div id="stepBadge2" class="w-10 h-10 rounded-full flex items-center justify-center font-black text-sm border-2 border-[#2b395b] bg-[#161e34] text-slate-400">
+                2
+              </div>
+              <span id="stepLabel2" class="text-xs font-bold text-slate-400">Выбор авто</span>
+            </button>
+
+            <button type="button" onclick="goToRegStep(3)" id="stepTabBtn3" class="relative z-10 flex flex-col items-center gap-1.5 focus:outline-none cursor-pointer">
+              <div id="stepBadge3" class="w-10 h-10 rounded-full flex items-center justify-center font-black text-sm border-2 border-[#2b395b] bg-[#161e34] text-slate-400">
+                3
+              </div>
+              <span id="stepLabel3" class="text-xs font-bold text-slate-400">Оплата и регламент</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ================= PAGE 1 ================= -->
+        <div id="regStepPage1" class="space-y-5">
+          <div class="flex items-center justify-between pb-2 border-b border-[#1b253e]">
+            <h3 class="text-xs sm:text-sm font-black uppercase text-amber-400 tracking-wider flex items-center gap-2">
+              <span>👤</span> СТРАНИЦА 1: ДАННЫЕ ПИЛОТА
+            </h3>
+            <span class="text-[11px] text-slate-400 font-semibold bg-[#162035] px-2.5 py-0.5 rounded border border-[#233152]">Шаг 1 из 3</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Full Name -->
+            <div class="md:col-span-2">
+              <label class="block text-xs font-bold uppercase text-slate-300 mb-1.5">
+                Имя и Фамилия / Никнейм <span class="text-rose-400">*</span>
+              </label>
+              <input 
+                type="text" 
+                id="regFullName" 
+                required 
+                placeholder="Например: Иван Иванов"
+                class="w-full bg-[#161e34] border border-[#232f50] focus:border-amber-400 rounded-lg px-3.5 py-2.5 text-xs text-white outline-none transition"
+              >
+              <p class="text-[11px] text-amber-300 font-semibold mt-1.5 flex items-center gap-1.5">
+                <span>⚠️</span> <span>ФИО должны быть в точности как в игре (в вашем профиле Content Manager)!</span>
+              </p>
+            </div>
+
+            <!-- Telegram -->
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-300 mb-1.5">
+                Telegram для связи <span class="text-rose-400">*</span>
+              </label>
+              <input 
+                type="text" 
+                id="regDiscord" 
+                required
+                placeholder="@pilot_drift или https://t.me/..."
+                class="w-full bg-[#161e34] border border-[#232f50] focus:border-cyan-400 rounded-lg px-3.5 py-2.5 text-xs text-white outline-none transition"
+              >
+              <p class="text-[11px] text-slate-400 mt-1">
+                Для связи организаторов и добавления в чат турнира
+              </p>
+            </div>
+
+            <!-- Steam ID -->
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label class="text-xs font-bold uppercase text-slate-300">
+                  Steam ID / SteamID64 <span class="text-rose-400">*</span>
+                </label>
+                <a href="https://steamid.io" target="_blank" class="text-[11px] text-cyan-400 hover:underline">
+                  Где найти? (steamid.io)
+                </a>
+              </div>
+              <input 
+                type="text" 
+                id="regSteamGuid" 
+                required 
+                maxlength="17" 
+                placeholder="76561198000000000 (17 цифр)"
+                class="w-full bg-[#161e34] border border-[#232f50] focus:border-amber-400 rounded-lg px-3.5 py-2.5 text-xs text-white font-mono-tech outline-none transition"
+              >
+              <p class="text-[10px] text-slate-500 mt-1">Должен состоять ровно из 17 цифр и начинаться с 7656119...</p>
+            </div>
+
+            <!-- Car Number -->
+            <div id="fieldWrapperCarNumber">
+              <label class="block text-xs font-bold uppercase text-slate-300 mb-1.5">
+                Стартовый номер машины <span class="text-rose-400">*</span>
+              </label>
+              <input 
+                type="text" 
+                id="regCarNumber" 
+                required 
+                placeholder="Например: 77"
+                class="w-full bg-[#161e34] border border-[#232f50] focus:border-amber-400 rounded-lg px-3.5 py-2.5 text-xs text-white font-bold outline-none transition"
+              >
+            </div>
+
+            <!-- Team -->
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-300 mb-1.5">
+                Команда пилота
+              </label>
+              <input 
+                type="text" 
+                id="regTeam" 
+                placeholder="Например: FailCrew (или Личный зачет)"
+                class="w-full bg-[#161e34] border border-[#232f50] focus:border-cyan-400 rounded-lg px-3.5 py-2.5 text-xs text-white outline-none transition"
+              >
+            </div>
+          </div>
+
+          <div class="pt-4 flex items-center justify-end border-t border-[#1d2740]">
+            <button 
+              type="button" 
+              onclick="nextRegStep(1)"
+              class="theme-btn-primary font-black text-xs sm:text-sm px-8 py-3 rounded-lg shadow-xl uppercase tracking-wide flex items-center gap-2 transition cursor-pointer"
+            >
+              <span>Далее: Выбор автомобиля</span> <span>➔</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ================= PAGE 2 ================= -->
+        <div id="regStepPage2" class="space-y-5 hidden">
+          <div class="flex items-center justify-between pb-2 border-b border-[#1b253e]">
+            <h3 class="text-xs sm:text-sm font-black uppercase text-cyan-400 tracking-wider flex items-center gap-2">
+              <span>🏎️</span> СТРАНИЦА 2: ВЫБОР АВТОМОБИЛЯ
+            </h3>
+            <span class="text-[11px] text-slate-400 font-semibold bg-[#162035] px-2.5 py-0.5 rounded border border-[#233152]">Шаг 2 из 3</span>
+          </div>
+
+          <div>
+            <label class="block text-xs font-black uppercase text-slate-300 mb-2.5">
+              Выберите вариант автомобиля для заездов:
+            </label>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              <!-- Option 1: VDC -->
+              <div 
+                id="carChoiceCardVdc" 
+                onclick="selectCarSource('vdc')"
+                class="cursor-pointer p-4 rounded-xl border-2 border-cyan-400 bg-[#16213b] transition duration-200 flex items-start gap-3.5 select-none"
+              >
+                <input type="radio" name="carSourceType" id="radioCarVdc" value="vdc" checked class="mt-1 w-4 h-4 text-cyan-500 cursor-pointer">
+                <div>
+                  <div class="font-extrabold text-xs text-white uppercase flex items-center gap-1.5">
+                    <span>🏎️</span> <span>Машина из пака VDC Public 5.0</span>
+                  </div>
+                  <p class="text-[11px] text-slate-300 mt-1 leading-relaxed">
+                    Выбор из готового списка пака VDC. Ссылка на скачивание не требуется.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Option 2: Custom -->
+              <div 
+                id="carChoiceCardCustom" 
+                onclick="selectCarSource('custom')"
+                class="cursor-pointer p-4 rounded-xl border border-[#233152] bg-[#121829] transition duration-200 flex items-start gap-3.5 select-none"
+              >
+                <input type="radio" name="carSourceType" id="radioCarCustom" value="custom" class="mt-1 w-4 h-4 text-amber-500 cursor-pointer">
+                <div>
+                  <div class="font-extrabold text-xs text-white uppercase flex items-center gap-1.5">
+                    <span>🔗</span> <span>Своя личная машина (по ссылке)</span>
+                  </div>
+                  <p class="text-[11px] text-slate-400 mt-1 leading-relaxed">
+                    Выступление на личном авто. Ссылка на архив на Google Диске, Яндекс.Диске или Mega.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- VDC Selector -->
+          <div id="sectionVdcSelection" class="space-y-3 p-4 rounded-xl border border-[#1e2a47] bg-[#141b30]">
+            <div class="flex items-center justify-between">
+              <label class="block text-xs font-bold uppercase text-slate-300">
+                Выберите модель из пака VDC Public 5.0 <span class="text-rose-400">*</span>
+              </label>
+              <span class="text-[10px] bg-cyan-950/70 text-cyan-300 border border-cyan-500/40 px-2 py-0.5 rounded font-mono font-bold">
+                27 автомобилей
+              </span>
+            </div>
+
+            <select 
+              id="regCarSelect" 
+              class="w-full bg-[#161e34] border border-[#232f50] focus:border-cyan-400 rounded-lg px-3.5 py-3 text-xs text-white outline-none transition cursor-pointer"
+            >
+              <option value="">-- Выберите автомобиль из пака VDC Public 5.0 --</option>
+              <optgroup label="🇩🇪 BMW">
+                <option value="VDC BMW E36 HGK Public 5.0">VDC BMW E36 HGK Public 5.0</option>
+                <option value="VDC BMW E46 HGK Public 5.0">VDC BMW E46 HGK Public 5.0</option>
+                <option value="VDC BMW E82 1M Public 5.0">VDC BMW E82 1M Public 5.0</option>
+                <option value="VDC BMW E92 M3 Public 5.0">VDC BMW E92 M3 Public 5.0</option>
+                <option value="VDC BMW F22 M2 Eurofighter Public 5.0">VDC BMW F22 M2 Eurofighter Public 5.0</option>
+                <option value="VDC BMW M2 G87 Public 5.0">VDC BMW M2 G87 Public 5.0</option>
+              </optgroup>
+              <optgroup label="🇺🇸 Chevrolet & Shelby">
+                <option value="VDC Chevrolet Corvette C6 Public 5.0">VDC Chevrolet Corvette C6 Public 5.0</option>
+                <option value="VDC Shelby Mustang Super Snake Public 5.0">VDC Shelby Mustang Super Snake Public 5.0</option>
+              </optgroup>
+              <optgroup label="🇯🇵 Mazda">
+                <option value="VDC Mazda RX-7 FD3S 20B Public 5.0">VDC Mazda RX-7 FD3S 20B Public 5.0</option>
+                <option value="VDC Mazda RX-7 FD3S 26B Public 5.0">VDC Mazda RX-7 FD3S 26B Public 5.0</option>
+                <option value="VDC Mazda RX-8 Public 5.0">VDC Mazda RX-8 Public 5.0</option>
+              </optgroup>
+              <optgroup label="🇯🇵 Mitsubishi">
+                <option value="VDC Mitsubishi Evo X Public 5.0">VDC Mitsubishi Evo X Public 5.0</option>
+              </optgroup>
+              <optgroup label="🇯🇵 Nissan">
+                <option value="VDC Nissan GT-R R35 DAMD Public 5.0">VDC Nissan GT-R R35 DAMD Public 5.0</option>
+                <option value="VDC Nissan Silvia PS13 Public 5.0">VDC Nissan Silvia PS13 Public 5.0</option>
+                <option value="VDC Nissan Silvia RPS13 Public 5.0">VDC Nissan Silvia RPS13 Public 5.0</option>
+                <option value="VDC Nissan Silvia S14 Kouki Public 5.0">VDC Nissan Silvia S14 Kouki Public 5.0</option>
+                <option value="VDC Nissan Silvia S14 Zenki Public 5.0">VDC Nissan Silvia S14 Zenki Public 5.0</option>
+                <option value="VDC Nissan Silvia S15 Public 2JZ 5.0">VDC Nissan Silvia S15 Public 2JZ 5.0</option>
+                <option value="VDC Nissan Silvia S15 Public RB30 5.0">VDC Nissan Silvia S15 Public RB30 5.0</option>
+                <option value="VDC Nissan Skyline R33 Public 5.0">VDC Nissan Skyline R33 Public 5.0</option>
+                <option value="VDC Nissan Z Public 5.0">VDC Nissan Z Public 5.0</option>
+              </optgroup>
+              <optgroup label="🇯🇵 Toyota">
+                <option value="VDC Toyota GR Supra A90 Public 5.0">VDC Toyota GR Supra A90 Public 5.0</option>
+                <option value="VDC Toyota GR86 Public 5.0">VDC Toyota GR86 Public 5.0</option>
+                <option value="VDC Toyota GT86 Public 5.0">VDC Toyota GT86 Public 5.0</option>
+                <option value="VDC Toyota Mark II JZX100 Public 5.0">VDC Toyota Mark II JZX100 Public 5.0</option>
+                <option value="VDC Toyota Supra A70 Public 5.0">VDC Toyota Supra A70 Public 5.0</option>
+                <option value="VDC Toyota Supra A80 Public 5.0">VDC Toyota Supra A80 Public 5.0</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <!-- Custom Car Link -->
+          <div id="sectionCustomCarSelection" class="space-y-3.5 p-4 rounded-xl border border-amber-500/40 bg-[#181512] hidden">
+            <div class="flex items-center justify-between">
+              <label class="block text-xs font-black uppercase text-amber-400 flex items-center gap-1.5">
+                <span>🚗</span> ССЫЛКА НА АРХИВ ВАШЕГО АВТОМОБИЛЯ <span class="text-rose-400">*</span>
+              </label>
+              <span class="text-[10px] bg-amber-950/70 border border-amber-600/40 text-amber-300 px-2 py-0.5 rounded font-bold">
+                Google / Яндекс / Mega
+              </span>
+            </div>
+
+            <input 
+              type="url" 
+              id="regCarLink" 
+              placeholder="https://drive.google.com/... или https://disk.yandex.ru/..."
+              class="w-full bg-[#0d1222] border border-[#26375c] focus:border-amber-400 rounded-lg px-3.5 py-3 text-xs text-white outline-none transition font-mono"
+            >
+            <p class="text-[10px] text-amber-300/80">
+              ⚠️ Откройте общий доступ к ссылке («Все, у кого есть ссылка»). Архив должен содержать папку машины из <code class="text-amber-200">content/cars/...</code>
+            </p>
+
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-300 mb-1">
+                Название папки автомобиля в игре (необязательно):
+              </label>
+              <input 
+                type="text" 
+                id="regCustomCarName" 
+                placeholder="Например: custom_s15_drift"
+                class="w-full bg-[#0d1222] border border-[#232f50] focus:border-amber-400 rounded-lg px-3 py-2 text-xs text-white font-mono-tech outline-none transition"
+              >
+            </div>
+          </div>
+
+          <!-- Livery Link -->
+          <div id="liveryLinkCard" class="p-4 rounded-xl border border-[#233152] bg-[#141b30] space-y-2.5">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-black text-purple-400 flex items-center gap-1.5 uppercase">
+                <span>🎨</span> ССЫЛКА НА ЛИВРЕЮ / СКИН (НЕОБЯЗАТЕЛЬНО)
+              </label>
+              <span class="text-[10px] bg-purple-950/70 border border-purple-600/40 text-purple-300 px-2 py-0.5 rounded font-bold">
+                +100 ₽ к взносу
+              </span>
+            </div>
+            <p class="text-[11px] text-slate-400 leading-relaxed">
+              Если у вас кастомная раскраска машины — укажите ссылку на архив со скином из папки <code class="text-purple-300 font-mono">skins/название/...</code>
+            </p>
+            <input 
+              type="url" 
+              id="regLiveryLink" 
+              placeholder="https://drive.google.com/... или https://disk.yandex.ru/..."
+              class="w-full bg-[#0d1222] border border-[#26375c] focus:border-purple-400 rounded-lg px-3.5 py-2.5 text-xs text-white outline-none transition font-mono"
+            >
+          </div>
+
+          <div class="pt-4 flex items-center justify-between border-t border-[#1d2740]">
+            <button 
+              type="button" 
+              onclick="prevRegStep(2)"
+              class="bg-[#182138] hover:bg-[#202b48] border border-[#2b3a5c] text-slate-300 font-bold text-xs px-5 py-2.5 rounded-lg flex items-center gap-2 transition cursor-pointer"
+            >
+              <span>⬅️</span> <span>Назад: Данные пилота</span>
+            </button>
+            <button 
+              type="button" 
+              onclick="nextRegStep(2)"
+              class="theme-btn-primary font-black text-xs sm:text-sm px-8 py-3 rounded-lg shadow-xl uppercase tracking-wide flex items-center gap-2 transition cursor-pointer"
+            >
+              <span>Далее: Оплата и регламент</span> <span>➔</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ================= PAGE 3 ================= -->
+        <div id="regStepPage3" class="space-y-5 hidden">
+          <div class="flex items-center justify-between pb-2 border-b border-[#1b253e]">
+            <h3 class="text-xs sm:text-sm font-black uppercase text-amber-400 tracking-wider flex items-center gap-2">
+              <span>💳</span> СТРАНИЦА 3: ОПЛАТА И РЕГЛАМЕНТ
+            </h3>
+            <span class="text-[11px] text-slate-400 font-semibold bg-[#162035] px-2.5 py-0.5 rounded border border-[#233152]">Шаг 3 из 3</span>
+          </div>
+
+          <!-- ================= REFACTORED CLEAR PAYMENT SECTION ================= -->
+          <div class="space-y-4">
+
+            <!-- 1. Calculation & Fee Summary Banner -->
+            <div class="p-5 rounded-2xl border border-amber-500/40 bg-gradient-to-r from-amber-950/40 via-[#182035] to-[#121829] shadow-xl">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div class="flex items-center gap-3.5">
+                  <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-yellow-600 flex items-center justify-center text-2xl shadow-lg shadow-amber-500/25 shrink-0 text-slate-950 font-black">
+                    💳
+                  </div>
+                  <div>
+                    <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Сумма взноса к оплате:</div>
+                    <div class="flex flex-wrap items-baseline gap-2 mt-0.5">
+                      <span id="displayTotalFeeCalculated" class="text-2xl sm:text-3xl font-black text-amber-400 font-mono tracking-tight">150 ₽</span>
+                      <span id="displayFeeBreakdownText" class="text-xs text-slate-300 font-medium"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Recipient info badge -->
+                <div class="bg-[#0b101d] border border-[#233152] rounded-xl px-4 py-2 text-left sm:text-right shrink-0">
+                  <div class="text-[10px] uppercase font-bold text-slate-400">Получатель взноса:</div>
+                  <div id="displayRecipientBadge" class="text-xs font-bold text-white mt-0.5">Слизов Тимофей Олегович</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Choose Payment Method (2 Wide, Clean Cards) -->
+            <div class="space-y-2.5">
+              <div class="text-xs font-black uppercase tracking-wider text-slate-300 flex items-center gap-2">
+                <span>👉</span> <span>ВЫБЕРИТЕ УДОБНЫЙ ВАРИАНТ ОПЛАТЫ:</span>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Method 1: SBP / T-Bank -->
+                <div class="p-5 rounded-2xl bg-[#0c1222] border border-amber-500/30 hover:border-amber-500/60 transition flex flex-col justify-between space-y-4 shadow-md">
+                  <div>
+                    <div class="flex items-center justify-between gap-2">
+                      <div class="flex items-center gap-2">
+                        <span class="text-xl">💳</span>
+                        <h4 class="text-sm font-black uppercase text-amber-400 tracking-wide">Т-Банк / СБП</h4>
+                      </div>
+                      <span class="text-[10px] font-mono font-bold bg-amber-950/80 text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded">
+                        Карты РФ
+                      </span>
+                    </div>
+                    <p class="text-xs text-slate-300 mt-2.5 leading-relaxed">
+                      Быстрый перевод без комиссии по QR-коду СБП через мобильное приложение любого банка РФ (Т-Банк, Сбер, ВТБ, Альфа и др.).
+                    </p>
+                  </div>
+
+                  <button 
+                    type="button" 
+                    onclick="openPaymentModal('sbp')" 
+                    class="w-full bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-black text-xs py-3 px-4 rounded-xl uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 transition cursor-pointer"
+                  >
+                    <span>📲</span> <span>ОПЛАТИТЬ ЧЕРЕЗ СБП (QR)</span> <span>↗</span>
+                  </button>
+                </div>
+
+                <!-- Method 2: Boosty -->
+                <div id="step3BoostyCard" class="p-5 rounded-2xl bg-[#0c1222] border border-orange-500/30 hover:border-orange-500/60 transition flex flex-col justify-between space-y-4 shadow-md">
+                  <div>
+                    <div class="flex items-center justify-between gap-2">
+                      <div class="flex items-center gap-2">
+                        <span class="text-xl">🧡</span>
+                        <h4 class="text-sm font-black uppercase text-orange-400 tracking-wide">Boosty.to</h4>
+                      </div>
+                      <span class="text-[10px] font-mono font-bold bg-orange-950/80 text-orange-300 border border-orange-500/40 px-2 py-0.5 rounded">
+                        Все карты мира
+                      </span>
+                    </div>
+                    <p class="text-xs text-slate-300 mt-2.5 leading-relaxed">
+                      Для зарубежных карт (Visa, Mastercard), стран СНГ и донатов. Принимает оплату из любой точки мира через сервис Boosty.
+                    </p>
+                  </div>
+
+                  <button 
+                    type="button" 
+                    onclick="openPaymentModal('boosty')" 
+                    class="w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 text-slate-950 font-black text-xs py-3 px-4 rounded-xl uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-orange-500/20 transition cursor-pointer"
+                  >
+                    <span>🧡</span> <span>ОПЛАТИТЬ ЧЕРЕЗ BOOSTY</span> <span>↗</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Receipt Upload Section -->
+            <div class="p-5 rounded-2xl border border-[#233152] bg-[#0c1222] space-y-3 shadow-md">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                <label class="text-xs font-bold uppercase text-slate-200 flex items-center gap-1.5">
+                  <span>📎</span>
+                  <span>Ссылка на чек об оплате (PDF / Скриншот)</span>
+                  <span id="receiptRequiredStar" class="text-rose-400 hidden">*</span>
+                </label>
+                <span class="text-[10px] text-slate-400">Google Диск, Яндекс.Диск или фотохостинг</span>
+              </div>
+
+              <input 
+                type="url" 
+                id="regPaymentProof" 
+                placeholder="https://drive.google.com/... или https://disk.yandex.ru/... или https://ibb.co/..."
+                class="w-full bg-[#080d19] border border-[#26375c] focus:border-amber-400 rounded-xl px-4 py-3 text-xs text-white outline-none transition font-mono"
+              >
+
+              <div class="flex items-start gap-2 text-[11px] text-amber-300/90 bg-amber-950/30 border border-amber-500/20 p-2.5 rounded-xl leading-relaxed">
+                <span>💡</span>
+                <div>
+                  <b>Инструкция:</b> После совершения платежа сохраните квитанцию (PDF) или сделайте скриншот, загрузите файл в любое облако или фотохостинг и вставьте прямую ссылку в это поле. Судьи проверяют чек перед допуском к квалификации.
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Regulations & Offer with Mandatory Checkbox -->
+          <div class="p-5 rounded-xl border border-cyan-500/30 bg-[#12192e] space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-black uppercase text-cyan-300 flex items-center gap-2">
+                <span>⚖️</span> РЕГЛАМЕНТ ТУРНИРА И ПУБЛИЧНАЯ ОФЕРТА
+              </span>
+              <button 
+                type="button" 
+                onclick="openRegulationsModal()" 
+                class="text-xs text-cyan-400 hover:text-cyan-300 hover:underline flex items-center gap-1 font-bold cursor-pointer"
+              >
+                <span>📄</span> Читать регламент
+              </button>
+            </div>
+
+            <div class="text-xs text-slate-300 bg-[#0c1120] p-3.5 rounded-lg border border-[#1d2740] leading-relaxed max-h-28 overflow-y-auto">
+              Подавая заявку на участие в соревнованиях, пилот подтверждает полное ознакомление и согласие с официальным Регламентом соревнований, дисциплинарным кодексом, правилами судейства квалификации и парных заездов, а также условиями публичной оферты.
+            </div>
+
+            <!-- Mandatory Checkbox -->
+            <div class="flex items-start gap-3 p-3.5 rounded-lg bg-[#0e1424] border border-[#233152] hover:border-cyan-500/50 transition">
+              <input 
+                type="checkbox" 
+                id="regTermsConsent" 
+                required 
+                class="w-5 h-5 mt-0.5 rounded border-[#2b3a5c] text-cyan-500 focus:ring-cyan-400 cursor-pointer"
+              >
+              <label for="regTermsConsent" class="text-xs text-white font-bold leading-snug cursor-pointer select-none">
+                Я ознакомлен(а) и безоговорочно согласен(на) с Регламентом соревнований и условиями участия (публичная оферта) <span class="text-rose-400">*</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="pt-4 flex items-center justify-between border-t border-[#1d2740]">
+            <button 
+              type="button" 
+              onclick="prevRegStep(3)"
+              class="bg-[#182138] hover:bg-[#202b48] border border-[#2b3a5c] text-slate-300 font-bold text-xs px-5 py-2.5 rounded-lg flex items-center gap-2 transition cursor-pointer"
+            >
+              <span>⬅️</span> <span>Назад: Выбор авто</span>
+            </button>
+
+            <button 
+              type="submit" 
+              id="submitRegBtn"
+              class="theme-btn-primary font-black text-sm px-10 py-3.5 rounded-lg shadow-xl uppercase tracking-wide flex items-center gap-2 transition cursor-pointer"
+            >
+              <span>🚀</span> <span>ОТПРАВИТЬ ЗАЯВКУ НА ЭТАП</span>
+            </button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+  </main>
+
+  <!-- ================= PAYMENT MODAL ================= -->
+  <div id="paymentModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 hidden overflow-y-auto">
+    <div class="bg-[#101628] border border-[#233152] rounded-2xl max-w-lg w-full p-5 sm:p-7 shadow-2xl space-y-4 my-auto">
+      <div class="flex items-center justify-between border-b border-[#1d2740] pb-3">
+        <h3 class="text-sm sm:text-base font-black text-white uppercase tracking-tight flex items-center gap-2">
+          <span>💳</span> ОПЛАТА СТАРТОВОГО ВЗНОСА
+        </h3>
+        <button onclick="closePaymentModal()" class="text-slate-400 hover:text-white text-2xl font-bold px-2 cursor-pointer">&times;</button>
+      </div>
+
+      <div class="bg-gradient-to-r from-amber-950/40 via-[#18223c] to-[#12192c] border border-amber-500/40 rounded-xl p-4 text-center">
+        <div class="text-xs text-amber-300 font-semibold uppercase">Сумма взноса:</div>
+        <div id="displayModalFee" class="text-2xl font-black text-amber-400 font-mono mt-0.5">150 ₽</div>
+        <div class="text-xs text-slate-300 mt-1">Получатель: <span id="displayModalRecipient" class="font-bold text-white">Слизов Тимофей Олегович</span></div>
+      </div>
+
+      <!-- Payment Method Selector Tabs -->
+      <div class="grid grid-cols-2 gap-2 p-1.5 bg-[#0a0f1d] border border-[#1f2c4a] rounded-xl">
+        <button 
+          type="button" 
+          id="payTabBtn_sbp"
+          onclick="switchPaymentMethod('sbp')"
+          class="py-2.5 px-3 rounded-lg text-xs font-black flex items-center justify-center gap-2 transition bg-amber-500 text-slate-950 shadow cursor-pointer"
+        >
+          <span>💳</span> <span>Т-Банк / СБП (РФ)</span>
+        </button>
+        <button 
+          type="button" 
+          id="payTabBtn_boosty"
+          onclick="switchPaymentMethod('boosty')"
+          class="py-2.5 px-3 rounded-lg text-xs font-black flex items-center justify-center gap-2 transition bg-transparent text-slate-400 hover:text-white cursor-pointer"
+        >
+          <span>🧡</span> <span>Boosty (Зарубеж / РФ)</span>
+        </button>
+      </div>
+
+      <!-- METHOD 1: T-BANK / SBP -->
+      <div id="payMethod_sbp" class="space-y-4">
+        <!-- QR Code -->
+        <div class="text-center p-3 bg-white rounded-xl max-w-[210px] mx-auto shadow-md">
+          <img 
+            id="modalQrImg"
+            src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https%3A%2F%2Fwww.tbank.ru%2Fcf%2F8PJrKHvdUcq" 
+            alt="QR код СБП Т-Банк" 
+            class="w-full h-auto rounded"
+          >
+          <span class="text-[10px] text-slate-700 font-bold block mt-1">Т-Банк / СБП (Карты РФ)</span>
+        </div>
+
+        <!-- Direct Link -->
+        <div>
+          <label class="block text-[11px] font-semibold text-slate-400 mb-1">
+            Прямая ссылка для оплаты (Т-Банк / СБП):
+          </label>
+          <div class="flex items-center gap-2">
+            <input 
+              type="text" 
+              readonly 
+              value="https://www.tbank.ru/cf/8PJrKHvdUcq" 
+              id="paymentLinkInput"
+              class="flex-1 bg-[#0d1222] border border-[#232f50] rounded-lg px-3 py-2 text-xs text-amber-300 font-mono"
+            >
+            <button 
+              type="button" 
+              onclick="copyLink('paymentLinkInput')"
+              class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs px-3 py-2 rounded-lg transition shrink-0 cursor-pointer"
+            >
+              Скопировать
+            </button>
+            <a 
+              id="modalPaymentDirectLink"
+              href="https://www.tbank.ru/cf/8PJrKHvdUcq"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="bg-[#18233b] hover:bg-[#25365c] text-cyan-300 border border-[#2d406b] font-bold text-xs px-3 py-2 rounded-lg transition shrink-0 inline-flex items-center gap-1 cursor-pointer"
+            >
+              <span>Открыть</span> <span>↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- METHOD 2: BOOSTY -->
+      <div id="payMethod_boosty" class="space-y-4 hidden">
+        <div class="p-4 bg-gradient-to-br from-orange-950/40 via-[#181a2e] to-[#0d1222] border border-orange-500/40 rounded-xl space-y-3.5">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center text-xl shadow-lg shadow-orange-600/30 font-black text-white shrink-0">
+                🧡
+              </div>
+              <div>
+                <h4 class="text-xs font-black uppercase text-orange-400 tracking-wide">Оплата через сервис Boosty</h4>
+                <p class="text-[11px] text-slate-300">Любые зарубежные и российские карты, СНГ</p>
+              </div>
+            </div>
+            <span class="text-[10px] bg-orange-950/90 text-orange-300 border border-orange-500/40 px-2 py-0.5 rounded font-mono font-bold">
+              Все карты
+            </span>
+          </div>
+
+          <!-- Direct Boosty Action Button -->
+          <a 
+            id="modalBoostyLinkBtn" 
+            href="https://boosty.to/drift_banda" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="w-full bg-gradient-to-r from-orange-500 via-amber-500 to-yellow-500 hover:from-orange-400 hover:to-yellow-400 text-slate-950 font-black text-xs py-3 rounded-xl uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-orange-500/25 transition cursor-pointer"
+          >
+            <span>🧡</span> <span>ПЕРЕЙТИ К ОПЛАТЕ НА BOOSTY</span> <span>↗</span>
+          </a>
+
+          <!-- Direct Boosty Link Input -->
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-400 mb-1">Прямая ссылка на страницу Boosty:</label>
+            <div class="flex items-center gap-2">
+              <input 
+                type="text" 
+                readonly 
+                id="modalBoostyLinkInput" 
+                value="https://boosty.to/drift_banda"
+                class="flex-1 bg-[#090d19] border border-[#232f50] rounded-lg px-3 py-2 text-xs text-orange-300 font-mono"
+              >
+              <button 
+                type="button" 
+                onclick="copyLink('modalBoostyLinkInput')"
+                class="bg-orange-500 hover:bg-orange-400 text-slate-950 font-bold text-xs px-3 py-2 rounded-lg transition shrink-0 cursor-pointer"
+              >
+                Скопировать
+              </button>
+            </div>
+          </div>
+
+          <div class="text-[11px] text-slate-300 bg-black/40 border border-orange-500/20 p-2.5 rounded-lg leading-relaxed space-y-1">
+            <p>💡 <b>Инструкция:</b> Перейдите по ссылке на Boosty, отправьте донат на сумму взноса (<b><span id="displayModalBoostyFee">150 ₽</span></b>).</p>
+            <p>💬 В сообщении к платежу обязательно укажите ваше <b>ФИО или ник в игре</b>.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-[11px] text-amber-300 bg-amber-950/40 border border-amber-600/30 p-2.5 rounded-lg leading-relaxed">
+        ⚠️ После проведения оплаты обязательно сохраняйте чек в формате PDF или скриншот — его необходимо приложить на шаге 3 регистрации.
+      </p>
+
+      <div class="pt-2 flex justify-end">
+        <button type="button" onclick="closePaymentModal()" class="bg-[#1c2640] hover:bg-[#27365c] text-white font-bold text-xs px-6 py-2.5 rounded-lg transition">
+          ✓ Понятно, вернуться к регистрации
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= REGULATIONS MODAL ================= -->
+  <div id="regulationsModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 hidden overflow-y-auto">
+    <div class="bg-[#101628] border border-[#233152] rounded-2xl max-w-2xl w-full p-5 sm:p-7 shadow-2xl space-y-4 my-auto">
+      <div class="flex items-center justify-between border-b border-[#1d2740] pb-3">
+        <h3 class="text-sm sm:text-base font-black text-white uppercase tracking-tight flex items-center gap-2">
+          <span>⚖️</span> РЕГЛАМЕНТ ТУРНИРА И ПУБЛИЧНАЯ ОФЕРТА
+        </h3>
+        <button onclick="closeRegulationsModal()" class="text-slate-400 hover:text-white text-2xl font-bold px-2 cursor-pointer">&times;</button>
+      </div>
+
+      <div class="text-xs text-slate-300 space-y-3 max-h-[60vh] overflow-y-auto pr-2 leading-relaxed whitespace-pre-line bg-[#0c1120] p-4 rounded-xl border border-[#1b253e]">
+1. ОБЩИЕ ПОЛОЖЕНИЯ
+Участие в соревнованиях является добровольным. Подавая заявку, пилот подтверждает полное согласие с регламентом турнира, судейскими критериями и условиями проведения заездов.
+
+2. ТЕХНИЧЕСКИЕ ТРЕБОВАНИЯ
+Пилоты выступают либо на автомобилях из официального пака VDC Public 5.0, либо на личных автомобилях, соответствующих регламенту класса. Любые несанкционированные модификации физики строго запрещены.
+
+3. СУДЕЙСТВО И СОРЕВНОВАТЕЛЬНАЯ ДИСЦИПЛИНА
+Квалификация проводится по официальной судейской системе RDS GP (2 попытки, в зачет идет лучшая). Парные заезды проводятся по олимпийской сетке ТОП-32 / ТОП-16. Запрещены оскорбления, неспортивное поведение, намеренные столкновения и срезки. Обязательно присутствие на брифинге пилотов.
+
+4. СТАРТОВЫЙ ВЗНОС И ОФЕРТА
+Стартовый взнос направляется на организационные расходы турнира, поддержку серверов и призовой фонд. Взнос не подлежит возврату после утверждения сетки заездов.
+      </div>
+
+      <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-[#1d2740]">
+        <button type="button" onclick="agreeRegulations()" class="w-full sm:w-auto bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-extrabold text-xs px-6 py-2.5 rounded-lg shadow-lg transition">
+          ✓ Я согласен(на) с регламентом
+        </button>
+        <button type="button" onclick="closeRegulationsModal()" class="w-full sm:w-auto bg-[#1c2640] hover:bg-[#27365c] text-slate-300 font-bold text-xs px-5 py-2.5 rounded-lg transition">
+          Закрыть
+        </button>
+      </div>
+    </div>
+  </div>
+
+    <!-- ================= JUDGE PIN AUTH MODAL ================= -->
+  <div id="judgeAuthModal" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="bg-[#10172a] border border-purple-500/40 rounded-2xl max-w-sm w-full p-6 text-center space-y-5 shadow-2xl">
+      <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-purple-600 via-indigo-600 to-blue-500 flex items-center justify-center text-2xl mx-auto shadow-lg shadow-purple-500/30 text-white">
+        🔐
+      </div>
+      <div>
+        <h3 class="text-base font-black text-white uppercase tracking-tight">Вход в судейскую панель</h3>
+        <p class="text-xs text-slate-400 mt-1">Введите пароль для доступа к судейской панели</p>
+      </div>
+
+      <div class="space-y-3 text-left">
+        <div>
+          <label class="block text-[11px] font-bold text-slate-300 uppercase mb-1">Пароль доступа:</label>
+          <div class="relative">
+            <input 
+              type="password" 
+              id="judgeAuthPinInput" 
+              placeholder="Введите пароль..."
+              class="w-full bg-[#0a0f1d] border border-[#233152] focus:border-purple-400 rounded-lg px-3.5 py-2.5 text-xs text-white outline-none font-mono"
+              onkeydown="if(event.key==='Enter')handleJudgeLogin()"
+            >
+            <button type="button" onclick="togglePinVisibility()" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs cursor-pointer">
+              👁️
+            </button>
+          </div>
+          <p id="judgeAuthError" class="text-[11px] text-rose-400 font-semibold mt-1.5 hidden flex items-center gap-1">
+            <span>❌</span> <span id="judgeAuthErrorText">Неверный пароль доступа!</span>
+          </p>
+        </div>
+
+
+
+        <button 
+          type="button" 
+          onclick="handleJudgeLogin()" 
+          class="w-full bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white font-black text-xs py-2.5 rounded-lg uppercase tracking-wide transition shadow-lg shadow-purple-500/25 cursor-pointer"
+        >
+          Войти в панель
+        </button>
+
+        <button 
+          type="button" 
+          onclick="closeJudgeAuthModal()" 
+          class="w-full bg-[#161e32] hover:bg-[#1f2a45] text-slate-400 font-bold text-xs py-2 rounded-lg transition cursor-pointer"
+        >
+          Отмена
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= JUDGE SETTINGS FULL PAGE PANEL ================= -->
+  <div id="judgeSettingsModal" class="fixed inset-0 z-[100] bg-[#070b16] text-slate-100 flex flex-col w-screen h-screen hidden overflow-hidden">
+    
+    <!-- Top Header -->
+    <header class="bg-[#0c1324] border-b border-[#1b2640] px-4 sm:px-8 py-3.5 flex items-center justify-between shrink-0 shadow-xl z-20">
+      <div class="flex items-center gap-3.5">
+        <div id="panelHeaderIcon" class="w-11 h-11 rounded-xl bg-gradient-to-tr from-purple-600 via-indigo-600 to-blue-500 flex items-center justify-center text-2xl shadow-lg shadow-purple-500/25 font-bold text-white shrink-0">
+          ⚙️
+        </div>
+        <div>
+          <div class="flex items-center gap-2.5 flex-wrap">
+            <h1 class="text-sm sm:text-base md:text-lg font-black uppercase tracking-tight text-white">
+              ПАНЕЛЬ УПРАВЛЕНИЯ: РЕГИСТРАЦИЯ И СУДЕЙСТВО
+            </h1>
+            <span id="userRoleBadge" class="text-[10px] bg-purple-950/90 text-purple-300 border border-purple-500/50 px-2.5 py-0.5 rounded font-mono font-black tracking-wider uppercase">
+              👑 АДМИНИСТРАТОР (ПОЛНЫЙ ДОСТУП)
+            </span>
+          </div>
+          <p id="panelHeaderDesc" class="text-xs text-slate-400 hidden sm:block mt-0.5">
+            Управление допуском пилотов, категориями, взносами и синхронизацией с Google Таблицей
+          </p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button type="button" onclick="closeJudgeSettingsModal()" class="text-xs bg-[#162035] hover:bg-[#202d4a] border border-[#26375c] text-slate-300 hover:text-white px-3.5 py-2 rounded-xl font-bold flex items-center gap-2 transition cursor-pointer shadow-sm" title="Закрыть панель (Esc)">
+          <span>✕</span> <span class="hidden sm:inline">Закрыть (Esc)</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs Bar -->
+    <nav class="bg-[#0a0f1d] border-b border-[#18233b] px-4 sm:px-8 flex items-center gap-1 sm:gap-2 overflow-x-auto shrink-0 z-10">
+      <button type="button" onclick="switchAdminTab('pilots')" id="admTabBtn_pilots" class="py-3 px-4 text-xs font-black border-b-2 border-amber-400 text-amber-400 flex items-center gap-2 whitespace-nowrap transition cursor-pointer">
+        <span>👥</span> <span>База участников (<span id="adminPilotsCountBadge" class="text-amber-400 font-mono">0</span>)</span>
+      </button>
+      <button type="button" onclick="switchAdminTab('gsheet')" id="admTabBtn_gsheet" class="py-3 px-4 text-xs font-black border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-2 whitespace-nowrap transition cursor-pointer">
+        <span>📊</span> <span>Google Таблица</span>
+      </button>
+      <button type="button" onclick="switchAdminTab('categories')" id="admTabBtn_categories" class="py-3 px-4 text-xs font-black border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-2 whitespace-nowrap transition cursor-pointer">
+        <span>🏎️</span> <span>Турнир и категории</span>
+      </button>
+      <button type="button" onclick="switchAdminTab('finances')" id="admTabBtn_finances" class="py-3 px-4 text-xs font-black border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-2 whitespace-nowrap transition cursor-pointer">
+        <span>💳</span> <span>Взносы и оплата</span>
+      </button>
+      <button type="button" onclick="switchAdminTab('regulations')" id="admTabBtn_regulations" class="py-3 px-4 text-xs font-black border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-2 whitespace-nowrap transition cursor-pointer">
+        <span>📜</span> <span>Регламент</span>
+      </button>
+      <button type="button" onclick="switchAdminTab('security')" id="admTabBtn_security" class="py-3 px-4 text-xs font-black border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-2 whitespace-nowrap transition cursor-pointer">
+        <span>🔑</span> <span>Пароли доступа</span>
+      </button>
+    </nav>
+
+    <!-- Main Scrollable Content Area -->
+    <main class="flex-1 overflow-y-auto bg-[#070b16] p-4 sm:p-8">
+      <div class="max-w-6xl mx-auto w-full space-y-6">
+
+        <!-- ================= TAB: PILOTS DATABASE (PRIMARY) ================= -->
+        <div id="admTab_pilots" class="space-y-5">
+          <!-- Control bar with filters and export buttons -->
+          <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 p-5 bg-[#0c1222] border border-[#1b2640] rounded-2xl shadow-md">
+            <div>
+              <div class="flex items-center gap-2.5">
+                <h3 class="text-sm font-black text-white uppercase tracking-tight">Управление допуском пилотов</h3>
+                <span class="text-xs bg-[#162138] text-cyan-300 border border-[#23355a] px-2 py-0.5 rounded font-mono font-bold" id="adminPilotsCountText">0 участников</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">
+                Проверяйте чеки об оплате и переключайте статус: <b>Допущен</b> / <b>Не допущен</b>. Статус сразу обновляется в Google Таблице!
+              </p>
+            </div>
+
+            <!-- Export and Action Buttons -->
+            <div class="flex flex-wrap items-center gap-2">
+              <button type="button" onclick="downloadAdminDriversJson(true)" class="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-black text-xs py-2.5 px-4 rounded-xl shadow-lg transition flex items-center gap-2 cursor-pointer" title="Выгрузить только допущенных пилотов в drivers.json для мгновенной загрузки в judges.html">
+                <span>🏁</span> <span>Скачать drivers.json (Только допущенные)</span>
+              </button>
+              <button type="button" onclick="downloadAdminDriversJson(false)" class="bg-[#18233b] hover:bg-[#223152] text-slate-300 border border-[#2a3c63] font-bold text-xs py-2.5 px-3 rounded-xl transition cursor-pointer" title="Выгрузить всех подавших заявку в drivers.json">
+                <span>📥 Все в json</span>
+              </button>
+              <button type="button" onclick="downloadAdminPilotsCsv()" class="bg-[#18233b] hover:bg-[#223152] text-cyan-300 border border-[#2a3c63] font-bold text-xs py-2.5 px-3 rounded-xl transition flex items-center gap-1.5 cursor-pointer shadow-sm">
+                <span>📄</span> <span>CSV</span>
+              </button>
+              <button type="button" id="btnAdminClearCache" onclick="clearAdminRegistrations()" class="bg-rose-950/60 hover:bg-rose-900 border border-rose-500/50 text-rose-300 hover:text-white font-bold text-xs py-2.5 px-3.5 rounded-xl transition cursor-pointer shadow-sm flex items-center gap-1.5" title="Удалить всех пилотов и очистить строки в Google Таблице">
+                <span>🗑️</span> <span>Очистить всех пилотов (включая Google Таблицу)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Status Filter Tabs -->
+          <div class="flex items-center gap-2 overflow-x-auto pb-1 text-xs font-bold">
+            <button type="button" onclick="filterPilotsTable('all')" id="pilotFilter_all" class="px-3.5 py-1.5 rounded-lg bg-amber-500 text-slate-950 shadow font-black transition cursor-pointer">
+              Все заявки (<span id="countFilterAll">0</span>)
+            </button>
+            <button type="button" onclick="filterPilotsTable('approved')" id="pilotFilter_approved" class="px-3.5 py-1.5 rounded-lg bg-[#0c1222] border border-[#1b2640] text-emerald-400 hover:border-emerald-500/50 transition cursor-pointer">
+              ✅ Допущенные (<span id="countFilterApproved">0</span>)
+            </button>
+            <button type="button" onclick="filterPilotsTable('pending')" id="pilotFilter_pending" class="px-3.5 py-1.5 rounded-lg bg-[#0c1222] border border-[#1b2640] text-amber-400 hover:border-amber-500/50 transition cursor-pointer">
+              ⏳ На проверке (<span id="countFilterPending">0</span>)
+            </button>
+            <button type="button" onclick="filterPilotsTable('rejected')" id="pilotFilter_rejected" class="px-3.5 py-1.5 rounded-lg bg-[#0c1222] border border-[#1b2640] text-rose-400 hover:border-rose-500/50 transition cursor-pointer">
+              ❌ Не допущенные (<span id="countFilterRejected">0</span>)
+            </button>
+          </div>
+
+          <!-- Status Sync Alert / Notification Toast -->
+          <div id="pilotStatusSyncNotice" class="hidden p-3 rounded-xl text-xs font-bold transition"></div>
+
+          <!-- Table with all columns -->
+          <div class="border border-[#1b2640] rounded-2xl bg-[#0c1222] overflow-hidden shadow-xl">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr class="border-b border-[#18233b] bg-[#080d19] text-[11px] font-black text-slate-400 uppercase tracking-wider">
+                    <th class="p-3.5 text-center"># Номер</th>
+                    <th class="p-3.5">Пилот (ФИО)</th>
+                    <th class="p-3.5">Автомобиль</th>
+                    <th class="p-3.5">Steam ID</th>
+                    <th class="p-3.5">Telegram</th>
+                    <th class="p-3.5 text-center">Чек оплаты</th>
+                    <th class="p-3.5 text-center">СТАТУС ДОПУСКА</th>
+                    <th class="p-3.5 text-center">БЫСТРЫЙ ДОПУСК</th>
+                  </tr>
+                </thead>
+                <tbody id="adminPilotsTableBody" class="divide-y divide-[#151f35] text-slate-300">
+                  <tr><td colspan="8" class="p-8 text-center text-slate-500 font-semibold">Заявок пока нет в базе</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= TAB: GOOGLE SHEETS ================= -->
+        <div id="admTab_gsheet" class="space-y-5 hidden">
+          <div id="judgeLockBanner_gsheet" class="hidden p-3 rounded-xl bg-amber-950/40 border border-amber-500/40 text-xs text-amber-300 font-semibold">
+            🔒 Режим судьи: Настройки Google Таблицы доступны только главному администратору.
+          </div>
+
+          <div class="p-5 rounded-2xl border border-amber-500/30 bg-gradient-to-r from-amber-950/30 via-[#151b2e] to-[#0d1424] shadow-lg space-y-2">
+            <h4 class="text-xs font-black uppercase text-amber-400 tracking-wider flex items-center gap-2">
+              <span>📊</span> Синхронизация с Google Таблицей турнира
+            </h4>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Вставьте ссылку на веб-приложение <b>Google Apps Script</b> (Web App URL вида <code class="text-amber-300 bg-black/50 px-1.5 py-0.5 rounded font-mono">https://script.google.com/macros/s/.../exec</code>). Новые заявки и статусы допуска будут автоматически синхронизироваться!
+            </p>
+          </div>
+
+          <div class="bg-[#0c1222] border border-[#1b2640] rounded-2xl p-6 space-y-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-300 uppercase mb-1.5">URL веб-приложения Google Apps Script (Webhook):</label>
+              <input 
+                type="url" 
+                id="adminGsheetWebhook" 
+                placeholder="https://script.google.com/macros/s/.../exec"
+                class="w-full bg-[#080d19] border border-[#212f4d] focus:border-amber-400 rounded-xl px-4 py-3 text-xs text-white outline-none font-mono transition"
+              >
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-300 uppercase mb-1.5">Прямая ссылка на Google Таблицу (для перехода):</label>
+              <input 
+                type="url" 
+                id="adminGsheetViewUrl" 
+                placeholder="https://docs.google.com/spreadsheets/d/.../edit"
+                class="w-full bg-[#080d19] border border-[#212f4d] focus:border-amber-400 rounded-xl px-4 py-3 text-xs text-white outline-none font-mono transition"
+              >
+            </div>
+
+            <div class="flex flex-wrap gap-3 pt-2">
+              <button type="button" onclick="testAdminGsheetSend()" class="bg-[#18233b] hover:bg-[#223152] text-cyan-300 border border-[#2a3c63] font-bold text-xs py-2.5 px-4 rounded-xl transition flex items-center gap-2 cursor-pointer shadow-sm">
+                <span>🧪</span> <span>Отправить тестовую заявку</span>
+              </button>
+              <button type="button" onclick="openLiveGoogleSheet()" class="bg-[#12241e] hover:bg-[#18332a] text-emerald-300 border border-emerald-500/30 font-bold text-xs py-2.5 px-4 rounded-xl transition flex items-center gap-2 cursor-pointer shadow-sm">
+                <span>↗</span> <span>Открыть Google Таблицу в новой вкладке</span>
+              </button>
+            </div>
+            <div id="adminGsheetStatusMsg" class="text-xs hidden p-3 rounded-xl"></div>
+          </div>
+        </div>
+
+        <!-- ================= TAB: CATEGORIES & FIELDS ================= -->
+        <div id="admTab_categories" class="space-y-5 hidden">
+          <div id="judgeLockBanner_categories" class="hidden p-3 rounded-xl bg-amber-950/40 border border-amber-500/40 text-xs text-amber-300 font-semibold">
+            🔒 Режим судьи: Управление категориями доступно только главному администратору.
+          </div>
+
+          <!-- Tournament Branding Section -->
+          <div class="bg-[#0c1222] border border-purple-500/30 rounded-2xl p-5 space-y-4 shadow-md">
+            <h4 class="text-xs font-black uppercase text-purple-300 tracking-wider flex items-center gap-2">
+              <span>🏆</span> Название турнира и официальный Telegram канал
+            </h4>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+              <div class="sm:col-span-2">
+                <label class="block text-xs font-bold text-slate-300 uppercase mb-1">Название турнира (в шапке и сетке):</label>
+                <input 
+                  type="text" 
+                  id="adminTournamentTitle" 
+                  value="DRIFT CHAMPIONSHIP"
+                  placeholder="Например: RDS GP / DRIFT CHAMPIONSHIP"
+                  class="w-full bg-[#080d19] border border-[#212f4d] focus:border-purple-400 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none font-bold"
+                >
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-300 uppercase mb-1">Номер / название этапа:</label>
+                <input 
+                  type="text" 
+                  id="adminStageBadge" 
+                  value="ЭТАП 1"
+                  placeholder="ЭТАП 1"
+                  class="w-full bg-[#080d19] border border-[#212f4d] focus:border-purple-400 rounded-xl px-3.5 py-2.5 text-xs text-amber-300 outline-none font-mono font-bold"
+                >
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
+              <div>
+                <label class="block text-xs font-bold text-slate-300 uppercase mb-1">Ссылка на официальный Telegram канал:</label>
+                <input 
+                  type="url" 
+                  id="adminTelegramChannelUrl" 
+                  value="https://t.me/drift_banda"
+                  placeholder="https://t.me/..."
+                  class="w-full bg-[#080d19] border border-[#212f4d] focus:border-sky-400 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none font-mono"
+                >
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-300 uppercase mb-1">Текст ссылки канала (в футере сайта):</label>
+                <input 
+                  type="text" 
+                  id="adminTelegramChannelText" 
+                  value="@drift_banda"
+                  placeholder="Например: @drift_banda"
+                  class="w-full bg-[#080d19] border border-[#212f4d] focus:border-sky-400 rounded-xl px-3.5 py-2.5 text-xs text-sky-300 outline-none font-bold"
+                >
+              </div>
+            </div>
+          </div>
+
+
+          <div class="p-4 rounded-2xl border border-cyan-500/30 bg-cyan-950/20 text-xs text-slate-300">
+            Включайте и отключайте доступные варианты техники и поля формы для участников турнира.
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <label class="flex items-center justify-between p-4 bg-[#0c1222] border border-[#1b2640] rounded-2xl cursor-pointer hover:border-[#2b3d66] transition">
+              <div>
+                <div class="text-xs font-black text-white uppercase flex items-center gap-2">
+                  <span>🏎️</span> <span>Пак VDC Public 5.0</span>
+                </div>
+                <div class="text-[11px] text-slate-400 mt-1">Выбор готовых авто из списка 27 машин</div>
+              </div>
+              <input type="checkbox" id="adminOptAllowVdc" checked class="w-5 h-5 text-cyan-500 rounded accent-cyan-500 cursor-pointer">
+            </label>
+
+            <label class="flex items-center justify-between p-4 bg-[#0c1222] border border-[#1b2640] rounded-2xl cursor-pointer hover:border-[#2b3d66] transition">
+              <div>
+                <div class="text-xs font-black text-white uppercase flex items-center gap-2">
+                  <span>📦</span> <span>Личные авто по ссылке</span>
+                </div>
+                <div class="text-[11px] text-slate-400 mt-1">Ссылка на архив машины (Google / Яндекс Диск)</div>
+              </div>
+              <input type="checkbox" id="adminOptAllowCustom" checked class="w-5 h-5 text-cyan-500 rounded accent-cyan-500 cursor-pointer">
+            </label>
+
+            <label class="flex items-center justify-between p-4 bg-[#0c1222] border border-[#1b2640] rounded-2xl cursor-pointer hover:border-[#2b3d66] transition">
+              <div>
+                <div class="text-xs font-black text-white uppercase flex items-center gap-2">
+                  <span>🎨</span> <span>Поле кастомной ливреи</span>
+                </div>
+                <div class="text-[11px] text-slate-400 mt-1">Отображать поле ссылки на скин (+100 ₽)</div>
+              </div>
+              <input type="checkbox" id="adminOptAllowLivery" checked class="w-5 h-5 text-cyan-500 rounded accent-cyan-500 cursor-pointer">
+            </label>
+
+            <label class="flex items-center justify-between p-4 bg-[#0c1222] border border-[#1b2640] rounded-2xl cursor-pointer hover:border-[#2b3d66] transition">
+              <div>
+                <div class="text-xs font-black text-white uppercase flex items-center gap-2">
+                  <span>👥</span> <span>Поле команды пилота</span>
+                </div>
+                <div class="text-[11px] text-slate-400 mt-1">Отображать поле клуба/команды на Шаге 1</div>
+              </div>
+              <input type="checkbox" id="adminOptAllowTeam" checked class="w-5 h-5 text-cyan-500 rounded accent-cyan-500 cursor-pointer">
+            </label>
+
+            <label class="flex items-center justify-between p-4 bg-[#0c1222] border border-[#1b2640] rounded-2xl cursor-pointer hover:border-[#2b3d66] transition">
+              <div>
+                <div class="text-xs font-black text-white uppercase flex items-center gap-2">
+                  <span>🔢</span> <span>Поле стартового номера машины</span>
+                </div>
+                <div class="text-[11px] text-slate-400 mt-1">Отображать поле номера авто на Шаге 1 (если выключено, номер не требуется)</div>
+              </div>
+              <input type="checkbox" id="adminOptAllowCarNumber" checked class="w-5 h-5 text-cyan-500 rounded accent-cyan-500 cursor-pointer">
+            </label>
+
+            <label class="flex items-center justify-between p-4 bg-[#0c1222] border border-amber-500/30 rounded-2xl cursor-pointer hover:border-amber-500/60 transition md:col-span-2">
+              <div>
+                <div class="text-xs font-black text-amber-300 uppercase flex items-center gap-2">
+                  <span>🧾</span> <span>Обязательное прикрепление чека оплаты</span>
+                </div>
+                <div class="text-[11px] text-slate-400 mt-1">Пилот не сможет отправить заявку без ссылки на чек об оплате взноса</div>
+              </div>
+              <input type="checkbox" id="adminOptRequireReceipt" class="w-5 h-5 text-amber-500 rounded accent-amber-500 cursor-pointer">
+            </label>
+          </div>
+        </div>
+
+        <!-- ================= TAB: FINANCES & PAYMENT ================= -->
+        <div id="admTab_finances" class="space-y-5 hidden">
+          <div id="judgeLockBanner_finances" class="hidden p-3 rounded-xl bg-amber-950/40 border border-amber-500/40 text-xs text-amber-300 font-semibold">
+            🔒 Режим судьи: Финансовые настройки и реквизиты доступны только главному администратору.
+          </div>
+
+          <div class="bg-[#0c1222] border border-[#1b2640] rounded-2xl p-6 space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-300 uppercase mb-1.5">Базовый стартовый взнос (₽):</label>
+                <input 
+                  type="number" 
+                  id="adminFeeBase" 
+                  value="150"
+                  class="w-full bg-[#080d19] border border-[#212f4d] focus:border-amber-400 rounded-xl px-4 py-3 text-xs text-white outline-none font-mono"
+                >
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-300 uppercase mb-1.5">Доплата за ливрею (₽):</label>
+                <input 
+                  type="number" 
+                  id="adminFeeLivery" 
+                  value="100"
+                  class="w-full bg-[#080d19] border border-[#212f4d] focus:border-amber-400 rounded-xl px-4 py-3 text-xs text-white outline-none font-mono"
+                >
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-300 uppercase mb-1.5">ФИО Получателя (в окне оплаты):</label>
+              <input 
+                type="text" 
+                id="adminRecipientName" 
+                value="Слизов Тимофей Олегович"
+                class="w-full bg-[#080d19] border border-[#212f4d] focus:border-amber-400 rounded-xl px-4 py-3 text-xs text-white outline-none"
+              >
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-300 uppercase mb-1.5">Прямая ссылка для оплаты (Т-Банк / СБП):</label>
+              <input 
+                type="url" 
+                id="adminPaymentUrl" 
+                value="https://www.tbank.ru/cf/8PJrKHvdUcq"
+                class="w-full bg-[#080d19] border border-[#212f4d] focus:border-amber-400 rounded-xl px-4 py-3 text-xs text-white outline-none font-mono"
+              >
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-300 uppercase mb-1.5">Ссылка на картинку QR-кода (или оставьте пустым для авто-генерации):</label>
+              <input 
+                type="url" 
+                id="adminQrImageUrl" 
+                placeholder="https://... (оставьте пустым для авто-генерации QR ссылки Т-Банка)"
+                class="w-full bg-[#080d19] border border-[#212f4d] focus:border-amber-400 rounded-xl px-4 py-3 text-xs text-white outline-none font-mono"
+              >
+            </div>
+
+            <!-- Boosty Payment Settings -->
+            <div class="pt-3 border-t border-[#1e2a47] space-y-4">
+              <div class="flex items-center justify-between">
+                <h4 class="text-xs font-black uppercase text-orange-400 tracking-wider flex items-center gap-2">
+                  <span>🧡</span> Настройки оплаты через Boosty.to
+                </h4>
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <span class="text-xs font-bold text-slate-300">Включить Boosty</span>
+                  <input type="checkbox" id="adminOptAllowBoosty" checked class="w-4 h-4 text-orange-500 rounded accent-orange-500 cursor-pointer">
+                </label>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-300 uppercase mb-1.5 flex items-center justify-between">
+                  <span>Ссылка на страницу / цель Boosty:</span>
+                  <span class="text-[10px] text-slate-400 font-normal">для зарубежных карт и донатов</span>
+                </label>
+                <input 
+                  type="url" 
+                  id="adminBoostyUrl" 
+                  value="https://boosty.to/drift_banda"
+                  placeholder="https://boosty.to/..."
+                  class="w-full bg-[#080d19] border border-[#212f4d] focus:border-orange-400 rounded-xl px-4 py-3 text-xs text-orange-300 outline-none font-mono"
+                >
+                <p class="text-[10px] text-slate-400 mt-1">
+                  Пилоты из других стран смогут оплатить взнос через сервис Boosty, перейдя по этой ссылке.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= TAB: REGULATIONS ================= -->
+        <div id="admTab_regulations" class="space-y-5 hidden">
+          <div id="judgeLockBanner_regulations" class="hidden p-3 rounded-xl bg-amber-950/40 border border-amber-500/40 text-xs text-amber-300 font-semibold">
+            🔒 Режим судьи: Редактирование регламента доступно только главному администратору.
+          </div>
+
+          <div class="bg-[#0c1222] border border-[#1b2640] rounded-2xl p-6 space-y-4">
+            <label class="flex items-center justify-between p-4 bg-[#080d19] border border-[#1b2640] rounded-xl cursor-pointer hover:border-[#2b3d66] transition">
+              <div>
+                <div class="text-xs font-black text-white uppercase flex items-center gap-2">
+                  <span>📜</span> <span>Обязательное согласие с регламентом</span>
+                </div>
+                <div class="text-[11px] text-slate-400 mt-0.5">Требовать от пилота галочку «Я ознакомлен и принимаю регламент» перед отправкой</div>
+              </div>
+              <input type="checkbox" id="adminOptRequireConsent" checked class="w-5 h-5 text-amber-500 rounded accent-amber-500 cursor-pointer">
+            </label>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-300 uppercase mb-1.5">Текст регламента соревнований и публичной оферты:</label>
+              <textarea 
+                id="adminRegulationsText" 
+                rows="11"
+                class="w-full bg-[#080d19] border border-[#212f4d] focus:border-amber-400 rounded-xl p-4 text-xs text-slate-200 outline-none leading-relaxed font-mono"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= TAB: SECURITY & PASSWORDS ================= -->
+        <div id="admTab_security" class="space-y-5 hidden">
+          <div id="judgeLockBanner_security" class="hidden p-3 rounded-xl bg-amber-950/40 border border-amber-500/40 text-xs text-amber-300 font-semibold">
+            🔒 Режим судьи: Управление паролями доступно только главному администратору.
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <!-- Admin Password Card -->
+            <div class="bg-[#0c1222] border border-purple-500/40 rounded-2xl p-6 space-y-4">
+              <div class="flex items-center gap-2.5">
+                <span class="text-xl">👑</span>
+                <div>
+                  <h4 class="text-xs font-black uppercase text-purple-300">Пароль Главного Администратора</h4>
+                  <p class="text-[11px] text-slate-400">Полный доступ ко всем вкладкам, финансам и паролям</p>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-300 uppercase mb-1">Новый пароль Администратора:</label>
+                <input 
+                  type="password" 
+                  id="adminNewPinInput" 
+                  placeholder="Минимум 4 символа (сейчас: 7777)"
+                  class="w-full bg-[#080d19] border border-[#212f4d] focus:border-purple-400 rounded-xl px-4 py-2.5 text-xs text-white outline-none font-mono"
+                >
+              </div>
+
+              <button type="button" onclick="saveAdminNewPin()" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs py-2.5 px-4 rounded-xl transition shadow-md shadow-purple-600/30 cursor-pointer">
+                Обновить пароль Администратора
+              </button>
+              <div id="adminPinChangeStatus" class="text-xs hidden p-2.5 rounded-xl"></div>
+            </div>
+
+            <!-- Judge Password Card -->
+            <div class="bg-[#0c1222] border border-cyan-500/40 rounded-2xl p-6 space-y-4">
+              <div class="flex items-center gap-2.5">
+                <span class="text-xl">⚖️</span>
+                <div>
+                  <h4 class="text-xs font-black uppercase text-cyan-300">Пароль для Судей турнира</h4>
+                  <p class="text-[11px] text-slate-400">Судьи могут только проверять чеки и менять статус пилотов</p>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-300 uppercase mb-1">Пароль Судьи (назначает Администратор):</label>
+                <input 
+                  type="password" 
+                  id="adminJudgePinInput" 
+                  placeholder="Пароль для судей (по умолчанию: 5555)"
+                  class="w-full bg-[#080d19] border border-[#212f4d] focus:border-cyan-400 rounded-xl px-4 py-2.5 text-xs text-white outline-none font-mono"
+                >
+              </div>
+
+              <button type="button" onclick="saveJudgeNewPin()" class="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold text-xs py-2.5 px-4 rounded-xl transition shadow-md shadow-cyan-600/30 cursor-pointer">
+                Сохранить пароль для Судей
+              </button>
+              <div id="judgePinChangeStatus" class="text-xs hidden p-2.5 rounded-xl"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- Bottom Actions Footer -->
+    <footer class="bg-[#0c1324] border-t border-[#1b2640] px-4 sm:px-8 py-3.5 flex items-center justify-between shrink-0 shadow-2xl z-20">
+      <button type="button" onclick="closeJudgeSettingsModal()" class="bg-[#141d30] hover:bg-[#1d2a45] text-slate-400 hover:text-slate-200 font-bold text-xs py-2.5 px-5 rounded-xl border border-[#202f4f] transition cursor-pointer">
+        Закрыть панель
+      </button>
+
+      <div class="flex items-center gap-3">
+        <span id="adminSaveNotify" class="text-xs text-emerald-400 font-bold hidden flex items-center gap-1.5 bg-emerald-950/80 border border-emerald-500/40 px-3 py-1.5 rounded-lg shadow-sm">
+          <span>✅</span> <span>Настройки успешно сохранены и применены!</span>
+        </span>
+        <button type="button" id="btnAdminSaveAll" onclick="saveAllAdminSettings()" class="bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-black text-xs py-2.5 px-7 rounded-xl uppercase tracking-wider transition shadow-lg shadow-amber-500/25 flex items-center gap-2 cursor-pointer">
+          <span>💾</span> <span>СОХРАНИТЬ ВСЕ НАСТРОЙКИ</span>
+        </button>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Success Notification Modal / Screen -->
+  <div id="successModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="bg-[#101628] border border-emerald-500/50 rounded-2xl max-w-md w-full p-6 text-center space-y-4 shadow-2xl">
+      <div class="w-16 h-16 rounded-full bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center text-3xl mx-auto text-emerald-400">
+        🏁
+      </div>
+      <h3 class="text-lg font-black text-white uppercase">Заявка успешно принята!</h3>
+      <p id="successMessageText" class="text-xs text-slate-300 leading-relaxed">
+        Ваша заявка поступила организаторам соревнований и будет рассмотрена перед началом квалификации.
+      </p>
+      <div class="p-3 bg-[#0c1222] rounded-xl border border-[#1e2a47] text-left text-xs space-y-1.5">
+        <div class="text-slate-400">Пилот: <span id="successPilotName" class="font-bold text-white"></span></div>
+        <div id="successCarNumberRow" class="text-slate-400">Номер: <span id="successCarNumber" class="font-bold text-amber-400"></span></div>
+        <div class="text-slate-400">Автомобиль: <span id="successCarModel" class="font-bold text-cyan-300"></span></div>
+      </div>
+
+      <button type="button" onclick="closeSuccessModal()" class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-black text-xs py-3 rounded-xl uppercase tracking-wider transition shadow-lg shadow-emerald-500/25 cursor-pointer">
+        Отлично, понятно!
+      </button>
+    </div>
+  </div>
+
+  <!-- Official Telegram Channel Support Bar -->
+  <div class="border-t border-[#1c2642] bg-[#0c1222]/90 backdrop-blur-md py-3.5 px-4 text-center">
+    <div class="max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-2 text-xs">
+      <span class="text-slate-300 font-medium">По всем вопросам обращайтесь в наш официальный канал:</span>
+      <a id="footerTelegramChannelLink" href="https://t.me/drift_banda" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 font-black text-sky-400 hover:text-sky-300 bg-sky-950/60 hover:bg-sky-900/60 border border-sky-500/40 px-3.5 py-1.5 rounded-xl shadow-sm transition">
+        <span>✈️</span> <span id="footerTelegramChannelText">@drift_banda</span> <span>↗</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-[#161f36] py-3.5 text-xs text-slate-500">
+    <div class="max-w-3xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+      <p id="footerCopyrightText">© 2026 DRIFT CHAMPIONSHIP • Assetto Corsa Drift Server</p>
+      <button type="button" onclick="openJudgeAuthModal()" class="text-[11px] text-slate-600 hover:text-slate-400 flex items-center gap-1 transition opacity-40 hover:opacity-100 cursor-pointer">
+        <span>🔐</span> <span>Судейский доступ</span>
+      </button>
+    </div>
+  </footer>
+
+  <script>
+    
+    // Google Sheet Config Functions
+    function openConfigModal() {
+      const modal = document.getElementById('configModal');
+      const input = document.getElementById('configGoogleSheetUrl');
+      const saved = localStorage.getItem('AC_REG_GOOGLE_SHEET_URL') || window.GOOGLE_SHEET_WEBHOOK_URL || '';
+      if (input) input.value = saved;
+      const status = document.getElementById('configStatusMessage');
+      if (status) status.classList.add('hidden');
+      if (modal) modal.classList.remove('hidden');
+    }
+    function closeConfigModal() {
+      document.getElementById('configModal')?.classList.add('hidden');
+    }
+    function saveGoogleSheetConfig() {
+      const input = document.getElementById('configGoogleSheetUrl');
+      const val = (input?.value || '').trim();
+      const status = document.getElementById('configStatusMessage');
+      if (!val) {
+        localStorage.removeItem('AC_REG_GOOGLE_SHEET_URL');
+        if (status) {
+          status.className = 'text-xs p-2.5 rounded-lg bg-slate-800 text-slate-300 block';
+          status.textContent = 'Привязка к Google Таблице сброшена.';
+        }
+        return;
+      }
+      localStorage.setItem('AC_REG_GOOGLE_SHEET_URL', val);
+      if (status) {
+        status.className = 'text-xs p-2.5 rounded-lg bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 block font-semibold';
+        status.textContent = '✅ Google Таблица успешно сохранена! Новые заявки будут автоматически записываться в неё.';
+      }
+    }
+    async function testGoogleSheetSend() {
+      const input = document.getElementById('configGoogleSheetUrl');
+      const url = (input?.value || '').trim() || localStorage.getItem('AC_REG_GOOGLE_SHEET_URL');
+      const status = document.getElementById('configStatusMessage');
+      if (!url) {
+        if (status) {
+          status.className = 'text-xs p-2.5 rounded-lg bg-rose-950/80 border border-rose-500/40 text-rose-300 block font-semibold';
+          status.textContent = '⚠️ Сначала укажите ссылку на Google Apps Script';
+        }
+        return;
+      }
+      if (status) {
+        status.className = 'text-xs p-2.5 rounded-lg bg-cyan-950/80 border border-cyan-500/40 text-cyan-300 block';
+        status.textContent = '⏳ Отправка тестовой записи...';
+      }
+      try {
+        const testPayload = {
+          full_name: 'Тестовый Пилот',
+          steam_guid: '76561198000000000',
+          car_number: '99',
+          team: 'Test Racing',
+          car_model: 'VDC BMW E46 HGK Public 5.0',
+          discord_tag: '@test_pilot',
+          payment_receipt_link: 'https://test-check.ru/receipt.png'
+        };
+        await fetch(url, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(testPayload)
+        });
+        if (status) {
+          status.className = 'text-xs p-2.5 rounded-lg bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 block font-semibold';
+          status.textContent = '✅ Тестовая заявка успешно отправлена! Проверьте появление строки в вашей Google Таблице.';
+        }
+      } catch (err) {
+        if (status) {
+          status.className = 'text-xs p-2.5 rounded-lg bg-rose-950/80 border border-rose-500/40 text-rose-300 block font-semibold';
+          status.textContent = '❌ Ошибка отправки: ' + err.message;
+        }
+      }
+    }
+
+    
+    // =========================================================
+    // =========================================================
+    // =========================================================
+    // JUDGE ADMIN PANEL LOGIC: ROLES (ADMIN / JUDGE) & STATUSES
+    // =========================================================
+
+    let currentUserRole = 'admin'; // 'admin' | 'judge'
+    let currentPilotFilter = 'all'; // 'all' | 'approved' | 'pending' | 'rejected'
+
+    const DEFAULT_ADMIN_SETTINGS = {
+      tournamentTitle: "DRIFT CHAMPIONSHIP",
+      stageBadge: "ЭТАП 1",
+      telegramChannelUrl: "https://t.me/drift_banda",
+      telegramChannelText: "@drift_banda",
+      allowCarNumber: true,
+      allowVdc: true,
+      allowCustomCar: true,
+      allowLivery: true,
+      allowTeam: true,
+      requireReceipt: false,
+      baseFee: 150,
+      liveryFee: 100,
+      recipientName: "Слизов Тимофей Олегович",
+      paymentUrl: "https://www.tbank.ru/cf/8PJrKHvdUcq",
+      qrImageUrl: "",
+      boostyUrl: "https://boosty.to/drift_banda",
+      allowBoosty: true,
+      requireConsent: true,
+      gsheetWebhook: "",
+      gsheetViewUrl: "",
+      adminPin: "7777",
+      judgePin: "5555",
+      regulationsText: "1. ОБЩИЕ ПОЛОЖЕНИЯ\n1.1. Турнир по виртуальному дрифту в симуляторе Assetto Corsa.\n1.2. К участию допускаются пилоты, прошедшие официальную регистрацию и оплатившие стартовый взнос.\n1.3. ФИО участника должны в точности соответствовать игровому никнейму в Content Manager.\n\n2. ТРЕБОВАНИЯ К АВТОМОБИЛЯМ\n2.1. Разрешено участие на автомобилях пака VDC Public 5.0 либо личном авто, одобренном судейской коллегией.\n2.2. Запрещено внесение несанкционированных изменений в физику официальных автомобилей.\n\n3. ПРАВИЛА И СУДЕЙСТВО\n3.1. Квалификация проводится в 2 одиночных попытки.\n3.2. Парные заезды проводятся по олимпийской сетке ТОП-32 / ТОП-16 с выбыванием.\n3.3. Решения судейской коллегии являются окончательными и обжалованию во время этапа не подлежат.\n\n4. ОПЛАТА И ПУБЛИЧНАЯ ОФЕРТА\n4.1. Оплата стартового взноса подтверждает безоговорочное согласие участника со всеми правилами турнира.\n4.2. При неявке участника на этап стартовый взнос не возвращается."
+    };
+
+    function getAdminPin() {
+      return (localStorage.getItem('AC_REG_ADMIN_PIN') || localStorage.getItem('AC_MASTER_JUDGE_PIN') || '7777').trim();
+    }
+
+    function getJudgePin() {
+      return (localStorage.getItem('AC_REG_JUDGE_PIN') || '5555').trim();
+    }
+
+    function openJudgeAuthModal() {
+      const modal = document.getElementById('judgeAuthModal');
+      const input = document.getElementById('judgeAuthPinInput');
+      const err = document.getElementById('judgeAuthError');
+      const pinNotice = document.getElementById('displayJudgeDefaultPin');
+      if (pinNotice) pinNotice.textContent = getJudgePin();
+      if (err) err.classList.add('hidden');
+      if (input) input.value = '';
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.style.display = 'flex';
+      }
+      setTimeout(() => { if (input) input.focus(); }, 150);
+    }
+
+    function closeJudgeAuthModal() {
+      const modal = document.getElementById('judgeAuthModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.style.display = 'none';
+      }
+    }
+
+    function togglePinVisibility() {
+      const input = document.getElementById('judgeAuthPinInput');
+      if (input) {
+        input.type = input.type === 'password' ? 'text' : 'password';
+      }
+    }
+
+    function handleJudgeLogin() {
+      const input = document.getElementById('judgeAuthPinInput');
+      const val = (input ? input.value : '').trim();
+      const err = document.getElementById('judgeAuthError');
+      const errText = document.getElementById('judgeAuthErrorText');
+
+      const adminPin = getAdminPin();
+      const judgePin = getJudgePin();
+
+      if (val === '7777' || val === adminPin) {
+        currentUserRole = 'admin';
+        if (err) err.classList.add('hidden');
+        closeJudgeAuthModal();
+        openJudgeSettingsModal('admin');
+      } else if (val === judgePin || val === '5555') {
+        currentUserRole = 'judge';
+        if (err) err.classList.add('hidden');
+        closeJudgeAuthModal();
+        openJudgeSettingsModal('judge');
+      } else {
+        if (err) {
+          err.classList.remove('hidden');
+          if (errText) errText.textContent = 'Неверный пароль доступа!';
+        }
+        highlightError(input);
+      }
+    }
+
+    function openJudgeSettingsModal(role = 'admin') {
+      currentUserRole = role;
+      updateRoleUI(role);
+      loadAdminSettingsIntoForm();
+      renderAdminPilotsTable();
+      switchAdminTab('pilots'); // Open pilots database directly
+      const modal = document.getElementById('judgeSettingsModal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.style.display = 'flex';
+      }
+    }
+
+    function closeJudgeSettingsModal() {
+      const modal = document.getElementById('judgeSettingsModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.style.display = 'none';
+      }
+    }
+
+    function updateRoleUI(role) {
+      const badge = document.getElementById('userRoleBadge');
+      const saveBtn = document.getElementById('btnAdminSaveAll');
+      const clearBtn = document.getElementById('btnAdminClearCache');
+      const lockTabs = ['gsheet', 'categories', 'finances', 'regulations', 'security'];
+
+      if (role === 'admin') {
+        if (badge) {
+          badge.className = 'text-[10px] bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-mono font-black px-2.5 py-1 rounded-md shadow uppercase tracking-wider';
+          badge.textContent = '👑 ГЛАВНЫЙ АДМИНИСТРАТОР (ПОЛНЫЙ ДОСТУП)';
+        }
+        if (saveBtn) saveBtn.style.display = 'flex';
+        if (clearBtn) clearBtn.style.display = 'inline-flex';
+        lockTabs.forEach(t => {
+          const banner = document.getElementById('judgeLockBanner_' + t);
+          if (banner) banner.classList.add('hidden');
+        });
+        enableSettingsInputs(true);
+      } else {
+        // Judge Role
+        if (badge) {
+          badge.className = 'text-[10px] bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-mono font-black px-2.5 py-1 rounded-md shadow uppercase tracking-wider';
+          badge.textContent = '⚖️ СУДЬЯ (ПРОСМОТР И ДОПУСК ПИЛОТОВ)';
+        }
+        if (saveBtn) saveBtn.style.display = 'none'; // Only admin saves global settings
+        if (clearBtn) clearBtn.style.display = 'none';
+        lockTabs.forEach(t => {
+          const banner = document.getElementById('judgeLockBanner_' + t);
+          if (banner) banner.classList.remove('hidden');
+        });
+        enableSettingsInputs(false);
+      }
+    }
+
+    function enableSettingsInputs(enable) {
+      const formFields = [
+        'adminTournamentTitle', 'adminStageBadge', 'adminTelegramChannelUrl', 'adminTelegramChannelText', 'adminGsheetWebhook', 'adminGsheetViewUrl', 'adminOptAllowCarNumber', 'adminOptAllowVdc', 'adminOptAllowCustom',
+        'adminOptAllowLivery', 'adminOptAllowTeam', 'adminOptRequireReceipt', 'adminFeeBase',
+        'adminFeeLivery', 'adminRecipientName', 'adminPaymentUrl', 'adminQrImageUrl', 'adminBoostyUrl', 'adminOptAllowBoosty',
+        'adminOptRequireConsent', 'adminRegulationsText', 'adminNewPinInput', 'adminJudgePinInput'
+      ];
+      formFields.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.disabled = !enable;
+          if (!enable) el.classList.add('opacity-60', 'cursor-not-allowed');
+          else el.classList.remove('opacity-60', 'cursor-not-allowed');
+        }
+      });
+    }
+
+    function switchAdminTab(tabKey) {
+      const tabs = ['pilots', 'gsheet', 'categories', 'finances', 'regulations', 'security'];
+      tabs.forEach(t => {
+        const btn = document.getElementById('admTabBtn_' + t);
+        const panel = document.getElementById('admTab_' + t);
+        if (t === tabKey) {
+          if (panel) panel.classList.remove('hidden');
+          if (btn) {
+            btn.classList.add('border-amber-400', 'text-amber-400');
+            btn.classList.remove('border-transparent', 'text-slate-400');
+          }
+        } else {
+          if (panel) panel.classList.add('hidden');
+          if (btn) {
+            btn.classList.remove('border-amber-400', 'text-amber-400');
+            btn.classList.add('border-transparent', 'text-slate-400');
+          }
+        }
+      });
+      if (tabKey === 'pilots') renderAdminPilotsTable();
+    }
+
+    function getAdminSettings() {
+      try {
+        const raw = localStorage.getItem('AC_REG_SETTINGS');
+        if (raw) return Object.assign({}, DEFAULT_ADMIN_SETTINGS, JSON.parse(raw));
+      } catch(e) {}
+      return Object.assign({}, DEFAULT_ADMIN_SETTINGS);
+    }
+
+    function loadAdminSettingsIntoForm() {
+      const s = getAdminSettings();
+      const webhook = s.gsheetWebhook || localStorage.getItem('AC_REG_GOOGLE_SHEET_URL') || '';
+      const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.value = val; };
+      const setChk = (id, val) => { const el = document.getElementById(id); if (el) el.checked = !!val; };
+
+      setVal('adminTournamentTitle', s.tournamentTitle || 'DRIFT CHAMPIONSHIP');
+      setVal('adminStageBadge', s.stageBadge || 'ЭТАП 1');
+      setVal('adminTelegramChannelUrl', s.telegramChannelUrl || 'https://t.me/drift_banda');
+      setVal('adminTelegramChannelText', s.telegramChannelText || '@drift_banda');
+
+      setVal('adminGsheetWebhook', webhook);
+      setVal('adminGsheetViewUrl', s.gsheetViewUrl || '');
+      setChk('adminOptAllowCarNumber', s.allowCarNumber !== false);
+      setChk('adminOptAllowVdc', s.allowVdc !== false);
+      setChk('adminOptAllowCustom', s.allowCustomCar !== false);
+      setChk('adminOptAllowLivery', s.allowLivery !== false);
+      setChk('adminOptAllowTeam', s.allowTeam !== false);
+      setChk('adminOptRequireReceipt', !!s.requireReceipt);
+      setVal('adminFeeBase', s.baseFee || 150);
+      setVal('adminFeeLivery', s.liveryFee || 100);
+      setVal('adminRecipientName', s.recipientName || 'Слизов Тимофей Олегович');
+      setVal('adminPaymentUrl', s.paymentUrl || 'https://www.tbank.ru/cf/8PJrKHvdUcq');
+      setVal('adminQrImageUrl', s.qrImageUrl || '');
+      setVal('adminBoostyUrl', s.boostyUrl || 'https://boosty.to/drift_banda');
+      setChk('adminOptAllowBoosty', s.allowBoosty !== false);
+      setChk('adminOptRequireConsent', s.requireConsent !== false);
+      setVal('adminRegulationsText', s.regulationsText || DEFAULT_ADMIN_SETTINGS.regulationsText);
+      setVal('adminJudgePinInput', getJudgePin());
+    }
+
+    function saveAllAdminSettings() {
+      if (currentUserRole !== 'admin') {
+        alert('Изменение общих настроек доступно только главному администратору!');
+        return;
+      }
+
+      const getVal = (id, def = '') => (document.getElementById(id)?.value || def).trim();
+      const getChk = (id) => !!document.getElementById(id)?.checked;
+
+      const webhook = getVal('adminGsheetWebhook');
+      const s = {
+        tournamentTitle: getVal('adminTournamentTitle', 'DRIFT CHAMPIONSHIP'),
+        stageBadge: getVal('adminStageBadge', 'ЭТАП 1'),
+        telegramChannelUrl: getVal('adminTelegramChannelUrl', 'https://t.me/drift_banda'),
+        telegramChannelText: getVal('adminTelegramChannelText', '@drift_banda'),
+        gsheetWebhook: webhook,
+        gsheetViewUrl: getVal('adminGsheetViewUrl'),
+        allowCarNumber: getChk('adminOptAllowCarNumber'),
+        allowVdc: getChk('adminOptAllowVdc'),
+        allowCustomCar: getChk('adminOptAllowCustom'),
+        allowLivery: getChk('adminOptAllowLivery'),
+        allowTeam: getChk('adminOptAllowTeam'),
+        requireReceipt: getChk('adminOptRequireReceipt'),
+        baseFee: parseInt(getVal('adminFeeBase', '150'), 10) || 150,
+        liveryFee: parseInt(getVal('adminFeeLivery', '100'), 10) || 100,
+        recipientName: getVal('adminRecipientName', 'Слизов Тимофей Олегович'),
+        paymentUrl: getVal('adminPaymentUrl', 'https://www.tbank.ru/cf/8PJrKHvdUcq'),
+        qrImageUrl: getVal('adminQrImageUrl'),
+        boostyUrl: getVal('adminBoostyUrl', 'https://boosty.to/drift_banda'),
+        allowBoosty: getChk('adminOptAllowBoosty'),
+        requireConsent: getChk('adminOptRequireConsent'),
+        regulationsText: document.getElementById('adminRegulationsText')?.value || DEFAULT_ADMIN_SETTINGS.regulationsText
+      };
+
+      localStorage.setItem('AC_REG_SETTINGS', JSON.stringify(s));
+      if (webhook) {
+        localStorage.setItem('AC_REG_GOOGLE_SHEET_URL', webhook);
+      }
+
+      applyAdminSettingsToInterface();
+
+      const notif = document.getElementById('adminSaveNotify');
+      if (notif) {
+        notif.classList.remove('hidden');
+        setTimeout(() => notif.classList.add('hidden'), 3500);
+      }
+    }
+
+    function applyAdminSettingsToInterface() {
+      const s = getAdminSettings();
+
+      // Tournament Title & Stage Badge
+      const titleEl = document.getElementById('displayTournamentTitle');
+      if (titleEl) titleEl.textContent = s.tournamentTitle || 'DRIFT CHAMPIONSHIP';
+
+      const badgeEl = document.getElementById('displayStageBadge');
+      if (badgeEl) badgeEl.textContent = s.stageBadge || 'ЭТАП 1';
+
+      document.title = 'Регистрация пилотов — ' + (s.tournamentTitle || 'DRIFT CHAMPIONSHIP');
+
+      const copyEl = document.getElementById('footerCopyrightText');
+      if (copyEl) copyEl.textContent = `© 2026 ${s.tournamentTitle || 'DRIFT CHAMPIONSHIP'} • Assetto Corsa Drift Server`;
+
+      // Official Telegram Channel in footer
+      const tgLink = document.getElementById('footerTelegramChannelLink');
+      const tgText = document.getElementById('footerTelegramChannelText');
+      if (tgLink) tgLink.href = s.telegramChannelUrl || 'https://t.me/drift_banda';
+      if (tgText) tgText.textContent = s.telegramChannelText || '@drift_banda';
+
+      // Car number field toggle
+      const carNumWrapper = document.getElementById('fieldWrapperCarNumber');
+      const carNumInput = document.getElementById('regCarNumber');
+      if (carNumWrapper) carNumWrapper.style.display = (s.allowCarNumber !== false) ? '' : 'none';
+      if (carNumInput) carNumInput.required = (s.allowCarNumber !== false);
+
+      const teamWrapper = document.getElementById('fieldWrapperTeam');
+      if (teamWrapper) teamWrapper.style.display = (s.allowTeam !== false) ? '' : 'none';
+
+      const liveryWrapper = document.getElementById('fieldWrapperLivery');
+      if (liveryWrapper) liveryWrapper.style.display = s.allowLivery ? '' : 'none';
+
+      const vdcCard = document.getElementById('carChoiceCardVdc');
+      const customCard = document.getElementById('carChoiceCardCustom');
+      if (vdcCard) vdcCard.style.display = s.allowVdc ? '' : 'none';
+      if (customCard) customCard.style.display = s.allowCustomCar ? '' : 'none';
+
+      if (!s.allowVdc && s.allowCustomCar) selectCarSource('custom');
+      if (!s.allowCustomCar && s.allowVdc) selectCarSource('vdc');
+
+      const star = document.getElementById('receiptRequiredStar');
+      const receiptInput = document.getElementById('regPaymentProof');
+      if (star) star.style.display = s.requireReceipt ? 'inline' : 'none';
+      if (receiptInput) receiptInput.required = !!s.requireReceipt;
+
+      updateFeeDisplay();
+
+      const payBtn = document.getElementById('modalPaymentLinkBtn');
+      if (payBtn) payBtn.href = s.paymentUrl;
+
+      const payInput = document.getElementById('paymentLinkInput');
+      if (payInput) payInput.value = s.paymentUrl;
+
+      const directPayLink = document.getElementById('modalPaymentDirectLink');
+      if (directPayLink) directPayLink.href = s.paymentUrl;
+
+      // Boosty settings
+      const boostyUrl = s.boostyUrl || 'https://boosty.to/drift_banda';
+      const allowBoosty = s.allowBoosty !== false;
+
+      const step3BoostyCard = document.getElementById('step3BoostyCard');
+      if (step3BoostyCard) step3BoostyCard.style.display = allowBoosty ? '' : 'none';
+
+      const payTabBoosty = document.getElementById('payTabBtn_boosty');
+      if (payTabBoosty) payTabBoosty.style.display = allowBoosty ? '' : 'none';
+
+      const boostyBtn = document.getElementById('modalBoostyLinkBtn');
+      if (boostyBtn) boostyBtn.href = boostyUrl;
+
+      const boostyInput = document.getElementById('modalBoostyLinkInput');
+      if (boostyInput) boostyInput.value = boostyUrl;
+
+      const boostyFee = document.getElementById('displayModalBoostyFee');
+      if (boostyFee) boostyFee.textContent = (s.baseFee || 150) + ' ₽';
+
+      const qrImg = document.getElementById('modalQrImg');
+      if (qrImg) {
+        if (s.qrImageUrl) {
+          qrImg.src = s.qrImageUrl;
+        } else {
+          qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=' + encodeURIComponent(s.paymentUrl);
+        }
+      }
+
+      const regBody = document.getElementById('regulationsModalBody');
+      if (regBody && s.regulationsText) {
+        regBody.innerHTML = s.regulationsText.split('\n').map(p => p.trim() ? `<p>${p}</p>` : '').join('');
+      }
+
+      const consentCb = document.getElementById('regTermsConsent');
+      if (consentCb) {
+        consentCb.required = (s.requireConsent !== false);
+      }
+    }
+
+    function saveAdminNewPin() {
+      const input = document.getElementById('adminNewPinInput');
+      const val = (input?.value || '').trim();
+      const status = document.getElementById('adminPinChangeStatus');
+      if (!val || val.length < 3) {
+        if (status) {
+          status.className = 'text-xs p-2.5 rounded-lg bg-rose-950/80 border border-rose-500/40 text-rose-300 block font-semibold';
+          status.textContent = '⚠️ Пароль Администратора должен содержать не менее 3 символов';
+        }
+        return;
+      }
+      localStorage.setItem('AC_REG_ADMIN_PIN', val);
+      localStorage.setItem('AC_MASTER_JUDGE_PIN', val);
+      if (status) {
+        status.className = 'text-xs p-2.5 rounded-lg bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 block font-semibold';
+        status.textContent = '✅ Пароль Администратора успешно изменен на: ' + val;
+      }
+      if (input) input.value = '';
+    }
+
+    function saveJudgeNewPin() {
+      const input = document.getElementById('adminJudgePinInput');
+      const val = (input?.value || '').trim();
+      const status = document.getElementById('judgePinChangeStatus');
+      if (!val || val.length < 3) {
+        if (status) {
+          status.className = 'text-xs p-2.5 rounded-lg bg-rose-950/80 border border-rose-500/40 text-rose-300 block font-semibold';
+          status.textContent = '⚠️ Пароль Судьи должен содержать не менее 3 символов';
+        }
+        return;
+      }
+      localStorage.setItem('AC_REG_JUDGE_PIN', val);
+      if (status) {
+        status.className = 'text-xs p-2.5 rounded-lg bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 block font-semibold';
+        status.textContent = '✅ Пароль для Судей успешно назначен: ' + val;
+      }
+    }
+
+    async function testAdminGsheetSend() {
+      const url = (document.getElementById('adminGsheetWebhook')?.value || '').trim();
+      const status = document.getElementById('adminGsheetStatusMsg');
+      if (!url) {
+        if (status) {
+          status.className = 'text-xs p-2.5 rounded-lg bg-rose-950/80 border border-rose-500/40 text-rose-300 block font-semibold';
+          status.textContent = '⚠️ Укажите URL веб-приложения Google Apps Script';
+        }
+        return;
+      }
+      if (status) {
+        status.className = 'text-xs p-2.5 rounded-lg bg-cyan-950/80 border border-cyan-500/40 text-cyan-300 block';
+        status.textContent = '⏳ Отправка тестовой заявки...';
+      }
+      try {
+        const testPayload = {
+          full_name: 'Тестовый Пилот (Судейский тест)',
+          steam_guid: '76561198000000000',
+          car_number: '77',
+          team: 'Test Team',
+          car_model: 'VDC BMW E46 HGK Public 5.0',
+          discord_tag: '@test_pilot',
+          payment_receipt_link: 'https://test-check.ru/receipt.png',
+          status: 'Ожидает'
+        };
+        await fetch(url, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(testPayload)
+        });
+        if (status) {
+          status.className = 'text-xs p-2.5 rounded-lg bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 block font-semibold';
+          status.textContent = '✅ Заявка отправлена! Проверьте строку в вашей Google Таблице.';
+        }
+      } catch (err) {
+        if (status) {
+          status.className = 'text-xs p-2.5 rounded-lg bg-rose-950/80 border border-rose-500/40 text-rose-300 block font-semibold';
+          status.textContent = '❌ Ошибка: ' + err.message;
+        }
+      }
+    }
+
+    function openLiveGoogleSheet() {
+      const url = (document.getElementById('adminGsheetViewUrl')?.value || '').trim();
+      if (url) {
+        window.open(url, '_blank');
+      } else {
+        alert('Укажите ссылку на просмотр Google Таблицы в поле выше');
+      }
+    }
+
+    // =========================================================
+    // PILOT STATUS MANAGEMENT & GOOGLE SHEETS LIVE SYNC
+    // =========================================================
+
+    function getLocalRegistrations() {
+      try {
+        const list = JSON.parse(localStorage.getItem('drift_registrations') || '[]');
+        return list.map(p => {
+          if (!p.status) p.status = 'pending';
+          return p;
+        });
+      } catch(e) {
+        return [];
+      }
+    }
+
+    function saveLocalRegistrations(list) {
+      localStorage.setItem('drift_registrations', JSON.stringify(list));
+    }
+
+    function filterPilotsTable(filterType) {
+      currentPilotFilter = filterType;
+      ['all', 'approved', 'pending', 'rejected'].forEach(f => {
+        const btn = document.getElementById('pilotFilter_' + f);
+        if (btn) {
+          if (f === filterType) {
+            btn.className = 'px-3.5 py-1.5 rounded-lg bg-amber-500 text-slate-950 shadow font-black transition cursor-pointer';
+          } else {
+            btn.className = 'px-3.5 py-1.5 rounded-lg bg-[#0c1222] border border-[#1b2640] text-slate-300 hover:border-slate-500 transition cursor-pointer';
+          }
+        }
+      });
+      renderAdminPilotsTable();
+    }
+
+    function renderAdminPilotsTable() {
+      const allPilots = getLocalRegistrations();
+      
+      const countAll = allPilots.length;
+      const countApproved = allPilots.filter(p => p.status === 'approved').length;
+      const countPending = allPilots.filter(p => !p.status || p.status === 'pending').length;
+      const countRejected = allPilots.filter(p => p.status === 'rejected').length;
+
+      const setBadge = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+      setBadge('adminPilotsCountText', `${countAll} пилотов (${countApproved} допущено)`);
+      setBadge('adminPilotsCountBadge', countAll);
+      setBadge('countFilterAll', countAll);
+      setBadge('countFilterApproved', countApproved);
+      setBadge('countFilterPending', countPending);
+      setBadge('countFilterRejected', countRejected);
+
+      let displayed = allPilots;
+      if (currentPilotFilter === 'approved') displayed = allPilots.filter(p => p.status === 'approved');
+      else if (currentPilotFilter === 'pending') displayed = allPilots.filter(p => !p.status || p.status === 'pending');
+      else if (currentPilotFilter === 'rejected') displayed = allPilots.filter(p => p.status === 'rejected');
+
+      const tbody = document.getElementById('adminPilotsTableBody');
+      if (!tbody) return;
+
+      if (displayed.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" class="p-8 text-center text-slate-500 font-semibold">В этой категории пилотов не найдено</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = displayed.map((p, idx) => {
+        const st = p.status || 'pending';
+        const stColor = st === 'approved' ? 'bg-emerald-950/80 text-emerald-300 border-emerald-500/50' :
+                        st === 'rejected' ? 'bg-rose-950/80 text-rose-300 border-rose-500/50' :
+                        'bg-amber-950/80 text-amber-300 border-amber-500/50';
+
+        const quickBtn = st === 'approved' ? `
+          <button type="button" onclick="changePilotStatus('${p.id}', 'rejected')" class="text-[11px] bg-rose-950/60 hover:bg-rose-900 border border-rose-500/40 text-rose-300 font-bold px-2.5 py-1 rounded-lg transition cursor-pointer">
+            ❌ Отклонить
+          </button>
+        ` : `
+          <button type="button" onclick="changePilotStatus('${p.id}', 'approved')" class="text-[11px] bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/50 text-emerald-300 font-bold px-2.5 py-1 rounded-lg transition cursor-pointer">
+            ✅ Допустить
+          </button>
+        `;
+
+        return `
+          <tr class="hover:bg-[#10182b] transition">
+            <td class="p-3.5 font-black text-amber-400 font-mono text-center">#${p.car_number || (idx+1)}</td>
+            <td class="p-3.5 font-bold text-white">${p.full_name || 'Пилот'}</td>
+            <td class="p-3.5 text-cyan-300 font-semibold">${p.car_model || '—'}</td>
+            <td class="p-3.5 text-slate-400 font-mono text-[11px]">${p.steam_guid || '—'}</td>
+            <td class="p-3.5 text-slate-300 font-semibold">${p.discord_tag || '—'}</td>
+            <td class="p-3.5 text-center">
+              ${p.payment_receipt_link ? `<a href="${p.payment_receipt_link}" target="_blank" class="text-xs text-amber-300 hover:text-amber-200 underline font-bold bg-amber-950/50 border border-amber-500/30 px-2 py-1 rounded">Чек ↗</a>` : '<span class="text-slate-500 text-[11px]">Нет</span>'}
+            </td>
+            <td class="p-3.5 text-center">
+              <select onchange="changePilotStatus('${p.id}', this.value)" class="text-xs font-black rounded-lg px-2.5 py-1 outline-none border transition cursor-pointer ${stColor}">
+                <option value="pending" ${st==='pending'?'selected':''}>⏳ Ожидает</option>
+                <option value="approved" ${st==='approved'?'selected':''}>✅ Допущен</option>
+                <option value="rejected" ${st==='rejected'?'selected':''}>❌ Не допущен</option>
+              </select>
+            </td>
+            <td class="p-3.5 text-center">
+              ${quickBtn}
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function changePilotStatus(pilotId, newStatus) {
+      const allPilots = getLocalRegistrations();
+      const p = allPilots.find(item => String(item.id) === String(pilotId));
+      if (!p) return;
+
+      p.status = newStatus;
+      saveLocalRegistrations(allPilots);
+      renderAdminPilotsTable();
+
+      const statusRus = newStatus === 'approved' ? 'Допущен' : (newStatus === 'rejected' ? 'Не допущен' : 'Ожидает');
+
+      // Show live UI notification
+      const toast = document.getElementById('pilotStatusSyncNotice');
+      if (toast) {
+        toast.className = newStatus === 'approved' 
+          ? 'p-3 rounded-xl text-xs font-bold bg-emerald-950/90 border border-emerald-500/50 text-emerald-300 flex items-center gap-2'
+          : (newStatus === 'rejected' 
+            ? 'p-3 rounded-xl text-xs font-bold bg-rose-950/90 border border-rose-500/50 text-rose-300 flex items-center gap-2'
+            : 'p-3 rounded-xl text-xs font-bold bg-amber-950/90 border border-amber-500/50 text-amber-300 flex items-center gap-2');
+        toast.innerHTML = `<span>🔄</span> <span>Пилот <b>${p.full_name}</b> (#${p.car_number}): статус изменен на «<b>${statusRus}</b>». Синхронизируем с Google Таблицей...</span>`;
+        toast.classList.remove('hidden');
+      }
+
+      // Sync status to Google Sheets Webhook
+      const s = getAdminSettings();
+      const webhookUrl = s.gsheetWebhook || localStorage.getItem('AC_REG_GOOGLE_SHEET_URL');
+
+      if (webhookUrl) {
+        try {
+          const payload = {
+            action: 'update_status',
+            pilot_id: p.id,
+            steam_guid: p.steam_guid,
+            car_number: p.car_number,
+            full_name: p.full_name,
+            status: statusRus
+          };
+
+          await fetch(webhookUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify(payload)
+          });
+
+          if (toast) {
+            toast.innerHTML = `<span>✅</span> <span>Пилот <b>${p.full_name}</b> (#${p.car_number}): статус «<b>${statusRus}</b>» успешно обновлен в Google Таблице!</span>`;
+            setTimeout(() => toast.classList.add('hidden'), 4000);
+          }
+        } catch (err) {
+          if (toast) {
+            toast.innerHTML = `<span>⚠️</span> <span>Статус сохранен локально, но произошла ошибка при связи с Google Таблицей: ${err.message}</span>`;
+            setTimeout(() => toast.classList.add('hidden'), 5000);
+          }
+        }
+      } else {
+        if (toast) {
+          toast.className = 'p-3 rounded-xl text-xs font-bold bg-amber-950/90 border border-amber-500/50 text-amber-300 flex items-center gap-2';
+          toast.innerHTML = `<span>⚠️</span> <span>Статус пилота <b>${p.full_name}</b> изменен на «<b>${statusRus}</b>», но Google Таблица не подключена! Вставьте URL веб-приложения во вкладке «Google Таблица» для авто-обновления онлайн.</span>`;
+          setTimeout(() => toast.classList.add('hidden'), 6000);
+        }
+      }
+    }
+
+    function downloadAdminDriversJson(onlyApproved = true) {
+      const allPilots = getLocalRegistrations();
+      if (allPilots.length === 0) {
+        alert('В базе пока нет заявок для выгрузки.');
+        return;
+      }
+
+      let exportList = allPilots;
+      if (onlyApproved) {
+        const approved = allPilots.filter(p => p.status === 'approved');
+        if (approved.length === 0) {
+          if (!confirm('Внимание: ни один пилот еще не помечен как «Допущен»! Выгрузить всех участников?')) {
+            return;
+          }
+        } else {
+          exportList = approved;
+        }
+      }
+
+      const driversList = exportList.map((p, idx) => ({
+        id: p.id || (idx + 1),
+        name: p.full_name || ('Пилот ' + (idx + 1)),
+        car: p.car_model || 'DRIFT CAR',
+        number: String(p.car_number || (idx + 1)),
+        car_number: String(p.car_number || (idx + 1)),
+        team: p.team || 'Личный зачет',
+        guid: p.steam_guid || '',
+        status: (p.status === 'approved') ? 'ДОПУЩЕН' : 'В ПИТАХ',
+        status_code: 'pit',
+        is_player: (idx === 0),
+        run1: 0,
+        run2: 0,
+        best: 0
+      }));
+
+      const container = {
+        server_name: (getAdminSettings().tournamentTitle || "RDS GP / DRIFT"),
+        drivers_count: driversList.length,
+        drivers: driversList,
+        players: driversList,
+        pilots: driversList
+      };
+
+      const blob = new Blob([JSON.stringify(container, null, 2)], { type: 'application/json;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'drivers.json';
+      a.click();
+    }
+
+    function downloadAdminPilotsCsv() {
+      const pilots = getLocalRegistrations();
+      if (pilots.length === 0) {
+        alert('В базе пока нет заявок для выгрузки.');
+        return;
+      }
+
+      let csv = 'ID;Дата;Номер;ФИО;Автомобиль;SteamID;Telegram;Команда;СтатусДопуска;Чек\r\n';
+      pilots.forEach((p, idx) => {
+        const stText = p.status === 'approved' ? 'Допущен' : (p.status === 'rejected' ? 'Не допущен' : 'Ожидает');
+        csv += `${idx+1};"${p.created_at || ''}";"${p.car_number || ''}";"${p.full_name || ''}";"${p.car_model || ''}";"${p.steam_guid || ''}";"${p.discord_tag || ''}";"${p.team || ''}";"${stText}";"${p.payment_receipt_link || ''}"\r\n`;
+      });
+
+      const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'pilots_list.csv';
+      a.click();
+    }
+
+    async function clearAdminRegistrations() {
+      if (currentUserRole !== 'admin') {
+        alert('Очистка базы пилотов доступна только Главному Администратору!');
+        return;
+      }
+
+      const conf = confirm(
+        '⚠️ ВНИМАНИЕ! ПОЛНАЯ ОЧИСТКА БАЗЫ:\n\n' +
+        'Вы уверены, что хотите удалить ВСЕХ зарегистрированных пилотов и ПОЛНОСТЬЮ очистить Google Таблицу?\n\n' +
+        'Все строки участников в Google Таблице будут удалены! Это действие необратимо.\n\n' +
+        'Нажмите ОК для подтверждения.'
+      );
+      if (!conf) return;
+
+      const toast = document.getElementById('pilotStatusSyncNotice');
+      if (toast) {
+        toast.className = 'p-3 rounded-xl text-xs font-bold bg-amber-950/90 border border-amber-500/50 text-amber-300 flex items-center gap-2';
+        toast.innerHTML = '<span>⏳</span> <span>Очистка базы участников и строк в Google Таблице...</span>';
+        toast.classList.remove('hidden');
+      }
+
+      // 1. Clear local registrations
+      localStorage.removeItem('drift_registrations');
+      renderAdminPilotsTable();
+
+      // 2. Clear Google Sheet via Webhook
+      const s = getAdminSettings();
+      const webhookUrl = s.gsheetWebhook || localStorage.getItem('AC_REG_GOOGLE_SHEET_URL');
+
+      if (webhookUrl) {
+        try {
+          await fetch(webhookUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ action: 'clear_all_pilots' })
+          });
+          if (toast) {
+            toast.className = 'p-3 rounded-xl text-xs font-bold bg-emerald-950/90 border border-emerald-500/50 text-emerald-300 flex items-center gap-2';
+            toast.innerHTML = '<span>✅</span> <span>База участников и Google Таблица успешно очищены!</span>';
+            setTimeout(() => toast.classList.add('hidden'), 4000);
+          }
+        } catch(err) {
+          if (toast) {
+            toast.className = 'p-3 rounded-xl text-xs font-bold bg-rose-950/90 border border-rose-500/50 text-rose-300 flex items-center gap-2';
+            toast.innerHTML = `<span>⚠️</span> <span>Локальная база очищена, но возникла ошибка связи с Google Таблицей: ${err.message}</span>`;
+            setTimeout(() => toast.classList.add('hidden'), 5000);
+          }
+        }
+      } else {
+        if (toast) {
+          toast.className = 'p-3 rounded-xl text-xs font-bold bg-emerald-950/90 border border-emerald-500/50 text-emerald-300 flex items-center gap-2';
+          toast.innerHTML = '<span>✅</span> <span>Локальная база участников очищена (Google Таблица не была подключена в настройках).</span>';
+          setTimeout(() => toast.classList.add('hidden'), 3500);
+        }
+      }
+    }
+
+    let currentRegStep = 1;
+
+    function highlightError(el) {
+      if (!el) return;
+      el.classList.add('border-rose-500', 'ring-2', 'ring-rose-500/50');
+      setTimeout(() => el.classList.remove('border-rose-500', 'ring-2', 'ring-rose-500/50'), 3000);
+    }
+
+    function validateStep1() {
+      const name = document.getElementById('regFullName')?.value.trim();
+      const discord = document.getElementById('regDiscord')?.value.trim();
+      const steam = document.getElementById('regSteamGuid')?.value.trim();
+      const num = document.getElementById('regCarNumber')?.value.trim();
+      const s = getAdminSettings();
+
+      if (!name) {
+        alert('Укажите Имя и Фамилию (в точности как в игре)!');
+        document.getElementById('regFullName')?.focus();
+        highlightError(document.getElementById('regFullName'));
+        return false;
+      }
+      if (!discord) {
+        alert('Укажите ваш Telegram для связи с организаторами!');
+        document.getElementById('regDiscord')?.focus();
+        highlightError(document.getElementById('regDiscord'));
+        return false;
+      }
+      if (!steam || !/^7656119\d{10}$/.test(steam)) {
+        alert('Steam ID должен состоять ровно из 17 цифр и начинаться на 7656119...');
+        document.getElementById('regSteamGuid')?.focus();
+        highlightError(document.getElementById('regSteamGuid'));
+        return false;
+      }
+      if (s.allowCarNumber !== false) {
+        if (!num) {
+          alert('Укажите стартовый номер автомобиля!');
+          document.getElementById('regCarNumber')?.focus();
+          highlightError(document.getElementById('regCarNumber'));
+          return false;
+        }
+      }
+      return true;
+    }
+
+    function validateStep2() {
+      const carSource = document.querySelector('input[name="carSourceType"]:checked')?.value || 'vdc';
+      if (carSource === 'vdc') {
+        const val = document.getElementById('regCarSelect')?.value;
+        if (!val) {
+          alert('Выберите автомобиль из пака VDC Public 5.0!');
+          document.getElementById('regCarSelect')?.focus();
+          highlightError(document.getElementById('regCarSelect'));
+          return false;
+        }
+      } else {
+        const link = document.getElementById('regCarLink')?.value.trim();
+        if (!link) {
+          alert('Укажите ссылку на архив с вашей личной машиной!');
+          document.getElementById('regCarLink')?.focus();
+          highlightError(document.getElementById('regCarLink'));
+          return false;
+        }
+      }
+      return true;
+    }
+
+    function goToRegStep(target) {
+      if (target === currentRegStep) return;
+      if (target > currentRegStep) {
+        if (currentRegStep === 1 && !validateStep1()) return;
+        if (currentRegStep === 2 && !validateStep2()) return;
+        if (currentRegStep === 1 && target === 3) {
+          if (!validateStep1() || !validateStep2()) return;
+        }
+      }
+      currentRegStep = target;
+      renderRegSteps();
+    }
+
+    function nextRegStep(from) {
+      if (from === 1 && !validateStep1()) return;
+      if (from === 2 && !validateStep2()) return;
+      currentRegStep = from + 1;
+      renderRegSteps();
+    }
+
+    function prevRegStep(from) {
+      if (from > 1) {
+        currentRegStep = from - 1;
+        renderRegSteps();
+      }
+    }
+
+    function updateFeeDisplay() {
+      const s = getAdminSettings();
+      const baseFee = s.baseFee || 150;
+      const liveryFee = s.liveryFee || 100;
+      const hasLivery = s.allowLivery && !!(document.getElementById('regLiveryLink')?.value?.trim());
+      const total = baseFee + (hasLivery ? liveryFee : 0);
+
+      const totalEl = document.getElementById('displayTotalFeeCalculated');
+      if (totalEl) totalEl.textContent = total + ' ₽';
+
+      const breakdownEl = document.getElementById('displayFeeBreakdownText');
+      if (breakdownEl) {
+        if (hasLivery) {
+          breakdownEl.textContent = `(Базовый ${baseFee} ₽ + Ливрея ${liveryFee} ₽)`;
+        } else {
+          breakdownEl.textContent = `(Базовый стартовый взнос)`;
+        }
+      }
+
+      const recBadge = document.getElementById('displayRecipientBadge');
+      if (recBadge) recBadge.textContent = s.recipientName || 'Слизов Тимофей Олегович';
+
+      const modalFee = document.getElementById('displayModalFee');
+      if (modalFee) modalFee.textContent = total + ' ₽';
+
+      const modalBoostyFee = document.getElementById('displayModalBoostyFee');
+      if (modalBoostyFee) modalBoostyFee.textContent = total + ' ₽';
+
+      const modalRec = document.getElementById('displayModalRecipient');
+      if (modalRec) modalRec.textContent = s.recipientName || 'Слизов Тимофей Олегович';
+    }
+
+    function renderRegSteps() {
+      updateFeeDisplay();
+      document.getElementById('regStepPage1')?.classList.toggle('hidden', currentRegStep !== 1);
+      document.getElementById('regStepPage2')?.classList.toggle('hidden', currentRegStep !== 2);
+      document.getElementById('regStepPage3')?.classList.toggle('hidden', currentRegStep !== 3);
+
+      const track = document.getElementById('stepProgressTrack');
+      if (track) {
+        if (currentRegStep === 1) track.style.width = '0%';
+        else if (currentRegStep === 2) track.style.width = '50%';
+        else if (currentRegStep === 3) track.style.width = '100%';
+      }
+
+      for (let s = 1; s <= 3; s++) {
+        const badge = document.getElementById(`stepBadge${s}`);
+        const label = document.getElementById(`stepLabel${s}`);
+        if (!badge) continue;
+
+        if (s < currentRegStep) {
+          badge.className = "w-10 h-10 rounded-full flex items-center justify-center font-black text-sm border-2 border-emerald-500 bg-emerald-500 text-slate-950 shadow-md";
+          badge.innerHTML = "✓";
+          if (label) label.className = "text-xs font-bold text-emerald-400";
+        } else if (s === currentRegStep) {
+          badge.className = "w-10 h-10 rounded-full flex items-center justify-center font-black text-sm border-2 border-amber-400 bg-amber-500 text-slate-950 shadow-lg scale-105";
+          badge.innerHTML = String(s);
+          if (label) label.className = "text-xs font-bold text-amber-300";
+        } else {
+          badge.className = "w-10 h-10 rounded-full flex items-center justify-center font-black text-sm border-2 border-[#2b395b] bg-[#161e34] text-slate-400";
+          badge.innerHTML = String(s);
+          if (label) label.className = "text-xs font-bold text-slate-400";
+        }
+      }
+    }
+
+    function selectCarSource(type) {
+      const radioVdc = document.getElementById('radioCarVdc');
+      const radioCustom = document.getElementById('radioCarCustom');
+      const cardVdc = document.getElementById('carChoiceCardVdc');
+      const cardCustom = document.getElementById('carChoiceCardCustom');
+      const vdcSection = document.getElementById('sectionVdcSelection');
+      const customSection = document.getElementById('sectionCustomCarSelection');
+
+      if (type === 'vdc') {
+        if (radioVdc) radioVdc.checked = true;
+        if (radioCustom) radioCustom.checked = false;
+        if (cardVdc) cardVdc.className = "cursor-pointer p-4 rounded-xl border-2 border-cyan-400 bg-[#16213b] transition duration-200 flex items-start gap-3.5 select-none";
+        if (cardCustom) cardCustom.className = "cursor-pointer p-4 rounded-xl border border-[#233152] bg-[#121829] transition duration-200 flex items-start gap-3.5 select-none";
+        if (vdcSection) vdcSection.classList.remove('hidden');
+        if (customSection) customSection.classList.add('hidden');
+      } else {
+        if (radioVdc) radioVdc.checked = false;
+        if (radioCustom) radioCustom.checked = true;
+        if (cardVdc) cardVdc.className = "cursor-pointer p-4 rounded-xl border border-[#233152] bg-[#121829] transition duration-200 flex items-start gap-3.5 select-none";
+        if (cardCustom) cardCustom.className = "cursor-pointer p-4 rounded-xl border-2 border-amber-400 bg-[#1e1913] transition duration-200 flex items-start gap-3.5 select-none";
+        if (vdcSection) vdcSection.classList.add('hidden');
+        if (customSection) customSection.classList.remove('hidden');
+        document.getElementById('regCarLink')?.focus();
+      }
+    }
+
+    function switchPaymentMethod(method) {
+      const isSbp = method !== 'boosty';
+      const sbpBlock = document.getElementById('payMethod_sbp');
+      const boostyBlock = document.getElementById('payMethod_boosty');
+      if (sbpBlock) sbpBlock.classList.toggle('hidden', !isSbp);
+      if (boostyBlock) boostyBlock.classList.toggle('hidden', isSbp);
+
+      const btnSbp = document.getElementById('payTabBtn_sbp');
+      const btnBoosty = document.getElementById('payTabBtn_boosty');
+
+      if (btnSbp) {
+        btnSbp.className = isSbp 
+          ? 'py-2.5 px-3 rounded-lg text-xs font-black flex items-center justify-center gap-2 transition bg-amber-500 text-slate-950 shadow cursor-pointer'
+          : 'py-2.5 px-3 rounded-lg text-xs font-black flex items-center justify-center gap-2 transition bg-transparent text-slate-400 hover:text-white cursor-pointer';
+      }
+      if (btnBoosty) {
+        btnBoosty.className = !isSbp
+          ? 'py-2.5 px-3 rounded-lg text-xs font-black flex items-center justify-center gap-2 transition bg-gradient-to-r from-orange-500 to-amber-500 text-slate-950 shadow cursor-pointer'
+          : 'py-2.5 px-3 rounded-lg text-xs font-black flex items-center justify-center gap-2 transition bg-transparent text-slate-400 hover:text-white cursor-pointer';
+      }
+    }
+
+    function openPaymentModal(method = 'sbp') {
+      const s = getAdminSettings();
+      if (s.allowBoosty === false) method = 'sbp';
+
+      updateFeeDisplay();
+      switchPaymentMethod(method);
+      document.getElementById('paymentModal')?.classList.remove('hidden');
+    }
+
+    function closePaymentModal() {
+      document.getElementById('paymentModal')?.classList.add('hidden');
+    }
+
+    function copyLink(elementId = 'paymentLinkInput') {
+      const el = document.getElementById(elementId);
+      const val = el ? el.value : '';
+      if (!val) return;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(val);
+      }
+      alert('Ссылка скопирована в буфер обмена!');
+    }
+
+    function openRegulationsModal() {
+      document.getElementById('regulationsModal')?.classList.remove('hidden');
+    }
+    function closeRegulationsModal() {
+      document.getElementById('regulationsModal')?.classList.add('hidden');
+    }
+    function agreeRegulations() {
+      const cb = document.getElementById('regTermsConsent');
+      if (cb) cb.checked = true;
+      closeRegulationsModal();
+    }
+
+    function closeSuccessModal() {
+      document.getElementById('successModal')?.classList.add('hidden');
+    }
+
+    // Submit handler: sends to backend if configured or saves locally
+    async function handleRegistrationSubmit(e) {
+      e.preventDefault();
+
+      if (!validateStep1()) { goToRegStep(1); return; }
+      if (!validateStep2()) { goToRegStep(2); return; }
+
+      const terms = document.getElementById('regTermsConsent');
+      if (!terms || !terms.checked) {
+        alert('Необходимо подтвердить согласие с регламентом соревнований и условиями оферты!');
+        goToRegStep(3);
+        terms?.focus();
+        return;
+      }
+
+      const fullName = document.getElementById('regFullName')?.value.trim();
+      const discord = document.getElementById('regDiscord')?.value.trim();
+      const steamGuid = document.getElementById('regSteamGuid')?.value.trim();
+      const s = getAdminSettings();
+      let carNumber = document.getElementById('regCarNumber')?.value.trim();
+      if (s.allowCarNumber === false || !carNumber) {
+        carNumber = '—';
+      }
+      const team = document.getElementById('regTeam')?.value.trim() || 'Личный зачет';
+
+      const carSource = document.querySelector('input[name="carSourceType"]:checked')?.value || 'vdc';
+      let carModel = '';
+      let carLink = '';
+
+      if (carSource === 'vdc') {
+        carModel = document.getElementById('regCarSelect')?.value.trim() || 'VDC Public 5.0';
+      } else {
+        carLink = document.getElementById('regCarLink')?.value.trim();
+        carModel = document.getElementById('regCustomCarName')?.value.trim() || 'Личная машина (по ссылке)';
+      }
+
+      const liveryLink = document.getElementById('regLiveryLink')?.value.trim() || '';
+      const paymentProof = document.getElementById('regPaymentProof')?.value.trim() || '';
+
+      const payload = {
+        full_name: fullName,
+        steam_guid: steamGuid,
+        car_number: carNumber,
+        team: team,
+        car_model: carModel,
+        discord_tag: discord,
+        car_link: carLink,
+        livery_link: liveryLink,
+        payment_receipt_link: paymentProof
+      };
+
+      const btn = document.getElementById('submitRegBtn');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span>⏳</span> <span>Отправка...</span>';
+      }
+
+      const urlParams = new URLSearchParams(window.location.search);
+      let submitted = false;
+
+      // 1. Send directly to Google Sheets Webhook (24/7 cloud database)
+      const gsheetUrl = urlParams.get('sheet') || window.GOOGLE_SHEET_WEBHOOK_URL || localStorage.getItem('AC_REG_GOOGLE_SHEET_URL') || '';
+      if (gsheetUrl) {
+        try {
+          await fetch(gsheetUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify(payload)
+          });
+          submitted = true;
+        } catch (err) {
+          console.warn('Google Sheet send warning:', err);
+        }
+      }
+
+      // 2. Try sending to local/cloud Python API backend if configured
+      const customApi = urlParams.get('api') || localStorage.getItem('reg_api_backend') || '';
+      if (customApi || window.location.origin.indexOf('github.io') === -1) {
+        const apiEndpoint = customApi ? (customApi.replace(/\/+$/, '') + '/api/pilots') : '/api/pilots';
+        try {
+          const res = await fetch(apiEndpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          if (res.ok) submitted = true;
+        } catch (err) {}
+      }
+
+      // Save to localStorage as a reliable backup
+      try {
+        const saved = JSON.parse(localStorage.getItem('drift_registrations') || '[]');
+        payload.id = Date.now();
+        payload.created_at = new Date().toISOString();
+        saved.push(payload);
+        localStorage.setItem('drift_registrations', JSON.stringify(saved));
+      } catch(e) {}
+
+      // Show success modal & update Telegram link
+      document.getElementById('successPilotName').textContent = fullName;
+      const successCarNumEl = document.getElementById('successCarNumber');
+      if (successCarNumEl) {
+        successCarNumEl.textContent = (carNumber && carNumber !== '—') ? ('#' + carNumber) : '—';
+      }
+      const successCarRow = document.getElementById('successCarNumberRow');
+      if (successCarRow) {
+        successCarRow.style.display = (s.allowCarNumber !== false && carNumber && carNumber !== '—') ? '' : 'none';
+      }
+      document.getElementById('successCarModel').textContent = carModel;
+
+      
+
+      document.getElementById('successModal').classList.remove('hidden');
+
+      // Reset
+      document.getElementById('pilotRegistrationForm').reset();
+      currentRegStep = 1;
+      renderRegSteps();
+      selectCarSource('vdc');
+
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '<span>🚀</span> <span>ОТПРАВИТЬ ЗАЯВКУ НА ЭТАП</span>';
+      }
+    }
+
+    // Startup: Apply saved admin branding and settings immediately on load and refresh
+    document.addEventListener('DOMContentLoaded', function() {
+      applyAdminSettingsToInterface();
+      renderRegSteps();
+    });
+    try {
+      applyAdminSettingsToInterface();
+    } catch(e) {}
+  </script>
+</body>
+</html>
