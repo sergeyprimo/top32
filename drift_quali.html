@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Assetto Corsa Drift Qualification HUD (RDS / Formula Drift Style)</title>
+  <link rel="stylesheet" href="battle.css">
+  <script src="top32_data.js"></script>
+  <script src="drivers_data.js"></script>
+  <style>
+    /* Qualification Container Positioning */
+    .quali-wrapper {
+      position: absolute;
+      width: 1920px;
+      height: 1080px;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      padding-bottom: 24px;
+      pointer-events: none;
+      box-sizing: border-box;
+      transition: all 0.25s ease;
+    }
+
+    body.pos-top .quali-wrapper {
+      align-items: flex-start;
+      padding-top: 24px;
+      padding-bottom: 0;
+    }
+
+    .quali-wrapper .battle-container {
+      pointer-events: auto;
+      max-width: 820px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body class="pos-top">
+
+  <div class="quali-wrapper" id="qualiWrapper">
+    <div class="battle-container" id="battleContainer">
+      <!-- SINGLE QUALIFICATION PLATE (EXACT DRIFT BATTLE STYLE) -->
+      <div class="pilot-plate quali" id="qualiPlate">
+        <div class="pilot-plate-inner">
+          <!-- Left: Role Badge & Identity -->
+          <div class="pilot-left">
+            <div class="role-badge">
+              <span class="role-title">QUALI</span>
+              <span class="role-sub">КВАЛ</span>
+            </div>
+
+            <div class="pilot-identity">
+              <div class="name-line">
+                <span class="seed-pill" id="qualiSeed">#01</span>
+                <span class="pilot-name" id="qualiName">SERGEY PRIMO</span>
+                <span class="you-pill" id="qualiYou" style="display:none;">ВЫ</span>
+                <span class="run-badge" id="qualiRun">ПОПЫТКА #1</span>
+                <span class="status-pill ready" id="qualiStatus">
+                  <span class="status-dot"></span>
+                  <span class="status-text">НА СТАРТЕ</span>
+                </span>
+              </div>
+              <div class="sub-meta-line">
+                <span class="pilot-car" id="qualiCar">RCDC DODGE VIPER</span>
+                <span class="progress-pill" id="qualiProgress" style="display:none;">0%</span>
+                <span class="history-text" id="qualiHistory">П1: <b>—</b> | П2: <b>—</b> | ЛУЧШИЙ: <b>—</b></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Judges Score Box & Digital Speedometer -->
+          <div class="pilot-telemetry">
+            <div class="quali-score-block">
+              <span class="score-value" id="qualiScore">—</span>
+              <span class="score-label">БАЛЛЫ</span>
+            </div>
+
+            <div class="telemetry-block">
+              <span class="speed-value" id="qualiSpeed">0</span>
+              <span class="speed-unit">КМ/Ч</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // URL modifiers (?clean=1, ?scale=100|85|75|115|125, ?pos=top|bottom, ?preview=1, ?run=1|2)
+    var urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('clean') === '1') document.body.classList.add('clean-style');
+
+    var posParam = urlParams.get('pos');
+    if (posParam === 'bottom') {
+      document.body.classList.remove('pos-top');
+      document.body.classList.add('pos-bottom');
+    } else {
+      document.body.classList.remove('pos-bottom');
+      document.body.classList.add('pos-top');
+    }
+
+    var scale = urlParams.get('scale');
+    if (scale && scale !== '100') {
+      document.body.classList.add('scale-' + scale);
+    }
+
+    var isPreview = urlParams.get('preview') === '1' || urlParams.get('always_names') === '1';
+    var forcedRun = urlParams.get('run');
+
+    // DOM Elements
+    var qualiPlate = document.getElementById('qualiPlate');
+    var qualiSeed = document.getElementById('qualiSeed');
+    var qualiName = document.getElementById('qualiName');
+    var qualiYou = document.getElementById('qualiYou');
+    var qualiRun = document.getElementById('qualiRun');
+    var qualiStatus = document.getElementById('qualiStatus');
+    var qualiCar = document.getElementById('qualiCar');
+    var qualiProgress = document.getElementById('qualiProgress');
+    var qualiHistory = document.getElementById('qualiHistory');
+    var qualiScore = document.getElementById('qualiScore');
+    var qualiSpeed = document.getElementById('qualiSpeed');
+
+    // Unicode-safe status dictionary
+    var STATUS_MAP = {
+      "track": "В ЗАЕЗДЕ",
+      "ready": "НА СТАРТЕ",
+      "finish": "ФИНИШ",
+      "pit": "В БОКСАХ",
+      "transit": "ДО СТАРТА"
+    };
+
+    // Qualification Database cache from top32.json
+    var qualiList = [];
+    var qualiTop32Etag = null;
+    var isTop32Fetching = false;
+
+    function pollTop32() {
+      if (isTop32Fetching) return;
+      isTop32Fetching = true;
+
+      if (window.TOP32_DATA && (!qualiList || qualiList.length === 0)) {
+        applyTop32Data(window.TOP32_DATA);
+      }
+      try {
+        var saved = localStorage.getItem('AC_TOP32_DATA');
+        if (saved && (!qualiList || qualiList.length === 0)) applyTop32Data(JSON.parse(saved));
+      } catch(e) {}
+
+      var isGhPages = window.location.hostname.indexOf('github.io') !== -1;
+      if (isGhPages) {
+        var headers = {};
+        if (qualiTop32Etag) headers['If-None-Match'] = qualiTop32Etag;
+        fetch('https://api.github.com/repos/sergeyprimo/top32/contents/top32.json', { headers: headers, cache: 'no-store' })
+          .then(function(res) {
+            if (res.status === 304) return null;
+            if (res.ok) {
+              var et = res.headers.get('ETag');
+              if (et) qualiTop32Etag = et;
+              return res.json();
+            }
+          })
+          .then(function(meta) {
+            if (meta && meta.content) {
+              var binStr = atob(meta.content.replace(/\s/g, ''));
+              var bytes = new Uint8Array(binStr.length);
+              for (var i = 0; i < binStr.length; i++) bytes[i] = binStr.charCodeAt(i);
+              var decoded = new TextDecoder('utf-8').decode(bytes);
+              applyTop32Data(JSON.parse(decoded));
+            }
+          })
+          .catch(function() {})
+          .finally(function() { isTop32Fetching = false; });
+      } else {
+        var isFile = (window.location.protocol === 'file:');
+        var tUrl = isFile ? 'top32.json' : ('top32.json?nocache=' + Date.now());
+        fetch(tUrl, { cache: 'no-store' })
+          .then(function(r) { return r.ok ? r.json() : null; })
+          .then(function(data) {
+            if (data) {
+              applyTop32Data(data);
+            } else {
+              pollTop32ScriptFallback();
+            }
+          })
+          .catch(function() {
+            pollTop32ScriptFallback();
+          })
+          .finally(function() { isTop32Fetching = false; });
+      }
+    }
+
+    var top32ScriptPending = false;
+    function pollTop32ScriptFallback() {
+      if (top32ScriptPending) return;
+      top32ScriptPending = true;
+      var old = document.getElementById('top32-data-script');
+      if (old) old.remove();
+      var s = document.createElement('script');
+      s.id = 'top32-data-script';
+      s.src = (window.location.protocol === 'file:') ? 'top32_data.js' : ('top32_data.js?nocache=' + Date.now());
+      s.onload = function() {
+        top32ScriptPending = false;
+        if (window.TOP32_DATA) applyTop32Data(window.TOP32_DATA);
+      };
+      s.onerror = function() { top32ScriptPending = false; };
+      document.head.appendChild(s);
+    }
+
+    function applyTop32Data(data) {
+      if (!data) return;
+      if (Array.isArray(data.qualification)) {
+        qualiList = data.qualification;
+      }
+    }
+    setInterval(pollTop32, 1000);
+    pollTop32();
+
+    // Render Qualification Plate
+    function renderQuali(pilot) {
+      if (!qualiPlate) return;
+
+      // Mock pilot for preview mode if no live driver
+      if (isPreview && (!pilot || pilot.status_code === 'pit')) {
+        pilot = {
+          name: "SERGEY PRIMO",
+          car: "RCDC DODGE VIPER",
+          speed: 114,
+          status_code: "track",
+          status: "В ЗАЕЗДЕ",
+          progress_pct: 58,
+          is_player: true
+        };
+      }
+
+      var statusCode = (pilot && pilot.status_code) ? pilot.status_code : "pit";
+      // Arrival at start line condition: ready, track, or finish
+      var isAtStart = (statusCode === 'ready' || statusCode === 'track' || statusCode === 'finish');
+
+      // WAITING STATE: Pilot is in pits or transit before start area
+      if ((!pilot || !isAtStart) && !isPreview) {
+        qualiPlate.classList.add('is-waiting');
+        qualiPlate.classList.remove('is-player');
+        if (qualiYou) qualiYou.style.display = 'none';
+
+        if (qualiName) {
+          qualiName.classList.add('waiting-pilot');
+          qualiName.textContent = "ОЖИДАЕМ ПИЛОТА...";
+        }
+
+        if (qualiCar) {
+          qualiCar.textContent = (statusCode === 'transit') ? "ПОДЪЕЗД К СТАРТУ" : "ОЖИДАНИЕ В БОКСАХ";
+        }
+
+        if (qualiStatus) {
+          qualiStatus.className = "status-pill waiting";
+          var textSpan = qualiStatus.querySelector('.status-text');
+          if (textSpan) {
+            textSpan.textContent = (statusCode === 'transit') ? "ПОДЪЕЗД" : "ОЖИДАНИЕ";
+          }
+        }
+
+        if (qualiProgress) qualiProgress.style.display = 'none';
+        if (qualiSeed) qualiSeed.textContent = "#—";
+        if (qualiRun) qualiRun.textContent = "КВАЛИФИКАЦИЯ";
+        if (qualiHistory) qualiHistory.innerHTML = "П1: <b>—</b> | П2: <b>—</b> | ЛУЧШИЙ: <b>—</b>";
+        if (qualiScore) qualiScore.textContent = "—";
+        if (qualiSpeed) {
+          // Show live transit speed if car is in motion on the way to start, otherwise 0
+          qualiSpeed.textContent = (pilot && pilot.speed !== undefined && pilot.speed !== null && statusCode === 'transit') ? pilot.speed : 0;
+        }
+        return;
+      }
+
+      // ACTIVE PILOT AT START LINE OR IN RUN
+      qualiPlate.classList.remove('is-waiting');
+      if (qualiName) {
+        qualiName.classList.remove('waiting-pilot');
+        qualiName.textContent = (pilot.name || 'PILOT').toUpperCase();
+      }
+
+      // Streamer highlight
+      if (pilot.is_player) {
+        qualiPlate.classList.add('is-player');
+        if (qualiYou) qualiYou.style.display = 'inline-block';
+      } else {
+        qualiPlate.classList.remove('is-player');
+        if (qualiYou) qualiYou.style.display = 'none';
+      }
+
+      if (qualiCar) qualiCar.textContent = (pilot.car || 'DRIFT CAR').toUpperCase();
+
+      // Live speed in real time from Assetto Corsa
+      if (qualiSpeed) {
+        qualiSpeed.textContent = (pilot.speed !== undefined && pilot.speed !== null) ? pilot.speed : 0;
+      }
+
+      // Status pill
+      var statusText = pilot.status || STATUS_MAP[statusCode] || "НА СТАРТЕ";
+      if (qualiStatus) {
+        qualiStatus.className = "status-pill " + statusCode;
+        var stText = qualiStatus.querySelector('.status-text');
+        if (stText) stText.textContent = statusText;
+      }
+
+      // Section progress %
+      if (qualiProgress) {
+        if (pilot.progress_pct && pilot.progress_pct > 0 && statusCode === 'track') {
+          qualiProgress.style.display = 'inline-block';
+          qualiProgress.textContent = pilot.progress_pct + "%";
+        } else {
+          qualiProgress.style.display = 'none';
+        }
+      }
+
+      // Match pilot in Tournament Qualification standings
+      var driverNameLower = (pilot.name || '').toLowerCase().trim();
+      var qMatch = null;
+      for (var i = 0; i < qualiList.length; i++) {
+        var qItem = qualiList[i];
+        if (qItem && qItem.name && qItem.name.toLowerCase().trim() === driverNameLower) {
+          qMatch = qItem;
+          break;
+        }
+      }
+
+      // Seed / Pilot Number
+      if (qualiSeed) {
+        if (qMatch && (qMatch.seed || qMatch.rank)) {
+          var num = qMatch.seed || qMatch.rank;
+          qualiSeed.textContent = "#" + (num < 10 ? '0' : '') + num;
+        } else {
+          qualiSeed.textContent = "#01";
+        }
+      }
+
+      // Qualification attempts breakdown
+      var r1 = (qMatch && qMatch.run1 !== undefined && qMatch.run1 !== null && qMatch.run1 > 0) ? qMatch.run1 : null;
+      var r2 = (qMatch && qMatch.run2 !== undefined && qMatch.run2 !== null && qMatch.run2 > 0) ? qMatch.run2 : null;
+      var best = (qMatch && qMatch.best !== undefined && qMatch.best !== null && qMatch.best > 0) ? qMatch.best : null;
+
+      var currentRunNum = 1;
+      if (forcedRun === '2') {
+        currentRunNum = 2;
+      } else if (forcedRun === '1') {
+        currentRunNum = 1;
+      } else if (r1 !== null && r2 === null) {
+        currentRunNum = 2;
+      } else if (r1 !== null && r2 !== null) {
+        currentRunNum = 2;
+      }
+
+      if (qualiRun) {
+        qualiRun.textContent = "ПОПЫТКА #" + currentRunNum;
+      }
+
+      if (qualiHistory) {
+        qualiHistory.innerHTML = "П1: <b>" + (r1 !== null ? r1 : "—") + "</b> | П2: <b>" + (r2 !== null ? r2 : "—") + "</b> | ЛУЧШИЙ: <b>" + (best !== null ? best : "—") + "</b>";
+      }
+
+      // Hero Score calculation
+      var currentRunScore = currentRunNum === 1 ? r1 : r2;
+      if (qualiScore) {
+        if (statusCode === 'finish' && currentRunScore !== null) {
+          qualiScore.textContent = currentRunScore;
+        } else if (best !== null) {
+          qualiScore.textContent = best;
+        } else if (currentRunScore !== null) {
+          qualiScore.textContent = currentRunScore;
+        } else {
+          qualiScore.textContent = "—";
+        }
+      }
+    }
+
+    // High performance telemetry poller (XHR to drivers.json + script tag fallback)
+    var isPolling = false;
+    function pollLiveTelemetry() {
+      if (isPolling) return;
+      isPolling = true;
+
+      var xhr = new XMLHttpRequest();
+      var isFile = (window.location.protocol === 'file:'); xhr.open('GET', isFile ? 'drivers.json' : ('drivers.json?nocache=' + Date.now()), true);
+      xhr.timeout = 150;
+
+      xhr.onload = function() {
+        isPolling = false;
+        if (xhr.status === 200 || xhr.status === 0) {
+          try {
+            var data = JSON.parse(xhr.responseText);
+            if (data) {
+              extractAndRender(data);
+              return;
+            }
+          } catch(e) {}
+        }
+        pollScriptFallback();
+      };
+
+      xhr.onerror = function() {
+        isPolling = false;
+        pollScriptFallback();
+      };
+
+      xhr.ontimeout = function() {
+        isPolling = false;
+        pollScriptFallback();
+      };
+
+      try {
+        xhr.send();
+      } catch (e) {
+        isPolling = false;
+        pollScriptFallback();
+      }
+    }
+
+    function extractAndRender(data) {
+      if (!data) return;
+      var activeDriver = null;
+
+      // 1. Direct 'quali' object exported by obs_drivers.py
+      if (data.quali && data.quali.name) {
+        activeDriver = data.quali;
+      }
+
+      // 2. Or search data.drivers for the active qualifying driver on track
+      if (!activeDriver && data.drivers && data.drivers.length > 0) {
+        // Priority A: driver currently in run or ready on start line
+        activeDriver = data.drivers.find(function(d) {
+          return d.status_code === 'track' || d.status_code === 'ready' || d.status_code === 'finish';
+        });
+        // Priority B: driver approaching start (transit)
+        if (!activeDriver) {
+          activeDriver = data.drivers.find(function(d) {
+            return !d.in_pit && d.status_code === 'transit';
+          });
+        }
+        // Priority C: any driver not in pit
+        if (!activeDriver) {
+          activeDriver = data.drivers.find(function(d) { return !d.in_pit; });
+        }
+        // Priority D: battle lead if not in pit
+        if (!activeDriver && data.battle && data.battle.lead && data.battle.lead.status_code !== 'pit') {
+          activeDriver = data.battle.lead;
+        }
+        // Priority E: player driver
+        if (!activeDriver) {
+          activeDriver = data.drivers.find(function(d) { return d.is_player; });
+        }
+        // Priority F: first driver
+        if (!activeDriver) {
+          activeDriver = data.drivers[0];
+        }
+      } else if (!activeDriver && data.battle && data.battle.lead) {
+        activeDriver = data.battle.lead;
+      }
+
+      renderQuali(activeDriver);
+    }
+
+    var scriptTagPending = false;
+    function pollScriptFallback() {
+      if (scriptTagPending) return;
+      scriptTagPending = true;
+
+      var old = document.getElementById('data-script');
+      if (old) old.remove();
+
+      var script = document.createElement('script');
+      script.id = 'data-script';
+      script.src = (window.location.protocol === 'file:') ? 'drivers_data.js' : ('drivers_data.js?nocache=' + Date.now());
+
+      script.onload = function() {
+        scriptTagPending = false;
+        if (window.AC_OBS_DATA) {
+          extractAndRender(window.AC_OBS_DATA);
+        }
+      };
+
+      script.onerror = function() {
+        scriptTagPending = false;
+      };
+
+      document.head.appendChild(script);
+    }
+
+    // High frequency 80ms poll (12.5 updates per second) for ultra-smooth real-time speed in OBS
+    // Initial instant bootstrap from loaded scripts
+    if (window.TOP32_DATA) applyTop32Data(window.TOP32_DATA);
+    if (window.AC_OBS_DATA) extractAndRender(window.AC_OBS_DATA);
+
+    pollLiveTelemetry();
+    setInterval(pollLiveTelemetry, 80);
+  </script>
+</body>
+</html>

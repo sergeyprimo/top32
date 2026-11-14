@@ -1,0 +1,588 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Assetto Corsa Drift Battle HUD</title>
+  <link rel="stylesheet" href="battle.css">
+  <script src="top32_data.js"></script>
+  <script src="drivers_data.js"></script>
+</head>
+<body>
+
+  <div class="battle-container" id="battleContainer">
+    <!-- LEAD PLATE -->
+    <div class="pilot-plate lead" id="leadPlate">
+      <div class="pilot-plate-inner">
+        <div class="pilot-left">
+          <div class="role-badge">
+            <span class="role-title">LEAD</span>
+            <span class="role-sub">&#1051;&#1048;&#1044;&#1045;&#1056;</span>
+          </div>
+          <div class="pilot-identity">
+            <div class="name-line">
+              <span class="pilot-name" id="leadName">PILOT</span>
+              <span class="you-pill" id="leadYou" style="display:none;">&#1042;&#1067;</span>
+              <span class="status-pill pit" id="leadStatus">
+                <span class="status-dot"></span>
+                <span class="status-text">&#1042; &#1055;&#1048;&#1058;&#1040;&#1061;</span>
+              </span>
+            </div>
+            <div class="sub-meta-line">
+              <span class="pilot-car" id="leadCar">DRIFT CAR</span>
+              <span class="progress-pill" id="leadProgress" style="display:none;">0%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="pilot-telemetry">
+          <div class="telemetry-block">
+            <span class="speed-value" id="leadSpeed">0</span>
+            <span class="speed-unit">&#1050;&#1052;/&#1063;</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CENTER VS BADGE -->
+    <div class="vs-divider">
+      <span class="vs-text">VS</span>
+    </div>
+
+    <!-- CHASE PLATE -->
+    <div class="pilot-plate chase" id="chasePlate">
+      <div class="pilot-plate-inner">
+        <div class="pilot-left">
+          <div class="role-badge">
+            <span class="role-title">CHASE</span>
+            <span class="role-sub">&#1063;&#1045;&#1049;&#1047;</span>
+          </div>
+          <div class="pilot-identity">
+            <div class="name-line">
+              <span class="pilot-name" id="chaseName">&#1054;&#1046;&#1048;&#1044;&#1040;&#1053;&#1048;&#1045; &#1057;&#1054;&#105F;&#1045;&#1056;&#1053;&#1048;&#1050;&#1040;...</span>
+              <span class="you-pill" id="chaseYou" style="display:none;">&#1042;&#1067;</span>
+              <span class="status-pill pit" id="chaseStatus">
+                <span class="status-dot"></span>
+                <span class="status-text">&#1054;&#1046;&#1048;&#1044;&#1040;&#1053;&#1048;&#1045;</span>
+              </span>
+            </div>
+            <div class="sub-meta-line">
+              <span class="pilot-car" id="chaseCar">&#1055;&#1054;&#1044;&#1050;&#1051;&#1070;&#1067;&#1048;&#1058;&#1045;&#1057;&#1068; &#1050; &#1055;&#1040;&#1056;&#1045;</span>
+              <span class="progress-pill" id="chaseProgress" style="display:none;">0%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="pilot-telemetry">
+          <div class="telemetry-block">
+            <span class="speed-value" id="chaseSpeed">0</span>
+            <span class="speed-unit">&#1050;&#1052;/&#1063;</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    // Parse URL params for OBS configuration (clean borders, scale, pos)
+    var urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('clean') === '1' || urlParams.get('shadow') === '0' || urlParams.get('obs') === '1') {
+      document.body.classList.add('clean-style');
+    }
+    var scaleParam = urlParams.get('scale');
+    if (scaleParam) {
+      if (scaleParam === '0.75' || scaleParam === '75') document.body.classList.add('scale-75');
+      else if (scaleParam === '0.85' || scaleParam === '85') document.body.classList.add('scale-85');
+      else if (scaleParam === '1.15' || scaleParam === '115') document.body.classList.add('scale-115');
+      else if (scaleParam === '1.25' || scaleParam === '125') document.body.classList.add('scale-125');
+    }
+    var posParam = urlParams.get('pos');
+    if (posParam === 'bottom') document.body.classList.add('pos-bottom');
+    else if (posParam === 'top') document.body.classList.add('pos-top');
+
+    // Live synchronization with OBS Director Controller
+    if (typeof BroadcastChannel !== 'undefined') {
+      try {
+        var directorBus = new BroadcastChannel('ac_obs_director_bus');
+        directorBus.onmessage = function(ev) {
+          if (ev && ev.data) {
+            var s = ev.data;
+            if (s.cleanBorder) document.body.classList.add('clean-style');
+            else document.body.classList.remove('clean-style');
+
+            if (s.heroPos === 'bottom') {
+              document.body.classList.remove('pos-top');
+              document.body.classList.add('pos-bottom');
+            } else if (s.heroPos === 'top') {
+              document.body.classList.remove('pos-bottom');
+              document.body.classList.add('pos-top');
+            }
+
+            document.body.classList.remove('scale-75', 'scale-85', 'scale-115', 'scale-125');
+            if (s.scale && s.scale !== 100) {
+              document.body.classList.add('scale-' + s.scale);
+            }
+          }
+        };
+      } catch(e) {}
+    }
+
+    // High-performance Live Tournament Data listener and poller for OBS
+    var tourneyActivePair = null;
+
+    function applyTournamentPairData(data) {
+      if (!data) return;
+      if (data.obs_director) {
+        var s = data.obs_director;
+        if (s.cleanBorder) document.body.classList.add('clean-style');
+        else document.body.classList.remove('clean-style');
+        if (s.heroPos === 'bottom') {
+          document.body.classList.remove('pos-top');
+          document.body.classList.add('pos-bottom');
+        } else if (s.heroPos === 'top') {
+          document.body.classList.remove('pos-bottom');
+          document.body.classList.add('pos-top');
+        }
+        document.body.classList.remove('scale-75', 'scale-85', 'scale-115', 'scale-125');
+        if (s.scale && s.scale !== 100) {
+          document.body.classList.add('scale-' + s.scale);
+        }
+      }
+      var stageMode = data.stage_mode || data.stage || 'top32';
+      var stageMap = {
+        'top32': data.battles,
+        'top24': data.battles_top24,
+        'top16': data.battles_top16,
+        'top8': data.battles_top8,
+        'top4': data.battles_top4
+      };
+
+      var activeB = null;
+
+      // 1. Search for explicitly live or omt battle across all stages (starting with current stage)
+      var checkStages = [stageMap[stageMode], data.battles_top24, data.battles_top16, data.battles_top8, data.battles_top4, data.battles];
+      for (var si = 0; si < checkStages.length; si++) {
+        var sList = checkStages[si];
+        if (Array.isArray(sList)) {
+          for (var bi = 0; bi < sList.length; bi++) {
+            var b = sList[bi];
+            if (b && (b.status === 'live' || b.status === 'omt')) {
+              activeB = b;
+              break;
+            }
+          }
+        }
+        if (activeB) break;
+      }
+
+      // 2. If no battle is explicitly live, check active_battle_id
+      if (!activeB && data.active_battle_id) {
+        var allB = [].concat(data.battles_top24 || [], data.battles_top16 || [], data.battles_top8 || [], data.battles_top4 || [], data.battles || []);
+        for (var i = 0; i < allB.length; i++) {
+          if (allB[i] && allB[i].id === data.active_battle_id) {
+            activeB = allB[i];
+            break;
+          }
+        }
+      }
+
+      // 3. Fallback to first battle of current stage
+      if (!activeB) {
+        var curBattles = stageMap[stageMode] || data.battles_top24 || data.battles_top16 || data.battles;
+        if (Array.isArray(curBattles) && curBattles[0]) activeB = curBattles[0];
+      }
+
+      if (activeB) {
+        var d1 = activeB.lead || { name: activeB.driver1, car: activeB.car1 };
+        var d2 = activeB.chase || { name: activeB.driver2, car: activeB.car2 };
+        tourneyActivePair = {
+          lead: { name: d1.name || activeB.driver1 || 'PILOT 1', car: d1.car || activeB.car1 || 'DRIFT CAR', status_code: activeB.status === 'omt' ? 'omt' : 'track' },
+          chase: { name: d2.name || activeB.driver2 || 'PILOT 2', car: d2.car || activeB.car2 || 'DRIFT CAR', status_code: activeB.status === 'omt' ? 'omt' : 'track' }
+        };
+        if (typeof renderBattle === 'function' && window.AC_OBS_DATA) {
+          renderBattle(window.AC_OBS_DATA.battle, window.AC_OBS_DATA.drivers);
+        } else if (typeof renderBattle === 'function') {
+          renderBattle(null, null);
+        }
+      }
+    }
+
+    if (typeof BroadcastChannel !== 'undefined') {
+      try {
+        var top32Bus = new BroadcastChannel('ac_top32_bus');
+        top32Bus.onmessage = function(ev) {
+          if (ev && ev.data) applyTournamentPairData(ev.data);
+        };
+      } catch(e) {}
+    }
+
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'AC_TOP32_DATA' && e.newValue) {
+        try { applyTournamentPairData(JSON.parse(e.newValue)); } catch(err) {}
+      }
+    });
+
+    try {
+      var savedTop32 = localStorage.getItem('AC_TOP32_DATA');
+      if (savedTop32) applyTournamentPairData(JSON.parse(savedTop32));
+    } catch(e) {}
+
+    // Active live poller for tournament data in OBS
+    var battleTop32Etag = null;
+    var isBattleTop32Fetching = false;
+    function pollBattleTournamentLive() {
+      if (isBattleTop32Fetching) return;
+      isBattleTop32Fetching = true;
+      var isGithubHost = (window.location.hostname && window.location.hostname.indexOf('github.io') !== -1);
+
+      if (isGithubHost) {
+        var headers = { 'Accept': 'application/vnd.github.v3+json' };
+        if (battleTop32Etag) headers['If-None-Match'] = battleTop32Etag;
+        fetch('https://api.github.com/repos/sergeyprimo/top32/contents/top32.json', { headers: headers, cache: 'no-store' })
+          .then(function(res) {
+            if (res.status === 304) return null;
+            if (res.ok) {
+              var et = res.headers.get('ETag');
+              if (et) battleTop32Etag = et;
+              return res.json();
+            }
+          })
+          .then(function(meta) {
+            if (meta && meta.content) {
+              var binStr = atob(meta.content.replace(/\s/g, ''));
+              var bytes = new Uint8Array(binStr.length);
+              for (var i = 0; i < binStr.length; i++) bytes[i] = binStr.charCodeAt(i);
+              var decoded = new TextDecoder('utf-8').decode(bytes);
+              applyTournamentPairData(JSON.parse(decoded));
+            }
+          })
+          .catch(function() {})
+          .finally(function() { isBattleTop32Fetching = false; });
+      } else if (isFileProtocol) {
+        var old = document.getElementById('top32-script');
+        if (old) old.remove();
+        var s = document.createElement('script');
+        s.id = 'top32-script';
+        s.src = 'top32_data.js?nocache=' + Date.now();
+        s.onload = function() {
+          isBattleTop32Fetching = false;
+          if (window.AC_TOP32_DATA) applyTournamentPairData(window.AC_TOP32_DATA);
+        };
+        s.onerror = function() {
+          isBattleTop32Fetching = false;
+        };
+        document.head.appendChild(s);
+      } else {
+        var top32Url = 'top32.json?nocache=' + Date.now();
+        fetch(top32Url, { cache: 'no-store' })
+          .then(function(r) { return r.ok ? r.json() : null; })
+          .then(function(data) { if (data) applyTournamentPairData(data); })
+          .catch(function() {})
+          .finally(function() { isBattleTop32Fetching = false; });
+      }
+    }
+    setInterval(pollBattleTournamentLive, 500);
+    pollBattleTournamentLive();
+
+    // Unicode-safe status dictionary
+    var STATUS_MAP = {
+      "track": "\u0412 \u0417\u0410\u0415\u0417\u0414\u0415",
+      "ready": "\u041D\u0410 \u0421\u0422\u0410\u0420\u0422\u0415",
+      "finish": "\u0424\u0418\u041D\u0418\u0428",
+      "pit": "\u0412 \u041F\u0418\u0422\u0410\u0425",
+      "transit": "\u0414\u041E \u0421\u0422\u0410\u0420\u0422\u0410"
+    };
+
+    function renderPilot(plateEl, nameEl, youEl, statusEl, carEl, progEl, speedEl, pilot, role) {
+      if (!plateEl) return;
+      plateEl.style.display = 'flex';
+
+      var isPreview = false;
+      try {
+        var params = new URLSearchParams(window.location.search);
+        isPreview = (params.get('preview') === '1' || params.get('always_names') === '1');
+      } catch(e) {}
+
+      // If preview mode and pilot is missing, synthesize sample pilot for preview
+      if (isPreview && (!pilot || pilot.status_code === 'pit')) {
+        if (role === 'chase') {
+          pilot = { name: "DRIFT OPPONENT", car: "BMW E36 EUROSPEC", speed: 108, status_code: "track", status: "В ЗАЕЗДЕ", progress_pct: 62, is_player: false };
+        } else {
+          pilot = { name: "SERGEY PRIMO", car: "NISSAN S15 SILVIA", speed: 112, status_code: "track", status: "В ЗАЕЗДЕ", progress_pct: 65, is_player: true };
+        }
+      }
+
+      var statusCode = (pilot && pilot.status_code) ? pilot.status_code : "pit";
+      var hasRealName = !!(pilot && pilot.name && pilot.name !== 'ОЖИДАНИЕ ПИЛОТА' && pilot.name !== '---' && pilot.name.indexOf('ОЖИДАНИЕ') === -1 && pilot.name.indexOf('BYE-RUN') === -1 && pilot.name !== 'PILOT 1' && pilot.name !== 'PILOT 2');
+
+      // If no valid pilot name is assigned: show "ОЖИДАЕМ ПИЛОТА..."
+      if (!hasRealName && !isPreview) {
+        plateEl.classList.add('is-waiting');
+        plateEl.classList.remove('is-player');
+        if (youEl) youEl.style.display = 'none';
+
+        if (nameEl) {
+          nameEl.classList.add('waiting-pilot');
+          if (pilot && pilot.name && pilot.name.indexOf('BYE-RUN') !== -1) {
+            nameEl.textContent = 'BYE-RUN (АВТОПРОХОД)';
+          } else {
+            nameEl.textContent = "ОЖИДАЕМ ПИЛОТА...";
+          }
+        }
+
+        if (carEl) {
+          carEl.textContent = (statusCode === 'transit') ? "ПОДЪЕЗД К СТАРТУ" : "ОЖИДАНИЕ В БОКСАХ";
+        }
+
+        if (speedEl) {
+          speedEl.textContent = (pilot && pilot.speed !== undefined && pilot.speed > 0) ? pilot.speed : 0;
+        }
+
+        if (statusEl) {
+          statusEl.className = "status-pill waiting";
+          var textSpan = statusEl.querySelector('.status-text');
+          if (textSpan) {
+            textSpan.textContent = (statusCode === 'transit') ? "ПОДЪЕЗД" : "ОЖИДАНИЕ";
+          }
+        }
+
+        if (progEl) progEl.style.display = 'none';
+        return;
+      }
+
+      // Pilot HAS a valid name -> Display pilot name and live status
+      if (statusCode === 'ready' || statusCode === 'track' || statusCode === 'finish') {
+        plateEl.classList.remove('is-waiting');
+      } else {
+        plateEl.classList.add('is-waiting');
+      }
+
+      if (nameEl) {
+        nameEl.classList.remove('waiting-pilot');
+        nameEl.textContent = (pilot.name || 'PILOT').toUpperCase();
+      }
+
+      // Streamer highlight
+      if (pilot && pilot.is_player) {
+        plateEl.classList.add('is-player');
+        if (youEl) youEl.style.display = 'inline-block';
+      } else {
+        plateEl.classList.remove('is-player');
+        if (youEl) youEl.style.display = 'none';
+      }
+
+      if (carEl) {
+        var carName = (pilot.car && pilot.car !== '---') ? pilot.car : ((statusCode === 'transit') ? "ПОДЪЕЗД К СТАРТУ" : "ОЖИДАНИЕ В БОКСАХ");
+        carEl.textContent = carName.toUpperCase();
+      }
+
+      if (speedEl) {
+        speedEl.textContent = (pilot && pilot.speed !== undefined && pilot.speed !== null) ? pilot.speed : 0;
+      }
+
+      var statusText = (pilot && pilot.status) ? pilot.status : (STATUS_MAP[statusCode] || "В ЗАЕЗДЕ");
+      if (statusEl) {
+        statusEl.className = "status-pill " + statusCode;
+        var textSpan = statusEl.querySelector('.status-text');
+        if (textSpan) {
+          textSpan.textContent = statusText;
+        }
+      }
+
+      // Progress along drift section
+      if (progEl) {
+        if (pilot && pilot.progress_pct && pilot.progress_pct > 0 && statusCode === 'track') {
+          progEl.style.display = 'inline-block';
+          progEl.textContent = pilot.progress_pct + "%";
+        } else {
+          progEl.style.display = 'none';
+        }
+      }
+    }
+
+    function renderBattle(battleData, allDrivers) {
+      try {
+        var leadPlate = document.getElementById('leadPlate');
+        var chasePlate = document.getElementById('chasePlate');
+
+        var leadName = document.getElementById('leadName');
+        var leadYou = document.getElementById('leadYou');
+        var leadStatus = document.getElementById('leadStatus');
+        var leadCar = document.getElementById('leadCar');
+        var leadProgress = document.getElementById('leadProgress');
+        var leadSpeed = document.getElementById('leadSpeed');
+
+        var chaseName = document.getElementById('chaseName');
+        var chaseYou = document.getElementById('chaseYou');
+        var chaseStatus = document.getElementById('chaseStatus');
+        var chaseCar = document.getElementById('chaseCar');
+        var chaseProgress = document.getElementById('chaseProgress');
+        var chaseSpeed = document.getElementById('chaseSpeed');
+
+        var lead = null;
+        var chase = null;
+
+        var hasActiveGameBattle = !!(battleData && battleData.active && battleData.lead);
+
+        if (hasActiveGameBattle) {
+          // Priority 1: LIVE GAME TELEMETRY FROM ASSETTO CORSA (Cars are actively on track / near start)
+          lead = battleData.lead;
+          chase = battleData.chase;
+        } else if (allDrivers && allDrivers.length > 0 && allDrivers.some(function(d) { return d.status_code === 'track' || d.status_code === 'ready'; })) {
+          // Priority 2: In-session drivers detected on track or at start line
+          var activeDrivers = allDrivers.filter(function(d) { return d.status_code === 'track' || d.status_code === 'ready'; });
+          lead = activeDrivers[0] || allDrivers[0];
+          chase = activeDrivers[1] || (allDrivers.length > 1 ? allDrivers[1] : null);
+        } else if (tourneyActivePair && tourneyActivePair.lead && tourneyActivePair.lead.name && tourneyActivePair.lead.name !== 'PILOT 1' && tourneyActivePair.lead.name !== 'ОЖИДАНИЕ ПИЛОТА') {
+          // Priority 3: Tournament active pair when cars are in pits or waiting
+          var tLead = Object.assign({}, tourneyActivePair.lead);
+          var tChase = Object.assign({}, tourneyActivePair.chase);
+
+          function findMatchingTelemetry(pilotName) {
+            if (!pilotName || !allDrivers || !allDrivers.length) return null;
+            var cleanTarget = pilotName.trim().toLowerCase();
+            if (cleanTarget === 'ожидание пилота' || cleanTarget === '---' || cleanTarget.indexOf('bye-run') !== -1) return null;
+            for (var i = 0; i < allDrivers.length; i++) {
+              var d = allDrivers[i];
+              if (!d || !d.name) continue;
+              var dName = d.name.trim().toLowerCase();
+              if (dName === cleanTarget || dName.indexOf(cleanTarget) !== -1 || cleanTarget.indexOf(dName) !== -1) {
+                return d;
+              }
+            }
+            return null;
+          }
+
+          var mLead = findMatchingTelemetry(tLead.name);
+          var mChase = findMatchingTelemetry(tChase.name);
+
+          if (mLead) {
+            tLead.speed = mLead.speed;
+            tLead.status = mLead.status;
+            tLead.status_code = mLead.status_code;
+            tLead.progress_pct = mLead.progress_pct;
+            tLead.is_player = mLead.is_player;
+            if (mLead.car && mLead.car !== 'DRIFT CAR') tLead.car = mLead.car;
+          } else {
+            tLead.speed = 0;
+            tLead.status = 'В ПИТАХ';
+            tLead.status_code = 'pit';
+          }
+
+          if (mChase) {
+            tChase.speed = mChase.speed;
+            tChase.status = mChase.status;
+            tChase.status_code = mChase.status_code;
+            tChase.progress_pct = mChase.progress_pct;
+            tChase.is_player = mChase.is_player;
+            if (mChase.car && mChase.car !== 'DRIFT CAR') tChase.car = mChase.car;
+          } else {
+            tChase.speed = 0;
+            tChase.status = 'В ПИТАХ';
+            tChase.status_code = 'pit';
+          }
+
+          lead = tLead;
+          chase = tChase;
+        } else if (battleData && battleData.lead) {
+          lead = battleData.lead;
+          chase = battleData.chase;
+        } else if (allDrivers && allDrivers.length > 0) {
+          lead = allDrivers[0];
+          if (allDrivers.length >= 2) chase = allDrivers[1];
+        } else if (tourneyActivePair) {
+          lead = tourneyActivePair.lead;
+          chase = tourneyActivePair.chase;
+        }
+
+        // Render LEAD
+        if (lead) {
+          renderPilot(leadPlate, leadName, leadYou, leadStatus, leadCar, leadProgress, leadSpeed, lead, 'lead');
+        } else {
+          renderPilot(leadPlate, leadName, leadYou, leadStatus, leadCar, leadProgress, leadSpeed, null, 'lead');
+        }
+
+        // Render CHASE
+        if (chase) {
+          renderPilot(chasePlate, chaseName, chaseYou, chaseStatus, chaseCar, chaseProgress, chaseSpeed, chase, 'chase');
+        } else {
+          // Solo run or waiting for opponent
+          renderPilot(chasePlate, chaseName, chaseYou, chaseStatus, chaseCar, chaseProgress, chaseSpeed, {
+            name: "ОЖИДАНИЕ СОПЕРНИКА...",
+            car: "ПОДКЛЮЧИТЕСЬ К ПАРЕ",
+            status_code: "pit",
+            status: "ОЖИДАНИЕ",
+            speed: 0
+          }, 'chase');
+        }
+      } catch (err) {
+        console.error("renderBattle error:", err);
+      }
+    }
+
+    // High-performance live telemetry engine (Dual Fetch/XHR + Dynamic Script Fallback)
+    var isPolling = false;
+    var scriptTagPending = false;
+    var isFileProtocol = (window.location.protocol === 'file:');
+
+    function pollLiveTelemetry() {
+      if (isFileProtocol) {
+        // Direct zero-latency dynamic script injection for local file:// in OBS
+        var old = document.getElementById('data-script');
+        if (old) old.remove();
+
+        var script = document.createElement('script');
+        script.id = 'data-script';
+        script.src = 'drivers_data.js?nocache=' + Date.now();
+        script.onload = function() {
+          if (window.AC_OBS_DATA) {
+            renderBattle(window.AC_OBS_DATA.battle, window.AC_OBS_DATA.drivers);
+          }
+        };
+        document.head.appendChild(script);
+        return;
+      }
+
+      if (isPolling) return;
+      isPolling = true;
+
+      var dataUrl = 'drivers.json?nocache=' + Date.now();
+      fetch(dataUrl, { cache: 'no-store' })
+        .then(function(res) {
+          if (!res.ok) throw new Error('status ' + res.status);
+          return res.json();
+        })
+        .then(function(data) {
+          isPolling = false;
+          if (data) {
+            window.AC_OBS_DATA = data;
+            renderBattle(data.battle, data.drivers);
+          }
+        })
+        .catch(function() {
+          isPolling = false;
+          var old = document.getElementById('data-script');
+          if (old) old.remove();
+          var script = document.createElement('script');
+          script.id = 'data-script';
+          script.src = 'drivers_data.js?nocache=' + Date.now();
+          script.onload = function() {
+            if (window.AC_OBS_DATA) {
+              renderBattle(window.AC_OBS_DATA.battle, window.AC_OBS_DATA.drivers);
+            }
+          };
+          document.head.appendChild(script);
+        });
+    }
+
+    // High frequency 80ms poll (12.5 updates/sec) for instant synchronization with Assetto Corsa
+    // Initial instant bootstrap from loaded scripts
+    if (window.AC_TOP32_DATA) applyTournamentPairData(window.AC_TOP32_DATA);
+    if (window.AC_OBS_DATA) renderBattle(window.AC_OBS_DATA.battle, window.AC_OBS_DATA.drivers);
+
+    pollLiveTelemetry();
+    setInterval(pollLiveTelemetry, 80);
+  </script>
+</body>
+</html>

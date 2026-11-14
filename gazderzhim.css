@@ -1,0 +1,309 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --cyan: #00f0ff;
+  --cyan-dark: #0284c7;
+  --magenta: #ff0055;
+  --amber: #f59e0b;
+  --plate-bg: linear-gradient(135deg, rgba(8, 14, 26, 0.98) 0%, rgba(15, 23, 42, 0.98) 100%);
+  --skew: -10deg;
+  --counter-skew: 10deg;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: transparent;
+  color: #fff;
+  overflow: hidden;
+  user-select: none;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Stage / Alignment */
+.gz-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+}
+
+/* Position presets for OBS canvas */
+body.pos-top-left .gz-stage { justify-content: flex-start; align-items: flex-start; }
+body.pos-top-right .gz-stage { justify-content: flex-end; align-items: flex-start; }
+body.pos-bottom-left .gz-stage { justify-content: flex-start; align-items: flex-end; }
+body.pos-bottom-right .gz-stage { justify-content: flex-end; align-items: flex-end; }
+body.pos-top-center .gz-stage { justify-content: center; align-items: flex-start; }
+body.pos-bottom-center .gz-stage { justify-content: center; align-items: flex-end; }
+
+/* ============================================================
+   COMPACT DRIFT PILOT PLATE (Максимально читаемая компактная плашка)
+   ============================================================ */
+.gz-plate {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--plate-bg);
+  background-image: 
+    var(--plate-bg),
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.02) 0, rgba(255, 255, 255, 0.02) 1px, transparent 0, transparent 8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-left: 5px solid var(--cyan);
+  border-radius: 7px;
+  padding: 6px 14px 6px 8px;
+  width: auto;
+  min-width: 330px;
+  max-width: 400px;
+  box-shadow: 
+    0 0 16px rgba(0, 240, 255, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transform: skewX(var(--skew));
+  transition: all 0.25s ease;
+  overflow: hidden;
+  cursor: pointer;
+  animation: plateEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+             gzAuraPulse 3.5s infinite ease-in-out 0.6s;
+}
+
+@keyframes plateEntrance {
+  0% {
+    opacity: 0;
+    transform: skewX(var(--skew)) translateY(16px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: skewX(var(--skew)) translateY(0) scale(1);
+  }
+}
+
+@keyframes gzAuraPulse {
+  0%, 100% {
+    box-shadow: 
+      0 10px 30px rgba(0, 0, 0, 0.85),
+      0 0 16px rgba(0, 240, 255, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+  50% {
+    box-shadow: 
+      0 12px 35px rgba(0, 0, 0, 0.9),
+      0 0 26px rgba(0, 240, 255, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  }
+}
+
+/* Light Streak Sweep (Мягкий неоновый блик) */
+.gz-shine {
+  position: absolute;
+  top: -60%;
+  left: -80%;
+  width: 45%;
+  height: 220%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.08) 35%,
+    rgba(255, 255, 255, 0.45) 50%,
+    rgba(255, 255, 255, 0.08) 65%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(25deg);
+  pointer-events: none;
+  animation: gzLightSweep 4.5s infinite ease-in-out;
+}
+
+@keyframes gzLightSweep {
+  0% { left: -100%; }
+  22% { left: 220%; }
+  100% { left: 220%; }
+}
+
+/* Inner Counter-skewed Container (Текст стоит прямо без наклона блока) */
+.gz-inner {
+  transform: skewX(var(--counter-skew));
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
+/* LEFT BADGE: Drift / Mod Box */
+.gz-badge-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 40px;
+  border-radius: 5px;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, var(--cyan) 0%, var(--cyan-dark) 100%);
+  color: #032030;
+  box-shadow: 0 0 14px rgba(0, 240, 255, 0.65);
+}
+
+.gz-badge-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.gz-badge-sub {
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0.6px;
+  margin-top: 1px;
+}
+
+/* CENTER / TEXT BLOCK: Maximized Readability */
+.gz-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  overflow: hidden;
+  flex-grow: 1;
+}
+
+/* Main Brand Title: ГАЗДЕРЖИМ.РФ */
+.gz-title-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.gz-title {
+  font-size: 21px;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #ffffff;
+  line-height: 1;
+  text-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.95),
+    0 0 12px rgba(0, 240, 255, 0.45);
+}
+
+.gz-domain {
+  color: var(--cyan);
+  text-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.95),
+    0 0 12px var(--cyan);
+}
+
+/* Subtitle: МОДЫ ДЛЯ ASSETTO CORSA */
+.gz-sub-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.gz-subtitle {
+  font-size: 11px;
+  font-weight: 800;
+  color: #38bdf8;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  line-height: 1.2;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+/* Right Tag Pill: [ ⚡ DRIFT ] */
+.gz-tag-pill {
+  font-size: 9px;
+  font-weight: 900;
+  color: #00f0ff;
+  background: rgba(0, 240, 255, 0.15);
+  border: 1px solid rgba(0, 240, 255, 0.4);
+  padding: 1px 5px;
+  border-radius: 3px;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+/* ============================================================
+   COLOR THEMES (Переключаются кликом или ?theme=...)
+   ============================================================ */
+
+/* THEME 1: DUAL (Cyan + Magenta) */
+body.theme-dual .gz-plate {
+  border-left-color: var(--cyan);
+  border-right: 5px solid var(--magenta);
+}
+body.theme-dual .gz-domain {
+  color: var(--magenta);
+  text-shadow: 0 0 12px var(--magenta);
+}
+body.theme-dual .gz-tag-pill {
+  color: var(--magenta);
+  border-color: rgba(255, 0, 85, 0.4);
+  background: rgba(255, 0, 85, 0.15);
+}
+
+/* THEME 2: FIRE / GOLD (Золотой неон) */
+body.theme-fire .gz-plate,
+body.theme-gold .gz-plate {
+  border-left-color: var(--amber);
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.85),
+    0 0 20px rgba(245, 158, 11, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+body.theme-fire .gz-badge-box,
+body.theme-gold .gz-badge-box {
+  background: linear-gradient(135deg, #fbbf24 0%, var(--amber) 100%);
+  color: #1a0f02;
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.7);
+}
+body.theme-fire .gz-domain,
+body.theme-gold .gz-domain {
+  color: var(--amber);
+  text-shadow: 0 0 12px var(--amber);
+}
+body.theme-fire .gz-subtitle,
+body.theme-gold .gz-subtitle {
+  color: #fcd34d;
+}
+body.theme-fire .gz-tag-pill,
+body.theme-gold .gz-tag-pill {
+  color: var(--amber);
+  border-color: rgba(245, 158, 11, 0.4);
+  background: rgba(245, 158, 11, 0.15);
+}
+
+/* THEME 3: MAGENTA (Малиновый неон) */
+body.theme-magenta .gz-plate {
+  border-left-color: var(--magenta);
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.85),
+    0 0 20px rgba(255, 0, 85, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+body.theme-magenta .gz-badge-box {
+  background: linear-gradient(135deg, #ff0055 0%, #be123c 100%);
+  color: #fff;
+  box-shadow: 0 0 14px rgba(255, 0, 85, 0.7);
+}
+body.theme-magenta .gz-domain {
+  color: var(--magenta);
+  text-shadow: 0 0 12px var(--magenta);
+}
+body.theme-magenta .gz-subtitle {
+  color: #fda4af;
+}
+body.theme-magenta .gz-tag-pill {
+  color: var(--magenta);
+  border-color: rgba(255, 0, 85, 0.4);
+  background: rgba(255, 0, 85, 0.15);
+}

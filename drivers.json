@@ -1,0 +1,76 @@
+{
+  "omt": {
+    "active": false, 
+    "timestamp": 1794693964
+  }, 
+  "max_slots": 1, 
+  "quali": {
+    "progress_pct": 0, 
+    "role_title": "КВАЛИФИКАЦИЯ", 
+    "status_code": "track", 
+    "car": "Rcdc Dodge Viper Ilmar Khabibullin", 
+    "best_lap": "", 
+    "name": "twitch.tv/sergeyprimo", 
+    "role": "QUALI", 
+    "is_player": true, 
+    "speed": 54, 
+    "id": 0, 
+    "status": "В ЗАЕЗДЕ"
+  }, 
+  "timestamp": 1794693964, 
+  "server_name": "Assetto Corsa Session", 
+  "drivers_count": 1, 
+  "track_id": "rcdc_sturup_raceway_vdc_layout_b", 
+  "section": {
+    "start_spline": 0.020943403244018555, 
+    "has_points": false, 
+    "finish_spline": null
+  }, 
+  "battle": {
+    "omt": {
+      "active": false, 
+      "timestamp": 1794693964
+    }, 
+    "chase": null, 
+    "solo": true, 
+    "active": true, 
+    "lead": {
+      "progress_pct": 0, 
+      "role_title": "ЛИДЕР", 
+      "status_code": "track", 
+      "car": "Rcdc Dodge Viper Ilmar Khabibullin", 
+      "best_lap": "", 
+      "name": "twitch.tv/sergeyprimo", 
+      "role": "LEAD", 
+      "is_player": true, 
+      "speed": 54, 
+      "id": 0, 
+      "status": "В ЗАЕЗДЕ"
+    }
+  }, 
+  "on_track_count": 1, 
+  "in_pit_count": 0, 
+  "drivers": [
+    {
+      "best_lap": "", 
+      "sector_dist": 0.9812263587955385, 
+      "car": "Rcdc Dodge Viper Ilmar Khabibullin", 
+      "last_lap": "", 
+      "name": "twitch.tv/sergeyprimo", 
+      "is_player": true, 
+      "speed": 54, 
+      "in_pit": false, 
+      "best_lap_ms": 0, 
+      "progress_pct": 0, 
+      "status_text": "В ЗАЕЗДЕ", 
+      "status_code": "track", 
+      "lap_count": 0, 
+      "position": 1, 
+      "on_section": true, 
+      "spline_pos": 0.0021697620395570993, 
+      "id": 0, 
+      "status": "В ЗАЕЗДЕ", 
+      "last_lap_ms": 0
+    }
+  ]
+}
