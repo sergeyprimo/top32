@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795212636425,
+  "last_updated": 1795212663283,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -69,7 +69,7 @@
     {
       "rank": 4,
       "seed": 4,
-      "name": "ДЕНИС ИСТРАТИЙ",
+      "name": "Денис Истратий ",
       "group": "A",
       "car": "Nissan 180sx",
       "number": "—",
