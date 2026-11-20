@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Анонс соревнований — Анимированная плашка OBS (Gazderzhim / RDS GP)</title>
+  <link rel="stylesheet" href="announcement.css">
+  <script src="top32_data.js"></script>
+</head>
+<body class="theme-cyan pos-bottom">
+
+  <div class="ann-stage" id="annStage">
+    
+    <!-- Main Slanted Broadcast Plate -->
+    <div class="ann-plate" id="annPlate">
+      
+      <!-- Continuous Diagonal Light Streak Sweep (Блик) -->
+      <div class="ann-shine"></div>
+
+      <!-- Top Ambient Gradient Line -->
+      <div class="ann-top-line"></div>
+
+      <!-- Counter-skewed Content Container -->
+      <div class="ann-inner">
+        
+        <!-- Left Badge (Стиль LEAD / CHASE) -->
+        <div class="ann-badge-box" id="annBadgeBox">
+          <span class="ann-badge-dot"></span>
+          <span class="ann-badge-icon" id="annBadgeIcon">🔥</span>
+          <span class="ann-badge-text" id="annBadgeText">СКОРО</span>
+        </div>
+
+        <!-- Center Main Info -->
+        <div class="ann-info">
+          
+          <div class="ann-title-row">
+            <span class="ann-title" id="annTitle">RDS GP 2026 • 2-Й ЭТАП</span>
+            <span class="ann-tag-pill" id="annTagPill">DRIFT CUP</span>
+          </div>
+
+          <div class="ann-track-row" id="annTrackRow">
+            <span class="ann-track-icon">📍</span>
+            <span id="annTrackText">SOCHI AUTODROM • РЕВЕРС СЕКЦИЯ</span>
+          </div>
+
+          <div class="ann-extra-row" id="annExtraRow">
+            <span class="ann-prize-badge" id="annPrizeBadge">
+              <span>💰</span>
+              <span id="annPrizeText">ПРИЗОВОЙ ФОНД 100 000 ₽</span>
+            </span>
+            <span id="annExtraText">СЕТКА ТОП-32 • ПАРНЫЕ ЗАЕЗДЫ • СУДЬИ RDS GP</span>
+          </div>
+
+        </div>
+
+        <!-- Right Side: Countdown / Time & Status -->
+        <div class="ann-right-widget">
+          
+          <!-- Countdown Mode Block -->
+          <div class="ann-timer-card" id="annTimerCard">
+            <div class="ann-timer-label" id="annTimerLabel">ДО СТАРТА:</div>
+            <div class="ann-timer-digits" id="annTimerDigits">
+              <span id="tDays">3</span><span class="ann-timer-unit">Д</span>
+              <span id="tHours">14</span><span class="ann-timer-unit">Ч</span>
+              <span id="tMins">25</span><span class="ann-timer-unit">М</span>
+              <span id="tSecs">10</span><span class="ann-timer-unit">С</span>
+            </div>
+          </div>
+
+          <!-- Static Date Mode Block (hidden by default if countdown is active) -->
+          <div class="ann-date-text" id="annDateCard" style="display: none;">
+            <span>📅</span>
+            <span id="annDateText">25 НОЯБРЯ 2026 • 19:00 МСК</span>
+          </div>
+
+          <!-- Status Indicator Pill -->
+          <div class="ann-status-pill" id="annStatusPill">
+            <span class="ann-status-dot"></span>
+            <span id="annStatusText">РЕГИСТРАЦИЯ ОТКРЫТА</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Optional Bottom Ticker / Marquee -->
+      <div class="ann-ticker-bar" id="annTickerBar" style="display: none;">
+        <span class="ann-ticker-content" id="annTickerText">
+          РЕГИСТРАЦИЯ ПИЛОТОВ ОТКРЫТА НА САЙТЕ • СЕРВЕР ASSETTO CORSA: VDC.GAZDERZHIM.RU • ТРАНСЛЯЦИЯ TWITCH.TV/SERGEYPRIMO
+        </span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // ==========================================================================
+    // OBS ANNOUNCEMENT ENGINE
+    // Synchronizes dynamically with judges.html / Admin Interface
+    // ==========================================================================
+
+    var defaultAnnouncement = {
+      enabled: true,
+      badge_icon: "🔥",
+      badge_text: "СКОРО",
+      tag_text: "DRIFT CUP",
+      title: "RDS GP 2026 • 2-Й ЭТАП",
+      track: "SOCHI AUTODROM • РЕВЕРС СЕКЦИЯ",
+      prize: "ПРИЗОВОЙ ФОНД 100 000 ₽",
+      extra: "СЕТКА ТОП-32 • ПАРНЫЕ ЗАЕЗДЫ • СУДЬИ RDS GP",
+      use_countdown: true,
+      target_datetime: "2026-11-25T19:00",
+      countdown_label: "ДО СТАРТА:",
+      countdown_ended_text: "СОРЕВНОВАНИЯ НАЧАЛИСЬ!",
+      date_text: "25 НОЯБРЯ 2026 • 19:00 МСК",
+      status_text: "РЕГИСТРАЦИЯ ОТКРЫТА",
+      ticker_text: "РЕГИСТРАЦИЯ ПИЛОТОВ ОТКРЫТА НА САЙТЕ • СЕРВЕР ASSETTO CORSA: VDC.GAZDERZHIM.RU • ТРАНСЛЯЦИЯ TWITCH.TV/SERGEYPRIMO",
+      show_ticker: true,
+      theme: "cyan",
+      layout: "banner",
+      pos: "bottom",
+      scale: 100,
+      clean: false
+    };
+
+    var currentData = Object.assign({}, defaultAnnouncement);
+    var isFileProtocol = (window.location.protocol === 'file:');
+
+    // Parse URL parameters for overrides
+    var urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('theme')) currentData.theme = urlParams.get('theme');
+    if (urlParams.get('layout')) currentData.layout = urlParams.get('layout');
+    if (urlParams.get('pos')) currentData.pos = urlParams.get('pos');
+    if (urlParams.get('scale')) currentData.scale = parseInt(urlParams.get('scale'), 10) || 100;
+    if (urlParams.get('clean') === '1' || urlParams.get('shadow') === '0') currentData.clean = true;
+
+    // DOM Elements
+    var annPlate = document.getElementById('annPlate');
+    var annBadgeBox = document.getElementById('annBadgeBox');
+    var annBadgeIcon = document.getElementById('annBadgeIcon');
+    var annBadgeText = document.getElementById('annBadgeText');
+    var annTitle = document.getElementById('annTitle');
+    var annTagPill = document.getElementById('annTagPill');
+    var annTrackRow = document.getElementById('annTrackRow');
+    var annTrackText = document.getElementById('annTrackText');
+    var annExtraRow = document.getElementById('annExtraRow');
+    var annPrizeBadge = document.getElementById('annPrizeBadge');
+    var annPrizeText = document.getElementById('annPrizeText');
+    var annExtraText = document.getElementById('annExtraText');
+    var annTimerCard = document.getElementById('annTimerCard');
+    var annTimerLabel = document.getElementById('annTimerLabel');
+    var annTimerDigits = document.getElementById('annTimerDigits');
+    var annDateCard = document.getElementById('annDateCard');
+    var annDateText = document.getElementById('annDateText');
+    var annStatusPill = document.getElementById('annStatusPill');
+    var annStatusText = document.getElementById('annStatusText');
+    var annTickerBar = document.getElementById('annTickerBar');
+    var annTickerText = document.getElementById('annTickerText');
+
+    var tDays = document.getElementById('tDays');
+    var tHours = document.getElementById('tHours');
+    var tMins = document.getElementById('tMins');
+    var tSecs = document.getElementById('tSecs');
+
+    // Apply Styles & Attributes
+    function applyStylesAndLayout() {
+      // Body classes
+      document.body.className = '';
+      if (!currentData.enabled) {
+        document.body.classList.add('is-hidden');
+      }
+
+      var theme = currentData.theme || 'cyan';
+      document.body.classList.add('theme-' + theme);
+
+      var pos = currentData.pos || 'bottom';
+      document.body.classList.add('pos-' + pos);
+
+      var layout = currentData.layout || 'banner';
+      document.body.classList.add('layout-' + layout);
+
+      if (currentData.scale && currentData.scale !== 100) {
+        document.body.classList.add('scale-' + currentData.scale);
+      }
+
+      if (currentData.clean) {
+        document.body.classList.add('clean-style');
+      }
+    }
+
+    // Render Data into DOM
+    function renderAnnouncement(data) {
+      if (!data) return;
+      currentData = Object.assign({}, defaultAnnouncement, data);
+
+      // URL parameters take precedence if specified
+      if (urlParams.get('theme')) currentData.theme = urlParams.get('theme');
+      if (urlParams.get('layout')) currentData.layout = urlParams.get('layout');
+      if (urlParams.get('pos')) currentData.pos = urlParams.get('pos');
+      if (urlParams.get('scale')) currentData.scale = parseInt(urlParams.get('scale'), 10) || 100;
+      if (urlParams.get('clean') === '1') currentData.clean = true;
+
+      applyStylesAndLayout();
+
+      // Text elements
+      if (annBadgeIcon) annBadgeIcon.textContent = currentData.badge_icon || '🔥';
+      if (annBadgeText) annBadgeText.textContent = (currentData.badge_text || 'СКОРО').toUpperCase();
+      if (annTitle) annTitle.textContent = (currentData.title || 'СОРЕВНОВАНИЯ').toUpperCase();
+
+      if (annTagPill) {
+        if (currentData.tag_text && currentData.tag_text.trim() !== '') {
+          annTagPill.style.display = 'inline-block';
+          annTagPill.textContent = currentData.tag_text.toUpperCase();
+        } else {
+          annTagPill.style.display = 'none';
+        }
+      }
+
+      if (annTrackRow) {
+        if (currentData.track && currentData.track.trim() !== '') {
+          annTrackRow.style.display = 'flex';
+          if (annTrackText) annTrackText.textContent = currentData.track.toUpperCase();
+        } else {
+          annTrackRow.style.display = 'none';
+        }
+      }
+
+      var hasPrize = currentData.prize && currentData.prize.trim() !== '';
+      var hasExtra = currentData.extra && currentData.extra.trim() !== '';
+
+      if (annExtraRow) {
+        if (hasPrize || hasExtra) {
+          annExtraRow.style.display = 'flex';
+          if (annPrizeBadge) {
+            annPrizeBadge.style.display = hasPrize ? 'inline-flex' : 'none';
+            if (annPrizeText) annPrizeText.textContent = currentData.prize;
+          }
+          if (annExtraText) {
+            annExtraText.textContent = currentData.extra || '';
+            annExtraText.style.display = hasExtra ? 'inline' : 'none';
+          }
+        } else {
+          annExtraRow.style.display = 'none';
+        }
+      }
+
+      // Date / Countdown Mode
+      if (currentData.use_countdown) {
+        if (annTimerCard) annTimerCard.style.display = 'flex';
+        if (annDateCard) annDateCard.style.display = 'none';
+        if (annTimerLabel) annTimerLabel.textContent = currentData.countdown_label || 'ДО СТАРТА:';
+        updateCountdown();
+      } else {
+        if (annTimerCard) annTimerCard.style.display = 'none';
+        if (annDateCard) {
+          annDateCard.style.display = 'flex';
+          if (annDateText) annDateText.textContent = currentData.date_text || 'ДАТА УТОЧНЯЕТСЯ';
+        }
+      }
+
+      // Status pill
+      if (annStatusPill) {
+        if (currentData.status_text && currentData.status_text.trim() !== '') {
+          annStatusPill.style.display = 'inline-flex';
+          if (annStatusText) annStatusText.textContent = currentData.status_text.toUpperCase();
+        } else {
+          annStatusPill.style.display = 'none';
+        }
+      }
+
+      // Ticker
+      if (annTickerBar) {
+        var showTicker = currentData.show_ticker && currentData.ticker_text && currentData.ticker_text.trim() !== '';
+        if (showTicker) {
+          annTickerBar.style.display = 'flex';
+          if (annTickerText) annTickerText.textContent = currentData.ticker_text.toUpperCase();
+        } else {
+          annTickerBar.style.display = 'none';
+        }
+      }
+    }
+
+    // Live Countdown Timer
+    function updateCountdown() {
+      if (!currentData.use_countdown || !currentData.target_datetime) return;
+
+      var target = new Date(currentData.target_datetime).getTime();
+      if (isNaN(target)) return;
+
+      var now = Date.now();
+      var diff = target - now;
+
+      if (diff <= 0) {
+        // Countdown ended
+        if (annTimerDigits) {
+          annTimerDigits.innerHTML = '<span style="font-size:18px; color:#34d399;">' + (currentData.countdown_ended_text || 'СОРЕВНОВАНИЯ НАЧАЛИСЬ!') + '</span>';
+        }
+        return;
+      }
+
+      var seconds = Math.floor((diff / 1000) % 60);
+      var minutes = Math.floor((diff / (1000 * 60)) % 60);
+      var hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+      var secStr = (seconds < 10 ? '0' : '') + seconds;
+      var minStr = (minutes < 10 ? '0' : '') + minutes;
+      var hrStr = (hours < 10 ? '0' : '') + hours;
+
+      if (days > 0) {
+        annTimerDigits.innerHTML = 
+          '<span>' + days + '</span><span class="ann-timer-unit">Д</span> ' +
+          '<span>' + hrStr + '</span><span class="ann-timer-unit">Ч</span> ' +
+          '<span>' + minStr + '</span><span class="ann-timer-unit">М</span> ' +
+          '<span>' + secStr + '</span><span class="ann-timer-unit">С</span>';
+      } else {
+        annTimerDigits.innerHTML = 
+          '<span>' + hrStr + '</span><span class="ann-timer-unit">Ч</span> ' +
+          '<span>' + minStr + '</span><span class="ann-timer-unit">М</span> ' +
+          '<span>' + secStr + '</span><span class="ann-timer-unit">С</span>';
+      }
+    }
+
+    setInterval(updateCountdown, 1000);
+
+    // ==========================================================================
+    // Real-Time Synchronization Bus (BroadcastChannel + LocalStorage + Fetch)
+    // ==========================================================================
+
+    function extractAnnouncementFromTop32(data) {
+      if (!data) return;
+      if (data.announcement) {
+        renderAnnouncement(data.announcement);
+      } else if (data.tournament_name || data.tournament_title) {
+        // Fallback synthesis if no dedicated announcement object exists yet
+        var synth = Object.assign({}, defaultAnnouncement, {
+          title: data.tournament_title || data.tournament_name || 'DRIFT CHAMPIONSHIP',
+          badge_text: data.stage ? data.stage.toUpperCase() : 'СКОРО'
+        });
+        renderAnnouncement(synth);
+      }
+    }
+
+    // 1. Instant Bootstrap from loaded top32_data.js
+    if (window.AC_TOP32_DATA) {
+      extractAnnouncementFromTop32(window.AC_TOP32_DATA);
+    }
+
+    // 2. BroadcastChannel
+    if (typeof BroadcastChannel !== 'undefined') {
+      try {
+        var top32Bus = new BroadcastChannel('ac_top32_bus');
+        top32Bus.onmessage = function(ev) {
+          if (ev && ev.data) extractAnnouncementFromTop32(ev.data);
+        };
+      } catch(e) {}
+
+      try {
+        var annBus = new BroadcastChannel('ac_announcement_bus');
+        annBus.onmessage = function(ev) {
+          if (ev && ev.data) renderAnnouncement(ev.data);
+        };
+      } catch(e) {}
+    }
+
+    // 3. LocalStorage
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'AC_TOP32_DATA' && e.newValue) {
+        try { extractAnnouncementFromTop32(JSON.parse(e.newValue)); } catch(err) {}
+      } else if (e.key === 'AC_ANNOUNCEMENT_DATA' && e.newValue) {
+        try { renderAnnouncement(JSON.parse(e.newValue)); } catch(err) {}
+      }
+    });
+
+    try {
+      var savedAnn = localStorage.getItem('AC_ANNOUNCEMENT_DATA');
+      if (savedAnn) renderAnnouncement(JSON.parse(savedAnn));
+      else {
+        var savedTop32 = localStorage.getItem('AC_TOP32_DATA');
+        if (savedTop32) extractAnnouncementFromTop32(JSON.parse(savedTop32));
+      }
+    } catch(e) {}
+
+    // 4. Polling top32.json (Dual file/http protocol handler)
+    var isPolling = false;
+    function pollAnnouncementData() {
+      if (isPolling) return;
+      isPolling = true;
+
+      var url = isFileProtocol ? 'top32.json' : ('top32.json?nocache=' + Date.now());
+
+      fetch(url, { cache: 'no-store' })
+        .then(function(res) {
+          if (!res.ok) throw new Error('status ' + res.status);
+          return res.json();
+        })
+        .then(function(data) {
+          isPolling = false;
+          if (data) extractAnnouncementFromTop32(data);
+        })
+        .catch(function() {
+          isPolling = false;
+        });
+    }
+
+    setInterval(pollAnnouncementData, 800);
+    pollAnnouncementData();
+
+    // Initial first-frame render with defaults or preloaded
+    renderAnnouncement(currentData);
+  </script>
+</body>
+</html>

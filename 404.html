@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RDS GP / DRIFT CHAMPIONSHIP — Навигация</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #060913;
+      color: #e2e8f0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+  <div class="max-w-lg w-full bg-[#0c1222] border border-[#1b2640] rounded-3xl p-6 sm:p-8 shadow-2xl text-center space-y-6">
+    <div class="inline-flex p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-3xl">
+      🏎️
+    </div>
+
+    <div>
+      <h1 class="text-xl sm:text-2xl font-black text-white uppercase tracking-tight">RDS GP / DRIFT TOURNAMENT</h1>
+      <p id="subMsg" class="text-xs text-slate-400 mt-2">Страница регистрации и турнира работает 24/7. Выберите нужный раздел:</p>
+    </div>
+
+    <div class="space-y-3 pt-2">
+      <a href="register.html" id="linkRegister" class="flex items-center justify-between p-4 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-sm shadow-lg transition transform hover:-translate-y-0.5">
+        <div class="flex items-center gap-3">
+          <span class="text-xl">🏁</span>
+          <div class="text-left">
+            <div>ОНЛАЙН-РЕГИСТРАЦИЯ ПИЛОТОВ</div>
+            <div class="text-[11px] font-semibold text-slate-900/80">Подать заявку на участие в этапе</div>
+          </div>
+        </div>
+        <span>→</span>
+      </a>
+
+      <a href="index.html" id="linkBracket" class="flex items-center justify-between p-4 rounded-2xl bg-[#141d33] hover:bg-[#1b2744] border border-[#213054] text-white font-bold text-sm transition">
+        <div class="flex items-center gap-3">
+          <span class="text-xl">🏆</span>
+          <div class="text-left">
+            <div>ТУРНИРНАЯ СЕТКА ТОП-32</div>
+            <div class="text-[11px] font-medium text-slate-400">Сетка квалификации и парных заездов</div>
+          </div>
+        </div>
+        <span class="text-slate-400">→</span>
+      </a>
+
+      <a href="judges.html" id="linkJudges" class="flex items-center justify-between p-4 rounded-2xl bg-[#141d33] hover:bg-[#1b2744] border border-[#213054] text-white font-bold text-sm transition">
+        <div class="flex items-center gap-3">
+          <span class="text-xl">⚖️</span>
+          <div class="text-left">
+            <div>СУДЕЙСКАЯ ПАНЕЛЬ</div>
+            <div class="text-[11px] font-medium text-slate-400">Оценка заездов и управление сеткой</div>
+          </div>
+        </div>
+        <span class="text-slate-400">→</span>
+      </a>
+    </div>
+
+    <div class="pt-2 text-[11px] text-slate-500">
+      Официальный портал соревнований Assetto Corsa Drift • 24/7 доступ
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // Auto-detect correct base URL
+      const path = window.location.pathname.toLowerCase();
+      const origin = window.location.origin;
+      const isTop32Repo = path.includes('/top32');
+      const base = isTop32Repo ? (origin + '/top32/') : (origin + '/');
+
+      const regLink = document.getElementById('linkRegister');
+      const brLink = document.getElementById('linkBracket');
+      const jdLink = document.getElementById('linkJudges');
+
+      if (regLink) regLink.href = base + 'register.html';
+      if (brLink) brLink.href = base + 'index.html';
+      if (jdLink) jdLink.href = base + 'judges.html';
+
+      // If the user was trying to reach registration (e.g. /reg, /register, /signup, etc)
+      if (path.includes('reg') || path.includes('sign') || path.includes('join') || path.includes('zayavka')) {
+        const sub = document.getElementById('subMsg');
+        if (sub) sub.textContent = 'Перенаправляем на страницу регистрации...';
+        setTimeout(function() {
+          window.location.replace(base + 'register.html');
+        }, 500);
+      }
+    })();
+  </script>
+</body>
+</html>
