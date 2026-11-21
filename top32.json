@@ -2821,17 +2821,17 @@
     "featuredChaseCar": "",
     "layout": "compact",
     "timerMinutes": 20,
-    "timerSeconds": 1200,
-    "timerPaused": false,
+    "timerSeconds": 1198,
+    "timerPaused": true,
     "bgTransparent": true,
     "showTimer": true,
     "showBattle": true,
     "showPilot": false,
     "showQr": true,
     "showTicker": true,
-    "lastUpdated": 1795258228016,
+    "lastUpdated": 1795258230376,
     "timerTargetTimestamp": 1795259428015,
-    "timerRemainingOnPause": 1200
+    "timerRemainingOnPause": 1198
   },
   "stage_mode": "quali",
   "custom_stage_titles": {
