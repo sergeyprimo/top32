@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795272184997,
+  "last_updated": 1795272213693,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -502,14 +502,14 @@
       "car": "Lexus RCF",
       "number": "—",
       "run1": 66,
-      "run2": 0,
-      "best": 66,
+      "run2": 70,
+      "best": 70,
       "status": "registered",
       "is_placeholder": false,
-      "total": 66,
-      "single_best": 66,
-      "worse": 0,
-      "_local_edit_time": 1795272013907
+      "total": 136,
+      "single_best": 70,
+      "worse": 66,
+      "_local_edit_time": 1795272213091
     },
     {
       "rank": 30,
@@ -1810,9 +1810,9 @@
         "name": "Николай Леднев",
         "car": "Lexus RCF",
         "number": "29",
-        "quali_score": 66,
+        "quali_score": 70,
         "is_placeholder": false,
-        "best": 66
+        "best": 70
       },
       "winner": null,
       "status": "upcoming",
