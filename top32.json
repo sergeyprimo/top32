@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795269047481,
+  "last_updated": 1795269101467,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -847,14 +847,14 @@
       "car": "Toyota chaser",
       "number": "54",
       "run1": 76,
-      "run2": 0,
+      "run2": 74,
       "best": 76,
       "status": "registered",
       "is_placeholder": false,
-      "total": 76,
+      "total": 150,
       "single_best": 76,
-      "worse": 0,
-      "_local_edit_time": 1795269047201
+      "worse": 74,
+      "_local_edit_time": 1795269100861
     },
     {
       "rank": 51,
