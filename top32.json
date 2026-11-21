@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795266659832,
+  "last_updated": 1795266660710,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -608,14 +608,14 @@
       "car": "VDC Shelby Mustang Super Snake",
       "number": "—",
       "run1": 70,
-      "run2": 78,
-      "best": 78,
+      "run2": 76,
+      "best": 76,
       "status": "registered",
       "is_placeholder": false,
-      "total": 148,
-      "single_best": 78,
+      "total": 146,
+      "single_best": 76,
       "worse": 70,
-      "_local_edit_time": 1795266659832
+      "_local_edit_time": 1795266660102
     },
     {
       "rank": 37,
