@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795268976601,
+  "last_updated": 1795268977311,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -841,23 +841,6 @@
     },
     {
       "rank": 50,
-      "seed": 53,
-      "name": "Макс Козстапенн",
-      "group": "D",
-      "car": "Nissan 370Z",
-      "number": "—",
-      "run1": 0,
-      "run2": 0,
-      "best": 0,
-      "status": "registered",
-      "is_placeholder": false,
-      "total": 0,
-      "single_best": 0,
-      "worse": 0,
-      "_local_edit_time": 1795268976600
-    },
-    {
-      "rank": 51,
       "seed": 54,
       "name": "Максим Двоеглазов",
       "group": "D",
@@ -873,7 +856,7 @@
       "worse": 0
     },
     {
-      "rank": 52,
+      "rank": 51,
       "seed": 2,
       "name": "Леонтьев Вячеслав",
       "group": "HEALTH",
@@ -889,7 +872,7 @@
       "worse": 0
     },
     {
-      "rank": 53,
+      "rank": 52,
       "seed": 9,
       "name": "Марк Хороший",
       "group": "HEALTH",
@@ -905,7 +888,7 @@
       "worse": 0
     },
     {
-      "rank": 54,
+      "rank": 53,
       "seed": 11,
       "name": "Даниил Кузнецов",
       "group": "HEALTH",
@@ -919,6 +902,23 @@
       "total": 0,
       "single_best": 0,
       "worse": 0
+    },
+    {
+      "rank": 54,
+      "seed": 53,
+      "name": "Макс Козстапенн",
+      "group": "HEALTH",
+      "car": "Nissan 370Z",
+      "number": "—",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "status": "registered",
+      "is_placeholder": false,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "_local_edit_time": 1795268976600
     },
     {
       "rank": 55,
