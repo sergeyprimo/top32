@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795270095147,
+  "last_updated": 1795270097501,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -900,14 +900,14 @@
       "car": "Nissan 370Z",
       "number": "—",
       "run1": 78,
-      "run2": 0,
+      "run2": 9,
       "best": 78,
       "status": "registered",
       "is_placeholder": false,
-      "total": 78,
+      "total": 87,
       "single_best": 78,
-      "worse": 0,
-      "_local_edit_time": 1795270095145
+      "worse": 9,
+      "_local_edit_time": 1795270096896
     },
     {
       "rank": 54,
