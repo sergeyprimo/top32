@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795263028848,
+  "last_updated": 1795263102613,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -245,15 +245,15 @@
       "group": "B",
       "car": "Bmw m4",
       "number": "—",
-      "run1": 0,
+      "run1": 70,
       "run2": 0,
-      "best": 0,
+      "best": 70,
       "status": "registered",
       "is_placeholder": false,
-      "total": 0,
-      "single_best": 0,
+      "total": 70,
+      "single_best": 70,
       "worse": 0,
-      "_local_edit_time": 1795263028847
+      "_local_edit_time": 1795263102012
     },
     {
       "rank": 15,
