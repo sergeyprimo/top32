@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795265385333,
+  "last_updated": 1795265386896,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -501,14 +501,14 @@
       "car": "VDC BMW E36 HGK ",
       "number": "—",
       "run1": 61,
-      "run2": 68,
-      "best": 68,
+      "run2": 58,
+      "best": 61,
       "status": "registered",
       "is_placeholder": false,
-      "total": 129,
-      "single_best": 68,
-      "worse": 61,
-      "_local_edit_time": 1795265384725
+      "total": 119,
+      "single_best": 61,
+      "worse": 58,
+      "_local_edit_time": 1795265386279
     },
     {
       "rank": 30,
