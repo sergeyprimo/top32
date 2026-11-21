@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795261567537,
+  "last_updated": 1795261569010,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -93,14 +93,14 @@
       "car": "Toyota jzx90",
       "number": "—",
       "run1": 0,
-      "run2": 35,
-      "best": 35,
+      "run2": 3,
+      "best": 3,
       "status": "registered",
       "is_placeholder": false,
-      "total": 35,
-      "single_best": 35,
+      "total": 3,
+      "single_best": 3,
       "worse": 0,
-      "_local_edit_time": 1795261566490
+      "_local_edit_time": 1795261569010
     },
     {
       "rank": 6,
@@ -127,14 +127,14 @@
       "car": "VDC Shelby Mustang Super Snake",
       "number": "—",
       "run1": 0,
-      "run2": 0,
-      "best": 0,
+      "run2": 35,
+      "best": 35,
       "status": "registered",
       "is_placeholder": false,
-      "total": 0,
-      "single_best": 0,
+      "total": 35,
+      "single_best": 35,
       "worse": 0,
-      "_local_edit_time": 1795261567536
+      "_local_edit_time": 1795261568774
     },
     {
       "rank": 8,
