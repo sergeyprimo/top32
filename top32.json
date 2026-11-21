@@ -2872,11 +2872,11 @@
     "timerPaused": false,
     "bgTransparent": true,
     "showTimer": true,
-    "showBattle": true,
+    "showBattle": false,
     "showPilot": false,
     "showQr": true,
     "showTicker": true,
-    "lastUpdated": 1795271216392,
+    "lastUpdated": 1795271228379,
     "timerTargetTimestamp": 1795272327491,
     "timerRemainingOnPause": 1200
   },
