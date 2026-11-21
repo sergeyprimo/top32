@@ -11,7 +11,7 @@
   "stage": "top32",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795272234757,
+  "last_updated": 1795272239375,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -446,6 +446,23 @@
     {
       "rank": 26,
       "seed": 26,
+      "name": "Николай Леднев",
+      "group": "B",
+      "car": "Lexus RCF",
+      "number": "—",
+      "run1": 66,
+      "run2": 70,
+      "best": 70,
+      "status": "registered",
+      "is_placeholder": false,
+      "total": 136,
+      "single_best": 70,
+      "worse": 66,
+      "_local_edit_time": 1795272213844
+    },
+    {
+      "rank": 27,
+      "seed": 27,
       "name": "Данила Козлов",
       "group": "B",
       "car": "Subaru brz",
@@ -461,8 +478,8 @@
       "_local_edit_time": 1795271088958
     },
     {
-      "rank": 27,
-      "seed": 27,
+      "rank": 28,
+      "seed": 28,
       "name": "Майгарин Азамат",
       "group": "B",
       "car": "Nissan silvia s15",
@@ -478,8 +495,8 @@
       "_local_edit_time": 1795272015575
     },
     {
-      "rank": 28,
-      "seed": 28,
+      "rank": 29,
+      "seed": 29,
       "name": "Соболев Павел",
       "group": "A",
       "car": "Toyota supra",
@@ -493,23 +510,6 @@
       "single_best": 66,
       "worse": 44,
       "_local_edit_time": 1795265943110
-    },
-    {
-      "rank": 29,
-      "seed": 29,
-      "name": "Николай Леднев",
-      "group": "B",
-      "car": "Lexus RCF",
-      "number": "—",
-      "run1": 66,
-      "run2": 70,
-      "best": 70,
-      "status": "registered",
-      "is_placeholder": false,
-      "total": 136,
-      "single_best": 70,
-      "worse": 66,
-      "_local_edit_time": 1795272213844
     },
     {
       "rank": 30,
@@ -1807,12 +1807,12 @@
       },
       "chase": {
         "seed": 29,
-        "name": "Николай Леднев",
-        "car": "Lexus RCF",
+        "name": "Соболев Павел",
+        "car": "Toyota supra",
         "number": "29",
-        "quali_score": 70,
+        "quali_score": 66,
         "is_placeholder": false,
-        "best": 70
+        "best": 66
       },
       "winner": null,
       "status": "upcoming",
@@ -1889,12 +1889,12 @@
       },
       "chase": {
         "seed": 28,
-        "name": "Соболев Павел",
-        "car": "Toyota supra",
+        "name": "Майгарин Азамат",
+        "car": "Nissan silvia s15",
         "number": "28",
-        "quali_score": 66,
+        "quali_score": 67,
         "is_placeholder": false,
-        "best": 66
+        "best": 67
       },
       "winner": null,
       "status": "upcoming",
@@ -2053,12 +2053,12 @@
       },
       "chase": {
         "seed": 26,
-        "name": "Данила Козлов",
-        "car": "Subaru brz",
+        "name": "Николай Леднев",
+        "car": "Lexus RCF",
         "number": "26",
-        "quali_score": 69,
+        "quali_score": 70,
         "is_placeholder": false,
-        "best": 69
+        "best": 70
       },
       "winner": null,
       "status": "upcoming",
@@ -2217,12 +2217,12 @@
       },
       "chase": {
         "seed": 27,
-        "name": "Майгарин Азамат",
-        "car": "Nissan silvia s15",
+        "name": "Данила Козлов",
+        "car": "Subaru brz",
         "number": "27",
-        "quali_score": 67,
+        "quali_score": 69,
         "is_placeholder": false,
-        "best": 67
+        "best": 69
       },
       "winner": null,
       "status": "upcoming",
