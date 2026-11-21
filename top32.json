@@ -2821,7 +2821,7 @@
     "featuredChaseCar": "",
     "layout": "compact",
     "timerMinutes": 20,
-    "timerSeconds": 1198,
+    "timerSeconds": 1195,
     "timerPaused": true,
     "bgTransparent": true,
     "showTimer": true,
@@ -2829,9 +2829,9 @@
     "showPilot": false,
     "showQr": true,
     "showTicker": true,
-    "lastUpdated": 1795258230376,
+    "lastUpdated": 1795258232671,
     "timerTargetTimestamp": 1795259428015,
-    "timerRemainingOnPause": 1198
+    "timerRemainingOnPause": 1195
   },
   "stage_mode": "quali",
   "custom_stage_titles": {
