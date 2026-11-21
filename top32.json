@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795270807079,
+  "last_updated": 1795270812336,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -765,14 +765,14 @@
       "car": "Nissan 180sx",
       "number": "—",
       "run1": 68,
-      "run2": 89,
-      "best": 89,
+      "run2": 84,
+      "best": 84,
       "status": "registered",
       "is_placeholder": false,
-      "total": 157,
-      "single_best": 89,
+      "total": 152,
+      "single_best": 84,
       "worse": 68,
-      "_local_edit_time": 1795267577799
+      "_local_edit_time": 1795270811726
     },
     {
       "rank": 46,
