@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795270218929,
+  "last_updated": 1795270277532,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -917,14 +917,14 @@
       "car": "Toyota mark ii",
       "number": "—",
       "run1": 88,
-      "run2": 0,
+      "run2": 63,
       "best": 88,
       "status": "registered",
       "is_placeholder": false,
-      "total": 88,
+      "total": 151,
       "single_best": 88,
-      "worse": 0,
-      "_local_edit_time": 1795270218927
+      "worse": 63,
+      "_local_edit_time": 1795270276920
     },
     {
       "rank": 55,
