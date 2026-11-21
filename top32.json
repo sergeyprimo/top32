@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795264225918,
+  "last_updated": 1795264231802,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -381,15 +381,15 @@
       "group": "B",
       "car": "Toyota mark ii",
       "number": "—",
-      "run1": 66,
-      "run2": 71,
-      "best": 71,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "registered",
       "is_placeholder": false,
-      "total": 137,
-      "single_best": 71,
-      "worse": 66,
-      "_local_edit_time": 1795264225316
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "_local_edit_time": 1795264231734
     },
     {
       "rank": 23,
@@ -398,14 +398,15 @@
       "group": "B",
       "car": "Lexus RCF",
       "number": "—",
-      "run1": 0,
-      "run2": 0,
-      "best": 0,
+      "run1": 66,
+      "run2": 71,
+      "best": 71,
       "status": "registered",
       "is_placeholder": false,
-      "total": 0,
-      "single_best": 0,
-      "worse": 0
+      "total": 137,
+      "single_best": 71,
+      "worse": 66,
+      "_local_edit_time": 1795264230435
     },
     {
       "rank": 24,
