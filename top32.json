@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795268175457,
+  "last_updated": 1795268183163,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -659,15 +659,15 @@
       "group": "D",
       "car": "VDC BMW E92 M3",
       "number": "—",
-      "run1": 0,
+      "run1": 63,
       "run2": 73,
       "best": 73,
       "status": "registered",
       "is_placeholder": false,
-      "total": 73,
+      "total": 136,
       "single_best": 73,
-      "worse": 0,
-      "_local_edit_time": 1795268175197
+      "worse": 63,
+      "_local_edit_time": 1795268183162
     },
     {
       "rank": 40,
