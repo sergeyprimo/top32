@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795257284334,
+  "last_updated": 1795257350793,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -295,7 +295,7 @@
       "seed": 18,
       "name": "Вадим Киселев",
       "group": "B",
-      "car": "VDC Toyota Supra A80 ",
+      "car": "VDC Toyota Supra A90 ",
       "number": "—",
       "run1": 0,
       "run2": 0,
