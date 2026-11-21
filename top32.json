@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795264965398,
+  "last_updated": 1795264967321,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -450,14 +450,14 @@
       "car": "Mercedes e63 w212",
       "number": "—",
       "run1": 87,
-      "run2": 90,
-      "best": 90,
+      "run2": 0,
+      "best": 87,
       "status": "registered",
       "is_placeholder": false,
-      "total": 177,
-      "single_best": 90,
-      "worse": 87,
-      "_local_edit_time": 1795264964792
+      "total": 87,
+      "single_best": 87,
+      "worse": 0,
+      "_local_edit_time": 1795264967320
     },
     {
       "rank": 27,
