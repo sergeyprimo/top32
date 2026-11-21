@@ -9,9 +9,9 @@
   "admin_pin": "3667",
   "backup_sheet_webhook": "https://script.google.com/macros/s/AKfycbwiJ6dGQyGtrHhoi5Ri1OOJD5RuPbkQAF8JfgAGZ3RiObIXpbBywmFEJmyGVjpJ6G_6uQ/exec",
   "stage": "top32",
-  "active_battle_id": 8,
+  "active_battle_id": 9,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795277546606,
+  "last_updated": 1795277555662,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -1937,21 +1937,21 @@
         "is_placeholder": false,
         "best": 76
       },
-      "winner": null,
-      "status": "live",
+      "winner": "lead",
+      "status": "finished",
       "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": null
+          "vote": "lead"
         },
         {
           "name": "С2",
-          "vote": null
+          "vote": "lead"
         },
         {
           "name": "С3",
-          "vote": null
+          "vote": "lead"
         }
       ]
     },
@@ -1979,7 +1979,7 @@
         "best": 65
       },
       "winner": null,
-      "status": "upcoming",
+      "status": "live",
       "is_direct_quali": true,
       "judges": [
         {
@@ -2424,13 +2424,16 @@
         "best": 89
       },
       "chase": {
-        "seed": "—",
-        "name": "Победитель Хита #8",
-        "car": "Ожидание заезда",
-        "is_placeholder": true
+        "seed": 12,
+        "name": "Артем Евдокимов",
+        "car": "Lada priora",
+        "number": "12",
+        "quali_score": 82,
+        "is_placeholder": false,
+        "best": 82
       },
       "winner": null,
-      "status": "waiting",
+      "status": "upcoming",
       "judges": [
         {
           "name": "С1",
