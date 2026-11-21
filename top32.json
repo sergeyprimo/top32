@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795261225022,
+  "last_updated": 1795261335102,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -75,14 +75,15 @@
       "group": "A",
       "car": "Toyota supra",
       "number": "—",
-      "run1": 0,
+      "run1": 66,
       "run2": 0,
-      "best": 0,
+      "best": 66,
       "status": "registered",
       "is_placeholder": false,
-      "total": 0,
-      "single_best": 0,
-      "worse": 0
+      "total": 66,
+      "single_best": 66,
+      "worse": 0,
+      "_local_edit_time": 1795261334492
     },
     {
       "rank": 5,
