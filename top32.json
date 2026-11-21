@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795267129487,
+  "last_updated": 1795267227234,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -438,15 +438,15 @@
       "group": "C",
       "car": "Mercedes e63 w212",
       "number": "—",
-      "run1": 87,
+      "run1": 92,
       "run2": 0,
-      "best": 87,
+      "best": 92,
       "status": "registered",
       "is_placeholder": false,
-      "total": 87,
-      "single_best": 87,
+      "total": 92,
+      "single_best": 92,
       "worse": 0,
-      "_local_edit_time": 1795265966328
+      "_local_edit_time": 1795267226620
     },
     {
       "rank": 27,
@@ -2858,7 +2858,7 @@
     "showPilot": true,
     "showQr": true,
     "showTicker": true,
-    "lastUpdated": 1795265895609
+    "lastUpdated": 1795266053091
   },
   "stage_mode": "quali",
   "custom_stage_titles": {
@@ -2881,7 +2881,7 @@
     "omtActive": false,
     "omtDuration": 8,
     "omtTimestamp": 0,
-    "lastUpdated": 1795265895609
+    "lastUpdated": 1795266053091
   },
   "qualification_cleared": false,
   "battles_top24": [
