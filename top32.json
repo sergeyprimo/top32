@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795265266053,
+  "last_updated": 1795265268724,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -495,23 +495,6 @@
     },
     {
       "rank": 29,
-      "seed": 32,
-      "name": "Георги Неделчев",
-      "group": "C",
-      "car": "VDC BMW E82 1M",
-      "number": "—",
-      "run1": 0,
-      "run2": 0,
-      "best": 0,
-      "status": "registered",
-      "is_placeholder": false,
-      "total": 0,
-      "single_best": 0,
-      "worse": 0,
-      "_local_edit_time": 1795265266052
-    },
-    {
-      "rank": 30,
       "seed": 33,
       "name": "Павел Хазанов",
       "group": "C",
@@ -527,7 +510,7 @@
       "worse": 0
     },
     {
-      "rank": 31,
+      "rank": 30,
       "seed": 34,
       "name": "Алекс Шелко",
       "group": "C",
@@ -543,7 +526,7 @@
       "worse": 0
     },
     {
-      "rank": 32,
+      "rank": 31,
       "seed": 35,
       "name": "Максим Шевченко",
       "group": "C",
@@ -559,7 +542,7 @@
       "worse": 0
     },
     {
-      "rank": 33,
+      "rank": 32,
       "seed": 36,
       "name": "Дмитрий Родин",
       "group": "C",
@@ -575,7 +558,7 @@
       "worse": 0
     },
     {
-      "rank": 34,
+      "rank": 33,
       "seed": 37,
       "name": "Геворк Арутюнян",
       "group": "C",
@@ -591,7 +574,7 @@
       "worse": 0
     },
     {
-      "rank": 35,
+      "rank": 34,
       "seed": 38,
       "name": "Владимир Кротов",
       "group": "C",
@@ -607,7 +590,7 @@
       "worse": 0
     },
     {
-      "rank": 36,
+      "rank": 35,
       "seed": 39,
       "name": "Роман Михайлов",
       "group": "C",
@@ -623,7 +606,7 @@
       "worse": 0
     },
     {
-      "rank": 37,
+      "rank": 36,
       "seed": 40,
       "name": "Руслан Невский",
       "group": "C",
@@ -639,7 +622,7 @@
       "worse": 0
     },
     {
-      "rank": 38,
+      "rank": 37,
       "seed": 41,
       "name": "Антон Козлов",
       "group": "D",
@@ -655,7 +638,7 @@
       "worse": 0
     },
     {
-      "rank": 39,
+      "rank": 38,
       "seed": 42,
       "name": "Никита Демидов",
       "group": "D",
@@ -671,7 +654,7 @@
       "worse": 0
     },
     {
-      "rank": 40,
+      "rank": 39,
       "seed": 43,
       "name": "Олег Шпинер",
       "group": "D",
@@ -687,7 +670,7 @@
       "worse": 0
     },
     {
-      "rank": 41,
+      "rank": 40,
       "seed": 44,
       "name": "Антропов Артём",
       "group": "D",
@@ -703,7 +686,7 @@
       "worse": 0
     },
     {
-      "rank": 42,
+      "rank": 41,
       "seed": 45,
       "name": "Ильнур Сембаев",
       "group": "D",
@@ -719,7 +702,7 @@
       "worse": 0
     },
     {
-      "rank": 43,
+      "rank": 42,
       "seed": 46,
       "name": "Даниил Королёв",
       "group": "D",
@@ -735,7 +718,7 @@
       "worse": 0
     },
     {
-      "rank": 44,
+      "rank": 43,
       "seed": 47,
       "name": "Савелий Мардас",
       "group": "C",
@@ -751,7 +734,7 @@
       "worse": 0
     },
     {
-      "rank": 45,
+      "rank": 44,
       "seed": 48,
       "name": "Михаил Литвинюк",
       "group": "D",
@@ -767,7 +750,7 @@
       "worse": 0
     },
     {
-      "rank": 46,
+      "rank": 45,
       "seed": 49,
       "name": "Роман Фридман",
       "group": "C",
@@ -783,7 +766,7 @@
       "worse": 0
     },
     {
-      "rank": 47,
+      "rank": 46,
       "seed": 50,
       "name": "Игорь Рыжий",
       "group": "D",
@@ -799,7 +782,7 @@
       "worse": 0
     },
     {
-      "rank": 48,
+      "rank": 47,
       "seed": 51,
       "name": "Роман Ловкис",
       "group": "D",
@@ -815,7 +798,7 @@
       "worse": 0
     },
     {
-      "rank": 49,
+      "rank": 48,
       "seed": 52,
       "name": "Данил Мигунов",
       "group": "D",
@@ -831,7 +814,7 @@
       "worse": 0
     },
     {
-      "rank": 50,
+      "rank": 49,
       "seed": 53,
       "name": "Макс Козстапенн",
       "group": "D",
@@ -847,7 +830,7 @@
       "worse": 0
     },
     {
-      "rank": 51,
+      "rank": 50,
       "seed": 54,
       "name": "Максим Двоеглазов",
       "group": "D",
@@ -863,7 +846,7 @@
       "worse": 0
     },
     {
-      "rank": 52,
+      "rank": 51,
       "seed": 2,
       "name": "Леонтьев Вячеслав",
       "group": "HEALTH",
@@ -879,7 +862,7 @@
       "worse": 0
     },
     {
-      "rank": 53,
+      "rank": 52,
       "seed": 9,
       "name": "Марк Хороший",
       "group": "HEALTH",
@@ -895,7 +878,7 @@
       "worse": 0
     },
     {
-      "rank": 54,
+      "rank": 53,
       "seed": 11,
       "name": "Даниил Кузнецов",
       "group": "HEALTH",
@@ -909,6 +892,23 @@
       "total": 0,
       "single_best": 0,
       "worse": 0
+    },
+    {
+      "rank": 54,
+      "seed": 32,
+      "name": "Георги Неделчев",
+      "group": "HEALTH",
+      "car": "VDC BMW E82 1M",
+      "number": "—",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "status": "registered",
+      "is_placeholder": false,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "_local_edit_time": 1795265266052
     },
     {
       "rank": 55,
