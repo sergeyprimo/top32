@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795266051123,
+  "last_updated": 1795266053094,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -300,7 +300,8 @@
       "is_placeholder": false,
       "total": 0,
       "single_best": 0,
-      "worse": 0
+      "worse": 0,
+      "_local_edit_time": 1795266049220
     },
     {
       "rank": 18,
@@ -523,14 +524,14 @@
       "car": "VDC BMW E92 M3 ",
       "number": "—",
       "run1": 42,
-      "run2": 64,
-      "best": 64,
+      "run2": 0,
+      "best": 42,
       "status": "registered",
       "is_placeholder": false,
-      "total": 106,
-      "single_best": 64,
-      "worse": 42,
-      "_local_edit_time": 1795266046503
+      "total": 42,
+      "single_best": 42,
+      "worse": 0,
+      "_local_edit_time": 1795266045194
     },
     {
       "rank": 32,
@@ -547,7 +548,7 @@
       "total": 0,
       "single_best": 0,
       "worse": 0,
-      "_local_edit_time": 1795266051122
+      "_local_edit_time": 1795266041902
     },
     {
       "rank": 33,
@@ -2856,7 +2857,7 @@
     "showPilot": true,
     "showQr": true,
     "showTicker": true,
-    "lastUpdated": 1795265895609
+    "lastUpdated": 1795266053091
   },
   "stage_mode": "quali",
   "custom_stage_titles": {
@@ -2879,7 +2880,7 @@
     "omtActive": false,
     "omtDuration": 8,
     "omtTimestamp": 0,
-    "lastUpdated": 1795265895609
+    "lastUpdated": 1795266053091
   },
   "qualification_cleared": false,
   "battles_top24": [
