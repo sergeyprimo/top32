@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795271015671,
+  "last_updated": 1795271018430,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -228,15 +228,15 @@
       "group": "B",
       "car": "Subaru brz",
       "number": "—",
-      "run1": 70,
-      "run2": 76,
-      "best": 76,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "registered",
       "is_placeholder": false,
-      "total": 146,
-      "single_best": 76,
-      "worse": 70,
-      "_local_edit_time": 1795271015412
+      "total": 0,
+      "single_best": 0,
+      "worse": 0,
+      "_local_edit_time": 1795271018358
     },
     {
       "rank": 14,
@@ -246,14 +246,14 @@
       "car": "Bmw m4",
       "number": "—",
       "run1": 70,
-      "run2": 0,
-      "best": 70,
+      "run2": 76,
+      "best": 76,
       "status": "registered",
       "is_placeholder": false,
-      "total": 70,
-      "single_best": 70,
-      "worse": 0,
-      "_local_edit_time": 1795271015671
+      "total": 146,
+      "single_best": 76,
+      "worse": 70,
+      "_local_edit_time": 1795271016984
     },
     {
       "rank": 15,
