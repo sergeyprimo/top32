@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795268420100,
+  "last_updated": 1795268496704,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -727,15 +727,15 @@
       "group": "D",
       "car": "Flanker F",
       "number": "—",
-      "run1": 0,
+      "run1": 88,
       "run2": 0,
-      "best": 0,
+      "best": 88,
       "status": "registered",
       "is_placeholder": false,
-      "total": 0,
-      "single_best": 0,
+      "total": 88,
+      "single_best": 88,
       "worse": 0,
-      "_local_edit_time": 1795268420099
+      "_local_edit_time": 1795268496703
     },
     {
       "rank": 44,
