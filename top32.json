@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795269212589,
+  "last_updated": 1795269504968,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -371,22 +371,6 @@
     },
     {
       "rank": 22,
-      "seed": 25,
-      "name": "Нешадим Алексей",
-      "group": "B",
-      "car": "Toyota mark ii",
-      "number": "—",
-      "run1": 0,
-      "run2": 0,
-      "best": 0,
-      "status": "registered",
-      "is_placeholder": false,
-      "total": 0,
-      "single_best": 0,
-      "worse": 0
-    },
-    {
-      "rank": 23,
       "seed": 26,
       "name": "Николай Леднев",
       "group": "B",
@@ -402,7 +386,7 @@
       "worse": 0
     },
     {
-      "rank": 24,
+      "rank": 23,
       "seed": 27,
       "name": "Илья Лопатин",
       "group": "B",
@@ -419,7 +403,7 @@
       "_local_edit_time": 1795269140749
     },
     {
-      "rank": 25,
+      "rank": 24,
       "seed": 28,
       "name": "Истратий Дмитрий",
       "group": "B",
@@ -436,7 +420,7 @@
       "_local_edit_time": 1795267448766
     },
     {
-      "rank": 26,
+      "rank": 25,
       "seed": 29,
       "name": "Александр Адамович",
       "group": "C",
@@ -453,7 +437,7 @@
       "_local_edit_time": 1795267616813
     },
     {
-      "rank": 27,
+      "rank": 26,
       "seed": 30,
       "name": "Илья Гештарев",
       "group": "C",
@@ -470,7 +454,7 @@
       "_local_edit_time": 1795265977336
     },
     {
-      "rank": 28,
+      "rank": 27,
       "seed": 31,
       "name": "Савельев Алексей",
       "group": "C",
@@ -487,7 +471,7 @@
       "_local_edit_time": 1795265999516
     },
     {
-      "rank": 29,
+      "rank": 28,
       "seed": 32,
       "name": "Георги Неделчев",
       "group": "C",
@@ -504,7 +488,7 @@
       "_local_edit_time": 1795267540676
     },
     {
-      "rank": 30,
+      "rank": 29,
       "seed": 33,
       "name": "Павел Хазанов",
       "group": "C",
@@ -521,7 +505,7 @@
       "_local_edit_time": 1795266022976
     },
     {
-      "rank": 31,
+      "rank": 30,
       "seed": 34,
       "name": "Алекс Шелко",
       "group": "C",
@@ -538,7 +522,7 @@
       "_local_edit_time": 1795266046503
     },
     {
-      "rank": 32,
+      "rank": 31,
       "seed": 35,
       "name": "Максим Шевченко",
       "group": "C",
@@ -555,7 +539,7 @@
       "_local_edit_time": 1795266087183
     },
     {
-      "rank": 33,
+      "rank": 32,
       "seed": 36,
       "name": "Дмитрий Родин",
       "group": "C",
@@ -572,7 +556,7 @@
       "_local_edit_time": 1795267522555
     },
     {
-      "rank": 34,
+      "rank": 33,
       "seed": 37,
       "name": "Геворк Арутюнян",
       "group": "C",
@@ -589,7 +573,7 @@
       "_local_edit_time": 1795267559591
     },
     {
-      "rank": 35,
+      "rank": 34,
       "seed": 38,
       "name": "Владимир Кротов",
       "group": "C",
@@ -606,7 +590,7 @@
       "_local_edit_time": 1795267500102
     },
     {
-      "rank": 36,
+      "rank": 35,
       "seed": 39,
       "name": "Роман Михайлов",
       "group": "C",
@@ -622,7 +606,7 @@
       "worse": 0
     },
     {
-      "rank": 37,
+      "rank": 36,
       "seed": 40,
       "name": "Руслан Невский",
       "group": "C",
@@ -638,7 +622,7 @@
       "worse": 0
     },
     {
-      "rank": 38,
+      "rank": 37,
       "seed": 41,
       "name": "Антон Козлов",
       "group": "D",
@@ -655,7 +639,7 @@
       "_local_edit_time": 1795268186233
     },
     {
-      "rank": 39,
+      "rank": 38,
       "seed": 42,
       "name": "Никита Демидов",
       "group": "D",
@@ -672,7 +656,7 @@
       "_local_edit_time": 1795268192975
     },
     {
-      "rank": 40,
+      "rank": 39,
       "seed": 43,
       "name": "Олег Шпинер",
       "group": "D",
@@ -689,7 +673,7 @@
       "_local_edit_time": 1795268191765
     },
     {
-      "rank": 41,
+      "rank": 40,
       "seed": 44,
       "name": "Антропов Артём",
       "group": "D",
@@ -706,7 +690,7 @@
       "_local_edit_time": 1795268305403
     },
     {
-      "rank": 42,
+      "rank": 41,
       "seed": 45,
       "name": "Ильнур Сембаев",
       "group": "D",
@@ -723,7 +707,7 @@
       "_local_edit_time": 1795268419155
     },
     {
-      "rank": 43,
+      "rank": 42,
       "seed": 46,
       "name": "Даниил Королёв",
       "group": "D",
@@ -740,7 +724,7 @@
       "_local_edit_time": 1795268541365
     },
     {
-      "rank": 44,
+      "rank": 43,
       "seed": 47,
       "name": "Савелий Мардас",
       "group": "C",
@@ -757,7 +741,7 @@
       "_local_edit_time": 1795267614730
     },
     {
-      "rank": 45,
+      "rank": 44,
       "seed": 48,
       "name": "Михаил Литвинюк",
       "group": "D",
@@ -774,7 +758,7 @@
       "_local_edit_time": 1795268676165
     },
     {
-      "rank": 46,
+      "rank": 45,
       "seed": 49,
       "name": "Роман Фридман",
       "group": "C",
@@ -791,7 +775,7 @@
       "_local_edit_time": 1795267577799
     },
     {
-      "rank": 47,
+      "rank": 46,
       "seed": 50,
       "name": "Игорь Рыжий",
       "group": "D",
@@ -808,7 +792,7 @@
       "_local_edit_time": 1795268810648
     },
     {
-      "rank": 48,
+      "rank": 47,
       "seed": 51,
       "name": "Роман Ловкис",
       "group": "D",
@@ -825,7 +809,7 @@
       "_local_edit_time": 1795268840210
     },
     {
-      "rank": 49,
+      "rank": 48,
       "seed": 52,
       "name": "Данил Мигунов",
       "group": "D",
@@ -842,7 +826,7 @@
       "_local_edit_time": 1795268968376
     },
     {
-      "rank": 50,
+      "rank": 49,
       "seed": 54,
       "name": "Максим Двоеглазов",
       "group": "D",
@@ -859,7 +843,7 @@
       "_local_edit_time": 1795269102020
     },
     {
-      "rank": 51,
+      "rank": 50,
       "seed": 2,
       "name": "Леонтьев Вячеслав",
       "group": "HEALTH",
@@ -875,7 +859,7 @@
       "worse": 0
     },
     {
-      "rank": 52,
+      "rank": 51,
       "seed": 9,
       "name": "Марк Хороший",
       "group": "HEALTH",
@@ -891,7 +875,7 @@
       "worse": 0
     },
     {
-      "rank": 53,
+      "rank": 52,
       "seed": 11,
       "name": "Даниил Кузнецов",
       "group": "HEALTH",
@@ -907,7 +891,7 @@
       "worse": 0
     },
     {
-      "rank": 54,
+      "rank": 53,
       "seed": 53,
       "name": "Макс Козстапенн",
       "group": "HEALTH",
@@ -922,6 +906,22 @@
       "single_best": 0,
       "worse": 0,
       "_local_edit_time": 1795268976600
+    },
+    {
+      "rank": 54,
+      "seed": 25,
+      "name": "Нешадим Алексей",
+      "group": "HEALTH",
+      "car": "Toyota mark ii",
+      "number": "—",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "status": "registered",
+      "is_placeholder": false,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 55,
