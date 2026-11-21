@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795266484227,
+  "last_updated": 1795266486535,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -591,14 +591,14 @@
       "car": "Ford mustang s550",
       "number": "—",
       "run1": 86,
-      "run2": 0,
-      "best": 86,
+      "run2": 96,
+      "best": 96,
       "status": "registered",
       "is_placeholder": false,
-      "total": 86,
-      "single_best": 86,
-      "worse": 0,
-      "_local_edit_time": 1795266482261
+      "total": 182,
+      "single_best": 96,
+      "worse": 86,
+      "_local_edit_time": 1795266485934
     },
     {
       "rank": 36,
