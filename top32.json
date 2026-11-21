@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795260359108,
+  "last_updated": 1795260367200,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -148,22 +148,6 @@
     },
     {
       "rank": 9,
-      "seed": 11,
-      "name": "Даниил Кузнецов",
-      "group": "A",
-      "car": "Ford mustang s550",
-      "number": "—",
-      "run1": 0,
-      "run2": 0,
-      "best": 0,
-      "status": "registered",
-      "is_placeholder": false,
-      "total": 0,
-      "single_best": 0,
-      "worse": 0
-    },
-    {
-      "rank": 10,
       "seed": 12,
       "name": "Дмитрий Анохин",
       "group": "A",
@@ -179,7 +163,7 @@
       "worse": 0
     },
     {
-      "rank": 11,
+      "rank": 10,
       "seed": 13,
       "name": "Роман Контиевский",
       "group": "A",
@@ -195,7 +179,7 @@
       "worse": 0
     },
     {
-      "rank": 12,
+      "rank": 11,
       "seed": 14,
       "name": "Артем Евдокимов",
       "group": "A",
@@ -211,7 +195,7 @@
       "worse": 0
     },
     {
-      "rank": 13,
+      "rank": 12,
       "seed": 15,
       "name": "Владимир Шапошников",
       "group": "B",
@@ -227,7 +211,7 @@
       "worse": 0
     },
     {
-      "rank": 14,
+      "rank": 13,
       "seed": 16,
       "name": "Данила Козлов",
       "group": "B",
@@ -243,7 +227,7 @@
       "worse": 0
     },
     {
-      "rank": 15,
+      "rank": 14,
       "seed": 17,
       "name": "Степан Безуглов",
       "group": "B",
@@ -259,7 +243,7 @@
       "worse": 0
     },
     {
-      "rank": 16,
+      "rank": 15,
       "seed": 18,
       "name": "Вадим Киселев",
       "group": "B",
@@ -275,7 +259,7 @@
       "worse": 0
     },
     {
-      "rank": 17,
+      "rank": 16,
       "seed": 19,
       "name": "Мокрицкий Владислав",
       "group": "B",
@@ -291,7 +275,7 @@
       "worse": 0
     },
     {
-      "rank": 18,
+      "rank": 17,
       "seed": 20,
       "name": "Никита Бушев",
       "group": "B",
@@ -307,7 +291,7 @@
       "worse": 0
     },
     {
-      "rank": 19,
+      "rank": 18,
       "seed": 21,
       "name": "Майгарин Азамат",
       "group": "B",
@@ -323,7 +307,7 @@
       "worse": 0
     },
     {
-      "rank": 20,
+      "rank": 19,
       "seed": 22,
       "name": "Владимир Мский",
       "group": "B",
@@ -339,7 +323,7 @@
       "worse": 0
     },
     {
-      "rank": 21,
+      "rank": 20,
       "seed": 23,
       "name": "Виктор Бондаренко",
       "group": "B",
@@ -355,7 +339,7 @@
       "worse": 0
     },
     {
-      "rank": 22,
+      "rank": 21,
       "seed": 24,
       "name": "Влад Трофимов",
       "group": "B",
@@ -371,7 +355,7 @@
       "worse": 0
     },
     {
-      "rank": 23,
+      "rank": 22,
       "seed": 25,
       "name": "Нешадим Алексей",
       "group": "B",
@@ -387,7 +371,7 @@
       "worse": 0
     },
     {
-      "rank": 24,
+      "rank": 23,
       "seed": 26,
       "name": "Николай Леднев",
       "group": "B",
@@ -403,7 +387,7 @@
       "worse": 0
     },
     {
-      "rank": 25,
+      "rank": 24,
       "seed": 27,
       "name": "Илья Лопатин",
       "group": "B",
@@ -419,7 +403,7 @@
       "worse": 0
     },
     {
-      "rank": 26,
+      "rank": 25,
       "seed": 28,
       "name": "Истратий Дмитрий",
       "group": "B",
@@ -435,7 +419,7 @@
       "worse": 0
     },
     {
-      "rank": 27,
+      "rank": 26,
       "seed": 29,
       "name": "Александр Адамович",
       "group": "C",
@@ -451,7 +435,7 @@
       "worse": 0
     },
     {
-      "rank": 28,
+      "rank": 27,
       "seed": 30,
       "name": "Илья Гештарев",
       "group": "C",
@@ -467,7 +451,7 @@
       "worse": 0
     },
     {
-      "rank": 29,
+      "rank": 28,
       "seed": 31,
       "name": "Савельев Алексей",
       "group": "C",
@@ -483,7 +467,7 @@
       "worse": 0
     },
     {
-      "rank": 30,
+      "rank": 29,
       "seed": 32,
       "name": "Георги Неделчев",
       "group": "C",
@@ -499,7 +483,7 @@
       "worse": 0
     },
     {
-      "rank": 31,
+      "rank": 30,
       "seed": 33,
       "name": "Павел Хазанов",
       "group": "C",
@@ -515,7 +499,7 @@
       "worse": 0
     },
     {
-      "rank": 32,
+      "rank": 31,
       "seed": 34,
       "name": "Алекс Шелко",
       "group": "C",
@@ -531,7 +515,7 @@
       "worse": 0
     },
     {
-      "rank": 33,
+      "rank": 32,
       "seed": 35,
       "name": "Максим Шевченко",
       "group": "C",
@@ -547,7 +531,7 @@
       "worse": 0
     },
     {
-      "rank": 34,
+      "rank": 33,
       "seed": 36,
       "name": "Дмитрий Родин",
       "group": "C",
@@ -563,7 +547,7 @@
       "worse": 0
     },
     {
-      "rank": 35,
+      "rank": 34,
       "seed": 37,
       "name": "Геворк Арутюнян",
       "group": "C",
@@ -579,7 +563,7 @@
       "worse": 0
     },
     {
-      "rank": 36,
+      "rank": 35,
       "seed": 38,
       "name": "Владимир Кротов",
       "group": "C",
@@ -595,7 +579,7 @@
       "worse": 0
     },
     {
-      "rank": 37,
+      "rank": 36,
       "seed": 39,
       "name": "Роман Михайлов",
       "group": "C",
@@ -611,7 +595,7 @@
       "worse": 0
     },
     {
-      "rank": 38,
+      "rank": 37,
       "seed": 40,
       "name": "Руслан Невский",
       "group": "C",
@@ -627,7 +611,7 @@
       "worse": 0
     },
     {
-      "rank": 39,
+      "rank": 38,
       "seed": 41,
       "name": "Антон Козлов",
       "group": "D",
@@ -643,7 +627,7 @@
       "worse": 0
     },
     {
-      "rank": 40,
+      "rank": 39,
       "seed": 42,
       "name": "Никита Демидов",
       "group": "D",
@@ -659,7 +643,7 @@
       "worse": 0
     },
     {
-      "rank": 41,
+      "rank": 40,
       "seed": 43,
       "name": "Олег Шпинер",
       "group": "D",
@@ -675,7 +659,7 @@
       "worse": 0
     },
     {
-      "rank": 42,
+      "rank": 41,
       "seed": 44,
       "name": "Антропов Артём",
       "group": "D",
@@ -691,7 +675,7 @@
       "worse": 0
     },
     {
-      "rank": 43,
+      "rank": 42,
       "seed": 45,
       "name": "Ильнур Сембаев",
       "group": "D",
@@ -707,7 +691,7 @@
       "worse": 0
     },
     {
-      "rank": 44,
+      "rank": 43,
       "seed": 46,
       "name": "Даниил Королёв",
       "group": "D",
@@ -723,7 +707,7 @@
       "worse": 0
     },
     {
-      "rank": 45,
+      "rank": 44,
       "seed": 47,
       "name": "Савелий Мардас",
       "group": "C",
@@ -739,7 +723,7 @@
       "worse": 0
     },
     {
-      "rank": 46,
+      "rank": 45,
       "seed": 48,
       "name": "Михаил Литвинюк",
       "group": "D",
@@ -755,7 +739,7 @@
       "worse": 0
     },
     {
-      "rank": 47,
+      "rank": 46,
       "seed": 49,
       "name": "Роман Фридман",
       "group": "C",
@@ -771,7 +755,7 @@
       "worse": 0
     },
     {
-      "rank": 48,
+      "rank": 47,
       "seed": 50,
       "name": "Игорь Рыжий",
       "group": "D",
@@ -787,7 +771,7 @@
       "worse": 0
     },
     {
-      "rank": 49,
+      "rank": 48,
       "seed": 51,
       "name": "Роман Ловкис",
       "group": "D",
@@ -803,7 +787,7 @@
       "worse": 0
     },
     {
-      "rank": 50,
+      "rank": 49,
       "seed": 52,
       "name": "Данил Мигунов",
       "group": "D",
@@ -819,7 +803,7 @@
       "worse": 0
     },
     {
-      "rank": 51,
+      "rank": 50,
       "seed": 53,
       "name": "Макс Козстапенн",
       "group": "D",
@@ -835,7 +819,7 @@
       "worse": 0
     },
     {
-      "rank": 52,
+      "rank": 51,
       "seed": 54,
       "name": "Максим Двоеглазов",
       "group": "D",
@@ -851,7 +835,7 @@
       "worse": 0
     },
     {
-      "rank": 53,
+      "rank": 52,
       "seed": 2,
       "name": "Леонтьев Вячеслав",
       "group": "HEALTH",
@@ -867,9 +851,25 @@
       "worse": 0
     },
     {
-      "rank": 54,
+      "rank": 53,
       "seed": 9,
       "name": "Марк Хороший",
+      "group": "HEALTH",
+      "car": "Ford mustang s550",
+      "number": "—",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
+      "status": "registered",
+      "is_placeholder": false,
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
+    },
+    {
+      "rank": 54,
+      "seed": 11,
+      "name": "Даниил Кузнецов",
       "group": "HEALTH",
       "car": "Ford mustang s550",
       "number": "—",
