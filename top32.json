@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795268899270,
+  "last_updated": 1795268967660,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -830,14 +830,14 @@
       "car": "Bmw G87",
       "number": "49",
       "run1": 94,
-      "run2": 0,
+      "run2": 89,
       "best": 94,
       "status": "registered",
       "is_placeholder": false,
-      "total": 94,
+      "total": 183,
       "single_best": 94,
-      "worse": 0,
-      "_local_edit_time": 1795268899269
+      "worse": 89,
+      "_local_edit_time": 1795268967053
     },
     {
       "rank": 50,
