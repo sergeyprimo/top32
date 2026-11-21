@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795269101467,
+  "last_updated": 1795269102021,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -854,7 +854,7 @@
       "total": 150,
       "single_best": 76,
       "worse": 74,
-      "_local_edit_time": 1795269100861
+      "_local_edit_time": 1795269102020
     },
     {
       "rank": 51,
