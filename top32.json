@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795266139578,
+  "last_updated": 1795266141957,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -219,7 +219,7 @@
       "total": 64,
       "single_best": 64,
       "worse": 0,
-      "_local_edit_time": 1795262868622
+      "_local_edit_time": 1795266134739
     },
     {
       "rank": 13,
@@ -236,7 +236,7 @@
       "total": 0,
       "single_best": 0,
       "worse": 0,
-      "_local_edit_time": 1795265954771
+      "_local_edit_time": 1795266141955
     },
     {
       "rank": 14,
@@ -564,7 +564,7 @@
       "total": 0,
       "single_best": 0,
       "worse": 0,
-      "_local_edit_time": 1795266139576
+      "_local_edit_time": 1795266114674
     },
     {
       "rank": 34,
@@ -2857,7 +2857,7 @@
     "showPilot": true,
     "showQr": true,
     "showTicker": true,
-    "lastUpdated": 1795265895609
+    "lastUpdated": 1795266053091
   },
   "stage_mode": "quali",
   "custom_stage_titles": {
@@ -2880,7 +2880,7 @@
     "omtActive": false,
     "omtDuration": 8,
     "omtTimestamp": 0,
-    "lastUpdated": 1795265895609
+    "lastUpdated": 1795266053091
   },
   "qualification_cleared": false,
   "battles_top24": [
