@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795267116544,
+  "last_updated": 1795267129487,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -219,7 +219,7 @@
       "total": 64,
       "single_best": 64,
       "worse": 0,
-      "_local_edit_time": 1795266134739
+      "_local_edit_time": 1795266202202
     },
     {
       "rank": 13,
@@ -236,7 +236,7 @@
       "total": 0,
       "single_best": 0,
       "worse": 0,
-      "_local_edit_time": 1795266271953
+      "_local_edit_time": 1795267129486
     },
     {
       "rank": 14,
@@ -252,7 +252,8 @@
       "is_placeholder": false,
       "total": 0,
       "single_best": 0,
-      "worse": 0
+      "worse": 0,
+      "_local_edit_time": 1795266206081
     },
     {
       "rank": 15,
@@ -556,15 +557,15 @@
       "group": "C",
       "car": "VDC Nissan Silvia S15",
       "number": "—",
-      "run1": 79,
+      "run1": 0,
       "run2": 0,
-      "best": 79,
+      "best": 0,
       "status": "registered",
       "is_placeholder": false,
-      "total": 79,
-      "single_best": 79,
+      "total": 0,
+      "single_best": 0,
       "worse": 0,
-      "_local_edit_time": 1795266317414
+      "_local_edit_time": 1795266182029
     },
     {
       "rank": 34,
@@ -580,8 +581,7 @@
       "is_placeholder": false,
       "total": 0,
       "single_best": 0,
-      "worse": 0,
-      "_local_edit_time": 1795266482919
+      "worse": 0
     },
     {
       "rank": 35,
@@ -590,15 +590,14 @@
       "group": "C",
       "car": "Ford mustang s550",
       "number": "—",
-      "run1": 86,
-      "run2": 94,
-      "best": 94,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "registered",
       "is_placeholder": false,
-      "total": 180,
-      "single_best": 94,
-      "worse": 86,
-      "_local_edit_time": 1795266499534
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 36,
@@ -607,15 +606,14 @@
       "group": "C",
       "car": "VDC Shelby Mustang Super Snake",
       "number": "—",
-      "run1": 70,
-      "run2": 76,
-      "best": 76,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "registered",
       "is_placeholder": false,
-      "total": 146,
-      "single_best": 76,
-      "worse": 70,
-      "_local_edit_time": 1795266661435
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 37,
@@ -631,8 +629,7 @@
       "is_placeholder": false,
       "total": 0,
       "single_best": 0,
-      "worse": 0,
-      "_local_edit_time": 1795266746566
+      "worse": 0
     },
     {
       "rank": 38,
@@ -737,15 +734,14 @@
       "group": "C",
       "car": "VDC BMW M2 G87",
       "number": "—",
-      "run1": 43,
-      "run2": 34,
-      "best": 43,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "registered",
       "is_placeholder": false,
-      "total": 77,
-      "single_best": 43,
-      "worse": 34,
-      "_local_edit_time": 1795266954987
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 45,
@@ -770,15 +766,14 @@
       "group": "C",
       "car": "Nissan 180sx",
       "number": "—",
-      "run1": 63,
-      "run2": 89,
-      "best": 89,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "registered",
       "is_placeholder": false,
-      "total": 152,
-      "single_best": 89,
-      "worse": 63,
-      "_local_edit_time": 1795267116544
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 47,
@@ -2863,7 +2858,7 @@
     "showPilot": true,
     "showQr": true,
     "showTicker": true,
-    "lastUpdated": 1795266053091
+    "lastUpdated": 1795265895609
   },
   "stage_mode": "quali",
   "custom_stage_titles": {
@@ -2886,7 +2881,7 @@
     "omtActive": false,
     "omtDuration": 8,
     "omtTimestamp": 0,
-    "lastUpdated": 1795266053091
+    "lastUpdated": 1795265895609
   },
   "qualification_cleared": false,
   "battles_top24": [
