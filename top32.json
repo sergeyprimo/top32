@@ -11,7 +11,7 @@
   "stage": "top32",
   "active_battle_id": 4,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795276461564,
+  "last_updated": 1795276462562,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -1773,8 +1773,8 @@
         "is_placeholder": false,
         "best": 74
       },
-      "winner": null,
-      "status": "live",
+      "winner": "lead",
+      "status": "finished",
       "is_direct_quali": true,
       "judges": [
         {
@@ -2342,13 +2342,16 @@
         "best": 87
       },
       "chase": {
-        "seed": "—",
-        "name": "Победитель Хита #4",
-        "car": "Ожидание заезда",
-        "is_placeholder": true
+        "seed": 9,
+        "name": "Даниил Кузнецов",
+        "car": "Ford mustang s550",
+        "number": "9",
+        "quali_score": 85,
+        "is_placeholder": false,
+        "best": 85
       },
       "winner": null,
-      "status": "waiting",
+      "status": "upcoming",
       "judges": [
         {
           "name": "С1",
