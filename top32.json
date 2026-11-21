@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795262001921,
+  "last_updated": 1795262003939,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -178,14 +178,14 @@
       "car": "Bmw e92",
       "number": "—",
       "run1": 58,
-      "run2": 73,
-      "best": 73,
+      "run2": 74,
+      "best": 74,
       "status": "registered",
       "is_placeholder": false,
-      "total": 131,
-      "single_best": 73,
+      "total": 132,
+      "single_best": 74,
       "worse": 58,
-      "_local_edit_time": 1795262001320
+      "_local_edit_time": 1795262003938
     },
     {
       "rank": 11,
