@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795271018439,
+  "last_updated": 1795271054976,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -229,14 +229,14 @@
       "car": "Subaru brz",
       "number": "—",
       "run1": 0,
-      "run2": 0,
-      "best": 0,
+      "run2": 69,
+      "best": 69,
       "status": "registered",
       "is_placeholder": false,
-      "total": 0,
-      "single_best": 0,
+      "total": 69,
+      "single_best": 69,
       "worse": 0,
-      "_local_edit_time": 1795271018358
+      "_local_edit_time": 1795271054975
     },
     {
       "rank": 14,
