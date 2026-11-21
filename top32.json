@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795266058807,
+  "last_updated": 1795266062094,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -540,14 +540,14 @@
       "car": "Bmw E30",
       "number": "—",
       "run1": 0,
-      "run2": 68,
-      "best": 68,
+      "run2": 66,
+      "best": 66,
       "status": "registered",
       "is_placeholder": false,
-      "total": 68,
-      "single_best": 68,
+      "total": 66,
+      "single_best": 66,
       "worse": 0,
-      "_local_edit_time": 1795266058807
+      "_local_edit_time": 1795266061493
     },
     {
       "rank": 33,
