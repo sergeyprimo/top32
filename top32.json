@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795266855633,
+  "last_updated": 1795266953937,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -738,14 +738,14 @@
       "car": "VDC BMW M2 G87",
       "number": "—",
       "run1": 43,
-      "run2": 0,
+      "run2": 34,
       "best": 43,
       "status": "registered",
       "is_placeholder": false,
-      "total": 43,
+      "total": 77,
       "single_best": 43,
-      "worse": 0,
-      "_local_edit_time": 1795266855632
+      "worse": 34,
+      "_local_edit_time": 1795266953332
     },
     {
       "rank": 45,
