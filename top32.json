@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795270814097,
+  "last_updated": 1795270978002,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -311,14 +311,15 @@
       "group": "B",
       "car": "Nissan silvia s15",
       "number": "—",
-      "run1": 0,
+      "run1": 67,
       "run2": 0,
-      "best": 0,
+      "best": 67,
       "status": "registered",
       "is_placeholder": false,
-      "total": 0,
-      "single_best": 0,
-      "worse": 0
+      "total": 67,
+      "single_best": 67,
+      "worse": 0,
+      "_local_edit_time": 1795270978001
     },
     {
       "rank": 19,
