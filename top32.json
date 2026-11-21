@@ -2857,11 +2857,11 @@
         "logo": ""
       }
     ],
-    "featuredStage": "quali",
+    "featuredStage": "top32",
     "featuredIndex": 0,
     "featuredRunAttempt": 1,
-    "featuredTitle": "🏁 БЛИЖАЙШИЙ ЗАЕЗД • КВАЛИФИКАЦИЯ",
-    "featuredBadge": "ПОПЫТКА #1",
+    "featuredTitle": "⚔️ БЛИЖАЙШИЙ ЗАЕЗД • ТОП-32",
+    "featuredBadge": "ХИТ #1",
     "featuredLeadName": "",
     "featuredLeadCar": "",
     "featuredChaseName": "",
@@ -2876,7 +2876,7 @@
     "showPilot": false,
     "showQr": true,
     "showTicker": true,
-    "lastUpdated": 1795271228379,
+    "lastUpdated": 1795271236076,
     "timerTargetTimestamp": 1795272327491,
     "timerRemainingOnPause": 1200
   },
