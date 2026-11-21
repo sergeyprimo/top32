@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795268629406,
+  "last_updated": 1795268675927,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -762,14 +762,14 @@
       "car": "VDC Silvia s15 2jz",
       "number": "51",
       "run1": 0,
-      "run2": 0,
-      "best": 0,
+      "run2": 48,
+      "best": 48,
       "status": "registered",
       "is_placeholder": false,
-      "total": 0,
-      "single_best": 0,
+      "total": 48,
+      "single_best": 48,
       "worse": 0,
-      "_local_edit_time": 1795268629406
+      "_local_edit_time": 1795268675324
     },
     {
       "rank": 46,
