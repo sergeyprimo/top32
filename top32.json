@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795266271954,
+  "last_updated": 1795266279789,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -556,15 +556,15 @@
       "group": "C",
       "car": "VDC Nissan Silvia S15",
       "number": "—",
-      "run1": 0,
+      "run1": 79,
       "run2": 0,
-      "best": 0,
+      "best": 79,
       "status": "registered",
       "is_placeholder": false,
-      "total": 0,
-      "single_best": 0,
+      "total": 79,
+      "single_best": 79,
       "worse": 0,
-      "_local_edit_time": 1795266114674
+      "_local_edit_time": 1795266279187
     },
     {
       "rank": 34,
