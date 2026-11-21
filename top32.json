@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795268304059,
+  "last_updated": 1795268305404,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -694,14 +694,14 @@
       "car": "Bmw_f380",
       "number": "—",
       "run1": 75,
-      "run2": 73,
+      "run2": 74,
       "best": 75,
       "status": "registered",
       "is_placeholder": false,
-      "total": 148,
+      "total": 149,
       "single_best": 75,
-      "worse": 73,
-      "_local_edit_time": 1795268303454
+      "worse": 74,
+      "_local_edit_time": 1795268305403
     },
     {
       "rank": 42,
