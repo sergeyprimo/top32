@@ -1,0 +1,64 @@
+{
+  "drivers": [
+    {
+      "status": "В ПИТАХ", 
+      "position": 1, 
+      "in_pit": true, 
+      "best_lap_ms": 0, 
+      "status_text": "В ПИТАХ", 
+      "status_code": "pit", 
+      "last_lap": "", 
+      "speed": 0, 
+      "id": 0, 
+      "spline_pos": 0.0874992236495018, 
+      "progress_pct": 0, 
+      "is_player": true, 
+      "car": "Db Ferrari 812 Daniil Kozlov", 
+      "last_lap_ms": 0, 
+      "best_lap": "", 
+      "on_section": false, 
+      "sector_dist": 0.9812631905078888, 
+      "name": "twitch.tv/sergeyprimo", 
+      "lap_count": 0
+    }
+  ], 
+  "in_pit_count": 1, 
+  "battle": {
+    "active": false, 
+    "solo": false, 
+    "lead": null, 
+    "chase": null, 
+    "omt": {
+      "active": false, 
+      "timestamp": 1795391841
+    }
+  }, 
+  "quali": {
+    "status_code": "pit", 
+    "progress_pct": 0, 
+    "is_player": true, 
+    "car": "Db Ferrari 812 Daniil Kozlov", 
+    "speed": 0, 
+    "best_lap": "", 
+    "role_title": "КВАЛИФИКАЦИЯ", 
+    "name": "twitch.tv/sergeyprimo", 
+    "status": "В ПИТАХ", 
+    "role": "QUALI", 
+    "id": 0
+  }, 
+  "section": {
+    "has_points": true, 
+    "finish_spline": 0.8880256414413452, 
+    "start_spline": 0.106236033141613
+  }, 
+  "server_name": "Assetto Corsa Session", 
+  "on_track_count": 0, 
+  "track_id": "driftbanda_ra_redring_2026_layout", 
+  "drivers_count": 1, 
+  "timestamp": 1795391841, 
+  "omt": {
+    "active": false, 
+    "timestamp": 1795391841
+  }, 
+  "max_slots": 1
+}
