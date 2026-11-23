@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795478248461,
+  "last_updated": 1795478273820,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2214,7 +2214,7 @@
     "omtDuration": 8,
     "omtTimestamp": 1795474444519,
     "overlayTitle": "RACE CREW 4 ЭТАП",
-    "overlaySubtitle": "RACE CREW DRIFT CUP",
+    "overlaySubtitle": "Т",
     "overlayTicker": "🌐 ГАЗДЕРЖИМ.РФ ",
     "nextBattleCustomText": "",
     "showBattleBar": true,
@@ -2224,7 +2224,7 @@
     "showNextBattle": true,
     "showReplayBug": false,
     "showTicker": true,
-    "lastUpdated": 1795478248461
+    "lastUpdated": 1795478273820
   },
   "qualification_cleared": false,
   "battles_top24": [],
