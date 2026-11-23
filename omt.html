@@ -58,6 +58,11 @@
           <span class="omt-role-pill chase">&#1063;&#1045;&#1049;&#1047;</span>
         </div>
 
+        <!-- 5-Second Countdown Timer Progress Bar -->
+        <div class="omt-timer-bar">
+          <div class="omt-timer-progress" id="omtTimerProgress"></div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -66,14 +71,24 @@
     // Configuration & URL Query Parameters
     var params = new URLSearchParams(window.location.search);
     var isTestMode = params.has('test') || params.has('preview');
-    var autoHideSeconds = parseInt(params.get('autohide') || 0, 10);
+    // Default display duration is 5 seconds if not overridden via URL ?duration=X or ?autohide=X
+    var autoHideSeconds = parseInt(params.get('duration') || params.get('autohide') || 5, 10);
     var enableSound = params.has('sound');
 
     var omtStage = document.getElementById('omtStage');
     var omtCard = document.getElementById('omtCard');
-    var isVisible = true;
+    var omtTimerProgress = document.getElementById('omtTimerProgress');
+
+    // Strict state management to guarantee ZERO FLICKER
+    var isCurrentlyShowing = false;
+    var isVisible = false;
     var autoHideTimer = null;
-    var lastOmtActive = false;
+    var dismissTimer = null;
+    var cooldownUntil = 0;
+
+    // Independent tracking for different data sources so they never conflict
+    var lastGameOmtActive = false;
+    var lastDirectorOmtActive = false;
 
     // Optional synthesized cinematic impact sound (pure Web Audio API, no files needed)
     function playImpactSound() {
@@ -96,46 +111,85 @@
       } catch (e) {}
     }
 
-    // Triggers or replays the dramatic entrance animation
-    function triggerEntrance() {
+    // Triggers the 5-second OMT appearance with full protection against flicker
+    function triggerEntrance(customDuration) {
       if (!omtStage || !omtCard) return;
+
+      // 1. Anti-flicker guard: if currently showing and active on screen, IGNORE duplicate calls!
+      if (isCurrentlyShowing) {
+        return;
+      }
+
+      // 2. Cooldown guard: prevent immediately re-triggering from lingering packets
+      if (Date.now() < cooldownUntil && !isTestMode) {
+        return;
+      }
+
+      var duration = customDuration || autoHideSeconds || 5;
+
+      isCurrentlyShowing = true;
+      isVisible = true;
+
+      // Clear any pending timers
+      if (autoHideTimer) clearTimeout(autoHideTimer);
+      if (dismissTimer) clearTimeout(dismissTimer);
+
       omtStage.classList.remove('is-hidden');
       omtCard.classList.remove('is-dismissing');
       
-      // Force CSS animation restart
+      // Start CSS entrance animation smoothly
       omtCard.style.animation = 'none';
-      void omtCard.offsetWidth; // trigger reflow
+      void omtCard.offsetWidth; // single reflow to start animation cleanly
       omtCard.style.animation = '';
 
-      isVisible = true;
+      // Start countdown timer progress bar (5s)
+      if (omtTimerProgress) {
+        omtTimerProgress.style.animation = 'none';
+        void omtTimerProgress.offsetWidth;
+        omtTimerProgress.style.animation = 'omtTimerCountdown ' + duration + 's linear forwards';
+      }
+
       playImpactSound();
 
-      if (autoHideSeconds > 0) {
-        if (autoHideTimer) clearTimeout(autoHideTimer);
+      // Automatically dismiss after the duration (5 seconds)
+      if (duration > 0 && !isTestMode && !params.has('always')) {
         autoHideTimer = setTimeout(function() {
           hideOmt();
-        }, autoHideSeconds * 1000);
+        }, duration * 1000);
       }
     }
 
     // Dismiss animation
     function hideOmt() {
-      if (!omtCard || !isVisible) return;
+      if (!isCurrentlyShowing && !isVisible) return;
+      if (!omtCard) return;
+
+      if (autoHideTimer) {
+        clearTimeout(autoHideTimer);
+        autoHideTimer = null;
+      }
+
+      isCurrentlyShowing = false;
+      // Set cooldown for 1.2s to prevent bouncing
+      cooldownUntil = Date.now() + 1200;
+
       omtCard.classList.add('is-dismissing');
-      setTimeout(function() {
-        if (omtStage) omtStage.classList.add('is-hidden');
-        isVisible = false;
-      }, 420);
+
+      dismissTimer = setTimeout(function() {
+        if (!isCurrentlyShowing) {
+          if (omtStage) omtStage.classList.add('is-hidden');
+          isVisible = false;
+        }
+      }, 480);
     }
 
-    // Live Director & Tournament Synchronization for OBS
+    // Director / Web Panel event handler
     function handleDirectorOmt(isActive) {
-      if (isActive && !lastOmtActive) {
-        triggerEntrance();
-      } else if (!isActive && lastOmtActive) {
-        hideOmt();
+      var active = !!isActive;
+      if (active && !lastDirectorOmtActive) {
+        triggerEntrance(5);
       }
-      lastOmtActive = !!isActive;
+      lastDirectorOmtActive = active;
     }
 
     if (typeof BroadcastChannel !== 'undefined') {
@@ -158,7 +212,7 @@
       }
     });
 
-    // Fast poller for OBS director OMT state in top32.json
+    // Fast poller for OBS director OMT state in top32.json (independent from game poller)
     function pollOmtDirectorState() {
       fetch('top32.json?nocache=' + Date.now(), { cache: 'no-store' })
         .then(function(r) { return r.ok ? r.json() : null; })
@@ -169,24 +223,36 @@
         })
         .catch(function() {});
     }
-    setInterval(pollOmtDirectorState, 350);
+    setInterval(pollOmtDirectorState, 500);
 
     // Interactive controls: click or Space/Enter to trigger/replay
     document.addEventListener('click', function() {
-      triggerEntrance();
-    });
-
-    document.addEventListener('keydown', function(e) {
-      if (e.key === ' ' || e.key === 'Enter') {
+      if (isCurrentlyShowing) {
+        // Allow click to hide if already showing
+        hideOmt();
+      } else {
         triggerEntrance();
       }
     });
 
-    // If not in test/preview mode, initially wait for game trigger from drivers.json
+    document.addEventListener('keydown', function(e) {
+      if (e.key === ' ' || e.key === 'Enter') {
+        if (isCurrentlyShowing) {
+          hideOmt();
+        } else {
+          triggerEntrance();
+        }
+      }
+    });
+
+    // If not in test/preview mode, initially start hidden
     if (!isTestMode && !params.has('always')) {
-      // Start in hidden mode until active in game
       if (omtStage) omtStage.classList.add('is-hidden');
       isVisible = false;
+      isCurrentlyShowing = false;
+    } else {
+      // In test or preview mode, show immediately
+      triggerEntrance();
     }
 
     // Live poller for Assetto Corsa drivers.json
@@ -260,25 +326,25 @@
     function handleData(data) {
       if (isTestMode || params.has('always')) return;
 
-      var omtActive = false;
-      if (data.omt && data.omt.active) {
-        omtActive = true;
-      } else if (data.battle && data.battle.omt && data.battle.omt.active) {
-        omtActive = true;
+      var gameActive = false;
+      var duration = autoHideSeconds || 5;
+
+      if (data.omt) {
+        gameActive = !!data.omt.active;
+        if (data.omt.duration) duration = data.omt.duration;
+      } else if (data.battle && data.battle.omt) {
+        gameActive = !!data.battle.omt.active;
       }
 
-      if (omtActive && !lastOmtActive) {
-        // Just activated in game!
-        triggerEntrance();
-      } else if (!omtActive && lastOmtActive) {
-        // Just deactivated in game!
-        hideOmt();
+      // Trigger entrance strictly on false -> true edge transition
+      if (gameActive && !lastGameOmtActive) {
+        triggerEntrance(duration);
       }
 
-      lastOmtActive = omtActive;
+      lastGameOmtActive = gameActive;
     }
 
-    // Polling interval 200ms
+    // Single master polling interval for game data (200ms)
     setInterval(pollOmtData, 200);
     pollOmtData();
   </script>

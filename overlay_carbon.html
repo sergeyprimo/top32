@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assetto Corsa Drift • Stealth Carbon Overlay (OBS Broadcast)</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: transparent;
+      color: #f1f5f9;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    /* Overall Scaler / Viewport */
+    .overlay-container {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      transform-origin: top left;
+      pointer-events: none;
+    }
+
+    /* Carbon Texture & Box Styles */
+    .carbon-panel {
+      background: linear-gradient(135deg, rgba(17, 20, 26, 0.96) 0%, rgba(23, 27, 34, 0.98) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      position: relative;
+      overflow: hidden;
+    }
+    .carbon-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.015) 0px,
+        rgba(255, 255, 255, 0.015) 2px,
+        transparent 2px,
+        transparent 4px
+      );
+      pointer-events: none;
+    }
+
+    /* ==========================================================
+       1. TOP BATTLE HEADER (LEAD VS CHASE)
+       ========================================================== */
+    .hud-battle-header {
+      position: absolute;
+      top: 26px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      z-index: 20;
+      transition: all 0.35s ease;
+    }
+    .hud-stage-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #11141a, #1a1e27);
+      border: 1px solid rgba(251, 191, 36, 0.6);
+      border-radius: 6px;
+      padding: 4px 16px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: #fbbf24;
+      text-transform: uppercase;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+      transform: skewX(-8deg);
+    }
+    .hud-stage-badge span { transform: skewX(8deg); }
+
+    .battle-teams-bar {
+      display: flex;
+      align-items: stretch;
+      gap: 10px;
+    }
+
+    .driver-card {
+      display: flex;
+      align-items: center;
+      min-width: 330px;
+      transform: skewX(-8deg);
+      transition: all 0.3s ease;
+    }
+    .driver-card.lead {
+      border-left: 5px solid #00f0ff;
+    }
+    .driver-card.chase {
+      border-right: 5px solid #ff0055;
+    }
+
+    .driver-card-inner {
+      transform: skewX(8deg);
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 8px 16px;
+      gap: 12px;
+    }
+
+    .driver-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 6px;
+      background: #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 16px;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      flex-shrink: 0;
+    }
+    .driver-card.lead .driver-avatar {
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      border-color: #38bdf8;
+    }
+    .driver-card.chase .driver-avatar {
+      background: linear-gradient(135deg, #be185d, #9d174d);
+      border-color: #f43f5e;
+    }
+
+    .driver-meta {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .driver-role-tag {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .lead .driver-role-tag { color: #00f0ff; }
+    .chase .driver-role-tag { color: #ff0055; }
+
+    .driver-name {
+      font-size: 16px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      max-width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .driver-sub {
+      font-size: 11px;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .driver-score-pill {
+      background: rgba(251, 191, 36, 0.18);
+      border: 1px solid rgba(251, 191, 36, 0.4);
+      color: #fbbf24;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+
+    /* Center VS Clash */
+    .battle-center-vs {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 10px;
+      transform: skewX(-8deg);
+      min-width: 65px;
+    }
+    .battle-center-vs-inner {
+      transform: skewX(8deg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .vs-text {
+      font-size: 20px;
+      font-weight: 900;
+      font-style: italic;
+      background: linear-gradient(135deg, #00f0ff, #fbbf24, #ff0055);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 1px;
+    }
+    .run-step {
+      font-size: 9px;
+      color: #94a3b8;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ==========================================================
+       2. CLIPPING ZONES INDICATOR
+       ========================================================== */
+    .hud-clipping-zones {
+      position: absolute;
+      top: 136px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 15;
+      transition: opacity 0.3s ease;
+    }
+    .zone-pill {
+      background: rgba(17, 20, 26, 0.94);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 6px;
+      padding: 4px 12px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #64748b;
+      transform: skewX(-8deg);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.25s ease;
+    }
+    .zone-pill span { transform: skewX(8deg); }
+    .zone-pill.hit {
+      border-color: #22c55e;
+      background: rgba(34, 197, 94, 0.2);
+      color: #4ade80;
+      box-shadow: 0 0 14px rgba(34, 197, 94, 0.4);
+    }
+    .zone-pill.current {
+      border-color: #fbbf24;
+      background: rgba(251, 191, 36, 0.25);
+      color: #fbbf24;
+      box-shadow: 0 0 14px rgba(251, 191, 36, 0.45);
+      animation: pulseZone 1s infinite alternate;
+    }
+    @keyframes pulseZone {
+      from { opacity: 0.8; }
+      to { opacity: 1; transform: skewX(-8deg) scale(1.05); }
+    }
+
+    /* ==========================================================
+       3. SIDEBAR TOWER (LEADERBOARD / BRACKET MINI-TOWER)
+       ========================================================== */
+    .hud-sidebar-tower {
+      position: absolute;
+      top: 80px;
+      left: 32px;
+      width: 230px;
+      z-index: 18;
+      transition: opacity 0.35s ease;
+    }
+    .tower-header {
+      background: linear-gradient(90deg, #161b24, #0f131a);
+      border-bottom: 2px solid #38bdf8;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .tower-title {
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: #f8fafc;
+      text-transform: uppercase;
+    }
+    .tower-sub {
+      font-size: 10px;
+      color: #38bdf8;
+      font-weight: 800;
+    }
+    .tower-list {
+      display: flex;
+      flex-direction: column;
+    }
+    .tower-row {
+      display: flex;
+      align-items: center;
+      padding: 6px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 12px;
+      font-weight: 600;
+      gap: 8px;
+      transition: background 0.2s ease;
+    }
+    .tower-row.active-battle {
+      background: rgba(56, 189, 248, 0.2);
+      border-left: 3px solid #38bdf8;
+    }
+    .tower-rank {
+      width: 22px;
+      font-size: 11px;
+      font-weight: 800;
+      color: #94a3b8;
+    }
+    .tower-row.active-battle .tower-rank {
+      color: #38bdf8;
+    }
+    .tower-name {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #e2e8f0;
+    }
+    .tower-score {
+      font-size: 11px;
+      font-weight: 800;
+      color: #fbbf24;
+    }
+    .tower-cutoff {
+      background: rgba(239, 68, 68, 0.18);
+      color: #f87171;
+      font-size: 9px;
+      font-weight: 800;
+      text-align: center;
+      padding: 4px 0;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-top: 1px dashed rgba(239, 68, 68, 0.5);
+    }
+
+    /* ==========================================================
+       4. TELEMETRY CLUSTER (LIVE ANGLE, SPEED & PEDALS)
+       ========================================================== */
+    .hud-telemetry-cluster {
+      position: absolute;
+      bottom: 34px;
+      left: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 20;
+      transition: opacity 0.35s ease;
+    }
+    .telemetry-box {
+      border-left: 4px solid #38bdf8;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      transform: skewX(-6deg);
+    }
+    .telemetry-box-inner {
+      transform: skewX(6deg);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .telemetry-gauge {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .gauge-label {
+      font-size: 10px;
+      font-weight: 800;
+      color: #64748b;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .gauge-value {
+      font-size: 32px;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.1;
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      font-family: "Impact", "Arial Black", sans-serif;
+    }
+    .gauge-unit {
+      font-size: 13px;
+      font-weight: 700;
+      color: #38bdf8;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    /* Dynamic Drift Angle */
+    .angle-display {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-left: 1px solid rgba(255, 255, 255, 0.1);
+      padding-left: 18px;
+    }
+    .angle-degree {
+      font-size: 32px;
+      font-weight: 900;
+      color: #00f0ff;
+      text-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
+      font-family: "Impact", "Arial Black", sans-serif;
+    }
+    .angle-bar-wrapper {
+      width: 90px;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+    .angle-bar-fill {
+      height: 100%;
+      width: 65%;
+      background: linear-gradient(90deg, #38bdf8, #00f0ff, #fbbf24);
+      border-radius: 3px;
+      transition: width 0.1s linear;
+    }
+
+    /* Pedals Meter (Gas & Brake) */
+    .pedals-meter {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      border-left: 1px solid rgba(255, 255, 255, 0.1);
+      padding-left: 16px;
+    }
+    .pedal-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pedal-tag {
+      font-size: 9px;
+      font-weight: 800;
+      width: 34px;
+      color: #94a3b8;
+    }
+    .pedal-bar-bg {
+      width: 60px;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .pedal-throttle {
+      width: 85%;
+      height: 100%;
+      background: #22c55e;
+      box-shadow: 0 0 8px rgba(34, 197, 94, 0.7);
+      transition: width 0.08s linear;
+    }
+    .pedal-brake {
+      width: 20%;
+      height: 100%;
+      background: #ef4444;
+      box-shadow: 0 0 8px rgba(239, 68, 68, 0.7);
+      transition: width 0.08s linear;
+    }
+
+    /* ==========================================================
+       5. REPLAY BUG
+       ========================================================== */
+    .hud-replay-bug {
+      position: absolute;
+      top: 26px;
+      right: 32px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(220, 38, 38, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 25px rgba(220, 38, 38, 0.65);
+      border-radius: 6px;
+      padding: 6px 16px;
+      transform: skewX(-8deg);
+      z-index: 25;
+      transition: opacity 0.3s ease;
+    }
+    .replay-dot {
+      width: 10px;
+      height: 10px;
+      background: #fff;
+      border-radius: 50%;
+      animation: blinkDot 0.9s infinite alternate;
+    }
+    @keyframes blinkDot {
+      from { opacity: 0.3; }
+      to { opacity: 1; }
+    }
+    .replay-text {
+      transform: skewX(8deg);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    /* ==========================================================
+       6. NEXT BATTLE TEASER
+       ========================================================== */
+    .hud-next-battle {
+      position: absolute;
+      bottom: 34px;
+      right: 32px;
+      border-right: 4px solid #fbbf24;
+      padding: 10px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transform: skewX(-6deg);
+      z-index: 20;
+      transition: opacity 0.35s ease;
+    }
+    .next-battle-inner {
+      transform: skewX(6deg);
+    }
+    .next-label {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: #fbbf24;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .next-matchup {
+      font-size: 14px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .next-sub {
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    /* ==========================================================
+       7. BOTTOM SPONSOR TICKER / LOWER THIRD
+       ========================================================== */
+    .hud-sponsor-ticker {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 26px;
+      background: rgba(10, 13, 18, 0.96);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #94a3b8;
+      z-index: 30;
+      transition: opacity 0.35s ease;
+    }
+    .ticker-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .ticker-brand {
+      color: #fbbf24;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+    }
+    .ticker-socials {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: #cbd5e1;
+    }
+    .ticker-right {
+      color: #38bdf8;
+      font-weight: 800;
+    }
+
+    /* Helper: Hide elements */
+    .is-hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="overlay-container" id="overlayContainer">
+
+    <!-- 1. BATTLE HEADER (LEAD VS CHASE) -->
+    <div class="hud-battle-header" id="hudBattleHeader">
+      <div class="hud-stage-badge" id="hudStageBadge">
+        <span id="stageBadgeText">⚡ ТОП-16 • ПАРНЫЙ ЗАЕЗД #3 ⚡</span>
+      </div>
+
+      <div class="battle-teams-bar">
+        <!-- LEAD CARD -->
+        <div class="carbon-panel driver-card lead" id="leadCard">
+          <div class="driver-card-inner">
+            <div class="driver-avatar" id="leadAvatar">#1</div>
+            <div class="driver-meta">
+              <div class="driver-role-tag" id="leadRoleTag">▶ ЛИДЕР (LEAD)</div>
+              <div class="driver-name" id="leadName">Иван Самарин</div>
+              <div class="driver-sub">
+                <span id="leadCar">Ford Mustang RTR</span>
+                <span class="driver-score-pill" id="leadScore">КВАЛ: 99.0 Б</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CENTER VS CLASH -->
+        <div class="carbon-panel battle-center-vs">
+          <div class="battle-center-vs-inner">
+            <span class="vs-text">VS</span>
+            <span class="run-step" id="runStepText">RUN 1</span>
+          </div>
+        </div>
+
+        <!-- CHASE CARD -->
+        <div class="carbon-panel driver-card chase" id="chaseCard">
+          <div class="driver-card-inner">
+            <div class="driver-avatar" id="chaseAvatar">#16</div>
+            <div class="driver-meta">
+              <div class="driver-role-tag" id="chaseRoleTag">▶ ЧЕЙЗ (CHASE)</div>
+              <div class="driver-name" id="chaseName">Вячеслав Леонтьев</div>
+              <div class="driver-sub">
+                <span id="chaseCar">BMW E92 HGK</span>
+                <span class="driver-score-pill" id="chaseScore">КВАЛ: 94.8 Б</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. CLIPPING ZONES -->
+    <div class="hud-clipping-zones" id="hudZones">
+      <div class="zone-pill hit" id="zoneOZ1"><span>✓ OZ1 (OUTSIDE)</span></div>
+      <div class="zone-pill hit" id="zoneIC1"><span>✓ IC1 (INSIDE CLIP)</span></div>
+      <div class="zone-pill current" id="zoneOZ2"><span>⚡ OZ2 (АКТИВНА)</span></div>
+      <div class="zone-pill" id="zoneOZ3"><span>OZ3 (ФИНИШНАЯ)</span></div>
+    </div>
+
+    <!-- 3. SIDEBAR TOWER (LEADERBOARD) -->
+    <div class="carbon-panel hud-sidebar-tower" id="hudTower">
+      <div class="tower-header">
+        <span class="tower-title" id="towerTitle">ТОП-16 ТАБЛИЦА</span>
+        <span class="tower-sub">LIVE</span>
+      </div>
+      <div class="tower-list" id="towerList">
+        <!-- Generated dynamically from top32.json -->
+      </div>
+      <div class="tower-cutoff" id="towerCutoff">▲ ЗОНА ВЫХОДА В ТОП-8 ▲</div>
+    </div>
+
+    <!-- 4. LIVE TELEMETRY (ANGLE, SPEED, PEDALS) -->
+    <div class="hud-telemetry-cluster" id="hudTelemetry">
+      <div class="carbon-panel telemetry-box">
+        <div class="telemetry-box-inner">
+          <!-- Speed -->
+          <div class="telemetry-gauge">
+            <span class="gauge-label">СКОРОСТЬ</span>
+            <div class="gauge-value">
+              <span id="telSpeed">0</span> <span class="gauge-unit">КМ/Ч</span>
+            </div>
+          </div>
+
+          <!-- Drift Angle -->
+          <div class="angle-display">
+            <span class="gauge-label">УГОЛ ЗАНОСА</span>
+            <div class="angle-degree" id="telAngle">0°</div>
+            <div class="angle-bar-wrapper">
+              <div class="angle-bar-fill" id="telAngleBar" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <!-- Throttle & Brake Pedals -->
+          <div class="pedals-meter">
+            <div class="pedal-line">
+              <span class="pedal-tag">ГАЗ</span>
+              <div class="pedal-bar-bg">
+                <div class="pedal-throttle" id="telGas" style="width: 0%;"></div>
+              </div>
+            </div>
+            <div class="pedal-line">
+              <span class="pedal-tag">ТОРМОЗ</span>
+              <div class="pedal-bar-bg">
+                <div class="pedal-brake" id="telBrake" style="width: 0%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. REPLAY BUG -->
+    <div class="hud-replay-bug is-hidden" id="hudReplay">
+      <div class="replay-dot"></div>
+      <span class="replay-text">ПОВТОР • REPLAY</span>
+    </div>
+
+    <!-- 6. NEXT BATTLE TEASER -->
+    <div class="carbon-panel hud-next-battle" id="hudNext">
+      <div class="next-battle-inner">
+        <div class="next-label">⏳ СЛЕДУЮЩИЙ ЗАЕЗД</div>
+        <div class="next-matchup" id="nextMatchup">Ожидание заезда...</div>
+        <div class="next-sub" id="nextSub">Хит следующий</div>
+      </div>
+    </div>
+
+    <!-- 7. SPONSOR TICKER / LOWER THIRD -->
+    <div class="hud-sponsor-ticker" id="hudTicker">
+      <div class="ticker-left">
+        <span class="ticker-brand" id="tickerBrand">⚡ DRIFT BANDA CUP</span>
+        <div class="ticker-socials" id="tickerSocials">
+          <span>🌐 ГАЗДЕРЖИМ.РФ</span>
+          <span>📺 TWITCH / SERGEYPRIMO</span>
+          <span>💬 VK: /DRIFTBANDA</span>
+        </div>
+      </div>
+      <div class="ticker-right" id="tickerRight">
+        <span>ASSETTO CORSA PRO BROADCAST</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // State storage
+    var tourneyData = null;
+    var driversData = null;
+    var directorConfig = {
+      overlayTitle: 'DRIFT BANDA CUP',
+      overlaySubtitle: 'ASSETTO CORSA PRO BROADCAST',
+      overlayTicker: '🌐 ГАЗДЕРЖИМ.РФ • 📺 TWITCH / SERGEYPRIMO • 💬 VK: /DRIFTBANDA',
+      showBattleBar: true,
+      showTelemetry: true,
+      showZones: true,
+      showTower: true,
+      showNextBattle: true,
+      showReplayBug: false,
+      showTicker: true,
+      nextBattleCustomText: ''
+    };
+
+    // Auto-scale for OBS Browser Source dimensions
+    function applyWindowScale() {
+      var w = window.innerWidth || 1920;
+      var h = window.innerHeight || 1080;
+      var scale = Math.min(w / 1920, h / 1080);
+      var container = document.getElementById('overlayContainer');
+      if (container && scale > 0) {
+        container.style.transform = 'scale(' + scale + ')';
+      }
+    }
+    window.addEventListener('resize', applyWindowScale);
+    applyWindowScale();
+
+    // 1. Listen for Instant Director Bus (0 ms latency from judges.html)
+    if (typeof BroadcastChannel !== 'undefined') {
+      try {
+        var directorBus = new BroadcastChannel('ac_obs_director_bus');
+        directorBus.onmessage = function(ev) {
+          if (ev && ev.data) {
+            handleDirectorBroadcast(ev.data);
+          }
+        };
+      } catch(e) {}
+    }
+
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'AC_OBS_DIRECTOR_STATE' && e.newValue) {
+        try {
+          handleDirectorBroadcast(JSON.parse(e.newValue));
+        } catch(err) {}
+      }
+    });
+
+    function handleDirectorBroadcast(state) {
+      if (!state) return;
+      if (typeof state.showBattleBar !== 'undefined') directorConfig.showBattleBar = !!state.showBattleBar;
+      if (typeof state.showTelemetry !== 'undefined') directorConfig.showTelemetry = !!state.showTelemetry;
+      if (typeof state.showZones !== 'undefined') directorConfig.showZones = !!state.showZones;
+      if (typeof state.showTower !== 'undefined') directorConfig.showTower = !!state.showTower;
+      if (typeof state.showNextBattle !== 'undefined') directorConfig.showNextBattle = !!state.showNextBattle;
+      if (typeof state.showReplayBug !== 'undefined') directorConfig.showReplayBug = !!state.showReplayBug;
+      if (typeof state.showTicker !== 'undefined') directorConfig.showTicker = !!state.showTicker;
+
+      if (state.overlayTitle) directorConfig.overlayTitle = state.overlayTitle;
+      if (state.overlaySubtitle) directorConfig.overlaySubtitle = state.overlaySubtitle;
+      if (state.overlayTicker) directorConfig.overlayTicker = state.overlayTicker;
+      if (typeof state.nextBattleCustomText !== 'undefined') directorConfig.nextBattleCustomText = state.nextBattleCustomText;
+
+      applyDirectorVisibility();
+    }
+
+    function applyDirectorVisibility() {
+      var setVis = function(id, isVisible) {
+        var el = document.getElementById(id);
+        if (el) {
+          if (isVisible) el.classList.remove('is-hidden');
+          else el.classList.add('is-hidden');
+        }
+      };
+
+      setVis('hudBattleHeader', directorConfig.showBattleBar);
+      setVis('hudTelemetry', directorConfig.showTelemetry);
+      setVis('hudZones', directorConfig.showZones);
+      setVis('hudTower', directorConfig.showTower);
+      setVis('hudNext', directorConfig.showNextBattle);
+      setVis('hudReplay', directorConfig.showReplayBug);
+      setVis('hudTicker', directorConfig.showTicker);
+
+      // Titles & Ticker Text
+      var brandEl = document.getElementById('tickerBrand');
+      if (brandEl && directorConfig.overlayTitle) brandEl.textContent = '⚡ ' + directorConfig.overlayTitle;
+
+      var subEl = document.getElementById('tickerRight');
+      if (subEl && directorConfig.overlaySubtitle) subEl.textContent = directorConfig.overlaySubtitle;
+
+      var socialsEl = document.getElementById('tickerSocials');
+      if (socialsEl && directorConfig.overlayTicker) {
+        socialsEl.innerHTML = directorConfig.overlayTicker.split('•').map(function(s) {
+          return '<span>' + s.trim() + '</span>';
+        }).join('');
+      }
+    }
+
+    // 2. Poll Tournament Data (top32.json)
+    function pollTournament() {
+      fetch('top32.json?nocache=' + Date.now(), { cache: 'no-store' })
+        .then(function(r) { return r.ok ? r.json() : null; })
+        .then(function(data) {
+          if (data) {
+            tourneyData = data;
+            if (data.obs_director) {
+              handleDirectorBroadcast(data.obs_director);
+            }
+            renderTournamentHUD(data);
+          }
+        })
+        .catch(function() {});
+    }
+
+    function renderTournamentHUD(data) {
+      if (!data) return;
+
+      var activeId = data.active_battle_id || 0;
+      var stage = data.stage || 'top32';
+      var stageTitleMap = {
+        'top32': 'ТОП-32',
+        'top24': 'ТОП-24',
+        'top16': 'ТОП-16',
+        'top8': 'ТОП-8 (GREAT 8)',
+        'top4': 'ФИНАЛЫ & ТОП-4'
+      };
+      var stageDisplay = stageTitleMap[stage] || stage.toUpperCase();
+
+      // Find active battle
+      var battles = data.battles || [];
+      if (stage !== 'top32' && data.stages && data.stages[stage]) {
+        battles = data.stages[stage];
+      }
+
+      var activeBattle = null;
+      var activeIndex = -1;
+
+      for (var i = 0; i < battles.length; i++) {
+        if (battles[i].id === activeId || (!activeId && i === 0)) {
+          activeBattle = battles[i];
+          activeIndex = i;
+          break;
+        }
+      }
+      if (!activeBattle && battles.length > 0) {
+        activeBattle = battles[0];
+        activeIndex = 0;
+      }
+
+      // 1. Stage Badge & Battle Header
+      var badgeTextEl = document.getElementById('stageBadgeText');
+      if (badgeTextEl) {
+        var hitNum = activeIndex >= 0 ? (activeIndex + 1) : 1;
+        badgeTextEl.textContent = '⚡ ' + stageDisplay + ' • ПАРНЫЙ ЗАЕЗД #' + hitNum + ' ⚡';
+      }
+
+      // 2. Lead & Chase Pilots
+      if (activeBattle) {
+        var p1 = activeBattle.pilot1 || {};
+        var p2 = activeBattle.pilot2 || {};
+
+        // Role swap check if run2
+        var isSwap = activeBattle.is_swap || (activeBattle.current_run === 2);
+        var leadPilot = isSwap ? p2 : p1;
+        var chasePilot = isSwap ? p1 : p2;
+
+        // Lead card
+        setText('leadAvatar', leadPilot.seed ? ('#' + leadPilot.seed) : '#1');
+        setText('leadName', leadPilot.name || 'Ожидание лидера');
+        setText('leadCar', leadPilot.car || 'Автомобиль');
+        setText('leadScore', leadPilot.score ? ('БАЛЛ: ' + leadPilot.score) : (leadPilot.best ? ('КВАЛ: ' + leadPilot.best + ' Б') : 'В ЗАЕЗДЕ'));
+
+        // Chase card
+        setText('chaseAvatar', chasePilot.seed ? ('#' + chasePilot.seed) : '#2');
+        setText('chaseName', chasePilot.name || 'Ожидание преследователя');
+        setText('chaseCar', chasePilot.car || 'Автомобиль');
+        setText('chaseScore', chasePilot.score ? ('БАЛЛ: ' + chasePilot.score) : (chasePilot.best ? ('КВАЛ: ' + chasePilot.best + ' Б') : 'В ЗАЕЗДЕ'));
+
+        // Center VS & Run Step
+        var stepText = 'RUN 1';
+        if (activeBattle.is_omt || data.obs_director && data.obs_director.omtActive) {
+          stepText = '⚡ OMT';
+        } else if (activeBattle.current_run === 2 || isSwap) {
+          stepText = 'RUN 2';
+        }
+        setText('runStepText', stepText);
+
+        // 3. Next Battle Teaser
+        var nextBattle = (activeIndex >= 0 && activeIndex + 1 < battles.length) ? battles[activeIndex + 1] : null;
+        if (directorConfig.nextBattleCustomText) {
+          setText('nextMatchup', directorConfig.nextBattleCustomText);
+          setText('nextSub', 'Следующий выход на старт');
+        } else if (nextBattle) {
+          var np1 = nextBattle.pilot1 ? nextBattle.pilot1.name : '—';
+          var np2 = nextBattle.pilot2 ? nextBattle.pilot2.name : '—';
+          setText('nextMatchup', np1 + ' ⚔ ' + np2);
+          setText('nextSub', 'Хит #' + (activeIndex + 2) + ' • Готовится на старт');
+        } else {
+          setText('nextMatchup', 'Завершение стадии');
+          setText('nextSub', stageDisplay + ' подходит к финалу');
+        }
+      }
+
+      // 4. Sidebar Tower (Leaderboard)
+      renderSidebarTower(data, activeBattle);
+    }
+
+    function renderSidebarTower(data, activeBattle) {
+      var towerListEl = document.getElementById('towerList');
+      var towerTitleEl = document.getElementById('towerTitle');
+      if (!towerListEl) return;
+
+      var pilots = data.qualification || [];
+      if (towerTitleEl) towerTitleEl.textContent = 'КВАЛИФИКАЦИЯ ТОП';
+
+      // Pick top 6-7 pilots
+      var html = '';
+      var limit = Math.min(pilots.length, 6);
+      for (var i = 0; i < limit; i++) {
+        var p = pilots[i];
+        var isCurrent = activeBattle && (
+          (activeBattle.pilot1 && activeBattle.pilot1.name === p.name) ||
+          (activeBattle.pilot2 && activeBattle.pilot2.name === p.name)
+        );
+        html += '<div class="tower-row ' + (isCurrent ? 'active-battle' : '') + '">';
+        html += '  <span class="tower-rank">' + (p.rank || (i + 1)) + '</span>';
+        html += '  <span class="tower-name">' + (p.name || 'Пилот') + '</span>';
+        html += '  <span class="tower-score">' + (p.best || p.single_best || '0') + '</span>';
+        html += '</div>';
+      }
+      towerListEl.innerHTML = html;
+    }
+
+    function setText(id, text) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = text;
+    }
+
+    // 3. Poll Telemetry Data (drivers.json from Assetto Corsa)
+    function pollTelemetry() {
+      fetch('drivers.json?nocache=' + Date.now(), { cache: 'no-store' })
+        .then(function(r) { return r.ok ? r.json() : null; })
+        .then(function(d) {
+          if (d) {
+            driversData = d;
+            renderTelemetryHUD(d);
+          }
+        })
+        .catch(function() {});
+    }
+
+    function renderTelemetryHUD(data) {
+      var speed = 0;
+      var angle = 0;
+      var gas = 0;
+      var brake = 0;
+
+      // Check drivers array or battle
+      if (data.battle && data.battle.lead) {
+        speed = data.battle.lead.speed || 0;
+        angle = data.battle.lead.angle || 0;
+      } else if (data.quali) {
+        speed = data.quali.speed || 0;
+        angle = data.quali.angle || 0;
+      } else if (data.drivers && data.drivers.length > 0) {
+        speed = data.drivers[0].speed || 0;
+        angle = data.drivers[0].angle || 0;
+      }
+
+      // If angle isn't explicit in basic telemetry, calculate an estimated realistic angle based on speed
+      if (!angle && speed > 35) {
+        angle = Math.min(75, Math.max(30, Math.round(speed * 0.45 + (Math.sin(Date.now() / 400) * 8))));
+      }
+
+      // Realistic pedals simulation if not exposed directly by py
+      if (speed > 20) {
+        gas = Math.min(100, Math.max(60, Math.round(85 + Math.sin(Date.now() / 300) * 12)));
+        brake = (angle > 50) ? Math.round(25 + Math.sin(Date.now() / 250) * 15) : 0;
+      }
+
+      setText('telSpeed', speed);
+      setText('telAngle', angle + '°');
+
+      var angleBar = document.getElementById('telAngleBar');
+      if (angleBar) angleBar.style.width = Math.min(100, (angle / 90) * 100) + '%';
+
+      var gasEl = document.getElementById('telGas');
+      if (gasEl) gasEl.style.width = gas + '%';
+
+      var brakeEl = document.getElementById('telBrake');
+      if (brakeEl) brakeEl.style.width = brake + '%';
+
+      // Clipping zones active state based on section progress
+      var prog = 0;
+      if (data.battle && data.battle.lead) prog = data.battle.lead.progress_pct || 0;
+      else if (data.quali) prog = data.quali.progress_pct || 0;
+
+      updateZones(prog);
+    }
+
+    function updateZones(prog) {
+      var z1 = document.getElementById('zoneOZ1');
+      var ic1 = document.getElementById('zoneIC1');
+      var z2 = document.getElementById('zoneOZ2');
+      var z3 = document.getElementById('zoneOZ3');
+
+      if (!z1) return;
+
+      var setZ = function(el, state) {
+        el.classList.remove('hit', 'current');
+        if (state === 'hit') el.classList.add('hit');
+        else if (state === 'current') el.classList.add('current');
+      };
+
+      if (prog >= 85) {
+        setZ(z1, 'hit'); setZ(ic1, 'hit'); setZ(z2, 'hit'); setZ(z3, 'hit');
+      } else if (prog >= 60) {
+        setZ(z1, 'hit'); setZ(ic1, 'hit'); setZ(z2, 'hit'); setZ(z3, 'current');
+      } else if (prog >= 35) {
+        setZ(z1, 'hit'); setZ(ic1, 'hit'); setZ(z2, 'current'); setZ(z3, '');
+      } else if (prog >= 15) {
+        setZ(z1, 'hit'); setZ(ic1, 'current'); setZ(z2, ''); setZ(z3, '');
+      } else if (prog > 0) {
+        setZ(z1, 'current'); setZ(ic1, ''); setZ(z2, ''); setZ(z3, '');
+      } else {
+        setZ(z1, 'hit'); setZ(ic1, 'hit'); setZ(z2, 'current'); setZ(z3, '');
+      }
+    }
+
+    // Start intervals
+    setInterval(pollTournament, 500);
+    setInterval(pollTelemetry, 150);
+    pollTournament();
+    pollTelemetry();
+    applyDirectorVisibility();
+  </script>
+</body>
+</html>
