@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795477694165,
+  "last_updated": 1795477695433,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -26,14 +26,14 @@
       "car": "db_ft_ford_mustang_rtr_samarin",
       "number": "—",
       "run1": 100,
-      "run2": 5,
+      "run2": 50,
       "best": 100,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 105,
+      "total": 150,
       "single_best": 100,
-      "worse": 5,
-      "_local_edit_time": 1795477694165
+      "worse": 50,
+      "_local_edit_time": 1795477695340
     },
     {
       "rank": 2,
