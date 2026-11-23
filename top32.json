@@ -11,7 +11,7 @@
   "stage": "top32",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795474309500,
+  "last_updated": 1795474323314,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2877,10 +2877,10 @@
     "scale": 100,
     "opacity": 100,
     "accentColor": "gold",
-    "omtActive": false,
+    "omtActive": true,
     "omtDuration": 5,
-    "omtTimestamp": 1795474234901,
-    "lastUpdated": 1795474245395
+    "omtTimestamp": 1795474323314,
+    "lastUpdated": 1795474323314
   },
   "qualification_cleared": true,
   "battles_top24": [
