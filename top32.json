@@ -11,7 +11,7 @@
   "stage": "top16",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795474244426,
+  "last_updated": 1795474245395,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2869,7 +2869,7 @@
   "custom_stage_title": "СЕТКА ТОП-32",
   "quali_capacity": 100,
   "obs_director": {
-    "mode": "tree",
+    "mode": "grid",
     "stage": "top32",
     "activeBattleIndex": 0,
     "cleanBorder": true,
@@ -2880,7 +2880,7 @@
     "omtActive": false,
     "omtDuration": 5,
     "omtTimestamp": 1795474234901,
-    "lastUpdated": 1795474244426
+    "lastUpdated": 1795474245395
   },
   "qualification_cleared": true,
   "battles_top24": [
