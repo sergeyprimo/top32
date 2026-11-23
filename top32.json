@@ -8,10 +8,10 @@
   "judge_pin": "2468",
   "admin_pin": "3667",
   "backup_sheet_webhook": "https://script.google.com/macros/s/AKfycbwiJ6dGQyGtrHhoi5Ri1OOJD5RuPbkQAF8JfgAGZ3RiObIXpbBywmFEJmyGVjpJ6G_6uQ/exec",
-  "stage": "top4",
+  "stage": "quali",
   "active_battle_id": 302,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795190009211,
+  "last_updated": 1795394172259,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2752,20 +2752,20 @@
         "is_placeholder": false,
         "best": 72
       },
-      "winner": null,
-      "status": "waiting",
+      "winner": "chase",
+      "status": "finished",
       "judges": [
         {
           "name": "С1",
-          "vote": null
+          "vote": "chase"
         },
         {
           "name": "С2",
-          "vote": null
+          "vote": "chase"
         },
         {
           "name": "С3",
-          "vote": null
+          "vote": "chase"
         }
       ]
     },
@@ -2793,20 +2793,20 @@
         "is_placeholder": false,
         "best": 70.5
       },
-      "winner": null,
-      "status": "live",
+      "winner": "chase",
+      "status": "finished",
       "judges": [
         {
           "name": "С1",
-          "vote": null
+          "vote": "chase"
         },
         {
           "name": "С2",
-          "vote": null
+          "vote": "chase"
         },
         {
           "name": "С3",
-          "vote": null
+          "vote": "chase"
         }
       ]
     },
@@ -2817,31 +2817,37 @@
       "stage": "bronze",
       "pair_title": "🥉 ЗАЕЗД ЗА 3-Е МЕСТО (БРОНЗА)",
       "lead": {
-        "seed": "—",
-        "name": "Проигравший ПФ 1",
-        "car": "Ожидание заезда",
-        "is_placeholder": true
+        "seed": 1,
+        "name": "Иван Самарин",
+        "car": "db_ft_ford_mustang_rtr_samarin",
+        "number": "1",
+        "quali_score": 99,
+        "is_placeholder": false,
+        "best": 99
       },
       "chase": {
-        "seed": "—",
-        "name": "Проигравший ПФ 2",
-        "car": "Ожидание заезда",
-        "is_placeholder": true
+        "seed": 2,
+        "name": "Леонтьев Вячеслав",
+        "car": "db_bmw_e92_vyacheslav_leontev",
+        "number": "2",
+        "quali_score": 98.5,
+        "is_placeholder": false,
+        "best": 98.5
       },
-      "winner": null,
-      "status": "waiting",
+      "winner": "lead",
+      "status": "finished",
       "judges": [
         {
           "name": "С1",
-          "vote": null
+          "vote": "chase"
         },
         {
           "name": "С2",
-          "vote": null
+          "vote": "chase"
         },
         {
           "name": "С3",
-          "vote": null
+          "vote": "chase"
         }
       ]
     },
@@ -2852,31 +2858,37 @@
       "stage": "final",
       "pair_title": "🥇 ГЛАВНЫЙ ФИНАЛ (1-Е И 2-Е МЕСТО) 🏆",
       "lead": {
-        "seed": "—",
-        "name": "Победитель ПФ 1",
-        "car": "Ожидание заезда",
-        "is_placeholder": true
+        "seed": 29,
+        "name": "Александр Адамович",
+        "car": "db_z0_mb_e63_w212_aleksandr_adamovich",
+        "number": "29",
+        "quali_score": 72,
+        "is_placeholder": false,
+        "best": 72
       },
       "chase": {
-        "seed": "—",
-        "name": "Победитель ПФ 2",
-        "car": "Ожидание заезда",
-        "is_placeholder": true
+        "seed": 30,
+        "name": "Илья Гештарев",
+        "car": "db_bmw_e92_ilja_gestarevs",
+        "number": "30",
+        "quali_score": 70.5,
+        "is_placeholder": false,
+        "best": 70.5
       },
-      "winner": null,
-      "status": "waiting",
+      "winner": "chase",
+      "status": "finished",
       "judges": [
         {
           "name": "С1",
-          "vote": null
+          "vote": "chase"
         },
         {
           "name": "С2",
-          "vote": null
+          "vote": "chase"
         },
         {
           "name": "С3",
-          "vote": null
+          "vote": "chase"
         }
       ]
     }
@@ -2894,7 +2906,7 @@
     "tickerLead": "📢 ИНФОРМАЦИЯ",
     "tickerText": "📺 ПРЯМАЯ ТРАНСЛЯЦИЯ В FULL HD | 💬 ПИШИТЕ В ЧАТ: Поддерживайте своих фаворитов! | 🔔 ПОДПИСЫВАЙТЕСЬ НА КАНАЛ, СТАВЬТЕ ЛАЙКИ И ВКЛЮЧАЙТЕ КОЛОКОЛЬЧИК",
     "tickerFontSize": 15,
-    "timerLabel": "🏁 ДО НАЧАЛА КВАЛИФИКАЦИИ",
+    "timerLabel": "⚔️ ДО ПАРНЫХ ЗАЕЗДОВ ТОП-32",
     "showTimerLabel": true,
     "timerLabelFontSize": 17,
     "timerLabelColor": "gold",
@@ -2926,30 +2938,30 @@
         "logo": ""
       }
     ],
-    "featuredStage": "quali",
+    "featuredStage": "top32",
     "featuredIndex": 0,
     "featuredRunAttempt": 1,
-    "featuredTitle": "🏁 БЛИЖАЙШИЙ ЗАЕЗД • КВАЛИФИКАЦИЯ",
-    "featuredBadge": "ПОПЫТКА #1",
+    "featuredTitle": "⚔️ БЛИЖАЙШИЙ ЗАЕЗД • ТОП-32",
+    "featuredBadge": "ХИТ #1",
     "featuredLeadName": "",
     "featuredLeadCar": "",
     "featuredChaseName": "",
     "featuredChaseCar": "",
     "layout": "compact",
-    "timerMinutes": 20,
-    "timerSeconds": 1200,
+    "timerMinutes": 5,
+    "timerSeconds": 300,
     "timerPaused": false,
     "bgTransparent": true,
     "showTimer": true,
-    "showBattle": true,
+    "showBattle": false,
     "showPilot": false,
     "showQr": true,
     "showTicker": true,
-    "lastUpdated": 1795109398624,
-    "timerTargetTimestamp": 1794742968921,
-    "timerRemainingOnPause": 1200
+    "lastUpdated": 1795272560852,
+    "timerTargetTimestamp": 1795272860852,
+    "timerRemainingOnPause": 300
   },
-  "stage_mode": "top4",
+  "stage_mode": "quali",
   "custom_stage_titles": {
     "top32": "СЕТКА ТОП-32",
     "top16": "СЕТКА ТОП-16",
