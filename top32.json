@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795477577504,
+  "last_updated": 1795477678810,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2220,9 +2220,9 @@
     "showZones": true,
     "showTower": true,
     "showNextBattle": true,
-    "showReplayBug": true,
+    "showReplayBug": false,
     "showTicker": true,
-    "lastUpdated": 1795477577504
+    "lastUpdated": 1795477678809
   },
   "qualification_cleared": false,
   "battles_top24": [],
