@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795478166365,
+  "last_updated": 1795478211847,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2215,7 +2215,7 @@
     "omtTimestamp": 1795474444519,
     "overlayTitle": "DRIFT BANDA CUP",
     "overlaySubtitle": "RACE CREW DRIFT CUP",
-    "overlayTicker": "🌐 ГАЗДЕРЖИМ.РФ • 📺 TWITCH / SERGEYPRIMO • 💬 VK: /DRIFTBANDA",
+    "overlayTicker": "🌐 ГАЗДЕРЖИМ.РФ • ",
     "nextBattleCustomText": "",
     "showBattleBar": true,
     "showTelemetry": false,
@@ -2224,7 +2224,7 @@
     "showNextBattle": true,
     "showReplayBug": false,
     "showTicker": true,
-    "lastUpdated": 1795478166365
+    "lastUpdated": 1795478211847
   },
   "qualification_cleared": false,
   "battles_top24": [],
