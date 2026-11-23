@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795474367106,
+  "last_updated": 1795474369948,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2923,7 +2923,7 @@
   "custom_stage_title": "СЕТКА ТОП-32",
   "quali_capacity": 100,
   "obs_director": {
-    "mode": "grid",
+    "mode": "hero",
     "stage": "quali",
     "activeBattleIndex": 0,
     "cleanBorder": true,
@@ -2934,7 +2934,7 @@
     "omtActive": false,
     "omtDuration": 5,
     "omtTimestamp": 1795474362090,
-    "lastUpdated": 1795474367106
+    "lastUpdated": 1795474369948
   },
   "qualification_cleared": false,
   "battles_top24": [
