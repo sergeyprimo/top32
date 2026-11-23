@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795476980042,
+  "last_updated": 1795477178620,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2157,18 +2157,7 @@
     "omtActive": true,
     "omtDuration": 8,
     "omtTimestamp": 1795474444519,
-    "lastUpdated": 1795474444519,
-    "overlayTitle": "DRIFT BANDA CUP",
-    "overlaySubtitle": "ASSETTO CORSA PRO BROADCAST",
-    "overlayTicker": "🌐 ГАЗДЕРЖИМ.РФ • 📺 TWITCH / SERGEYPRIMO • 💬 VK: /DRIFTBANDA",
-    "nextBattleCustomText": "",
-    "showBattleBar": true,
-    "showTelemetry": true,
-    "showZones": true,
-    "showTower": true,
-    "showNextBattle": true,
-    "showReplayBug": false,
-    "showTicker": true
+    "lastUpdated": 1795474444519
   },
   "qualification_cleared": true,
   "battles_top24": [],
