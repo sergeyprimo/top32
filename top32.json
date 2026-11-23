@@ -2917,7 +2917,7 @@
     "showPilot": true,
     "showQr": true,
     "showTicker": true,
-    "lastUpdated": 1795470916501
+    "lastUpdated": 1795470963640
   },
   "stage_mode": "top16",
   "custom_stage_titles": {
@@ -2940,7 +2940,7 @@
     "omtActive": false,
     "omtDuration": 8,
     "omtTimestamp": 0,
-    "lastUpdated": 1795470916501
+    "lastUpdated": 1795470909805
   },
   "qualification_cleared": false,
   "battles_top24": [
