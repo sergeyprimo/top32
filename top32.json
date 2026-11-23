@@ -11,7 +11,7 @@
   "stage": "top32",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795474300020,
+  "last_updated": 1795474301879,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -1542,20 +1542,20 @@
         "is_placeholder": true
       },
       "winner": null,
-      "status": "live",
+      "status": "omt",
       "is_direct_quali": false,
       "judges": [
         {
           "name": "С1",
-          "vote": null
+          "vote": "omt"
         },
         {
           "name": "С2",
-          "vote": null
+          "vote": "omt"
         },
         {
           "name": "С3",
-          "vote": null
+          "vote": "omt"
         }
       ]
     },
