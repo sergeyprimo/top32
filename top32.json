@@ -11,7 +11,7 @@
   "stage": "top32",
   "active_battle_id": 2,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795478993067,
+  "last_updated": 1795479019940,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -1653,8 +1653,8 @@
         "is_placeholder": false,
         "best": 65
       },
-      "winner": null,
-      "status": "live",
+      "winner": "lead",
+      "status": "finished",
       "is_direct_quali": true,
       "judges": [
         {
