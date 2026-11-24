@@ -11,7 +11,7 @@
   "stage": "top32",
   "active_battle_id": 5,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795563857266,
+  "last_updated": 1795563859652,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -1598,8 +1598,8 @@
         "is_placeholder": false,
         "best": 65
       },
-      "winner": "lead",
-      "status": "finished",
+      "winner": null,
+      "status": "live",
       "is_direct_quali": true,
       "judges": [
         {
@@ -2240,13 +2240,13 @@
       "bracket": "left",
       "pair_title": "ТОП-16 • ХИТ #1",
       "lead": {
-        "seed": 1,
-        "name": "Иван Самарин",
-        "car": "db_ft_ford_mustang_rtr_samarin",
-        "number": "1",
-        "quali_score": 52,
+        "seed": 16,
+        "name": "Данила Козлов",
+        "car": "db_subaru_brz_danila_kozlov",
+        "number": "16",
+        "quali_score": 85,
         "is_placeholder": false,
-        "best": 52
+        "best": 85
       },
       "chase": {
         "seed": 16,
@@ -2258,7 +2258,7 @@
         "best": 85
       },
       "winner": null,
-      "status": "upcoming",
+      "status": "waiting",
       "judges": [
         {
           "name": "С1",
