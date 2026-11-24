@@ -8,10 +8,10 @@
   "judge_pin": "2468",
   "admin_pin": "3667",
   "backup_sheet_webhook": "https://script.google.com/macros/s/AKfycbwiJ6dGQyGtrHhoi5Ri1OOJD5RuPbkQAF8JfgAGZ3RiObIXpbBywmFEJmyGVjpJ6G_6uQ/exec",
-  "stage": "quali",
+  "stage": "top32",
   "active_battle_id": 5,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795554377043,
+  "last_updated": 1795563857266,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2878,7 +2878,7 @@
     "timerTargetTimestamp": 1795272860852,
     "timerRemainingOnPause": 300
   },
-  "stage_mode": "quali",
+  "stage_mode": "top32",
   "custom_stage_titles": {
     "top32": "СЕТКА ТОП-32",
     "top16": "СЕТКА ТОП-16",
