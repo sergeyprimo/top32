@@ -11,7 +11,7 @@
   "stage": "top32",
   "active_battle_id": 2,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795479119084,
+  "last_updated": 1795479122389,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -1653,8 +1653,8 @@
         "is_placeholder": false,
         "best": 65
       },
-      "winner": null,
-      "status": "live",
+      "winner": "lead",
+      "status": "finished",
       "is_direct_quali": true,
       "judges": [
         {
@@ -2295,13 +2295,13 @@
       "bracket": "left",
       "pair_title": "ТОП-16 • ХИТ #1",
       "lead": {
-        "seed": 32,
-        "name": "Георги Неделчев",
-        "car": "VDC BMW E82 1M Public 5.0",
-        "number": "32",
-        "quali_score": 65,
+        "seed": 1,
+        "name": "Иван Самарин",
+        "car": "db_ft_ford_mustang_rtr_samarin",
+        "number": "1",
+        "quali_score": 99,
         "is_placeholder": false,
-        "best": 65
+        "best": 99
       },
       "chase": {
         "seed": "—",
