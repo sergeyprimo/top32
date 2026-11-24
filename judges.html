@@ -11423,6 +11423,12 @@ function applyQualiPreset(type) {
         }
       }
 
+      // Clear any pending OMT alert since a winner was decided
+      if (typeof obsDirectorState !== 'undefined' && obsDirectorState) {
+        obsDirectorState.omtActive = false;
+        if (directorOmtTimer) clearTimeout(directorOmtTimer);
+      }
+
       // 1. Instantly propagate winner to next stage in the tournament bracket!
       syncTournamentStages();
 
@@ -11475,10 +11481,18 @@ function applyQualiPreset(type) {
       if (votes.lead >= 2) {
         b.winner = 'lead';
         b.status = 'finished';
+        if (typeof obsDirectorState !== 'undefined' && obsDirectorState) {
+          obsDirectorState.omtActive = false;
+          if (directorOmtTimer) clearTimeout(directorOmtTimer);
+        }
         showSyncToast('⚖️ Большинство (2+): ПОБЕДА LEAD (' + (b.lead ? b.lead.name : '') + ')');
       } else if (votes.chase >= 2) {
         b.winner = 'chase';
         b.status = 'finished';
+        if (typeof obsDirectorState !== 'undefined' && obsDirectorState) {
+          obsDirectorState.omtActive = false;
+          if (directorOmtTimer) clearTimeout(directorOmtTimer);
+        }
         showSyncToast('⚖️ Большинство (2+): ПОБЕДА CHASE (' + (b.chase ? b.chase.name : '') + ')');
       } else if (votes.omt >= 2) {
         b.winner = null;
@@ -12222,6 +12236,12 @@ function populateDriversIntoTourney(pilots) {
         tourneyData.intro_settings = obsIntroState;
       }
       if (typeof obsDirectorState !== 'undefined' && obsDirectorState) {
+        if (obsDirectorState.omtActive && obsDirectorState.omtDuration > 0) {
+          var omtAge = Date.now() - (obsDirectorState.omtTimestamp || 0);
+          if (omtAge >= (obsDirectorState.omtDuration * 1000)) {
+            obsDirectorState.omtActive = false;
+          }
+        }
         tourneyData.obs_director = obsDirectorState;
       }
       // Keep saved_presets in localStorage only to avoid inflating top32.json beyond GitHub API 1MB limit
@@ -14368,6 +14388,14 @@ async function saveData() {
       // 2. Load from tourneyData if available
       if (tourneyData && tourneyData.obs_director) {
         obsDirectorState = Object.assign(obsDirectorState, tourneyData.obs_director);
+      }
+
+      // Auto-expire OMT if duration has elapsed
+      if (obsDirectorState.omtActive && obsDirectorState.omtDuration > 0) {
+        var omtAge = Date.now() - (obsDirectorState.omtTimestamp || 0);
+        if (omtAge >= (obsDirectorState.omtDuration * 1000)) {
+          obsDirectorState.omtActive = false;
+        }
       }
 
       updateDirectorUI();

@@ -6532,18 +6532,28 @@ if (!window.AC_TOP32_DATA) {
         document.body.classList.add('scale-' + state.scale);
       }
 
-      // 5. OMT Trigger Overlay
+      // 5. OMT Trigger Overlay (with expiration check & de-duplication)
       var omtOverlay = document.getElementById('top32OmtOverlay');
       if (omtOverlay) {
-        if (state.omtActive) {
+        var now = Date.now();
+        var ts = state.omtTimestamp || 0;
+        var durSec = (typeof state.omtDuration !== 'undefined') ? state.omtDuration : 5;
+        var durMs = durSec * 1000;
+        var age = now - ts;
+        var isValidOmt = !!state.omtActive && (durSec === 0 || (age >= 0 && age < durMs));
+
+        // Only trigger once per unique OMT timestamp to avoid re-triggering on every poll cycle
+        if (isValidOmt && window._lastHandledOmtTimestamp !== ts) {
+          window._lastHandledOmtTimestamp = ts;
           omtOverlay.style.display = 'flex';
-          if (state.omtDuration && state.omtDuration > 0) {
-            if (obsDirectorOmtTimer) clearTimeout(obsDirectorOmtTimer);
+          var remaining = durSec > 0 ? Math.max(100, durMs - age) : 0;
+          if (obsDirectorOmtTimer) clearTimeout(obsDirectorOmtTimer);
+          if (remaining > 0) {
             obsDirectorOmtTimer = setTimeout(function() {
               omtOverlay.style.display = 'none';
-            }, state.omtDuration * 1000);
+            }, remaining);
           }
-        } else {
+        } else if (!isValidOmt) {
           omtOverlay.style.display = 'none';
           if (obsDirectorOmtTimer) clearTimeout(obsDirectorOmtTimer);
         }
