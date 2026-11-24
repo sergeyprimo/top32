@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 5,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795554302719,
+  "last_updated": 1795554316038,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2951,7 +2951,7 @@
     "scale": 100,
     "opacity": 100,
     "accentColor": "gold",
-    "omtActive": true,
+    "omtActive": false,
     "omtDuration": 8,
     "omtTimestamp": 1795474444519,
     "overlayTitle": "",
