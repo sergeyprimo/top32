@@ -9,9 +9,9 @@
   "admin_pin": "3667",
   "backup_sheet_webhook": "https://script.google.com/macros/s/AKfycbwiJ6dGQyGtrHhoi5Ri1OOJD5RuPbkQAF8JfgAGZ3RiObIXpbBywmFEJmyGVjpJ6G_6uQ/exec",
   "stage": "top32",
-  "active_battle_id": 4,
+  "active_battle_id": 5,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795479602396,
+  "last_updated": 1795480498922,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -1776,21 +1776,21 @@
         "is_placeholder": false,
         "best": 77
       },
-      "winner": null,
-      "status": "live",
+      "winner": "chase",
+      "status": "finished",
       "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": null
+          "vote": "chase"
         },
         {
           "name": "С2",
-          "vote": null
+          "vote": "chase"
         },
         {
           "name": "С3",
-          "vote": null
+          "vote": "chase"
         }
       ]
     },
@@ -1818,7 +1818,7 @@
         "best": 72
       },
       "winner": null,
-      "status": "upcoming",
+      "status": "live",
       "is_direct_quali": true,
       "judges": [
         {
@@ -2336,6 +2336,15 @@
       "bracket": "left",
       "pair_title": "ТОП-16 • ХИТ #2",
       "lead": {
+        "seed": 24,
+        "name": "Влад Трофимов",
+        "car": "DB BMW E91 Vlad Trofimov",
+        "number": "24",
+        "quali_score": 77,
+        "is_placeholder": false,
+        "best": 77
+      },
+      "chase": {
         "seed": 25,
         "name": "Нешадим Алексей",
         "car": "db_toyota_mark_ii_neshadim_aleksey",
@@ -2344,14 +2353,8 @@
         "is_placeholder": false,
         "best": 76.5
       },
-      "chase": {
-        "seed": "—",
-        "name": "Победитель Хита #4",
-        "car": "Ожидание заезда",
-        "is_placeholder": true
-      },
       "winner": null,
-      "status": "waiting",
+      "status": "upcoming",
       "judges": [
         {
           "name": "С1",
