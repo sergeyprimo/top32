@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OBS Plate: Clipping Zones Tracker (Зоны)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: transparent !important;
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      user-select: none;
+      padding-top: 100px;
+    }
+    body.pos-bottom {
+      align-items: flex-end;
+      padding-top: 0;
+      padding-bottom: 70px;
+    }
+
+    .zones-card {
+      background: linear-gradient(135deg, rgba(13, 17, 24, 0.96) 0%, rgba(22, 28, 38, 0.98) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 8px;
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      padding: 6px 14px;
+      transform: skewX(-8deg);
+      display: flex;
+      gap: 10px;
+      transition: all 0.3s ease;
+    }
+    body.clean-style .zones-card { box-shadow: none !important; }
+
+    .zone-chip {
+      transform: skewX(8deg);
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+    }
+    .zone-chip.done {
+      background: rgba(16, 185, 129, 0.25);
+      border: 1px solid #10b981;
+      color: #34d399;
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+    }
+    .zone-chip.active {
+      background: rgba(245, 158, 11, 0.3);
+      border: 1px solid #f59e0b;
+      color: #fbbf24;
+      animation: pulseZone 1s infinite alternate;
+      box-shadow: 0 0 14px rgba(245, 158, 11, 0.6);
+    }
+    .zone-chip.pending {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #64748b;
+    }
+
+    @keyframes pulseZone {
+      0% { transform: skewX(8deg) scale(0.97); opacity: 0.8; }
+      100% { transform: skewX(8deg) scale(1.03); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="zones-card">
+    <span class="zone-chip done" id="z1">✓ OZ1 (98%)</span>
+    <span class="zone-chip done" id="z2">✓ IC1 (TOUCH)</span>
+    <span class="zone-chip active" id="z3">⚡ OZ2 (АКТИВНА)</span>
+    <span class="zone-chip pending" id="z4">OZ3 (ФИНИШ)</span>
+  </div>
+
+  <script>
+    var params = new URLSearchParams(window.location.search);
+    var pPos = params.get('pos') || 'top';
+    var pClean = (params.get('clean') === '1' || params.get('obs') === '1');
+
+    if (pPos === 'bottom') document.body.classList.add('pos-bottom');
+    if (pClean) document.body.classList.add('clean-style');
+
+    // Simulate zones progression or read from AC session
+    var step = 0;
+    setInterval(function() {
+      step = (step + 1) % 4;
+      var z1 = document.getElementById('z1');
+      var z2 = document.getElementById('z2');
+      var z3 = document.getElementById('z3');
+      var z4 = document.getElementById('z4');
+
+      var chips = [z1, z2, z3, z4];
+      var labels = ['OZ1', 'IC1', 'OZ2', 'OZ3'];
+
+      for (var i = 0; i < chips.length; i++) {
+        if (i < step) {
+          chips[i].className = 'zone-chip done';
+          chips[i].textContent = '✓ ' + labels[i];
+        } else if (i === step) {
+          chips[i].className = 'zone-chip active';
+          chips[i].textContent = '⚡ ' + labels[i];
+        } else {
+          chips[i].className = 'zone-chip pending';
+          chips[i].textContent = labels[i];
+        }
+      }
+    }, 4000);
+  </script>
+</body>
+</html>

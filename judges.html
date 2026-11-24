@@ -16151,21 +16151,38 @@ async function saveData() {
       select.innerHTML = '';
 
       if (stage === 'quali' || stage === 'qualification') {
-        var quali = (tourneyData && Array.isArray(tourneyData.qualification)) ? tourneyData.qualification.filter(isRealQualiPilot) : [];
+        var quali = [];
+        var rawQuali = (tourneyData && Array.isArray(tourneyData.qualification) && tourneyData.qualification.length > 0)
+          ? tourneyData.qualification
+          : ((typeof window !== 'undefined' && window.AC_TOP32_DATA && Array.isArray(window.AC_TOP32_DATA.qualification)) ? window.AC_TOP32_DATA.qualification : []);
+
+        rawQuali.forEach(function(q, origIdx) {
+          if (isRealQualiPilot(q)) {
+            quali.push({ item: q, origIdx: origIdx });
+          }
+        });
+
         if (quali.length === 0) {
           var opt = document.createElement('option');
-          opt.value = 0;
-          opt.textContent = 'Нет пилотов в квалификации';
+          opt.value = -1;
+          opt.textContent = 'Нет пилотов в квалификации (загрузите из игры)';
           select.appendChild(opt);
           return;
         }
-        quali.forEach(function(q, idx) {
+
+        var activeName = (tourneyData && tourneyData.active_quali_pilot && tourneyData.active_quali_pilot.name)
+          ? tourneyData.active_quali_pilot.name.trim().toLowerCase() : '';
+
+        quali.forEach(function(entry, listIdx) {
+          var q = entry.item;
           var opt = document.createElement('option');
-          opt.value = idx;
-          var seedStr = q.seed ? ('#' + q.seed + ' ') : ('#' + (idx + 1) + ' ');
+          opt.value = entry.origIdx;
+          var seedStr = q.seed ? ('#' + q.seed + ' ') : ('#' + (listIdx + 1) + ' ');
           var scoreStr = q.best ? (' [Лучший: ' + parseFloat(q.best).toFixed(1) + ' б.]') : '';
-          opt.textContent = seedStr + q.name + ' (' + (q.car || 'Drift Car') + ')' + scoreStr;
-          if (idx === (obsDirectorState.activeBattleIndex || 0)) {
+          var isLive = (activeName && q.name && q.name.trim().toLowerCase() === activeName);
+          var liveBadge = isLive ? '  [🏎️ В ЭФИРЕ]' : '';
+          opt.textContent = seedStr + q.name + ' (' + (q.car || 'Drift Car') + ')' + scoreStr + liveBadge;
+          if (isLive || (entry.origIdx === obsDirectorState.activeBattleIndex)) {
             opt.selected = true;
           }
           select.appendChild(opt);
@@ -16199,6 +16216,33 @@ async function saveData() {
       });
     }
 
+    function setDirectorLiveFromSelect() {
+      if (!requireJudgeAuth()) return;
+      var sel = document.getElementById('directorBattlesSelect');
+      if (!sel) return;
+      var val = parseInt(sel.value, 10);
+      if (isNaN(val) || val < 0) {
+        showSyncToast('⚠️ Выберите пилота или пару для вывода в LIVE');
+        return;
+      }
+      var stage = (obsDirectorState && obsDirectorState.stage) || currentJudgeTab || 'top32';
+      if (stage === 'quali' || stage === 'qualification') {
+        if (typeof setQualiPilotOnTrack === 'function') {
+          setQualiPilotOnTrack(val);
+        }
+        obsDirectorState.activeBattleIndex = val;
+        populateDirectorBattlesList();
+        broadcastDirectorState();
+        showSyncToast('🏎️ Пилот выведен на трассу в квалификации!');
+      } else {
+        setLive(val);
+        obsDirectorState.activeBattleIndex = val;
+        populateDirectorBattlesList();
+        broadcastDirectorState();
+        showSyncToast('🔴 Пара выведена на трассу в LIVE!');
+      }
+    }
+
     function copyObsSourceUrl(elementId, title) {
       var el = document.getElementById(elementId);
       if (!el) return;
@@ -16210,7 +16254,31 @@ async function saveData() {
       });
     }
 
-  </script>
+  
+    function changeObsLinksTheme(theme, btn) {
+      if (btn && btn.parentElement) {
+        var btns = btn.parentElement.querySelectorAll('button');
+        btns.forEach(function(b) {
+          b.style.background = 'transparent';
+          b.style.color = '#94a3b8';
+          b.style.fontWeight = 'normal';
+        });
+        btn.style.background = '#1e293b';
+        btn.style.color = '#fff';
+        btn.style.fontWeight = '800';
+      }
+
+      var ids = ['obsPlateBattle', 'obsPlateQuali', 'obsPlateTower', 'obsPlateTelemetry', 'obsPlateZones', 'obsPlateDecision', 'obsPlateNext'];
+      ids.forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) {
+          var u = el.textContent || el.innerText;
+          u = u.replace(/theme=[a-z0-9_-]+/g, 'theme=' + theme);
+          el.textContent = u;
+        }
+      });
+    }
+</script>
 
   <!-- Modal: Авторизация судьи по PIN-коду -->
   <div class="judge-pin-modal-overlay" id="judgePinModal" style="display:none;" onclick="if(event.target===this)closeJudgePinModal()">
@@ -17142,7 +17210,7 @@ async function saveData() {
             <select id="directorBattlesSelect" class="director-tune-select" style="flex:1; min-width:260px;" onchange="setDirectorActiveBattle(parseInt(this.value, 10))">
               <option value="0">Загрузка заездов...</option>
             </select>
-            <button class="btn gold" onclick="setLive(parseInt(document.getElementById('directorBattlesSelect').value, 10))" title="Вывести выбранную пару на трассу в LIVE">● ВЫВЕСТИ В LIVE</button>
+            <button class="btn gold" onclick="setDirectorLiveFromSelect()" title="Вывести выбранную пару или пилота на трассу в LIVE">● ВЫВЕСТИ В LIVE</button>
           </div>
 
           <div class="director-omt-panel">
@@ -17224,63 +17292,139 @@ async function saveData() {
 
         <!-- TAB 3: OBS URLS -->
         <div id="directorTabContentUrls" style="display:none;">
-          <div style="font-size:12px; color:#94a3b8; margin-bottom:14px;">
-            Скопируйте нужный адрес и вставьте в OBS Studio как источник <b>«Браузер» (Browser Source)</b>:
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
+            <div style="font-size:12px; color:#94a3b8;">
+              Скопируйте нужный адрес и вставьте в OBS Studio как источник <b>«Браузер» (Browser Source)</b>:
+            </div>
+            <!-- Theme preset switcher for URLs -->
+            <div style="display:flex; align-items:center; gap:6px; background:#0f172a; border:1px solid rgba(255,255,255,0.12); padding:3px 6px; border-radius:6px;">
+              <span style="font-size:11px; font-weight:800; color:#cbd5e1; margin-right:4px;">Стиль:</span>
+              <button type="button" class="btn tiny" style="background:#1e293b; color:#fff; font-weight:800;" onclick="changeObsLinksTheme('carbon', this)">⚡ Carbon</button>
+              <button type="button" class="btn tiny" style="background:transparent; color:#94a3b8;" onclick="changeObsLinksTheme('rds', this)">🏆 RDS Gold</button>
+              <button type="button" class="btn tiny" style="background:transparent; color:#94a3b8;" onclick="changeObsLinksTheme('neon', this)">🚀 Cyber Neon</button>
+            </div>
           </div>
 
-          <div style="display:flex; flex-direction:column; gap:12px;">
-                        <div class="access-link-card">
+          <!-- SECTION 1: UNIFIED OVERLAYS -->
+          <div style="font-size:12px; font-weight:900; color:#38bdf8; text-transform:uppercase; margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+            <span>📺</span> 1. Основные эфирные ссылки (Всё в одном):
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:20px;">
+            <div class="access-link-card">
               <div class="access-link-info">
-                <div class="access-link-title"><span>??</span> ����� ������������� ������� (�� � �����) <span style="background:#10b981; color:#000; font-size:10px; font-weight:900; padding:2px 6px; border-radius:4px;">�������������</span></div>
+                <div class="access-link-title"><span>📺</span> Универсальный эфирный оверлей (Управляется этим пультом) <span style="background:#10b981; color:#000; font-size:10px; font-weight:900; padding:2px 6px; border-radius:4px;">РЕКОМЕНДУЕТСЯ</span></div>
                 <div class="access-link-url" id="obsUrlUniversal">https://sergeyprimo.github.io/top32/?obs=1&amp;clean=1</div>
-                <div style="font-size:11px; color:#94a3b8;">1920x1080. Автоматически переключается между сеткой, плашкой заезда, древом и OMT синхронно с этим пультом!</div>
+                <div style="font-size:11px; color:#94a3b8;">1920x1080. Автоматически переключается между сеткой турнира, плашкой заезда, древом и OMT синхронно с пультом режиссёра!</div>
               </div>
-              <button class="btn primary small" onclick="copyObsSourceUrl('obsUrlUniversal', 'Универсальный оверлей')">📋 Копировать</button>
+              <button type="button" class="btn primary small" onclick="copyObsSourceUrl('obsUrlUniversal', 'Универсальный оверлей')">📋 Копировать</button>
             </div>
 
             <div class="access-link-card">
               <div class="access-link-info">
-                <div class="access-link-title"><span>⚡</span> Автономная плашка парного заезда (Нижний/верхний титр)</div>
-                <div class="access-link-url" id="obsUrlBattle">https://sergeyprimo.github.io/top32/drift_battle.html?clean=1&amp;scale=100&amp;pos=bottom</div>
-                <div style="font-size:11px; color:#94a3b8;">1920x240 или 1920x1080. Чистый титр без окантовки со скоростями и телеметрией.</div>
+                <div class="access-link-title"><span>🎮</span> Интерактивная студия и конструктор плашек (Live Studio)</div>
+                <div class="access-link-url" id="obsUrlStudio">https://sergeyprimo.github.io/top32/stream_plates.html</div>
+                <div style="font-size:11px; color:#94a3b8;">Интерактивный экран 1080p с предпросмотром всех элементов, переключением стилей и независимой настройкой.</div>
               </div>
-              <button class="btn primary small" onclick="copyObsSourceUrl('obsUrlBattle', 'Плашка заезда')">📋 Копировать</button>
-            </div>
-
-            <div class="access-link-card">
-              <div class="access-link-info">
-                <div class="access-link-title"><span>🎯</span> Автономная плашка КВАЛИФИКАЦИИ (Одиночные заезды)</div>
-                <div class="access-link-url" id="obsUrlQuali">https://sergeyprimo.github.io/top32/drift_quali.html?clean=1&amp;scale=100&amp;pos=bottom</div>
-                <div style="font-size:11px; color:#94a3b8;">1920x240 или 1920x1080. Одиночный заезд пилота с баллами судей (попытка #1 / #2), телеметрией и статусом.</div>
-              </div>
-              <button class="btn primary small" onclick="copyObsSourceUrl('obsUrlQuali', 'Плашка квалификации')">📋 Копировать</button>
-            </div>
-
-            <div class="access-link-card">
-              <div class="access-link-info">
-                <div class="access-link-title"><span>🌿</span> Турнирное древо ТОП-32 (Olympic Tree)</div>
-                <div class="access-link-url" id="obsUrlTree">https://sergeyprimo.github.io/top32/?view=bracket&amp;obs=1&amp;clean=1</div>
-                <div style="font-size:11px; color:#94a3b8;">1920x1080. Отдельная ссылка только на сетку плей-офф.</div>
-              </div>
-              <button class="btn primary small" onclick="copyObsSourceUrl('obsUrlTree', 'Турнирное древо')">📋 Копировать</button>
-            </div>
-
-            <div class="access-link-card">
-              <div class="access-link-info">
-                <div class="access-link-title"><span>💥</span> Отдельный оверлей OMT (One More Time)</div>
-                <div class="access-link-url" id="obsUrlOmt">https://sergeyprimo.github.io/top32/omt.html</div>
-                <div style="font-size:11px; color:#94a3b8;">1920x1080. Полноэкранный эффект перезаезда с дымом и искрами.</div>
-              </div>
-              <button class="btn primary small" onclick="copyObsSourceUrl('obsUrlOmt', 'Оверлей OMT')">📋 Копировать</button>
+              <button type="button" class="btn primary small" onclick="copyObsSourceUrl('obsUrlStudio', 'Студия плашек')">📋 Копировать</button>
             </div>
           </div>
 
-          <div style="margin-top:16px; background:#0f172a; border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px 14px;">
-            <div style="font-weight:900; font-size:12px; color:#38bdf8; margin-bottom:6px;">🛠️ Настройки источника в OBS Studio:</div>
+          <!-- SECTION 2: 8 MODULAR INDEPENDENT PLATES -->
+          <div style="font-size:12px; font-weight:900; color:#f59e0b; text-transform:uppercase; margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+            <span>🧩</span> 2. Модульные плашки (настройка и позиционирование каждой по отдельности):
+          </div>
+
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap:10px; margin-bottom:16px;">
+
+            <!-- Plate 1: Battle Bar -->
+            <div class="access-link-card">
+              <div class="access-link-info">
+                <div class="access-link-title"><span>⚔️</span> 1. Батл-Бар (Парный заезд)</div>
+                <div class="access-link-url" id="obsPlateBattle">https://sergeyprimo.github.io/top32/plate_battle.html?pos=top&amp;theme=carbon&amp;scale=100</div>
+                <div style="font-size:11px; color:#94a3b8;">1920x180 (или 1400x120). Лидер vs Чейзер, номера, авто, баллы, судьи.</div>
+              </div>
+              <button type="button" class="btn primary small" onclick="copyObsSourceUrl('obsPlateBattle', 'Батл-бар')">📋 Копировать</button>
+            </div>
+
+            <!-- Plate 2: Quali Run -->
+            <div class="access-link-card">
+              <div class="access-link-info">
+                <div class="access-link-title"><span>🎯</span> 2. Квалификация (Одиночный заезд)</div>
+                <div class="access-link-url" id="obsPlateQuali">https://sergeyprimo.github.io/top32/plate_quali.html?pos=bottom&amp;theme=carbon&amp;scale=100</div>
+                <div style="font-size:11px; color:#94a3b8;">1920x180. Пилот, авто, попытка 1/2, баллы по секторам и итоговый результат.</div>
+              </div>
+              <button type="button" class="btn primary small" onclick="copyObsSourceUrl('obsPlateQuali', 'Плашка квалификации')">📋 Копировать</button>
+            </div>
+
+            <!-- Plate 3: Tower -->
+            <div class="access-link-card">
+              <div class="access-link-info">
+                <div class="access-link-title"><span>🏆</span> 3. Боковая башня сетки (Tower)</div>
+                <div class="access-link-url" id="obsPlateTower">https://sergeyprimo.github.io/top32/plate_tower.html?side=left&amp;rows=6&amp;theme=carbon</div>
+                <div style="font-size:11px; color:#94a3b8;">300x600 px. Пары стадии или ТОП-квалификации с подсветкой активного заезда LIVE.</div>
+              </div>
+              <button type="button" class="btn primary small" onclick="copyObsSourceUrl('obsPlateTower', 'Башня сетки')">📋 Копировать</button>
+            </div>
+
+            <!-- Plate 4: Telemetry -->
+            <div class="access-link-card">
+              <div class="access-link-info">
+                <div class="access-link-title"><span>📐</span> 4. Дрифт-Телеметрия (HUD)</div>
+                <div class="access-link-url" id="obsPlateTelemetry">https://sergeyprimo.github.io/top32/plate_telemetry.html?pos=bottom-left&amp;theme=carbon</div>
+                <div style="font-size:11px; color:#94a3b8;">360x180 px. Скорость (км/ч), Угол заноса (°), шкалы педалей газа и тормоза.</div>
+              </div>
+              <button type="button" class="btn primary small" onclick="copyObsSourceUrl('obsPlateTelemetry', 'Дрифт-телеметрия')">📋 Копировать</button>
+            </div>
+
+            <!-- Plate 5: Zones -->
+            <div class="access-link-card">
+              <div class="access-link-info">
+                <div class="access-link-title"><span>🏁</span> 5. Клиппинг-Зоны (Zones)</div>
+                <div class="access-link-url" id="obsPlateZones">https://sergeyprimo.github.io/top32/plate_zones.html?pos=top&amp;theme=carbon</div>
+                <div style="font-size:11px; color:#94a3b8;">500x50 px. Индикаторы зон OZ1, IC1, OZ2, OZ3 с подсветкой попадания.</div>
+              </div>
+              <button type="button" class="btn primary small" onclick="copyObsSourceUrl('obsPlateZones', 'Клиппинг-зоны')">📋 Копировать</button>
+            </div>
+
+            <!-- Plate 6: Decision / OMT -->
+            <div class="access-link-card">
+              <div class="access-link-info">
+                <div class="access-link-title"><span>⚖️</span> 6. Судейский Вердикт &amp; OMT</div>
+                <div class="access-link-url" id="obsPlateDecision">https://sergeyprimo.github.io/top32/plate_decision.html?duration=5&amp;theme=carbon</div>
+                <div style="font-size:11px; color:#94a3b8;">По центру экрана. Анимированное объявление победителя или перезаезда (OMT).</div>
+              </div>
+              <button type="button" class="btn primary small" onclick="copyObsSourceUrl('obsPlateDecision', 'Судейский вердикт')">📋 Копировать</button>
+            </div>
+
+            <!-- Plate 7: Up Next -->
+            <div class="access-link-card">
+              <div class="access-link-info">
+                <div class="access-link-title"><span>⏳</span> 7. Тизер «Следующий заезд»</div>
+                <div class="access-link-url" id="obsPlateNext">https://sergeyprimo.github.io/top32/plate_next.html?pos=bottom-right&amp;theme=carbon</div>
+                <div style="font-size:11px; color:#94a3b8;">340x100 px. Карточка готовящейся пары в технологических паузах стрима.</div>
+              </div>
+              <button type="button" class="btn primary small" onclick="copyObsSourceUrl('obsPlateNext', 'Следующий заезд')">📋 Копировать</button>
+            </div>
+
+            <!-- Plate 8: Ticker -->
+            <div class="access-link-card">
+              <div class="access-link-info">
+                <div class="access-link-title"><span>🏷️</span> 8. Инфо-тикер (Бегущая строка)</div>
+                <div class="access-link-url" id="obsPlateTicker">https://sergeyprimo.github.io/top32/plate_ticker.html?speed=medium</div>
+                <div style="font-size:11px; color:#94a3b8;">1920x34 px. Спонсоры, сайт ГАЗДЕРЖИМ.РФ, Twitch, VK, анонсы турнира.</div>
+              </div>
+              <button type="button" class="btn primary small" onclick="copyObsSourceUrl('obsPlateTicker', 'Бегущая строка')">📋 Копировать</button>
+            </div>
+
+          </div>
+
+          <div style="background:#0f172a; border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px 14px;">
+            <div style="font-weight:900; font-size:12px; color:#38bdf8; margin-bottom:6px;">🛠️ Рекомендации по настройке источников в OBS Studio:</div>
             <ul style="margin:0; padding-left:18px; font-size:11px; color:#cbd5e1; line-height:1.6;">
-              <li>Ширина: <b>1920</b>, Высота: <b>1080</b></li>
-              <li>Поставьте галочку: <b>«Обновлять браузер, когда сцена становится активной»</b></li>
-              <li>Поле «Пользовательский CSS»: <code>body { background-color: rgba(0, 0, 0, 0); margin: 0px auto; overflow: hidden; }</code></li>
+              <li>Для полноэкранных плашек (Универсальный оверлей, Тикер): Ширина <b>1920</b>, Высота <b>1080</b>.</li>
+              <li>Для компактных модулей (Телеметрия, Башня, Батл-бар): можно задать точный размер источника или 1920x1080 и двигать мышкой по холсту сцены в OBS.</li>
+              <li>Обязательно поставьте галочку: <b>«Обновлять браузер, когда сцена становится активной»</b> (Shutdown source when not visible / Refresh browser when scene becomes active).</li>
             </ul>
           </div>
         </div>

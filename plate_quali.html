@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OBS Plate: Qualification Run (Одиночный заезд)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: transparent !important;
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      user-select: none;
+    }
+    body.pos-top { align-items: flex-start; }
+    body.pos-center { align-items: center; }
+
+    .plate-container {
+      width: 100%;
+      max-width: 1280px;
+      margin: auto auto 36px auto;
+      transition: all 0.3s ease;
+      transform-origin: center bottom;
+    }
+    body.pos-top .plate-container { margin: 24px auto auto auto; transform-origin: center top; }
+    body.pos-center .plate-container { margin: auto; transform-origin: center center; }
+
+    /* Scaling */
+    body.scale-75 .plate-container { transform: scale(0.75); }
+    body.scale-85 .plate-container { transform: scale(0.85); }
+    body.scale-115 .plate-container { transform: scale(1.15); }
+    body.scale-125 .plate-container { transform: scale(1.25); }
+
+    /* Carbon Card Base */
+    .quali-bar-card {
+      background: linear-gradient(135deg, rgba(13, 17, 24, 0.96) 0%, rgba(22, 28, 38, 0.98) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 8px;
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      position: relative;
+      overflow: hidden;
+      transform: skewX(-8deg);
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .quali-bar-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.015) 0px,
+        rgba(255, 255, 255, 0.015) 2px,
+        transparent 2px,
+        transparent 4px
+      );
+      pointer-events: none;
+    }
+
+    body.theme-rds .quali-bar-card {
+      border-color: rgba(245, 158, 11, 0.45);
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.8), 0 0 20px rgba(245, 158, 11, 0.2);
+    }
+    body.theme-neon .quali-bar-card {
+      background: linear-gradient(135deg, rgba(10, 13, 26, 0.96) 0%, rgba(18, 16, 36, 0.98) 100%);
+      border-color: rgba(0, 240, 255, 0.5);
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 240, 255, 0.25);
+    }
+    body.clean-style .quali-bar-card { box-shadow: none !important; }
+
+    .quali-bar-inner {
+      transform: skewX(8deg);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      gap: 20px;
+    }
+
+    .q-pilot-info {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .q-seed-pill {
+      background: #f59e0b;
+      color: #000;
+      font-size: 16px;
+      font-weight: 900;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-family: monospace;
+    }
+    .p-name {
+      font-size: 18px;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: 0.5px;
+    }
+    .p-car {
+      font-size: 11px;
+      font-weight: 700;
+      color: #94a3b8;
+      font-family: monospace;
+    }
+    .q-attempt-badge {
+      background: rgba(14, 165, 233, 0.2);
+      border: 1px solid #0284c7;
+      color: #38bdf8;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .q-scores-cluster {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .q-crit-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .q-crit-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .q-crit-val {
+      font-size: 16px;
+      font-weight: 900;
+      font-family: monospace;
+      color: #f8fafc;
+    }
+
+    .q-total-box {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      border: 1px solid #10b981;
+      padding: 6px 18px;
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 0 18px rgba(16, 185, 129, 0.4);
+    }
+    .q-total-label {
+      font-size: 9px;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.85);
+    }
+    .q-total-val {
+      font-size: 22px;
+      font-weight: 900;
+      color: #fff;
+      font-family: monospace;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body class="theme-carbon">
+
+  <div class="plate-container">
+    <div class="quali-bar-card">
+      <div class="quali-bar-inner">
+        <!-- Pilot Info -->
+        <div class="q-pilot-info">
+          <span class="q-seed-pill" id="qualiSeed">#1</span>
+          <div>
+            <div class="p-name" id="qualiName">ПИЛОТ КВАЛИФИКАЦИИ</div>
+            <div class="p-car" id="qualiCar">DRIFT CAR • VDC</div>
+          </div>
+          <span class="q-attempt-badge" id="qualiAttempt">ПОПЫТКА #1</span>
+        </div>
+
+        <!-- Scores Breakdown -->
+        <div class="q-scores-cluster">
+          <div class="q-crit-box">
+            <span class="q-crit-label">Линия (0-40)</span>
+            <span class="q-crit-val" id="scoreLine">38.0</span>
+          </div>
+          <div class="q-crit-box">
+            <span class="q-crit-label">Угол (0-30)</span>
+            <span class="q-crit-val" id="scoreAngle">28.5</span>
+          </div>
+          <div class="q-crit-box">
+            <span class="q-crit-label">Стиль (0-30)</span>
+            <span class="q-crit-val" id="scoreStyle">27.5</span>
+          </div>
+
+          <!-- Total Score -->
+          <div class="q-total-box">
+            <span class="q-total-label">ИТОГО БАЛЛОВ</span>
+            <span class="q-total-val" id="scoreTotal">94.0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var params = new URLSearchParams(window.location.search);
+    var pTheme = params.get('theme') || 'carbon';
+    var pPos = params.get('pos') || 'bottom';
+    var pScale = params.get('scale') || '100';
+    var pClean = (params.get('clean') === '1' || params.get('obs') === '1');
+
+    document.body.className = 'theme-' + pTheme;
+    if (pPos === 'top') document.body.classList.add('pos-top');
+    else if (pPos === 'center') document.body.classList.add('pos-center');
+    else document.body.classList.add('pos-bottom');
+
+    if (pScale !== '100') document.body.classList.add('scale-' + pScale);
+    if (pClean) document.body.classList.add('clean-style');
+
+    function renderQuali(data) {
+      if (!data) return;
+      var pilot = data.active_quali_pilot;
+      if (!pilot && data.qualification && data.qualification.length > 0) {
+        pilot = data.qualification[0];
+      }
+      if (!pilot) return;
+
+      document.getElementById('qualiSeed').textContent = '#' + (pilot.seed || pilot.rank || '1');
+      document.getElementById('qualiName').textContent = (pilot.name || 'ПИЛОТ').toUpperCase();
+      document.getElementById('qualiCar').textContent = (pilot.car || '---').toUpperCase();
+
+      var attempt = pilot.runAttempt || (pilot.run2 ? 2 : 1);
+      document.getElementById('qualiAttempt').textContent = 'ПОПЫТКА #' + attempt;
+
+      var bestScore = pilot.best || pilot.run2 || pilot.run1 || 0;
+      var total = Number(bestScore) || 0;
+      document.getElementById('scoreTotal').textContent = total.toFixed(1);
+
+      // Criteria estimates if not broken down in data
+      var l = pilot.lineScore || (total * 0.4).toFixed(1);
+      var a = pilot.angleScore || (total * 0.3).toFixed(1);
+      var s = pilot.styleScore || (total - l - a).toFixed(1);
+
+      document.getElementById('scoreLine').textContent = l;
+      document.getElementById('scoreAngle').textContent = a;
+      document.getElementById('scoreStyle').textContent = s;
+    }
+
+    function pollQuali() {
+      fetch('top32.json?nocache=' + Date.now(), { cache: 'no-store' })
+        .then(function(r) { return r.json(); })
+        .then(renderQuali)
+        .catch(function() {});
+    }
+
+    pollQuali();
+    setInterval(pollQuali, 1000);
+  </script>
+</body>
+</html>

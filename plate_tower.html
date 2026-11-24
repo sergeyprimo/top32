@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OBS Plate: Sidebar Tower (Башня сетки)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: transparent !important;
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      user-select: none;
+      padding: 120px 32px 32px 32px;
+    }
+    body.side-right { justify-content: flex-end; }
+
+    .tower-container {
+      width: 290px;
+      transition: all 0.3s ease;
+      transform-origin: left top;
+    }
+    body.side-right .tower-container { transform-origin: right top; }
+
+    /* Scaling */
+    body.scale-75 .tower-container { transform: scale(0.75); }
+    body.scale-85 .tower-container { transform: scale(0.85); }
+    body.scale-115 .tower-container { transform: scale(1.15); }
+    body.scale-125 .tower-container { transform: scale(1.25); }
+
+    .tower-card {
+      background: linear-gradient(135deg, rgba(13, 17, 24, 0.96) 0%, rgba(22, 28, 38, 0.98) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 8px;
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      overflow: hidden;
+    }
+    body.theme-rds .tower-card {
+      border-color: rgba(245, 158, 11, 0.45);
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.8), 0 0 20px rgba(245, 158, 11, 0.2);
+    }
+    body.theme-neon .tower-card {
+      border-color: rgba(0, 240, 255, 0.5);
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 240, 255, 0.25);
+    }
+    body.clean-style .tower-card { box-shadow: none !important; }
+
+    .tower-header {
+      background: #0f172a;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .tower-title {
+      font-size: 11px;
+      font-weight: 900;
+      color: #38bdf8;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+    body.theme-rds .tower-title { color: #f59e0b; }
+    body.theme-neon .tower-title { color: #00f0ff; }
+
+    .tower-sub {
+      font-size: 10px;
+      color: #94a3b8;
+      font-family: monospace;
+    }
+
+    .tower-list {
+      display: flex;
+      flex-direction: column;
+    }
+    .tower-row {
+      display: flex;
+      align-items: center;
+      padding: 8px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 11px;
+      gap: 8px;
+      transition: background 0.2s;
+    }
+    .tower-row:last-child { border-bottom: none; }
+    .tower-row.live-active {
+      background: rgba(245, 158, 11, 0.16);
+      border-left: 3px solid #f59e0b;
+    }
+
+    .t-rank {
+      width: 22px;
+      font-weight: 800;
+      color: #94a3b8;
+      font-family: monospace;
+    }
+    .t-name {
+      font-weight: 700;
+      color: #f1f5f9;
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .t-status {
+      font-weight: 900;
+      font-size: 10px;
+      font-family: monospace;
+    }
+    .t-status.done { color: #10b981; }
+    .t-status.live {
+      color: #ef4444;
+      animation: pulseLive 1s infinite alternate;
+    }
+    .t-status.pending { color: #64748b; }
+
+    @keyframes pulseLive {
+      0% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+  </style>
+</head>
+<body class="theme-carbon">
+
+  <div class="tower-container">
+    <div class="tower-card">
+      <div class="tower-header">
+        <span class="tower-title" id="towerStageTitle">🏆 ТОП-16 • СЕТКА ХИТОВ</span>
+        <span class="tower-sub" id="towerCountSub">4/8 ПАР</span>
+      </div>
+      <div class="tower-list" id="towerList">
+        <div class="tower-row live-active">
+          <span class="t-rank">#1</span>
+          <span class="t-name">Загрузка пар...</span>
+          <span class="t-status live">● LIVE</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var params = new URLSearchParams(window.location.search);
+    var pTheme = params.get('theme') || 'carbon';
+    var pSide = params.get('side') || 'left';
+    var pScale = params.get('scale') || '100';
+    var pRows = parseInt(params.get('rows') || '6', 10);
+    var pClean = (params.get('clean') === '1' || params.get('obs') === '1');
+
+    document.body.className = 'theme-' + pTheme;
+    if (pSide === 'right') document.body.classList.add('side-right');
+    if (pScale !== '100') document.body.classList.add('scale-' + pScale);
+    if (pClean) document.body.classList.add('clean-style');
+
+    function renderTower(data) {
+      if (!data) return;
+      var stage = data.stage_mode || data.stage || 'top32';
+      var list = [];
+      var stageTitle = 'СЕТКА ХИТОВ';
+
+      if (stage === 'top24' && data.battles_top24) { list = data.battles_top24; stageTitle = 'ТОП-24 • СЕТКА'; }
+      else if (stage === 'top16' && data.battles_top16) { list = data.battles_top16; stageTitle = 'ТОП-16 • СЕТКА'; }
+      else if (stage === 'top8' && data.battles_top8) { list = data.battles_top8; stageTitle = 'ТОП-8 • СЕТКА'; }
+      else if (stage === 'top4' && data.battles_top4) { list = data.battles_top4; stageTitle = 'ФИНАЛ • СЕТКА'; }
+      else { list = data.battles || []; stageTitle = 'ТОП-32 • СЕТКА'; }
+
+      document.getElementById('towerStageTitle').textContent = '🏆 ' + stageTitle;
+      var activeId = data.active_battle_id;
+
+      var container = document.getElementById('towerList');
+      container.innerHTML = '';
+
+      var count = Math.min(list.length, pRows);
+      document.getElementById('towerCountSub').textContent = count + '/' + list.length + ' ПАР';
+
+      for (var i = 0; i < count; i++) {
+        var b = list[i];
+        if (!b) continue;
+
+        var isLive = (b.status === 'live' || (activeId !== undefined && Number(b.id) === Number(activeId)));
+        var lName = (b.lead && b.lead.name) ? b.lead.name.split(' ')[0] : '---';
+        var cName = (b.chase && b.chase.name) ? b.chase.name.split(' ')[0] : '---';
+
+        var row = document.createElement('div');
+        row.className = 'tower-row' + (isLive ? ' live-active' : '');
+
+        var statusHtml = '';
+        if (b.winner) {
+          statusHtml = '<span class="t-status done">✓ ' + (b.winner === 'lead' ? 'L' : 'C') + '</span>';
+        } else if (isLive) {
+          statusHtml = '<span class="t-status live">● LIVE</span>';
+        } else {
+          statusHtml = '<span class="t-status pending">WAIT</span>';
+        }
+
+        row.innerHTML = 
+          '<span class="t-rank">#' + (b.pair_num || (i + 1)) + '</span>' +
+          '<span class="t-name">' + lName + ' ⚔ ' + cName + '</span>' +
+          statusHtml;
+
+        container.appendChild(row);
+      }
+    }
+
+    function pollTower() {
+      fetch('top32.json?nocache=' + Date.now(), { cache: 'no-store' })
+        .then(function(r) { return r.json(); })
+        .then(renderTower)
+        .catch(function() {});
+    }
+
+    pollTower();
+    setInterval(pollTower, 1000);
+  </script>
+</body>
+</html>

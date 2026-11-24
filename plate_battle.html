@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OBS Plate: Battle Bar (Парный заезд)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: transparent !important;
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      user-select: none;
+    }
+
+    body.pos-bottom { align-items: flex-end; }
+    body.pos-center { align-items: center; }
+
+    /* Scaler Container */
+    .plate-container {
+      width: 100%;
+      max-width: 1420px;
+      margin: 24px auto;
+      transition: all 0.3s ease;
+      transform-origin: center top;
+    }
+    body.pos-bottom .plate-container { margin: auto auto 28px auto; transform-origin: center bottom; }
+    body.pos-center .plate-container { margin: auto; transform-origin: center center; }
+
+    /* Scaling */
+    body.scale-75 .plate-container { transform: scale(0.75); }
+    body.scale-85 .plate-container { transform: scale(0.85); }
+    body.scale-115 .plate-container { transform: scale(1.15); }
+    body.scale-125 .plate-container { transform: scale(1.25); }
+
+    /* Plate Card - Carbon Base */
+    .battle-bar-card {
+      background: linear-gradient(135deg, rgba(13, 17, 24, 0.96) 0%, rgba(22, 28, 38, 0.98) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 8px;
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      position: relative;
+      overflow: hidden;
+      transform: skewX(-8deg);
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .battle-bar-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.015) 0px,
+        rgba(255, 255, 255, 0.015) 2px,
+        transparent 2px,
+        transparent 4px
+      );
+      pointer-events: none;
+    }
+
+    /* Theme: RDS Pro Gold */
+    body.theme-rds .battle-bar-card {
+      border-color: rgba(245, 158, 11, 0.45);
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.8), 0 0 20px rgba(245, 158, 11, 0.2);
+    }
+    /* Theme: Cyber Neon */
+    body.theme-neon .battle-bar-card {
+      background: linear-gradient(135deg, rgba(10, 13, 26, 0.96) 0%, rgba(18, 16, 36, 0.98) 100%);
+      border-color: rgba(0, 240, 255, 0.5);
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 240, 255, 0.25);
+    }
+
+    /* Anti-halo clean style */
+    body.clean-style .battle-bar-card {
+      box-shadow: none !important;
+    }
+
+    .battle-bar-inner {
+      transform: skewX(8deg);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      gap: 16px;
+    }
+
+    /* Hit & Stage Status */
+    .stage-tag-box {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      flex-shrink: 0;
+    }
+    .live-badge {
+      background: #ef4444;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 900;
+      padding: 3px 8px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      letter-spacing: 0.8px;
+      box-shadow: 0 0 12px rgba(239, 68, 68, 0.6);
+      width: fit-content;
+    }
+    .live-badge.omt {
+      background: #f59e0b;
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.8);
+      color: #000;
+    }
+    .hit-title-text {
+      font-size: 13px;
+      font-weight: 800;
+      color: #f1f5f9;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    /* Pilot Halves */
+    .pilot-half {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+    }
+    .pilot-half.lead { justify-content: flex-end; }
+    .pilot-half.chase { justify-content: flex-start; }
+
+    .pilot-texts {
+      display: flex;
+      flex-direction: column;
+    }
+    .pilot-half.lead .pilot-texts { text-align: right; }
+    .pilot-half.chase .pilot-texts { text-align: left; }
+
+    .pilot-name {
+      font-size: 17px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      color: #fff;
+    }
+    .pilot-car {
+      font-size: 11px;
+      font-weight: 700;
+      color: #94a3b8;
+      font-family: monospace;
+    }
+
+    /* Seed badge */
+    .seed-badge {
+      font-size: 14px;
+      font-weight: 900;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-family: monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      line-height: 1.1;
+      flex-shrink: 0;
+    }
+    .seed-badge.lead {
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      color: #fff;
+      border: 1px solid #38bdf8;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+    }
+    .seed-badge.chase {
+      background: linear-gradient(135deg, #be123c 0%, #9f1239 100%);
+      color: #fff;
+      border: 1px solid #fb7185;
+      box-shadow: 0 0 12px rgba(251, 113, 133, 0.4);
+    }
+    .seed-score-sub { font-size: 9px; opacity: 0.85; }
+
+    /* VS Emblem */
+    .vs-box {
+      background: #0f172a;
+      border: 2px solid #f59e0b;
+      color: #f59e0b;
+      font-size: 13px;
+      font-weight: 900;
+      padding: 6px 14px;
+      border-radius: 6px;
+      letter-spacing: 1.5px;
+      box-shadow: 0 0 16px rgba(245, 158, 11, 0.4);
+      flex-shrink: 0;
+    }
+
+    /* Judges votes */
+    .judges-box {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .j-chip {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 7px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    .j-chip.lead { background: rgba(2, 132, 199, 0.35); color: #38bdf8; border: 1px solid #0284c7; }
+    .j-chip.chase { background: rgba(225, 29, 72, 0.35); color: #fb7185; border: 1px solid #e11d48; }
+    .j-chip.omt { background: rgba(245, 158, 11, 0.35); color: #fbbf24; border: 1px solid #f59e0b; }
+    .verdict-chip {
+      background: #10b981;
+      color: #000;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+<body class="theme-carbon">
+
+  <div class="plate-container">
+    <div class="battle-bar-card" id="battleBarCard">
+      <div class="battle-bar-inner">
+        <!-- Stage / Status -->
+        <div class="stage-tag-box">
+          <span class="live-badge" id="liveBadge">🔴 В ЗАЕЗДЕ</span>
+          <span class="hit-title-text" id="hitTitle">ХИТ #1 • ТОП-32</span>
+        </div>
+
+        <!-- Lead Pilot -->
+        <div class="pilot-half lead">
+          <div class="pilot-texts">
+            <span class="pilot-name" id="leadName">ЛИДЕР</span>
+            <span class="pilot-car" id="leadCar">АВТОМОБИЛЬ ЛИДЕРА</span>
+          </div>
+          <div class="seed-badge lead">
+            <span id="leadSeed">#1</span>
+            <span class="seed-score-sub" id="leadScore">0.0 б.</span>
+          </div>
+        </div>
+
+        <!-- VS Divider -->
+        <div class="vs-box" id="vsBadge">⚡ VS ⚡</div>
+
+        <!-- Chase Pilot -->
+        <div class="pilot-half chase">
+          <div class="seed-badge chase">
+            <span id="chaseSeed">#2</span>
+            <span class="seed-score-sub" id="chaseScore">0.0 б.</span>
+          </div>
+          <div class="pilot-texts">
+            <span class="pilot-name" id="chaseName">ЧЕЙЗЕР</span>
+            <span class="pilot-car" id="chaseCar">АВТОМОБИЛЬ ЧЕЙЗЕРА</span>
+          </div>
+        </div>
+
+        <!-- Judges Votes -->
+        <div class="judges-box" id="judgesBox">
+          <span class="j-chip" id="j1">С1: -</span>
+          <span class="j-chip" id="j2">С2: -</span>
+          <span class="j-chip" id="j3">С3: -</span>
+          <span class="verdict-chip" id="verdictPill">СУДЕЙСТВО</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 1. URL Query Configuration
+    var params = new URLSearchParams(window.location.search);
+    var pTheme = params.get('theme') || 'carbon';
+    var pPos = params.get('pos') || 'top';
+    var pScale = params.get('scale') || '100';
+    var pClean = (params.get('clean') === '1' || params.get('obs') === '1');
+    var pJudges = (params.get('judges') !== '0');
+    var pCars = (params.get('cars') !== '0');
+
+    document.body.className = 'theme-' + pTheme;
+    if (pPos === 'bottom') document.body.classList.add('pos-bottom');
+    else if (pPos === 'center') document.body.classList.add('pos-center');
+    else document.body.classList.add('pos-top');
+
+    if (pScale !== '100') document.body.classList.add('scale-' + pScale);
+    if (pClean) document.body.classList.add('clean-style');
+
+    if (!pJudges) {
+      var jb = document.getElementById('judgesBox');
+      if (jb) jb.style.display = 'none';
+    }
+    if (!pCars) {
+      var lc = document.getElementById('leadCar');
+      var cc = document.getElementById('chaseCar');
+      if (lc) lc.style.display = 'none';
+      if (cc) cc.style.display = 'none';
+    }
+
+    // 2. BroadcastChannel for instant 0ms updates from Judges Panel
+    if (typeof BroadcastChannel !== 'undefined') {
+      try {
+        var bus = new BroadcastChannel('ac_obs_director_bus');
+        bus.onmessage = function(ev) {
+          if (!ev || !ev.data) return;
+          var s = ev.data;
+          if (s.theme) {
+            document.body.classList.remove('theme-carbon', 'theme-rds', 'theme-neon');
+            document.body.classList.add('theme-' + s.theme);
+          }
+          if (s.heroPos) {
+            document.body.classList.remove('pos-top', 'pos-bottom', 'pos-center');
+            document.body.classList.add('pos-' + s.heroPos);
+          }
+          if (s.scale) {
+            document.body.classList.remove('scale-75', 'scale-85', 'scale-100', 'scale-115', 'scale-125');
+            if (s.scale !== 100) document.body.classList.add('scale-' + s.scale);
+          }
+        };
+
+        var top32Bus = new BroadcastChannel('ac_top32_bus');
+        top32Bus.onmessage = function(ev) {
+          if (ev && ev.data) renderFromTournamentData(ev.data);
+        };
+      } catch(e) {}
+    }
+
+    // 3. Render Tournament Battle Data
+    function renderFromTournamentData(data) {
+      if (!data) return;
+      var activeId = data.active_battle_id;
+      var currentStage = data.stage_mode || data.stage || 'top32';
+      var stages = [
+        { key: 'top32', list: data.battles, title: 'ТОП-32' },
+        { key: 'top24', list: data.battles_top24, title: 'ТОП-24' },
+        { key: 'top16', list: data.battles_top16, title: 'ТОП-16' },
+        { key: 'top8', list: data.battles_top8, title: 'ТОП-8' },
+        { key: 'top4', list: data.battles_top4, title: 'ФИНАЛ' }
+      ];
+
+      var activeBattle = null;
+      var activeStageTitle = 'ТОП-32';
+
+      // Find battle by status === 'live' or active_battle_id
+      for (var s = 0; s < stages.length; s++) {
+        var st = stages[s];
+        if (!st.list) continue;
+        for (var b = 0; b < st.list.length; b++) {
+          var battle = st.list[b];
+          if (!battle) continue;
+          if (battle.status === 'live' || (activeId !== undefined && Number(battle.id) === Number(activeId))) {
+            activeBattle = battle;
+            activeStageTitle = st.title;
+            break;
+          }
+        }
+        if (activeBattle) break;
+      }
+
+      // Fallback: first battle
+      if (!activeBattle && data.battles && data.battles[0]) {
+        activeBattle = data.battles[0];
+        activeStageTitle = 'ТОП-32';
+      }
+
+      if (!activeBattle) return;
+
+      // Hit & Stage Title
+      var hitEl = document.getElementById('hitTitle');
+      if (hitEl) {
+        hitEl.textContent = (activeBattle.pair_title || ('ХИТ #' + activeBattle.pair_num)) + ' • ' + activeStageTitle;
+      }
+
+      var badgeEl = document.getElementById('liveBadge');
+      var isOmt = (activeBattle.status === 'omt');
+      if (badgeEl) {
+        badgeEl.textContent = isOmt ? '⚡ OMT ПЕРЕЗАЕЗД' : '🔴 В ЗАЕЗДЕ';
+        badgeEl.className = 'live-badge' + (isOmt ? ' omt' : '');
+      }
+
+      // Lead Pilot
+      var l = activeBattle.lead || {};
+      document.getElementById('leadName').textContent = (l.name || 'ЛИДЕР').toUpperCase();
+      document.getElementById('leadCar').textContent = (l.car || '---').toUpperCase();
+      document.getElementById('leadSeed').textContent = '#' + (l.seed || '1');
+      document.getElementById('leadScore').textContent = (l.score || l.best || '0') + ' б.';
+
+      // Chase Pilot
+      var c = activeBattle.chase || {};
+      document.getElementById('chaseName').textContent = (c.name || 'ЧЕЙЗЕР').toUpperCase();
+      document.getElementById('chaseCar').textContent = (c.car || '---').toUpperCase();
+      document.getElementById('chaseSeed').textContent = '#' + (c.seed || '2');
+      document.getElementById('chaseScore').textContent = (c.score || c.best || '0') + ' б.';
+
+      // Judges Votes
+      var votes = activeBattle.judges || [];
+      function formatJudge(el, voteObj, defaultTitle) {
+        if (!el) return;
+        var v = voteObj ? voteObj.vote : null;
+        if (v === 'lead') {
+          el.className = 'j-chip lead';
+          el.textContent = defaultTitle + ': L';
+        } else if (v === 'chase') {
+          el.className = 'j-chip chase';
+          el.textContent = defaultTitle + ': C';
+        } else if (v === 'omt') {
+          el.className = 'j-chip omt';
+          el.textContent = defaultTitle + ': OMT';
+        } else {
+          el.className = 'j-chip';
+          el.textContent = defaultTitle + ': -';
+        }
+      }
+      formatJudge(document.getElementById('j1'), votes[0], 'С1');
+      formatJudge(document.getElementById('j2'), votes[1], 'С2');
+      formatJudge(document.getElementById('j3'), votes[2], 'С3');
+
+      var verd = document.getElementById('verdictPill');
+      if (verd) {
+        if (activeBattle.winner === 'lead') {
+          verd.textContent = 'ПОБЕДА LEAD';
+          verd.style.background = '#0284c7';
+        } else if (activeBattle.winner === 'chase') {
+          verd.textContent = 'ПОБЕДА CHASE';
+          verd.style.background = '#be123c';
+        } else if (isOmt) {
+          verd.textContent = 'ONE MORE TIME';
+          verd.style.background = '#f59e0b';
+        } else {
+          verd.textContent = 'СУДЕЙСТВО';
+          verd.style.background = '#10b981';
+        }
+      }
+    }
+
+    // 4. Poller for local / remote top32.json
+    function pollTournamentData() {
+      fetch('top32.json?nocache=' + Date.now(), { cache: 'no-store' })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          renderFromTournamentData(data);
+        })
+        .catch(function() {});
+    }
+
+    pollTournamentData();
+    setInterval(pollTournamentData, 1000);
+  </script>
+</body>
+</html>

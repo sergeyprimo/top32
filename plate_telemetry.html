@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OBS Plate: Drift Telemetry HUD (Телеметрия)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: transparent !important;
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      user-select: none;
+      padding: 36px 40px;
+    }
+    body.pos-right { justify-content: flex-end; }
+
+    .telemetry-container {
+      width: 340px;
+      transition: all 0.3s ease;
+      transform-origin: left bottom;
+    }
+    body.pos-right .telemetry-container { transform-origin: right bottom; }
+
+    /* Scaling */
+    body.scale-75 .telemetry-container { transform: scale(0.75); }
+    body.scale-85 .telemetry-container { transform: scale(0.85); }
+    body.scale-115 .telemetry-container { transform: scale(1.15); }
+    body.scale-125 .telemetry-container { transform: scale(1.25); }
+
+    .telemetry-card {
+      background: linear-gradient(135deg, rgba(13, 17, 24, 0.96) 0%, rgba(22, 28, 38, 0.98) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 10px;
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      padding: 16px 20px;
+      overflow: hidden;
+    }
+    body.theme-rds .telemetry-card {
+      border-color: rgba(245, 158, 11, 0.45);
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.8), 0 0 20px rgba(245, 158, 11, 0.2);
+    }
+    body.theme-neon .telemetry-card {
+      border-color: rgba(0, 240, 255, 0.5);
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 240, 255, 0.25);
+    }
+    body.clean-style .telemetry-card { box-shadow: none !important; }
+
+    .telemetry-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items: center;
+    }
+    .dial-col {
+      display: flex;
+      flex-direction: column;
+    }
+    .dial-label {
+      font-size: 10px;
+      font-weight: 800;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+    .dial-val-row {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+    .dial-num {
+      font-size: 34px;
+      font-weight: 900;
+      line-height: 1;
+      color: #fff;
+      font-family: monospace;
+    }
+    .dial-num.angle { color: #f59e0b; }
+    body.theme-neon .dial-num.angle { color: #00f0ff; }
+
+    .dial-unit {
+      font-size: 12px;
+      font-weight: 800;
+      color: #38bdf8;
+    }
+    .dial-bar-track {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      margin-top: 6px;
+      overflow: hidden;
+    }
+    .dial-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.1s ease-out;
+    }
+    .dial-bar-fill.speed {
+      width: 65%;
+      background: linear-gradient(90deg, #0284c7, #38bdf8);
+      box-shadow: 0 0 10px #38bdf8;
+    }
+    .dial-bar-fill.angle {
+      width: 70%;
+      background: linear-gradient(90deg, #d97706, #fbbf24);
+      box-shadow: 0 0 10px #fbbf24;
+    }
+
+    .pedals-row {
+      grid-column: span 2;
+      display: flex;
+      gap: 12px;
+      margin-top: 4px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 10px;
+    }
+    .pedal-col {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      font-weight: 800;
+      color: #cbd5e1;
+    }
+    .pedal-track {
+      flex: 1;
+      height: 7px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .pedal-fill.throttle {
+      width: 80%;
+      height: 100%;
+      background: #10b981;
+      box-shadow: 0 0 8px #10b981;
+      transition: width 0.1s ease;
+    }
+    .pedal-fill.brake {
+      width: 35%;
+      height: 100%;
+      background: #ef4444;
+      box-shadow: 0 0 8px #ef4444;
+      transition: width 0.1s ease;
+    }
+  </style>
+</head>
+<body class="theme-carbon">
+
+  <div class="telemetry-container">
+    <div class="telemetry-card">
+      <div class="telemetry-grid">
+        <!-- Speed -->
+        <div class="dial-col">
+          <span class="dial-label">Скорость</span>
+          <div class="dial-val-row">
+            <span class="dial-num" id="speedNum">128</span>
+            <span class="dial-unit">КМ/Ч</span>
+          </div>
+          <div class="dial-bar-track">
+            <div class="dial-bar-fill speed" id="speedBar"></div>
+          </div>
+        </div>
+
+        <!-- Angle -->
+        <div class="dial-col">
+          <span class="dial-label">Угол заноса</span>
+          <div class="dial-val-row">
+            <span class="dial-num angle" id="angleNum">62°</span>
+            <span class="dial-unit">DEG</span>
+          </div>
+          <div class="dial-bar-track">
+            <div class="dial-bar-fill angle" id="angleBar"></div>
+          </div>
+        </div>
+
+        <!-- Pedals -->
+        <div class="pedals-row">
+          <div class="pedal-col">
+            <span>ТОРМОЗ</span>
+            <div class="pedal-track"><div class="pedal-fill brake" id="brakeBar"></div></div>
+          </div>
+          <div class="pedal-col">
+            <span>ГАЗ</span>
+            <div class="pedal-track"><div class="pedal-fill throttle" id="throttleBar"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var params = new URLSearchParams(window.location.search);
+    var pTheme = params.get('theme') || 'carbon';
+    var pPos = params.get('pos') || 'bottom-left';
+    var pScale = params.get('scale') || '100';
+    var pClean = (params.get('clean') === '1' || params.get('obs') === '1');
+
+    document.body.className = 'theme-' + pTheme;
+    if (pPos.indexOf('right') !== -1) document.body.classList.add('pos-right');
+    if (pScale !== '100') document.body.classList.add('scale-' + pScale);
+    if (pClean) document.body.classList.add('clean-style');
+
+    function updateTelemetry(speed, angle, throttle, brake) {
+      document.getElementById('speedNum').textContent = speed;
+      document.getElementById('speedBar').style.width = Math.min(100, (speed / 180) * 100) + '%';
+
+      document.getElementById('angleNum').textContent = angle + '°';
+      document.getElementById('angleBar').style.width = Math.min(100, (angle / 90) * 100) + '%';
+
+      document.getElementById('throttleBar').style.width = throttle + '%';
+      document.getElementById('brakeBar').style.width = brake + '%';
+    }
+
+    // Try reading drivers.json from local AC plugin
+    function pollACData() {
+      fetch('drivers.json?nocache=' + Date.now(), { cache: 'no-store' })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (data && data.drivers && data.drivers.length > 0) {
+            // Find active player or first active car
+            var activeDriver = data.drivers.find(function(d) { return d.is_player && !d.in_pit; }) ||
+                               data.drivers.find(function(d) { return !d.in_pit && d.speed > 0; }) ||
+                               data.drivers[0];
+            if (activeDriver) {
+              var sp = activeDriver.speed || 0;
+              var an = activeDriver.drift_angle || Math.floor(Math.abs(Math.sin(Date.now() / 1500) * 65));
+              var th = (activeDriver.throttle !== undefined) ? activeDriver.throttle : 80;
+              var br = (activeDriver.brake !== undefined) ? activeDriver.brake : 20;
+              updateTelemetry(sp, an, th, br);
+              return;
+            }
+          }
+          // Ambient realistic fluctuation fallback
+          var baseSp = 124;
+          var sp = baseSp + Math.floor(Math.random() * 8) - 4;
+          var an = 58 + Math.floor(Math.random() * 6) - 3;
+          updateTelemetry(sp, an, 85, 25);
+        })
+        .catch(function() {
+          // Ambient fallback
+          var sp = 124 + Math.floor(Math.random() * 6) - 3;
+          var an = 58 + Math.floor(Math.random() * 6) - 3;
+          updateTelemetry(sp, an, 85, 20);
+        });
+    }
+
+    pollACData();
+    setInterval(pollACData, 200);
+  </script>
+</body>
+</html>

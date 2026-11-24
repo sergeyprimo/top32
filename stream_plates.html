@@ -1,0 +1,2077 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Референсы плашек OBS для стрима Assetto Corsa Drift • Модульный оверлей</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,800;1,900&family=JetBrains+Mono:wght@500;700;800&family=Chakra+Petch:ital,wght@0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #07090e;
+      --bg-card: #0d121c;
+      --bg-card-alt: #131b28;
+      --border-color: rgba(255, 255, 255, 0.1);
+      --accent-cyan: #00f0ff;
+      --accent-pink: #ff0055;
+      --accent-gold: #f59e0b;
+      --accent-green: #10b981;
+      --accent-red: #ef4444;
+      --text-white: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text-white);
+      font-family: 'Montserrat', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding-bottom: 60px;
+    }
+
+    /* Header & Top Bar */
+    .top-header {
+      background: linear-gradient(180deg, rgba(13, 18, 28, 0.98) 0%, rgba(7, 9, 14, 0.95) 100%);
+      border-bottom: 1px solid var(--border-color);
+      padding: 20px 32px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(12px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .brand-title-box {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-badge {
+      background: linear-gradient(135deg, #ef4444 0%, #f59e0b 100%);
+      color: #000;
+      font-weight: 900;
+      font-size: 13px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+    }
+
+    .brand-title {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #fff;
+    }
+    .brand-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .theme-selector {
+      display: flex;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 3px;
+    }
+
+    .theme-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .theme-btn.active {
+      background: #1e293b;
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+    .theme-btn:hover:not(.active) {
+      color: #fff;
+    }
+
+    .mode-tab-btn {
+      background: rgba(14, 165, 233, 0.15);
+      border: 1px solid rgba(14, 165, 233, 0.4);
+      color: #38bdf8;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .mode-tab-btn.active, .mode-tab-btn:hover {
+      background: #0284c7;
+      color: #fff;
+      box-shadow: 0 0 16px rgba(2, 132, 199, 0.5);
+    }
+
+    /* Main Container */
+    .main-content {
+      max-width: 1720px;
+      margin: 0 auto;
+      padding: 28px 24px;
+    }
+
+    /* Section intro banner */
+    .concept-hero-card {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.5) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 20px 28px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .concept-hero-text h2 {
+      font-size: 18px;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .concept-hero-text p {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+    .concept-features-list {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .concept-feat-badge {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      padding: 8px 14px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .concept-feat-badge span {
+      font-weight: 700;
+      color: #38bdf8;
+    }
+
+    /* VIEW 1: VIRTUAL STREAM CANVAS (OBS 1920x1080) */
+    .stream-stage-wrapper {
+      margin-bottom: 40px;
+      background: #030712;
+      border: 2px solid #1e293b;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+    }
+    .stream-stage-topbar {
+      background: #0b1120;
+      border-bottom: 1px solid #1e293b;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #64748b;
+    }
+    .stage-title {
+      font-weight: 800;
+      color: #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .stage-live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ef4444;
+      box-shadow: 0 0 10px #ef4444;
+      animation: pulseLive 1.5s infinite;
+    }
+    @keyframes pulseLive {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    /* Responsive Scaled Canvas Box (16:9 ratio) */
+    .obs-canvas-scaler {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 */
+      background: #000;
+      overflow: hidden;
+    }
+    .obs-canvas-1080 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1920px;
+      height: 1080px;
+      transform-origin: top left;
+      /* Dynamic background representing drift game capture */
+      background: 
+        radial-gradient(circle at 50% 60%, rgba(30, 58, 138, 0.35) 0%, transparent 60%),
+        linear-gradient(180deg, rgba(15, 23, 42, 0.8) 0%, rgba(3, 7, 18, 0.95) 100%),
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 2px, transparent 2px, transparent 8px);
+      pointer-events: none;
+    }
+
+    /* Realistic Track Ambience Mock in Background */
+    .mock-drift-car-lead {
+      position: absolute;
+      top: 48%;
+      left: 45%;
+      width: 280px;
+      height: 120px;
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(245, 158, 11, 0.1) 100%);
+      border: 1px dashed rgba(239, 68, 68, 0.3);
+      border-radius: 16px;
+      transform: rotate(-18deg) skewX(-15deg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .mock-drift-car-chase {
+      position: absolute;
+      top: 54%;
+      left: 31%;
+      width: 260px;
+      height: 110px;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.15) 0%, rgba(99, 102, 241, 0.1) 100%);
+      border: 1px dashed rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      transform: rotate(-22deg) skewX(-15deg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .mock-smoke-trail {
+      position: absolute;
+      top: 50%;
+      left: 20%;
+      width: 450px;
+      height: 160px;
+      background: radial-gradient(ellipse at center, rgba(255,255,255,0.06) 0%, transparent 70%);
+      filter: blur(25px);
+      transform: rotate(-15deg);
+    }
+
+    /* =========================================================================
+       8 INDIVIDUAL PLATES (PLUCKED INTO OBS CANVAS & SHOWCASED)
+       ========================================================================= */
+
+    /* CARBON TEXTURE BASE */
+    .carbon-base {
+      background: linear-gradient(135deg, rgba(15, 20, 28, 0.96) 0%, rgba(22, 28, 38, 0.98) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+    .carbon-base::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.015) 0px,
+        rgba(255, 255, 255, 0.015) 2px,
+        transparent 2px,
+        transparent 4px
+      );
+      pointer-events: none;
+    }
+
+    /* THEME OVERRIDES */
+    body.theme-rds .carbon-base {
+      border-color: rgba(245, 158, 11, 0.4);
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.8), 0 0 20px rgba(245, 158, 11, 0.15);
+    }
+    body.theme-neon .carbon-base {
+      background: linear-gradient(135deg, rgba(13, 15, 30, 0.96) 0%, rgba(20, 18, 40, 0.98) 100%);
+      border-color: rgba(0, 240, 255, 0.45);
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 240, 255, 0.2);
+    }
+
+    /* --- PLATE 1: BATTLE BAR (TOP / BOTTOM BANNER) --- */
+    .widget-battle-bar {
+      position: absolute;
+      top: 32px;
+      left: 50%;
+      transform: translateX(-50%) skewX(-8deg);
+      width: 1420px;
+      display: flex;
+      align-items: stretch;
+      z-index: 50;
+      transition: all 0.3s ease;
+      pointer-events: auto;
+    }
+    .widget-battle-bar.pos-bottom {
+      top: auto;
+      bottom: 40px;
+    }
+    .widget-battle-bar.pos-center {
+      top: 50%;
+      transform: translate(-50%, -50%) skewX(-8deg);
+    }
+
+    .battle-bar-inner {
+      transform: skewX(8deg);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 10px 20px;
+      gap: 16px;
+    }
+
+    .battle-stage-tag {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      flex-shrink: 0;
+    }
+    .battle-live-pill {
+      background: #ef4444;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 900;
+      padding: 3px 8px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 0 12px rgba(239, 68, 68, 0.6);
+    }
+    .battle-hit-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: #f1f5f9;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    .pilot-half {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+    }
+    .pilot-half.lead {
+      justify-content: flex-end;
+    }
+    .pilot-half.chase {
+      justify-content: flex-start;
+    }
+
+    .pilot-details {
+      display: flex;
+      flex-direction: column;
+    }
+    .pilot-half.lead .pilot-details {
+      text-align: right;
+    }
+    .pilot-half.chase .pilot-details {
+      text-align: left;
+    }
+
+    .p-name {
+      font-size: 17px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      color: #fff;
+    }
+    .p-car {
+      font-size: 11px;
+      font-weight: 700;
+      color: #94a3b8;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .p-seed-badge {
+      font-size: 14px;
+      font-weight: 900;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      line-height: 1.1;
+    }
+    .p-seed-badge.lead {
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      color: #fff;
+      border: 1px solid #38bdf8;
+      box-shadow: 0 0 14px rgba(56, 189, 248, 0.4);
+    }
+    .p-seed-badge.chase {
+      background: linear-gradient(135deg, #be123c 0%, #9f1239 100%);
+      color: #fff;
+      border: 1px solid #fb7185;
+      box-shadow: 0 0 14px rgba(251, 113, 133, 0.4);
+    }
+    .p-score-sub {
+      font-size: 9px;
+      opacity: 0.85;
+    }
+
+    .vs-emblem {
+      background: #0f172a;
+      border: 2px solid #f59e0b;
+      color: #f59e0b;
+      font-size: 13px;
+      font-weight: 900;
+      padding: 6px 14px;
+      border-radius: 6px;
+      letter-spacing: 1.5px;
+      box-shadow: 0 0 16px rgba(245, 158, 11, 0.4);
+      flex-shrink: 0;
+    }
+
+    .judges-votes-cluster {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .j-vote-chip {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 7px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .j-vote-chip.lead { background: rgba(2, 132, 199, 0.35); color: #38bdf8; border: 1px solid #0284c7; }
+    .j-vote-chip.chase { background: rgba(225, 29, 72, 0.35); color: #fb7185; border: 1px solid #e11d48; }
+    .j-vote-chip.omt { background: rgba(245, 158, 11, 0.35); color: #fbbf24; border: 1px solid #f59e0b; }
+    .verdict-tag {
+      background: #10b981;
+      color: #000;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    /* --- PLATE 2: QUALIFICATION RUN (SOLO CARD) --- */
+    .widget-quali-run {
+      position: absolute;
+      top: 32px;
+      left: 50%;
+      transform: translateX(-50%) skewX(-8deg);
+      width: 1280px;
+      display: flex;
+      align-items: stretch;
+      z-index: 50;
+      transition: all 0.3s ease;
+      pointer-events: auto;
+    }
+    .widget-quali-run.pos-bottom {
+      top: auto;
+      bottom: 40px;
+    }
+
+    .quali-run-inner {
+      transform: skewX(8deg);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 10px 24px;
+      gap: 20px;
+    }
+    .q-pilot-info {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .q-seed-pill {
+      background: #f59e0b;
+      color: #000;
+      font-size: 16px;
+      font-weight: 900;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .q-run-attempt-badge {
+      background: rgba(14, 165, 233, 0.2);
+      border: 1px solid #0284c7;
+      color: #38bdf8;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .q-scores-breakdown {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .q-crit-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .q-crit-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+    }
+    .q-crit-val {
+      font-size: 15px;
+      font-weight: 900;
+      font-family: 'JetBrains Mono', monospace;
+      color: #f8fafc;
+    }
+    .q-total-box {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      border: 1px solid #10b981;
+      padding: 6px 16px;
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 0 18px rgba(16, 185, 129, 0.4);
+    }
+    .q-total-label {
+      font-size: 9px;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.85);
+    }
+    .q-total-val {
+      font-size: 22px;
+      font-weight: 900;
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      line-height: 1;
+    }
+
+    /* --- PLATE 3: SIDEBAR TOWER (LEADERBOARD / HITS) --- */
+    .widget-tower {
+      position: absolute;
+      top: 140px;
+      left: 32px;
+      width: 290px;
+      z-index: 45;
+      pointer-events: auto;
+      transition: all 0.3s ease;
+    }
+    .widget-tower.pos-right {
+      left: auto;
+      right: 32px;
+    }
+
+    .tower-header {
+      background: #0f172a;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .tower-title {
+      font-size: 11px;
+      font-weight: 900;
+      color: #38bdf8;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+    .tower-sub {
+      font-size: 10px;
+      color: #94a3b8;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .tower-row {
+      display: flex;
+      align-items: center;
+      padding: 7px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 11px;
+      gap: 8px;
+    }
+    .tower-row:last-child {
+      border-bottom: none;
+    }
+    .tower-row.live-active {
+      background: rgba(245, 158, 11, 0.15);
+      border-left: 3px solid #f59e0b;
+    }
+    .t-rank {
+      width: 20px;
+      font-weight: 800;
+      color: #94a3b8;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .t-name {
+      font-weight: 700;
+      color: #f1f5f9;
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .t-score {
+      font-weight: 900;
+      color: #f59e0b;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .t-status-live {
+      color: #ef4444;
+      font-size: 9px;
+      font-weight: 900;
+      animation: pulseLive 1s infinite;
+    }
+
+    /* --- PLATE 4: DRIFT TELEMETRY (SPEED & ANGLE HUD) --- */
+    .widget-telemetry {
+      position: absolute;
+      bottom: 60px;
+      left: 36px;
+      width: 340px;
+      padding: 14px 18px;
+      z-index: 45;
+      pointer-events: auto;
+      transition: all 0.3s ease;
+    }
+    .widget-telemetry.pos-right {
+      left: auto;
+      right: 36px;
+    }
+
+    .telemetry-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      align-items: center;
+    }
+    .telem-dial {
+      display: flex;
+      flex-direction: column;
+    }
+    .telem-label {
+      font-size: 10px;
+      font-weight: 800;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+    .telem-num-box {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+    .telem-val {
+      font-size: 32px;
+      font-weight: 900;
+      font-family: 'Chakra Petch', sans-serif;
+      line-height: 1;
+      color: #fff;
+    }
+    .telem-unit {
+      font-size: 12px;
+      font-weight: 800;
+      color: #38bdf8;
+    }
+    .telem-bar-track {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      margin-top: 6px;
+      overflow: hidden;
+    }
+    .telem-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+    }
+    .telem-bar-fill.speed {
+      width: 65%;
+      background: linear-gradient(90deg, #0284c7, #38bdf8);
+      box-shadow: 0 0 10px #38bdf8;
+    }
+    .telem-bar-fill.angle {
+      width: 72%;
+      background: linear-gradient(90deg, #d97706, #fbbf24);
+      box-shadow: 0 0 10px #fbbf24;
+    }
+
+    .pedals-row {
+      grid-column: span 2;
+      display: flex;
+      gap: 12px;
+      margin-top: 4px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 10px;
+    }
+    .pedal-bar-item {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      font-weight: 800;
+      color: #cbd5e1;
+    }
+    .pedal-track {
+      flex: 1;
+      height: 7px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .pedal-fill.throttle {
+      width: 85%;
+      height: 100%;
+      background: #10b981;
+      box-shadow: 0 0 8px #10b981;
+    }
+    .pedal-fill.brake {
+      width: 35%;
+      height: 100%;
+      background: #ef4444;
+      box-shadow: 0 0 8px #ef4444;
+    }
+
+    /* --- PLATE 5: CLIPPING ZONES INDICATOR --- */
+    .widget-zones {
+      position: absolute;
+      top: 106px;
+      left: 50%;
+      transform: translateX(-50%) skewX(-8deg);
+      display: flex;
+      gap: 8px;
+      padding: 6px 14px;
+      z-index: 46;
+      pointer-events: auto;
+      transition: all 0.3s ease;
+    }
+    .zone-chip {
+      transform: skewX(8deg);
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .zone-chip.done {
+      background: rgba(16, 185, 129, 0.25);
+      border: 1px solid #10b981;
+      color: #34d399;
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+    }
+    .zone-chip.active {
+      background: rgba(245, 158, 11, 0.3);
+      border: 1px solid #f59e0b;
+      color: #fbbf24;
+      animation: pulseLive 1s infinite alternate;
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.6);
+    }
+    .zone-chip.pending {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #64748b;
+    }
+
+    /* --- PLATE 6: JUDGES DECISION & OMT POPUP --- */
+    .widget-decision-alert {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%) skewX(-8deg);
+      width: 760px;
+      padding: 24px 36px;
+      z-index: 60;
+      border-left: 8px solid #f59e0b !important;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(245, 158, 11, 0.3) !important;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      pointer-events: auto;
+      transition: all 0.3s ease;
+    }
+    .decision-inner {
+      transform: skewX(8deg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+    }
+    .decision-badge-top {
+      background: #f59e0b;
+      color: #000;
+      font-size: 13px;
+      font-weight: 900;
+      padding: 4px 14px;
+      border-radius: 4px;
+      letter-spacing: 1.5px;
+    }
+    .decision-main-title {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: #fff;
+      text-transform: uppercase;
+      text-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+    }
+    .decision-sub-line {
+      font-size: 14px;
+      font-weight: 700;
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* --- PLATE 7: UP NEXT CARD --- */
+    .widget-up-next {
+      position: absolute;
+      bottom: 50px;
+      right: 36px;
+      width: 320px;
+      padding: 12px 18px;
+      z-index: 45;
+      pointer-events: auto;
+      transition: all 0.3s ease;
+    }
+    .next-badge {
+      font-size: 9px;
+      font-weight: 900;
+      color: #f59e0b;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .next-pair-title {
+      font-size: 14px;
+      font-weight: 900;
+      color: #fff;
+    }
+    .next-cars-sub {
+      font-size: 10px;
+      color: #94a3b8;
+      font-family: 'JetBrains Mono', monospace;
+      margin-top: 2px;
+    }
+    .next-timer {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 10px;
+      font-weight: 800;
+      color: #38bdf8;
+      background: rgba(2, 132, 199, 0.2);
+      border: 1px solid #0284c7;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    /* --- PLATE 8: STREAM TICKER (LOWER THIRD) --- */
+    .widget-ticker {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 32px;
+      background: linear-gradient(90deg, #070a12 0%, #0d121f 50%, #070a12 100%);
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+      z-index: 40;
+      pointer-events: auto;
+    }
+    .ticker-brand {
+      background: #f59e0b;
+      color: #000;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-right: 18px;
+      flex-shrink: 0;
+      letter-spacing: 0.5px;
+    }
+    .ticker-marquee {
+      flex: 1;
+      overflow: hidden;
+      white-space: nowrap;
+      font-size: 11px;
+      font-weight: 700;
+      color: #cbd5e1;
+      display: flex;
+      gap: 40px;
+    }
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ticker-item span {
+      color: #38bdf8;
+    }
+
+    /* =========================================================================
+       VIEW 2: GRID OF INDIVIDUAL CONFIGURABLE PLATES
+       ========================================================================= */
+    .plates-config-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(520px, 1fr));
+      gap: 24px;
+    }
+
+    .plate-card-wrapper {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .plate-card-wrapper:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .plate-header-row {
+      padding: 16px 20px;
+      background: rgba(15, 23, 42, 0.6);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .plate-title-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .plate-icon {
+      font-size: 20px;
+    }
+    .plate-name {
+      font-size: 15px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .plate-obs-type {
+      font-size: 11px;
+      color: #38bdf8;
+      font-weight: 700;
+      background: rgba(2, 132, 199, 0.15);
+      border: 1px solid rgba(2, 132, 199, 0.35);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    /* Isolated Plate Preview Viewport */
+    .plate-preview-box {
+      min-height: 180px;
+      background: #000;
+      background-image: 
+        radial-gradient(circle at 50% 50%, rgba(30, 41, 59, 0.4) 0%, transparent 80%),
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 2px, transparent 2px, transparent 10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Independent Control Panel for this Plate */
+    .plate-controls-panel {
+      padding: 18px 20px;
+      background: var(--bg-card-alt);
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .control-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .control-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .control-options {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .opt-chip {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--border-color);
+      color: #cbd5e1;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .opt-chip.active {
+      background: #0284c7;
+      border-color: #38bdf8;
+      color: #fff;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.35);
+    }
+
+    .toggle-switch-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #e2e8f0;
+      cursor: pointer;
+    }
+    .toggle-switch-label input {
+      accent-color: #38bdf8;
+      width: 16px;
+      height: 16px;
+    }
+
+    /* OBS Browser Source URL Box */
+    .obs-url-box {
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px dashed rgba(56, 189, 248, 0.4);
+      border-radius: 6px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .obs-url-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #38bdf8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 1;
+    }
+    .copy-url-btn {
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #f1f5f9;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .copy-url-btn:hover {
+      background: #0284c7;
+      border-color: #38bdf8;
+      color: #fff;
+    }
+
+    /* Toast Notification */
+    .toast-pill {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #10b981;
+      color: #000;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      z-index: 9999;
+      display: none;
+      animation: fadeIn 0.2s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="theme-carbon">
+
+  <!-- TOP HEADER -->
+  <header class="top-header">
+    <div class="brand-title-box">
+      <span class="brand-badge">OBS STUDIO OVERLAY</span>
+      <div>
+        <h1 class="brand-title">МОДУЛЬНЫЕ ПЛАШКИ ДЛЯ ДРИФТ-СТРИМА</h1>
+        <p class="brand-sub">Assetto Corsa Pro Drift • Каждая плашка настраивается отдельно со своей ссылкой для Browser Source</p>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <!-- Theme Switcher -->
+      <div class="theme-selector">
+        <button class="theme-btn active" onclick="setMasterTheme('carbon', this)">⚡ Stealth Carbon</button>
+        <button class="theme-btn" onclick="setMasterTheme('rds', this)">🏆 RDS Pro Gold</button>
+        <button class="theme-btn" onclick="setMasterTheme('neon', this)">🚀 Cyber Neon</button>
+      </div>
+
+      <!-- View switcher -->
+      <button class="mode-tab-btn active" id="btnViewStage" onclick="switchView('stage')">📺 Общий вид стрима (1080p)</button>
+      <button class="mode-tab-btn" id="btnViewGrid" onclick="switchView('grid')">🧩 Каталог плашек и настройки</button>
+    </div>
+  </header>
+
+  <main class="main-content">
+
+    <!-- CONCEPT INTRO BANNER -->
+    <div class="concept-hero-card">
+      <div class="concept-hero-text">
+        <h2>🛠️ Концепция: Полная свобода настройки для стримера</h2>
+        <p>Каждую плашку можно использовать <b>по отдельности</b> (независимый Browser Source в OBS с точным позиционированием мышкой) либо <b>вместе</b> в одном готовом оверлее. Все плашки берут актуальные данные прямо из сетки заездов!</p>
+      </div>
+      <div class="concept-features-list">
+        <div class="concept-feat-badge">🎯 <span>0 мс задержки</span> синхронизации</div>
+        <div class="concept-feat-badge">📐 <span>Любая позиция</span> (Top, Bottom, HUD)</div>
+        <div class="concept-feat-badge">🔍 <span>Масштабирование</span> (75% — 125%)</div>
+        <div class="concept-feat-badge">🎨 <span>3 стиля графики</span> на выбор</div>
+      </div>
+    </div>
+
+    <!-- VIEW 1: VIRTUAL 1920x1080 STREAM STAGE PREVIEW -->
+    <section class="stream-stage-wrapper" id="sectionStreamStage">
+      <div class="stream-stage-topbar">
+        <div class="stage-title">
+          <span class="stage-live-dot"></span>
+          <span>ОКНО СТРИМА OBS STUDIO (1920 x 1080) — ИНТЕРАКТИВНЫЙ ПРЕДПРОСМОТР</span>
+        </div>
+        <div>💡 Кликайте переключатели ниже, чтобы проверить отображение нужных плашек на экране</div>
+      </div>
+
+      <div class="obs-canvas-scaler" id="obsCanvasScaler">
+        <div class="obs-canvas-1080" id="obsCanvas1080">
+          <!-- Realistic Background Track Environment -->
+          <div class="mock-smoke-trail"></div>
+          <div class="mock-drift-car-lead">
+            <span>🔴 ЛИДЕР (#29)</span>
+            <span style="font-size:10px; opacity:0.7;">FORD MUSTANG</span>
+          </div>
+          <div class="mock-drift-car-chase">
+            <span>🔵 ЧЕЙЗЕР (#22)</span>
+            <span style="font-size:10px; opacity:0.7;">BMW E91</span>
+          </div>
+
+          <!-- 1. BATTLE BAR WIDGET -->
+          <div class="carbon-base widget-battle-bar" id="liveWidgetBattle">
+            <div class="battle-bar-inner">
+              <div class="battle-stage-tag">
+                <span class="battle-live-pill">🔴 В ЭФИРЕ</span>
+                <span class="battle-hit-title">ХИТ #4 • ТОП-16 (RUN 1/2)</span>
+              </div>
+
+              <!-- Lead -->
+              <div class="pilot-half lead">
+                <div class="pilot-details">
+                  <span class="p-name">МАРК ХОРОШИЙ</span>
+                  <span class="p-car">FORD MUSTANG S550 RTR</span>
+                </div>
+                <div class="p-seed-badge lead">
+                  <span>#9</span>
+                  <span class="p-score-sub">91.5 б.</span>
+                </div>
+              </div>
+
+              <!-- Center VS -->
+              <div class="vs-emblem">⚡ VS ⚡</div>
+
+              <!-- Chase -->
+              <div class="pilot-half chase">
+                <div class="p-seed-badge chase">
+                  <span>#24</span>
+                  <span class="p-score-sub">77.0 б.</span>
+                </div>
+                <div class="pilot-details">
+                  <span class="p-name">ВЛАД ТРОФИМОВ</span>
+                  <span class="p-car">BMW E91 TOURING V8</span>
+                </div>
+              </div>
+
+              <!-- Judges -->
+              <div class="judges-votes-cluster">
+                <span class="j-vote-chip lead">С1: L</span>
+                <span class="j-vote-chip omt">С2: OMT</span>
+                <span class="j-vote-chip lead">С3: L</span>
+                <span class="verdict-tag">LEAD ADVANTAGE</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. QUALI RUN WIDGET (Hidden by default in battle preview, toggleable) -->
+          <div class="carbon-base widget-quali-run" id="liveWidgetQuali" style="display:none;">
+            <div class="quali-run-inner">
+              <div class="q-pilot-info">
+                <span class="q-seed-pill">#29</span>
+                <div>
+                  <span class="p-name">ИВАН САМАРИН</span>
+                  <div class="p-car">FORD MUSTANG RTR • DRIFT BANDA</div>
+                </div>
+                <span class="q-run-attempt-badge">ПОПЫТКА #2</span>
+              </div>
+
+              <div class="q-scores-breakdown">
+                <div class="q-crit-box">
+                  <span class="q-crit-label">Линия (0-40)</span>
+                  <span class="q-crit-val">38.5</span>
+                </div>
+                <div class="q-crit-box">
+                  <span class="q-crit-label">Угол (0-30)</span>
+                  <span class="q-crit-val">29.0</span>
+                </div>
+                <div class="q-crit-box">
+                  <span class="q-crit-label">Стиль (0-30)</span>
+                  <span class="q-crit-val">28.5</span>
+                </div>
+                <div class="q-total-box">
+                  <span class="q-total-label">ИТОГО БАЛЛОВ</span>
+                  <span class="q-total-val">96.0</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. CLIPPING ZONES WIDGET -->
+          <div class="carbon-base widget-zones" id="liveWidgetZones">
+            <span class="zone-chip done">✓ OZ1 (98%)</span>
+            <span class="zone-chip done">✓ IC1 (TOUCH)</span>
+            <span class="zone-chip active">⚡ OZ2 (АКТИВНА)</span>
+            <span class="zone-chip pending">OZ3 (ФИНИШ)</span>
+          </div>
+
+          <!-- 4. SIDEBAR TOWER (LEADERBOARD) -->
+          <div class="carbon-base widget-tower" id="liveWidgetTower">
+            <div class="tower-header">
+              <span class="tower-title">🏆 ТОП-16 • СЕТКА ХИТОВ</span>
+              <span class="tower-sub">4/8 ПАР</span>
+            </div>
+            <div class="tower-row">
+              <span class="t-rank">#1</span>
+              <span class="t-name">Самарин ⚔ Неделчев</span>
+              <span class="t-score">100%</span>
+            </div>
+            <div class="tower-row">
+              <span class="t-rank">#2</span>
+              <span class="t-name">Козлов ⚔ Безуглов</span>
+              <span class="t-score">100%</span>
+            </div>
+            <div class="tower-row">
+              <span class="t-rank">#3</span>
+              <span class="t-name">Никитин ⚔ Нешадим</span>
+              <span class="t-score">100%</span>
+            </div>
+            <div class="tower-row live-active">
+              <span class="t-rank">#4</span>
+              <span class="t-name">Хороший ⚔ Трофимов</span>
+              <span class="t-status-live">● LIVE</span>
+            </div>
+            <div class="tower-row">
+              <span class="t-rank">#5</span>
+              <span class="t-name">Истратий ⚔ Адамович</span>
+              <span class="tower-sub">СКОРО</span>
+            </div>
+            <div class="tower-row">
+              <span class="t-rank">#6</span>
+              <span class="t-name">Контиевский ⚔ Бушев</span>
+              <span class="tower-sub">СКОРО</span>
+            </div>
+          </div>
+
+          <!-- 5. DRIFT TELEMETRY CLUSTER -->
+          <div class="carbon-base widget-telemetry" id="liveWidgetTelemetry">
+            <div class="telemetry-grid">
+              <div class="telem-dial">
+                <span class="telem-label">Скорость авто</span>
+                <div class="telem-num-box">
+                  <span class="telem-val" id="telemSpeedVal">128</span>
+                  <span class="telem-unit">КМ/Ч</span>
+                </div>
+                <div class="telem-bar-track">
+                  <div class="telem-bar-fill speed"></div>
+                </div>
+              </div>
+
+              <div class="telem-dial">
+                <span class="telem-label">Угол заноса</span>
+                <div class="telem-num-box">
+                  <span class="telem-val" id="telemAngleVal">61°</span>
+                  <span class="telem-unit">ANGLE</span>
+                </div>
+                <div class="telem-bar-track">
+                  <div class="telem-bar-fill angle"></div>
+                </div>
+              </div>
+
+              <div class="pedals-row">
+                <div class="pedal-bar-item">
+                  <span>ТОРМОЗ</span>
+                  <div class="pedal-track"><div class="pedal-fill brake"></div></div>
+                </div>
+                <div class="pedal-bar-item">
+                  <span>ГАЗ</span>
+                  <div class="pedal-track"><div class="pedal-fill throttle"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. UP NEXT TIE-IN -->
+          <div class="carbon-base widget-up-next" id="liveWidgetNext">
+            <div class="next-badge">СЛЕДУЮЩИЙ ЗАЕЗД • ХИТ #5</div>
+            <div class="next-pair-title">ИСТРАТИЙ ⚔ АДАМОВИЧ</div>
+            <div class="next-cars-sub">NISSAN SILVIA S15 ⚡ MERCEDES E63</div>
+            <span class="next-timer">⏱️ Выезд на трассу через 01:20</span>
+          </div>
+
+          <!-- 7. LOWER THIRD STREAM TICKER -->
+          <div class="widget-ticker" id="liveWidgetTicker">
+            <div class="ticker-brand">⚡ DRIFT BANDA CUP</div>
+            <div class="ticker-marquee">
+              <div class="ticker-item">🌐 САЙТ: <span>ГАЗДЕРЖИМ.РФ</span></div>
+              <div class="ticker-item">📺 СТРИМ: <span>TWITCH.TV/SERGEYPRIMO</span></div>
+              <div class="ticker-item">💬 VK: <span>VK.COM/DRIFTBANDA</span></div>
+              <div class="ticker-item">🏆 ФОРМАТ: <span>ASSETTO CORSA PRO RDS RULES</span></div>
+              <div class="ticker-item">⭐ ГОЛОСУЙ ЗА ПИЛОТА ДНЯ В ЧАТЕ СТРИМА!</div>
+            </div>
+          </div>
+
+          <!-- 8. JUDGES DECISION / OMT MODAL (Hidden by default, toggleable) -->
+          <div class="carbon-base widget-decision-alert" id="liveWidgetDecision" style="display:none;">
+            <div class="decision-inner">
+              <span class="decision-badge-top">⚡ ВЕРДИКТ СУДЕЙСТВА ⚡</span>
+              <div class="decision-main-title">ONE MORE TIME (OMT)</div>
+              <div class="decision-sub-line">
+                <span>С1: OMT</span> • <span>С2: LEAD</span> • <span>С3: OMT</span>
+                <span style="color:#f59e0b; margin-left:8px;">ПЕРЕЗАЕЗД ПАРЫ #4</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 2: MODULAR PLATES CATALOG & INDEPENDENT CONTROLS -->
+    <section id="sectionPlatesCatalog">
+      <div style="margin-bottom:20px;">
+        <h2 style="font-size:20px; font-weight:800; color:#fff;">🧩 8 Автономных плашек (настройка каждой по отдельности)</h2>
+        <p style="font-size:13px; color:#94a3b8; margin-top:4px;">Выбирайте расположение, масштаб и опции для любой плашки. Каждую плашку можно скопировать как отдельный URL для источника «Браузер» в OBS.</p>
+      </div>
+
+      <div class="plates-config-grid">
+
+        <!-- CARD 1: BATTLE BAR -->
+        <div class="plate-card-wrapper">
+          <div class="plate-header-row">
+            <div class="plate-title-group">
+              <span class="plate-icon">⚔️</span>
+              <div>
+                <div class="plate-name">1. Батл-Бар (Парный заезд)</div>
+                <div style="font-size:11px; color:#94a3b8;">Лидер vs Чейзер, баллы, авто, судьи и статус</div>
+              </div>
+            </div>
+            <span class="plate-obs-type">1920x200 или 1400x120</span>
+          </div>
+
+          <div class="plate-preview-box">
+            <div class="carbon-base" style="width:100%; max-width:680px; transform:skewX(-8deg); padding:10px 16px;">
+              <div style="transform:skewX(8deg); display:flex; align-items:center; justify-content:space-between; gap:10px;">
+                <div style="text-align:right;">
+                  <div style="font-weight:900; font-size:13px; color:#fff;">МАРК ХОРОШИЙ</div>
+                  <div style="font-size:10px; color:#94a3b8;">MUSTANG S550</div>
+                </div>
+                <div style="background:#0284c7; color:#fff; font-size:11px; font-weight:900; padding:3px 8px; border-radius:4px;">#9 (91.5)</div>
+                <div style="color:#f59e0b; font-weight:900; font-size:12px;">VS</div>
+                <div style="background:#be123c; color:#fff; font-size:11px; font-weight:900; padding:3px 8px; border-radius:4px;">#24 (77.0)</div>
+                <div style="text-align:left;">
+                  <div style="font-weight:900; font-size:13px; color:#fff;">ВЛАД ТРОФИМОВ</div>
+                  <div style="font-size:10px; color:#94a3b8;">BMW E91 V8</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="plate-controls-panel">
+            <div class="control-row">
+              <span class="control-label">📍 Позиция в OBS:</span>
+              <div class="control-options">
+                <button class="opt-chip active" onclick="setPlatePos('battle', 'top', this)">Вверху</button>
+                <button class="opt-chip" onclick="setPlatePos('battle', 'bottom', this)">Внизу</button>
+                <button class="opt-chip" onclick="setPlatePos('battle', 'center', this)">По центру</button>
+              </div>
+            </div>
+
+            <div class="control-row">
+              <span class="control-label">🔍 Масштаб (Scale):</span>
+              <div class="control-options">
+                <button class="opt-chip" onclick="setPlateScale('battle', 75, this)">75%</button>
+                <button class="opt-chip" onclick="setPlateScale('battle', 85, this)">85%</button>
+                <button class="opt-chip active" onclick="setPlateScale('battle', 100, this)">100%</button>
+                <button class="opt-chip" onclick="setPlateScale('battle', 115, this)">115%</button>
+              </div>
+            </div>
+
+            <div class="control-row">
+              <label class="toggle-switch-label">
+                <input type="checkbox" id="checkBattleVisible" checked onchange="togglePlateVisibility('battle', this.checked)">
+                <span>Отображать на стриме</span>
+              </label>
+              <label class="toggle-switch-label">
+                <input type="checkbox" checked onchange="toggleBattleJudges(this.checked)">
+                <span>Судейские оценки</span>
+              </label>
+            </div>
+
+            <div class="obs-url-box">
+              <span class="obs-url-text" id="urlBattle">https://sergeyprimo.github.io/top32/plate_battle.html?pos=top&amp;scale=100</span>
+              <button class="copy-url-btn" onclick="copyObsUrl('urlBattle', 'Батл-бар')">📋 Копировать</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 2: QUALI RUN -->
+        <div class="plate-card-wrapper">
+          <div class="plate-header-row">
+            <div class="plate-title-group">
+              <span class="plate-icon">🎯</span>
+              <div>
+                <div class="plate-name">2. Плашка Квалификации (Одиночный заезд)</div>
+                <div style="font-size:11px; color:#94a3b8;">Попытка 1/2, баллы по секторам, итоговый результат</div>
+              </div>
+            </div>
+            <span class="plate-obs-type">1920x180 или 1280x120</span>
+          </div>
+
+          <div class="plate-preview-box">
+            <div class="carbon-base" style="width:100%; max-width:680px; transform:skewX(-8deg); padding:10px 16px;">
+              <div style="transform:skewX(8deg); display:flex; align-items:center; justify-content:space-between; gap:10px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <span style="background:#f59e0b; color:#000; font-weight:900; font-size:12px; padding:2px 8px; border-radius:4px;">#29</span>
+                  <div style="font-weight:900; font-size:13px; color:#fff;">ИВАН САМАРИН</div>
+                </div>
+                <div style="display:flex; gap:10px; font-size:11px; font-family:'JetBrains Mono';">
+                  <span>ЛИНИЯ: <b>38.5</b></span>
+                  <span>УГОЛ: <b>29.0</b></span>
+                  <span>СТИЛЬ: <b>28.5</b></span>
+                </div>
+                <div style="background:#059669; color:#fff; font-weight:900; font-size:16px; padding:3px 12px; border-radius:4px;">96.0 Б</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="plate-controls-panel">
+            <div class="control-row">
+              <span class="control-label">📍 Позиция в OBS:</span>
+              <div class="control-options">
+                <button class="opt-chip" onclick="setPlatePos('quali', 'top', this)">Вверху</button>
+                <button class="opt-chip active" onclick="setPlatePos('quali', 'bottom', this)">Внизу</button>
+              </div>
+            </div>
+
+            <div class="control-row">
+              <span class="control-label">🔍 Масштаб (Scale):</span>
+              <div class="control-options">
+                <button class="opt-chip" onclick="setPlateScale('quali', 85, this)">85%</button>
+                <button class="opt-chip active" onclick="setPlateScale('quali', 100, this)">100%</button>
+                <button class="opt-chip" onclick="setPlateScale('quali', 115, this)">115%</button>
+              </div>
+            </div>
+
+            <div class="control-row">
+              <label class="toggle-switch-label">
+                <input type="checkbox" id="checkQualiVisible" onchange="togglePlateVisibility('quali', this.checked)">
+                <span>Отображать на стриме (вместо батла)</span>
+              </label>
+            </div>
+
+            <div class="obs-url-box">
+              <span class="obs-url-text" id="urlQuali">https://sergeyprimo.github.io/top32/plate_quali.html?pos=bottom&amp;scale=100</span>
+              <button class="copy-url-btn" onclick="copyObsUrl('urlQuali', 'Плашка квалификации')">📋 Копировать</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 3: LEADERBOARD TOWER -->
+        <div class="plate-card-wrapper">
+          <div class="plate-header-row">
+            <div class="plate-title-group">
+              <span class="plate-icon">🏆</span>
+              <div>
+                <div class="plate-name">3. Боковая башня сетки (Sidebar Tower)</div>
+                <div style="font-size:11px; color:#94a3b8;">Список пар стадии, ТОП-8 квалификации или сетка</div>
+              </div>
+            </div>
+            <span class="plate-obs-type">320x600 px</span>
+          </div>
+
+          <div class="plate-preview-box">
+            <div class="carbon-base" style="width:260px;">
+              <div style="background:#0f172a; padding:6px 10px; font-size:10px; font-weight:800; color:#38bdf8;">🏆 ТОП-16 • СЕТКА</div>
+              <div style="padding:6px 10px; font-size:11px; display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.05);">
+                <span>#1 Самарин ⚔ Неделчев</span><span style="color:#10b981;">✓</span>
+              </div>
+              <div style="padding:6px 10px; font-size:11px; display:flex; justify-content:space-between; background:rgba(245,158,11,0.15); border-left:3px solid #f59e0b;">
+                <span>#4 Хороший ⚔ Трофимов</span><span style="color:#ef4444; font-weight:900;">● LIVE</span>
+              </div>
+              <div style="padding:6px 10px; font-size:11px; display:flex; justify-content:space-between;">
+                <span>#5 Истратий ⚔ Адамович</span><span style="color:#64748b;">WAIT</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="plate-controls-panel">
+            <div class="control-row">
+              <span class="control-label">📍 Расположение:</span>
+              <div class="control-options">
+                <button class="opt-chip active" onclick="setTowerSide('left', this)">Слева</button>
+                <button class="opt-chip" onclick="setTowerSide('right', this)">Справа</button>
+              </div>
+            </div>
+
+            <div class="control-row">
+              <span class="control-label">📊 Количество строк:</span>
+              <div class="control-options">
+                <button class="opt-chip" onclick="setTowerRows(4, this)">4 пары</button>
+                <button class="opt-chip active" onclick="setTowerRows(6, this)">6 пар</button>
+                <button class="opt-chip" onclick="setTowerRows(8, this)">8 пар</button>
+              </div>
+            </div>
+
+            <div class="control-row">
+              <label class="toggle-switch-label">
+                <input type="checkbox" id="checkTowerVisible" checked onchange="togglePlateVisibility('tower', this.checked)">
+                <span>Отображать башню на стриме</span>
+              </label>
+            </div>
+
+            <div class="obs-url-box">
+              <span class="obs-url-text" id="urlTower">https://sergeyprimo.github.io/top32/plate_tower.html?side=left&amp;rows=6</span>
+              <button class="copy-url-btn" onclick="copyObsUrl('urlTower', 'Башня сетки')">📋 Копировать</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 4: DRIFT TELEMETRY -->
+        <div class="plate-card-wrapper">
+          <div class="plate-header-row">
+            <div class="plate-title-group">
+              <span class="plate-icon">📐</span>
+              <div>
+                <div class="plate-name">4. Дрифт-Телеметрия (HUD Cluster)</div>
+                <div style="font-size:11px; color:#94a3b8;">Угол заноса (°), скорость (км/ч), шкалы газа и тормоза</div>
+              </div>
+            </div>
+            <span class="plate-obs-type">360x160 px</span>
+          </div>
+
+          <div class="plate-preview-box">
+            <div class="carbon-base" style="width:300px; padding:12px;">
+              <div style="display:flex; justify-content:space-between; align-items:baseline;">
+                <div><span style="font-size:9px; color:#94a3b8;">СКОРОСТЬ</span> <div style="font-size:24px; font-weight:900; color:#fff;">128 <span style="font-size:11px; color:#38bdf8;">КМ/Ч</span></div></div>
+                <div><span style="font-size:9px; color:#94a3b8;">УГОЛ ЗАНОСА</span> <div style="font-size:24px; font-weight:900; color:#fbbf24;">61°</div></div>
+              </div>
+              <div style="display:flex; gap:8px; margin-top:8px;">
+                <div style="flex:1; height:6px; background:rgba(255,255,255,0.1); border-radius:3px; overflow:hidden;"><div style="width:80%; height:100%; background:#10b981;"></div></div>
+                <div style="flex:1; height:6px; background:rgba(255,255,255,0.1); border-radius:3px; overflow:hidden;"><div style="width:30%; height:100%; background:#ef4444;"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="plate-controls-panel">
+            <div class="control-row">
+              <span class="control-label">📍 Угол экрана:</span>
+              <div class="control-options">
+                <button class="opt-chip active" onclick="setTelemetrySide('left', this)">Слева внизу</button>
+                <button class="opt-chip" onclick="setTelemetrySide('right', this)">Справа внизу</button>
+              </div>
+            </div>
+
+            <div class="control-row">
+              <label class="toggle-switch-label">
+                <input type="checkbox" id="checkTelemVisible" checked onchange="togglePlateVisibility('telemetry', this.checked)">
+                <span>Отображать телеметрию на стриме</span>
+              </label>
+            </div>
+
+            <div class="obs-url-box">
+              <span class="obs-url-text" id="urlTelemetry">https://sergeyprimo.github.io/top32/plate_telemetry.html?pos=bottom-left</span>
+              <button class="copy-url-btn" onclick="copyObsUrl('urlTelemetry', 'Телеметрия')">📋 Копировать</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 5: CLIPPING ZONES -->
+        <div class="plate-card-wrapper">
+          <div class="plate-header-row">
+            <div class="plate-title-group">
+              <span class="plate-icon">🏁</span>
+              <div>
+                <div class="plate-name">5. Клиппинг-Зоны (Outside & Inside Zones)</div>
+                <div style="font-size:11px; color:#94a3b8;">Индикаторы взятия траекторных зон OZ1, OZ2, IC1</div>
+              </div>
+            </div>
+            <span class="plate-obs-type">500x50 px</span>
+          </div>
+
+          <div class="plate-preview-box">
+            <div class="carbon-base" style="display:flex; gap:6px; padding:6px 12px; transform:skewX(-8deg);">
+              <span class="zone-chip done" style="transform:skewX(8deg);">✓ OZ1</span>
+              <span class="zone-chip done" style="transform:skewX(8deg);">✓ IC1</span>
+              <span class="zone-chip active" style="transform:skewX(8deg);">⚡ OZ2</span>
+              <span class="zone-chip pending" style="transform:skewX(8deg);">OZ3</span>
+            </div>
+          </div>
+
+          <div class="plate-controls-panel">
+            <div class="control-row">
+              <span class="control-label">📍 Положение:</span>
+              <div class="control-options">
+                <button class="opt-chip active">Под батл-баром</button>
+                <button class="opt-chip">Внизу по центру</button>
+              </div>
+            </div>
+
+            <div class="control-row">
+              <label class="toggle-switch-label">
+                <input type="checkbox" id="checkZonesVisible" checked onchange="togglePlateVisibility('zones', this.checked)">
+                <span>Отображать клиппинг-зоны</span>
+              </label>
+            </div>
+
+            <div class="obs-url-box">
+              <span class="obs-url-text" id="urlZones">https://sergeyprimo.github.io/top32/plate_zones.html?pos=top</span>
+              <button class="copy-url-btn" onclick="copyObsUrl('urlZones', 'Клиппинг-зоны')">📋 Копировать</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 6: JUDGES DECISION / OMT ALERT -->
+        <div class="plate-card-wrapper">
+          <div class="plate-header-row">
+            <div class="plate-title-group">
+              <span class="plate-icon">⚖️</span>
+              <div>
+                <div class="plate-name">6. Судейский Вердикт &amp; One More Time</div>
+                <div style="font-size:11px; color:#94a3b8;">Эффектная анимация победителя или перезаезда (OMT)</div>
+              </div>
+            </div>
+            <span class="plate-obs-type">По центру экрана (Alert)</span>
+          </div>
+
+          <div class="plate-preview-box">
+            <div class="carbon-base" style="width:360px; padding:12px 18px; text-align:center; border-left:5px solid #f59e0b;">
+              <span style="background:#f59e0b; color:#000; font-size:10px; font-weight:900; padding:2px 8px; border-radius:3px;">⚡ ВЕРДИКТ ⚡</span>
+              <div style="font-size:18px; font-weight:900; color:#fff; margin-top:4px;">ONE MORE TIME (OMT)</div>
+              <div style="font-size:11px; color:#cbd5e1; margin-top:2px;">С1: OMT • С2: LEAD • С3: OMT</div>
+            </div>
+          </div>
+
+          <div class="plate-controls-panel">
+            <div class="control-row">
+              <span class="control-label">⏱️ Время авто-скрытия:</span>
+              <div class="control-options">
+                <button class="opt-chip" onclick="setOmtDuration(3, this)">3 сек</button>
+                <button class="opt-chip active" onclick="setOmtDuration(5, this)">5 сек</button>
+                <button class="opt-chip" onclick="setOmtDuration(8, this)">8 сек</button>
+                <button class="opt-chip" onclick="setOmtDuration(0, this)">Постоянно</button>
+              </div>
+            </div>
+
+            <div class="control-row">
+              <button class="mode-tab-btn" style="padding:6px 12px; font-size:11px;" onclick="triggerTestDecision()">💥 Протестировать анимацию (5 сек)</button>
+            </div>
+
+            <div class="obs-url-box">
+              <span class="obs-url-text" id="urlDecision">https://sergeyprimo.github.io/top32/plate_decision.html?duration=5</span>
+              <button class="copy-url-btn" onclick="copyObsUrl('urlDecision', 'Судейский вердикт')">📋 Копировать</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 7: UP NEXT -->
+        <div class="plate-card-wrapper">
+          <div class="plate-header-row">
+            <div class="plate-title-group">
+              <span class="plate-icon">⏳</span>
+              <div>
+                <div class="plate-name">7. Тизер «Следующий заезд» (Up Next)</div>
+                <div style="font-size:11px; color:#94a3b8;">Показывает готовящуюся пару в паузах между заездами</div>
+              </div>
+            </div>
+            <span class="plate-obs-type">340x90 px</span>
+          </div>
+
+          <div class="plate-preview-box">
+            <div class="carbon-base" style="width:300px; padding:10px 14px;">
+              <div style="font-size:9px; font-weight:900; color:#f59e0b;">СЛЕДУЮЩИЙ ЗАЕЗД • ХИТ #5</div>
+              <div style="font-size:13px; font-weight:900; color:#fff;">ИСТРАТИЙ ⚔ АДАМОВИЧ</div>
+              <div style="font-size:10px; color:#94a3b8; font-family:'JetBrains Mono';">S15 ⚡ MERCEDES E63</div>
+            </div>
+          </div>
+
+          <div class="plate-controls-panel">
+            <div class="control-row">
+              <label class="toggle-switch-label">
+                <input type="checkbox" id="checkNextVisible" checked onchange="togglePlateVisibility('next', this.checked)">
+                <span>Отображать тизер следующего заезда</span>
+              </label>
+            </div>
+
+            <div class="obs-url-box">
+              <span class="obs-url-text" id="urlNext">https://sergeyprimo.github.io/top32/plate_next.html?pos=bottom-right</span>
+              <button class="copy-url-btn" onclick="copyObsUrl('urlNext', 'Следующий заезд')">📋 Копировать</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 8: TICKER -->
+        <div class="plate-card-wrapper">
+          <div class="plate-header-row">
+            <div class="plate-title-group">
+              <span class="plate-icon">🏷️</span>
+              <div>
+                <div class="plate-name">8. Инфо-тикер / Бегущая строка (Ticker)</div>
+                <div style="font-size:11px; color:#94a3b8;">Спонсоры, сайт ГАЗДЕРЖИМ.РФ, Twitch, VK, анонсы</div>
+              </div>
+            </div>
+            <span class="plate-obs-type">1920x32 px</span>
+          </div>
+
+          <div class="plate-preview-box">
+            <div class="widget-ticker" style="position:relative; width:100%; border-radius:6px;">
+              <span class="ticker-brand">⚡ DRIFT BANDA</span>
+              <span style="font-size:11px; color:#cbd5e1;">🌐 ГАЗДЕРЖИМ.РФ • 📺 TWITCH/SERGEYPRIMO</span>
+            </div>
+          </div>
+
+          <div class="plate-controls-panel">
+            <div class="control-row">
+              <label class="toggle-switch-label">
+                <input type="checkbox" id="checkTickerVisible" checked onchange="togglePlateVisibility('ticker', this.checked)">
+                <span>Отображать бегущую строку внизу</span>
+              </label>
+            </div>
+
+            <div class="obs-url-box">
+              <span class="obs-url-text" id="urlTicker">https://sergeyprimo.github.io/top32/plate_ticker.html?speed=medium</span>
+              <button class="copy-url-btn" onclick="copyObsUrl('urlTicker', 'Бегущая строка')">📋 Копировать</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <div class="toast-pill" id="toastPill">Ссылка скопирована!</div>
+
+  <script>
+    // Responsive Scaler for Virtual OBS Canvas
+    function updateCanvasScaler() {
+      var scaler = document.getElementById('obsCanvasScaler');
+      var canvas = document.getElementById('obsCanvas1080');
+      if (!scaler || !canvas) return;
+      var w = scaler.clientWidth;
+      var scale = w / 1920;
+      canvas.style.transform = 'scale(' + scale + ')';
+    }
+    window.addEventListener('resize', updateCanvasScaler);
+    window.addEventListener('load', updateCanvasScaler);
+    setTimeout(updateCanvasScaler, 100);
+
+    // Switch Views: 1080p Stage vs Grid of Plates
+    function switchView(mode) {
+      var sStage = document.getElementById('sectionStreamStage');
+      var sGrid = document.getElementById('sectionPlatesCatalog');
+      var btnStage = document.getElementById('btnViewStage');
+      var btnGrid = document.getElementById('btnViewGrid');
+
+      if (mode === 'stage') {
+        sStage.style.display = 'block';
+        sGrid.style.display = 'block';
+        sStage.scrollIntoView({ behavior: 'smooth' });
+        btnStage.classList.add('active');
+        btnGrid.classList.remove('active');
+      } else {
+        sGrid.scrollIntoView({ behavior: 'smooth' });
+        btnGrid.classList.add('active');
+        btnStage.classList.remove('active');
+      }
+      setTimeout(updateCanvasScaler, 50);
+    }
+
+    // Set Master Theme
+    function setMasterTheme(theme, btn) {
+      document.body.className = 'theme-' + theme;
+      var btns = document.querySelectorAll('.theme-btn');
+      btns.forEach(function(b) { b.classList.remove('active'); });
+      if (btn) btn.classList.add('active');
+    }
+
+    // Toggle Plate Visibility on Screen
+    function togglePlateVisibility(plateId, isVisible) {
+      var map = {
+        'battle': 'liveWidgetBattle',
+        'quali': 'liveWidgetQuali',
+        'tower': 'liveWidgetTower',
+        'telemetry': 'liveWidgetTelemetry',
+        'zones': 'liveWidgetZones',
+        'next': 'liveWidgetNext',
+        'ticker': 'liveWidgetTicker'
+      };
+      var elId = map[plateId];
+      if (!elId) return;
+      var el = document.getElementById(elId);
+      if (!el) return;
+
+      if (plateId === 'quali' && isVisible) {
+        // Hide battle bar if quali is shown
+        var b = document.getElementById('liveWidgetBattle');
+        if (b) b.style.display = 'none';
+        var cB = document.getElementById('checkBattleVisible');
+        if (cB) cB.checked = false;
+      } else if (plateId === 'battle' && isVisible) {
+        var q = document.getElementById('liveWidgetQuali');
+        if (q) q.style.display = 'none';
+        var cQ = document.getElementById('checkQualiVisible');
+        if (cQ) cQ.checked = false;
+      }
+
+      el.style.display = isVisible ? 'flex' : 'none';
+    }
+
+    // Plate Position Setter
+    function setPlatePos(plate, pos, btn) {
+      var el = (plate === 'battle') ? document.getElementById('liveWidgetBattle') : document.getElementById('liveWidgetQuali');
+      if (!el) return;
+      el.classList.remove('pos-top', 'pos-bottom', 'pos-center');
+      if (pos === 'bottom') el.classList.add('pos-bottom');
+      else if (pos === 'center') el.classList.add('pos-center');
+      else el.classList.add('pos-top');
+
+      // Update button active state
+      if (btn && btn.parentElement) {
+        var siblings = btn.parentElement.querySelectorAll('.opt-chip');
+        siblings.forEach(function(s) { s.classList.remove('active'); });
+        btn.classList.add('active');
+      }
+
+      // Update URL text
+      var urlEl = (plate === 'battle') ? document.getElementById('urlBattle') : document.getElementById('urlQuali');
+      if (urlEl) {
+        urlEl.textContent = 'https://sergeyprimo.github.io/top32/plate_' + plate + '.html?pos=' + pos + '&scale=100';
+      }
+    }
+
+    // Plate Scale Setter
+    function setPlateScale(plate, scale, btn) {
+      var el = (plate === 'battle') ? document.getElementById('liveWidgetBattle') : document.getElementById('liveWidgetQuali');
+      if (!el) return;
+      el.style.transform = (el.classList.contains('pos-bottom') ? '' : '') + 'scale(' + (scale / 100) + ')';
+
+      if (btn && btn.parentElement) {
+        var siblings = btn.parentElement.querySelectorAll('.opt-chip');
+        siblings.forEach(function(s) { s.classList.remove('active'); });
+        btn.classList.add('active');
+      }
+    }
+
+    // Sidebar Tower Side
+    function setTowerSide(side, btn) {
+      var el = document.getElementById('liveWidgetTower');
+      if (!el) return;
+      if (side === 'right') el.classList.add('pos-right');
+      else el.classList.remove('pos-right');
+
+      if (btn && btn.parentElement) {
+        var siblings = btn.parentElement.querySelectorAll('.opt-chip');
+        siblings.forEach(function(s) { s.classList.remove('active'); });
+        btn.classList.add('active');
+      }
+
+      var urlEl = document.getElementById('urlTower');
+      if (urlEl) urlEl.textContent = 'https://sergeyprimo.github.io/top32/plate_tower.html?side=' + side + '&rows=6';
+    }
+
+    function setTowerRows(rows, btn) {
+      if (btn && btn.parentElement) {
+        var siblings = btn.parentElement.querySelectorAll('.opt-chip');
+        siblings.forEach(function(s) { s.classList.remove('active'); });
+        btn.classList.add('active');
+      }
+    }
+
+    // Telemetry Side
+    function setTelemetrySide(side, btn) {
+      var el = document.getElementById('liveWidgetTelemetry');
+      if (!el) return;
+      if (side === 'right') el.classList.add('pos-right');
+      else el.classList.remove('pos-right');
+
+      if (btn && btn.parentElement) {
+        var siblings = btn.parentElement.querySelectorAll('.opt-chip');
+        siblings.forEach(function(s) { s.classList.remove('active'); });
+        btn.classList.add('active');
+      }
+
+      var urlEl = document.getElementById('urlTelemetry');
+      if (urlEl) urlEl.textContent = 'https://sergeyprimo.github.io/top32/plate_telemetry.html?pos=' + (side === 'right' ? 'bottom-right' : 'bottom-left');
+    }
+
+    // Toggle Judges on Battle Bar
+    function toggleBattleJudges(show) {
+      var jEl = document.querySelector('.judges-votes-cluster');
+      if (jEl) jEl.style.display = show ? 'flex' : 'none';
+    }
+
+    // OMT Duration Setter
+    function setOmtDuration(sec, btn) {
+      if (btn && btn.parentElement) {
+        var siblings = btn.parentElement.querySelectorAll('.opt-chip');
+        siblings.forEach(function(s) { s.classList.remove('active'); });
+        btn.classList.add('active');
+      }
+      var urlEl = document.getElementById('urlDecision');
+      if (urlEl) urlEl.textContent = 'https://sergeyprimo.github.io/top32/plate_decision.html?duration=' + sec;
+    }
+
+    // Trigger test decision alert
+    var decisionTimer = null;
+    function triggerTestDecision() {
+      var el = document.getElementById('liveWidgetDecision');
+      if (!el) return;
+      el.style.display = 'flex';
+      if (decisionTimer) clearTimeout(decisionTimer);
+      decisionTimer = setTimeout(function() {
+        el.style.display = 'none';
+      }, 5000);
+    }
+
+    // Copy URL to clipboard
+    function copyObsUrl(elementId, label) {
+      var el = document.getElementById(elementId);
+      if (!el) return;
+      var text = el.textContent || el.innerText;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function() {
+          showToast('Ссылка скопирована: ' + label);
+        });
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast('Ссылка скопирована: ' + label);
+      }
+    }
+
+    function showToast(msg) {
+      var toast = document.getElementById('toastPill');
+      if (!toast) return;
+      toast.textContent = msg;
+      toast.style.display = 'block';
+      setTimeout(function() {
+        toast.style.display = 'none';
+      }, 2500);
+    }
+
+    // Realistic Telemetry Number Fluctuation
+    setInterval(function() {
+      var spEl = document.getElementById('telemSpeedVal');
+      var anEl = document.getElementById('telemAngleVal');
+      if (spEl) {
+        var baseSp = 126;
+        var rSp = baseSp + Math.floor(Math.random() * 7) - 3;
+        spEl.textContent = rSp;
+      }
+      if (anEl) {
+        var baseAn = 60;
+        var rAn = baseAn + Math.floor(Math.random() * 5) - 2;
+        anEl.textContent = rAn + '°';
+      }
+    }, 400);
+  </script>
+</body>
+</html>

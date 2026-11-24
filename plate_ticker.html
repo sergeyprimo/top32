@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OBS Plate: Stream Ticker (Бегущая строка)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: transparent !important;
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      user-select: none;
+    }
+
+    .ticker-bar {
+      width: 100%;
+      height: 34px;
+      background: linear-gradient(90deg, #070a12 0%, #0d121f 50%, #070a12 100%);
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: center;
+      padding: 0 28px;
+      overflow: hidden;
+    }
+
+    .ticker-brand {
+      background: #f59e0b;
+      color: #000;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-right: 20px;
+      flex-shrink: 0;
+      letter-spacing: 0.8px;
+    }
+
+    .ticker-scroll-window {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .ticker-track {
+      display: inline-flex;
+      white-space: nowrap;
+      animation: tickerScroll 24s linear infinite;
+      gap: 48px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #cbd5e1;
+    }
+    .ticker-track.speed-slow { animation-duration: 36s; }
+    .ticker-track.speed-fast { animation-duration: 16s; }
+
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ticker-item span { color: #38bdf8; }
+
+    @keyframes tickerScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ticker-bar">
+    <div class="ticker-brand" id="tickerBrandBadge">⚡ DRIFT BANDA CUP</div>
+    <div class="ticker-scroll-window">
+      <div class="ticker-track" id="tickerTrack">
+        <div class="ticker-item">🌐 САЙТ СОРЕВНОВАНИЙ: <span>ГАЗДЕРЖИМ.РФ</span></div>
+        <div class="ticker-item">📺 ПРЯМАЯ ТРАНСЛЯЦИЯ: <span>TWITCH.TV/SERGEYPRIMO</span></div>
+        <div class="ticker-item">💬 ГРУППА VK: <span>VK.COM/DRIFTBANDA</span></div>
+        <div class="ticker-item">🏆 СУДЕЙСТВО: <span>RDS GP RULES • ТОП-32 ПАРНЫЕ ЗАЕЗДЫ</span></div>
+        <div class="ticker-item">⭐ ГОЛОСУЙ ЗА ПИЛОТА ДНЯ В ЧАТЕ СТРИМА!</div>
+        <!-- Duplicated for seamless infinite loop -->
+        <div class="ticker-item">🌐 САЙТ СОРЕВНОВАНИЙ: <span>ГАЗДЕРЖИМ.РФ</span></div>
+        <div class="ticker-item">📺 ПРЯМАЯ ТРАНСЛЯЦИЯ: <span>TWITCH.TV/SERGEYPRIMO</span></div>
+        <div class="ticker-item">💬 ГРУППА VK: <span>VK.COM/DRIFTBANDA</span></div>
+        <div class="ticker-item">🏆 СУДЕЙСТВО: <span>RDS GP RULES • ТОП-32 ПАРНЫЕ ЗАЕЗДЫ</span></div>
+        <div class="ticker-item">⭐ ГОЛОСУЙ ЗА ПИЛОТА ДНЯ В ЧАТЕ СТРИМА!</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var params = new URLSearchParams(window.location.search);
+    var pSpeed = params.get('speed') || 'medium';
+    var track = document.getElementById('tickerTrack');
+    if (pSpeed === 'slow') track.classList.add('speed-slow');
+    else if (pSpeed === 'fast') track.classList.add('speed-fast');
+
+    // Optional director override for ticker text
+    function pollDirector() {
+      fetch('top32.json?nocache=' + Date.now(), { cache: 'no-store' })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (data && data.obs_director && data.obs_director.overlayTitle) {
+            document.getElementById('tickerBrandBadge').textContent = '⚡ ' + data.obs_director.overlayTitle.toUpperCase();
+          }
+        })
+        .catch(function() {});
+    }
+    pollDirector();
+  </script>
+</body>
+</html>
