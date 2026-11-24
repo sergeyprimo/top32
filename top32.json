@@ -11,7 +11,7 @@
   "stage": "quali",
   "active_battle_id": 5,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795554354206,
+  "last_updated": 1795554376443,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -25,14 +25,15 @@
       "group": "",
       "car": "db_ft_ford_mustang_rtr_samarin",
       "number": "—",
-      "run1": 0,
+      "run1": 52,
       "run2": 0,
-      "best": 0,
+      "best": 52,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 0,
-      "single_best": 0,
-      "worse": 0
+      "total": 52,
+      "single_best": 52,
+      "worse": 0,
+      "_local_edit_time": 1795554375841
     },
     {
       "rank": 2,
@@ -1584,9 +1585,9 @@
         "name": "Иван Самарин",
         "car": "db_ft_ford_mustang_rtr_samarin",
         "number": "1",
-        "quali_score": 99,
+        "quali_score": 52,
         "is_placeholder": false,
-        "best": 99
+        "best": 52
       },
       "chase": {
         "seed": 32,
@@ -2243,9 +2244,9 @@
         "name": "Иван Самарин",
         "car": "db_ft_ford_mustang_rtr_samarin",
         "number": "1",
-        "quali_score": 99,
+        "quali_score": 52,
         "is_placeholder": false,
-        "best": 99
+        "best": 52
       },
       "chase": {
         "seed": 16,
