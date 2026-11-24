@@ -2492,12 +2492,59 @@ body.obs-mode-hero #top32Container {
 
 body.obs-mode-hero .top32-header,
 body.obs-mode-hero .stage-nav,
-body.obs-mode-hero .top32-bracket-view,
-body.obs-mode-hero .top32-tree-container,
+body.obs-mode-hero .stream-broadcast-banner,
+body.obs-mode-hero .bracket-content,
+body.obs-mode-hero #bracketContent,
+body.obs-mode-hero .bracket-tree-view,
+body.obs-mode-hero #bracketTreeView,
 body.obs-mode-hero .top32-quali-container,
+body.obs-mode-hero #qualiContent,
 body.obs-mode-hero .top32-footer,
 body.obs-mode-hero .top32-brand-watermark {
   display: none !important;
+}
+
+/* Spectator Web View: Header and Nav ALWAYS visible, Live Hero Banner never overlaps columns */
+body:not(.is-obs) .top32-header,
+body.is-browser .top32-header {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+body:not(.is-obs) .stage-nav,
+body.is-browser .stage-nav {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+body:not(.is-obs) #top32Container,
+body.is-browser #top32Container {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+body:not(.is-obs) #liveHeroBanner,
+body.is-browser #liveHeroBanner {
+  position: relative !important;
+  top: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+  right: auto !important;
+  transform: skewX(-10deg) !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  margin: 0 0 14px 0 !important;
+  z-index: 10 !important;
+}
+
+@media (max-width: 900px) {
+  body:not(.is-obs) #liveHeroBanner,
+  body.is-browser #liveHeroBanner {
+    transform: none !important;
+  }
 }
 
 /* Hero Matchup Overlay hidden in obs-mode-hidden */
@@ -4732,26 +4779,46 @@ if (!window.AC_TOP32_DATA) {
       if (e) e.stopPropagation();
       var banner = document.getElementById('liveHeroBanner');
       if (banner) banner.style.setProperty('display', 'none', 'important');
-      try { sessionStorage.setItem('dismissedLiveHero', '1'); } catch(err) {}
+      try {
+        sessionStorage.setItem('dismissedLiveHero', '1');
+        if (currentData && currentData.active_battle_id) {
+          sessionStorage.setItem('dismissedLiveHeroId', String(currentData.active_battle_id));
+        }
+      } catch(err) {}
     }
 
     // Renders the Live Hero Banner (СЕЙЧАС НА ТРАССЕ)
     function renderLiveHeroBanner(liveBattle, stageName) {
       var banner = document.getElementById('liveHeroBanner');
       if (!banner) return;
+      var isObs = typeof checkIsObsMode === 'function' ? checkIsObsMode() : ((window.obsStudio !== undefined) || (params.get('obs') === '1'));
 
-      // In standard tournament interface (grid, tree, quali, and regular web browsing),
-      // keep it completely hidden so it never overlaps or covers the header, tabs, buttons, or pilot lists!
-      // In Match-Center mode: show hero banner on all battle stages!
+      // In standard tournament interface (quali, tree), keep it hidden
       if (currentStage === 'quali' || isTreeView) {
         banner.style.setProperty('display', 'none', 'important');
         return;
       }
 
+      // Check if spectator dismissed this live battle
+      if (!isObs) {
+        try {
+          var dId = sessionStorage.getItem('dismissedLiveHeroId');
+          var curId = liveBattle ? String(liveBattle.id) : (currentData ? String(currentData.active_battle_id) : '');
+          if (dId && curId && dId === curId) {
+            banner.style.setProperty('display', 'none', 'important');
+            return;
+          }
+        } catch(err) {}
+      }
+
       if (!liveBattle) {
-        banner.style.setProperty('display', 'flex', 'important');
-        var pFb = document.getElementById('heroLivePill');
-        if (pFb) pFb.textContent = '🏁 ОЖИДАНИЕ ЗАЕЗДА';
+        if (isObs) {
+          banner.style.setProperty('display', 'flex', 'important');
+          var pFb = document.getElementById('heroLivePill');
+          if (pFb) pFb.textContent = '🏁 ОЖИДАНИЕ ЗАЕЗДА';
+        } else {
+          banner.style.setProperty('display', 'none', 'important');
+        }
         return;
       }
       banner.style.setProperty('display', 'flex', 'important');
@@ -6035,9 +6102,20 @@ if (!window.AC_TOP32_DATA) {
       toggleTreeView();
     }
 
+    function checkIsObsMode() {
+      if (typeof window !== 'undefined' && window.obsStudio !== undefined) return true;
+      var p = new URLSearchParams(window.location.search);
+      return (
+        p.get('obs') === '1' ||
+        p.get('clean') === '1' ||
+        p.get('mode') !== null ||
+        p.get('hero') === '1'
+      );
+    }
+
     // Detect mode: OBS Studio (fixed 1920x1080) or Standard Web Browser (responsive & scrollable)
     function initDisplayMode() {
-      var isObs = (window.obsStudio !== undefined) || (params.get('obs') === '1');
+      var isObs = checkIsObsMode();
       if (isObs) {
         document.body.classList.add('is-obs');
         document.body.classList.remove('is-browser');
@@ -6474,10 +6552,65 @@ if (!window.AC_TOP32_DATA) {
 
     function applyDirectorState(state) {
       if (!state) return;
-      var isObs = (window.obsStudio !== undefined) || (params.get('obs') === '1');
-      if (!isObs && (params.get('view') === 'tree' || params.get('stage'))) {
-        return; // Preserve spectator manual URL view/stage
+      var isObs = typeof checkIsObsMode === 'function' ? checkIsObsMode() : ((window.obsStudio !== undefined) || (params.get('obs') === '1'));
+
+      if (!isObs) {
+        // SPECTATOR WEB BROWSER MODE:
+        // Spectators are browsing the tournament bracket on mobile/desktop.
+        // We MUST NOT turn the page into an OBS stream overlay (no transparent background,
+        // no hidden headers, no fixed floating banners overlapping columns, no blackout hidden mode).
+        document.body.classList.remove(
+          'obs-mode-hero', 'obs-mode-tree', 'obs-mode-quali', 'obs-mode-hidden', 'obs-mode-grid',
+          'obs-clean-border', 'clean-style',
+          'hero-pos-top', 'hero-pos-bottom', 'hero-pos-center',
+          'scale-75', 'scale-85', 'scale-100', 'scale-115', 'scale-125'
+        );
+        document.body.classList.add('is-browser');
+        document.body.classList.remove('is-obs');
+
+        // 1. OMT Trigger Overlay for spectators (brief 5s celebration alert)
+        var omtOverlay = document.getElementById('top32OmtOverlay');
+        if (omtOverlay) {
+          var now = Date.now();
+          var ts = state.omtTimestamp || 0;
+          var durSec = (typeof state.omtDuration !== 'undefined') ? state.omtDuration : 5;
+          var durMs = durSec * 1000;
+          var age = now - ts;
+          var isValidOmt = !!state.omtActive && (durSec === 0 || (age >= 0 && age < durMs));
+
+          if (isValidOmt && window._lastHandledOmtTimestamp !== ts) {
+            window._lastHandledOmtTimestamp = ts;
+            omtOverlay.style.display = 'flex';
+            var remaining = durSec > 0 ? Math.max(100, durMs - age) : 0;
+            if (obsDirectorOmtTimer) clearTimeout(obsDirectorOmtTimer);
+            if (remaining > 0) {
+              obsDirectorOmtTimer = setTimeout(function() {
+                omtOverlay.style.display = 'none';
+              }, remaining);
+            }
+          } else if (!isValidOmt) {
+            omtOverlay.style.display = 'none';
+            if (obsDirectorOmtTimer) clearTimeout(obsDirectorOmtTimer);
+          }
+        }
+
+        // 2. Auto-sync stage if spectator has not manually chosen a tab or URL param
+        var hasUrlStage = !!params.get('stage') || !!params.get('tab') || !!params.get('view');
+        if (!hasUrlStage && !userManualStageSelected) {
+          if (state.stage && state.stage !== 'quali' && typeof setStage === 'function' && currentStage !== state.stage) {
+            setStage(state.stage);
+          }
+        }
+
+        // 3. Refresh bracket & hero banner if data is already loaded
+        if (currentData) {
+          renderBracket(currentData);
+          lastRenderedHash = computeDataHash(currentData);
+        }
+        return;
       }
+
+      // OBS STUDIO STREAM BROADCAST MODE (isObs === true):
       obsDirectorReceiverState = state;
 
       // 1. OBS Display Modes
@@ -6497,12 +6630,10 @@ if (!window.AC_TOP32_DATA) {
         // grid mode
         document.body.classList.add('obs-mode-grid');
         if (window.isTreeView && typeof toggleTreeView === 'function') toggleTreeView();
-        var isObs = (window.obsStudio !== undefined) || (params.get('obs') === '1');
-        var hasUrlStage = !!params.get('stage');
+        var hasUrlStage = !!params.get('stage') || !!params.get('tab');
         if (!hasUrlStage && (!userManualStageSelected || isObs)) {
           if (state.stage && state.stage !== 'quali' && typeof setStage === 'function') {
             setStage(state.stage);
-            userManualStageSelected = false;
           }
         }
       }
@@ -6542,7 +6673,6 @@ if (!window.AC_TOP32_DATA) {
         var age = now - ts;
         var isValidOmt = !!state.omtActive && (durSec === 0 || (age >= 0 && age < durMs));
 
-        // Only trigger once per unique OMT timestamp to avoid re-triggering on every poll cycle
         if (isValidOmt && window._lastHandledOmtTimestamp !== ts) {
           window._lastHandledOmtTimestamp = ts;
           omtOverlay.style.display = 'flex';
@@ -6567,32 +6697,34 @@ if (!window.AC_TOP32_DATA) {
     }
 
     function initObsDirectorReceiver() {
-      // A. Parse URL overrides
+      var isObs = typeof checkIsObsMode === 'function' ? checkIsObsMode() : ((window.obsStudio !== undefined) || (params.get('obs') === '1'));
       var p = new URLSearchParams(window.location.search);
       var initialMode = p.get('mode') || (p.get('hero') === '1' ? 'hero' : null);
       var initialPos = p.get('pos');
       var initialClean = (p.get('clean') === '1' || p.get('shadow') === '0' || p.get('obs') === '1');
       var initialScale = p.get('scale');
 
-      if (initialClean) document.body.classList.add('obs-clean-border', 'clean-style');
-      if (initialPos === 'bottom') document.body.classList.add('hero-pos-bottom');
-      else if (initialPos === 'center') document.body.classList.add('hero-pos-center');
-      else if (initialPos === 'top') document.body.classList.add('hero-pos-top');
+      if (isObs) {
+        if (initialClean) document.body.classList.add('obs-clean-border', 'clean-style');
+        if (initialPos === 'bottom') document.body.classList.add('hero-pos-bottom');
+        else if (initialPos === 'center') document.body.classList.add('hero-pos-center');
+        else if (initialPos === 'top') document.body.classList.add('hero-pos-top');
 
-      if (initialScale) {
-        if (initialScale === '0.75' || initialScale === '75') document.body.classList.add('scale-75');
-        else if (initialScale === '0.85' || initialScale === '85') document.body.classList.add('scale-85');
-        else if (initialScale === '1.15' || initialScale === '115') document.body.classList.add('scale-115');
-        else if (initialScale === '1.25' || initialScale === '125') document.body.classList.add('scale-125');
-      }
+        if (initialScale) {
+          if (initialScale === '0.75' || initialScale === '75') document.body.classList.add('scale-75');
+          else if (initialScale === '0.85' || initialScale === '85') document.body.classList.add('scale-85');
+          else if (initialScale === '1.15' || initialScale === '115') document.body.classList.add('scale-115');
+          else if (initialScale === '1.25' || initialScale === '125') document.body.classList.add('scale-125');
+        }
 
-      if (initialMode) {
-        applyDirectorState({
-          mode: initialMode,
-          cleanBorder: initialClean,
-          heroPos: initialPos || 'top',
-          scale: initialScale ? parseInt(initialScale, 10) : 100
-        });
+        if (initialMode) {
+          applyDirectorState({
+            mode: initialMode,
+            cleanBorder: initialClean,
+            heroPos: initialPos || 'top',
+            scale: initialScale ? parseInt(initialScale, 10) : 100
+          });
+        }
       }
 
       // B1. BroadcastChannel for OBS Director commands (0 ms latency)
@@ -6614,7 +6746,7 @@ if (!window.AC_TOP32_DATA) {
           window.top32Bus.onmessage = function(ev) {
             if (ev && ev.data && (ev.data.battles || ev.data.qualification)) {
               applyNewData(ev.data, 'Панель судей (0ms LIVE)');
-              if (currentStage === 'quali') {
+              if (currentStage === 'quali' && typeof renderQualificationLeaderboard === 'function') {
                 renderQualificationLeaderboard(currentData || ev.data);
               }
             }
@@ -6622,13 +6754,15 @@ if (!window.AC_TOP32_DATA) {
         } catch(e) {}
       }
 
-      // C. Initial read from localStorage
-      try {
-        var saved = localStorage.getItem('AC_OBS_DIRECTOR_STATE');
-        if (saved) {
-          applyDirectorState(JSON.parse(saved));
-        }
-      } catch(e) {}
+      // C. Initial read from localStorage (ONLY for OBS mode)
+      if (isObs) {
+        try {
+          var saved = localStorage.getItem('AC_OBS_DIRECTOR_STATE');
+          if (saved) {
+            applyDirectorState(JSON.parse(saved));
+          }
+        } catch(e) {}
+      }
     }
   </script>
 
