@@ -9,7 +9,7 @@
   "stage": "quali",
   "active_battle_id": 101,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795650831269,
+  "last_updated": 1795650838416,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2221,21 +2221,21 @@
         "country": "RU",
         "is_placeholder": true
       },
-      "winner": null,
-      "status": "live",
+      "winner": "lead",
+      "status": "finished",
       "is_direct_quali": false,
       "judges": [
         {
           "name": "С1",
-          "vote": null
+          "vote": "lead"
         },
         {
           "name": "С2",
-          "vote": null
+          "vote": "lead"
         },
         {
           "name": "С3",
-          "vote": null
+          "vote": "lead"
         }
       ]
     },
