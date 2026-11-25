@@ -5040,8 +5040,7 @@
     var DEFAULT_ADMIN_PIN_HASH = '68b9fed8c8b9fe1a80d7505028882d43cb96982c2eb2ba320282ca51d8f3c83a'; // 3667
     var DEFAULT_JUDGE_PIN_HASH = '60d80e72b32a4959f74c729a77da97052b02c65bfaed5a0e69a221e8f2239b54'; // 2468
     var CURRENT_AUTH_SESSION_KEY = 'AC_AUTH_SESSION_V2';
-    var SESSION_MAX_TTL_MS = 4 * 3600 * 1000;       // 4 hours max session
-    var SESSION_INACTIVITY_TTL_MS = 45 * 60 * 1000;  // 45 min inactivity timeout
+    window._inMemoryJudgeSession = null; // Ephemeral in-memory session for judges (no timer, resets on page reload/close)
 
     function getAuthSalt() {
       if (tourneyData && tourneyData.auth_salt && String(tourneyData.auth_salt).trim()) {
@@ -5097,25 +5096,21 @@
     /* Ephemeral Session Storage Management */
     function getAuthSession() {
       try {
-        var raw = sessionStorage.getItem(CURRENT_AUTH_SESSION_KEY);
-        if (!raw) {
-          raw = localStorage.getItem(CURRENT_AUTH_SESSION_KEY);
+        var s = window._inMemoryJudgeSession;
+        if (!s) {
+          var raw = sessionStorage.getItem(CURRENT_AUTH_SESSION_KEY);
+          if (!raw) {
+            raw = localStorage.getItem(CURRENT_AUTH_SESSION_KEY);
+          }
+          if (!raw) return null;
+          s = JSON.parse(raw);
+          // Judges are NEVER restored from storage across page reloads
+          if (s && s.role !== 'admin') {
+            clearAuthSession();
+            return null;
+          }
         }
-        if (!raw) return null;
-        var s = JSON.parse(raw);
         if (!s || !s.role) return null;
-
-        var now = Date.now();
-        // Check Session Expiration (TTL)
-        if (s.authenticated_at && (now - s.authenticated_at > SESSION_MAX_TTL_MS)) {
-          clearAuthSession();
-          return null;
-        }
-        // Check Inactivity Expiration
-        if (s.last_active_at && (now - s.last_active_at > SESSION_INACTIVITY_TTL_MS)) {
-          clearAuthSession();
-          return null;
-        }
 
         // Check Stage Epoch Invalidation (for judges)
         var serverEpoch = (tourneyData && tourneyData.auth_epoch) ? Number(tourneyData.auth_epoch) : 1;
@@ -5139,18 +5134,21 @@
     function saveAuthSession(sess) {
       try {
         if (!sess) return;
-        var str = JSON.stringify(sess);
-        // Judges ONLY in sessionStorage: closing the browser tab immediately revokes access!
+        // Judges ONLY in memory: no timeout, resets immediately on page reload or tab close!
         if (sess.role !== 'admin') {
-          sessionStorage.setItem(CURRENT_AUTH_SESSION_KEY, str);
-          sessionStorage.setItem('AC_JUDGE_ROLE', sess.role);
+          window._inMemoryJudgeSession = sess;
           try {
+            sessionStorage.removeItem(CURRENT_AUTH_SESSION_KEY);
+            sessionStorage.removeItem('AC_JUDGE_PIN');
+            sessionStorage.removeItem('AC_JUDGE_ROLE');
             localStorage.removeItem(CURRENT_AUTH_SESSION_KEY);
             localStorage.removeItem('AC_JUDGE_PIN');
             localStorage.removeItem('AC_JUDGE_ROLE');
           } catch(err) {}
         } else {
-          // Admin may keep session across tabs on same device
+          // Admin may keep session across tabs/reloads on same device
+          window._inMemoryJudgeSession = null;
+          var str = JSON.stringify(sess);
           sessionStorage.setItem(CURRENT_AUTH_SESSION_KEY, str);
           sessionStorage.setItem('AC_JUDGE_ROLE', 'admin');
           localStorage.setItem(CURRENT_AUTH_SESSION_KEY, str);
@@ -5160,6 +5158,7 @@
     }
 
     function clearAuthSession() {
+      window._inMemoryJudgeSession = null;
       try {
         sessionStorage.removeItem(CURRENT_AUTH_SESSION_KEY);
         sessionStorage.removeItem('AC_JUDGE_PIN');
@@ -5187,7 +5186,7 @@
             sessionStorage.setItem(CURRENT_AUTH_SESSION_KEY, JSON.stringify(s));
             localStorage.setItem(CURRENT_AUTH_SESSION_KEY, JSON.stringify(s));
           } else {
-            sessionStorage.setItem(CURRENT_AUTH_SESSION_KEY, JSON.stringify(s));
+            window._inMemoryJudgeSession = s;
           }
         }
       } catch(e) {}
@@ -17259,8 +17258,8 @@ async function saveData() {
             </div>
             <div style="background:#090d16; border:1px solid rgba(255,255,255,0.08); border-radius:6px; padding:10px;">
               <div style="color:#94a3b8;">Тип сессий судей:</div>
-              <div style="color:#a78bfa; font-weight:800; margin-top:2px;">⚡ Одноразовые (sessionStorage)</div>
-              <div style="color:#64748b; font-size:10px; margin-top:2px;">Сброс при закрытии вкладки или 45 мин</div>
+              <div style="color:#a78bfa; font-weight:800; margin-top:2px;">⚡ До перезапуска страницы</div>
+              <div style="color:#64748b; font-size:10px; margin-top:2px;">Без таймера — сброс при обновлении/закрытии</div>
             </div>
             <div style="background:#090d16; border:1px solid rgba(255,255,255,0.08); border-radius:6px; padding:10px;">
               <div style="color:#94a3b8;">Авто-очистка ссылок:</div>
