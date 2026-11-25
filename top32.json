@@ -2879,6 +2879,10 @@
       {
         "name": "ГАЗДЕРЖИМ.РФ",
         "logo": ""
+      },
+      {
+        "name": "VEDRO",
+        "logo": ""
       }
     ],
     "featuredStage": "quali",
@@ -2900,7 +2904,7 @@
     "showPilot": false,
     "showQr": true,
     "showTicker": true,
-    "lastUpdated": 1795644934770,
+    "lastUpdated": 1795644961248,
     "timerTargetTimestamp": 1795272860852,
     "timerRemainingOnPause": 300
   },
