@@ -2889,11 +2889,11 @@
         "logo": ""
       }
     ],
-    "featuredStage": "top32",
+    "featuredStage": "quali",
     "featuredIndex": 0,
     "featuredRunAttempt": 1,
-    "featuredTitle": "⚔️ БЛИЖАЙШИЙ ЗАЕЗД • ТОП-32",
-    "featuredBadge": "ХИТ #1",
+    "featuredTitle": "🏁 БЛИЖАЙШИЙ ЗАЕЗД • КВАЛИФИКАЦИЯ",
+    "featuredBadge": "ПОПЫТКА #1",
     "featuredLeadName": "",
     "featuredLeadCar": "",
     "featuredChaseName": "",
@@ -2908,7 +2908,7 @@
     "showPilot": false,
     "showQr": true,
     "showTicker": true,
-    "lastUpdated": 1795644859927,
+    "lastUpdated": 1795644880677,
     "timerTargetTimestamp": 1795272860852,
     "timerRemainingOnPause": 300
   },
