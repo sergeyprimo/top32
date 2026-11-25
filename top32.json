@@ -2879,10 +2879,6 @@
       {
         "name": "ГАЗДЕРЖИМ.РФ",
         "logo": ""
-      },
-      {
-        "name": "ADS",
-        "logo": ""
       }
     ],
     "featuredStage": "quali",
@@ -2904,7 +2900,7 @@
     "showPilot": false,
     "showQr": true,
     "showTicker": true,
-    "lastUpdated": 1795644905998,
+    "lastUpdated": 1795644906871,
     "timerTargetTimestamp": 1795272860852,
     "timerRemainingOnPause": 300
   },
