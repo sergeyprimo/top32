@@ -1,5 +1,5 @@
 {
-  "tournament_name": "DRIFT BANDA",
+  "tournament_name": "RA",
   "badge_text": "ГАЗДЕРЖИМ.РФ",
   "badge_brand": "ГАЗДЕРЖИМ",
   "badge_domain": "РФ",
@@ -2845,10 +2845,10 @@
     }
   ],
   "quali_calc_mode": "best",
-  "tournament_title": "DRIFT BANDA",
+  "tournament_title": "RA",
   "intro_settings": {
     "headerLogo": "DB",
-    "tournamentTitle": "DRIFT BANDA",
+    "tournamentTitle": "RA",
     "tournamentSub": "ГАЗДЕРЖИМ",
     "statusText": "Технический перерыв",
     "metaServer": "DRIFT BANDA",
@@ -2908,7 +2908,7 @@
     "showPilot": false,
     "showQr": true,
     "showTicker": true,
-    "lastUpdated": 1795644880677,
+    "lastUpdated": 1795644888281,
     "timerTargetTimestamp": 1795272860852,
     "timerRemainingOnPause": 300
   },
