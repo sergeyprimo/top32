@@ -11,7 +11,7 @@
   "stage": "top32",
   "active_battle_id": 5,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795564882431,
+  "last_updated": 1795564986859,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2937,7 +2937,7 @@
     "showPilot": true,
     "showQr": true,
     "showTicker": true,
-    "lastUpdated": 1795564882428
+    "lastUpdated": 1795564986856
   },
   "stage_mode": "top32",
   "custom_stage_titles": {
@@ -2973,7 +2973,7 @@
     "showTicker": true,
     "headerMode": "auto",
     "forcedRun": "auto",
-    "lastUpdated": 1795564882428
+    "lastUpdated": 1795564986856
   },
   "qualification_cleared": false,
   "battles_top24": [],
