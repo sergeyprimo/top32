@@ -2852,7 +2852,7 @@
     "tournamentSub": "ГАЗДЕРЖИМ",
     "statusText": "Технический перерыв",
     "metaServer": "DRIFT BANDA",
-    "metaTrack": "РУ",
+    "metaTrack": "РУССКИЕ ",
     "headerFontSize": 24,
     "tickerLead": "📢 ИНФОРМАЦИЯ",
     "tickerText": "📺 ПРЯМАЯ ТРАНСЛЯЦИЯ В FULL HD | 💬 ПИШИТЕ В ЧАТ: Поддерживайте своих фаворитов! | 🔔 ПОДПИСЫВАЙТЕСЬ НА КАНАЛ, СТАВЬТЕ ЛАЙКИ И ВКЛЮЧАЙТЕ КОЛОКОЛЬЧИК",
@@ -2900,7 +2900,7 @@
     "showPilot": false,
     "showQr": true,
     "showTicker": true,
-    "lastUpdated": 1795644925288,
+    "lastUpdated": 1795644926863,
     "timerTargetTimestamp": 1795272860852,
     "timerRemainingOnPause": 300
   },
