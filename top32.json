@@ -9,7 +9,7 @@
   "stage": "top16",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795637895611,
+  "last_updated": 1795637906653,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -3364,9 +3364,9 @@
   "auth_salt": "drift_banda_salt_2026",
   "admin_pin_hash": "68b9fed8c8b9fe1a80d7505028882d43cb96982c2eb2ba320282ca51d8f3c83a",
   "judge_pin_hash": "60d80e72b32a4959f74c729a77da97052b02c65bfaed5a0e69a221e8f2239b54",
-  "auth_epoch": 1,
+  "auth_epoch": 2,
   "stage_status": "in_progress",
-  "auth_revoked_at": null,
+  "auth_revoked_at": 1795637906653,
   "admin_pin": "2525",
   "judge_pin": "9105"
 }
