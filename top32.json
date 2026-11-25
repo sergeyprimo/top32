@@ -9,7 +9,7 @@
   "stage": "top32",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795639014832,
+  "last_updated": 1795639018651,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -1633,8 +1633,8 @@
         "country": "RU",
         "is_placeholder": true
       },
-      "winner": null,
-      "status": "omt",
+      "winner": "chase",
+      "status": "finished",
       "is_direct_quali": false,
       "judges": [
         {
