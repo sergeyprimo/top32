@@ -2910,7 +2910,8 @@
     "showTicker": true,
     "lastUpdated": 1795272560852,
     "timerTargetTimestamp": 1795272860852,
-    "timerRemainingOnPause": 300
+    "timerRemainingOnPause": 300,
+    "spectatorPartnersEnabled": true
   },
   "stage_mode": "top16",
   "custom_stage_titles": {

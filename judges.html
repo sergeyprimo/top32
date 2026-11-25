@@ -4282,10 +4282,16 @@
           <div style="background:rgba(0,0,0,0.3); border:1px solid rgba(0, 240, 255, 0.35); border-radius:8px; padding:12px; display:flex; flex-direction:column; gap:8px;">
             <div style="font-size:11px; font-weight:900; color:#00f0ff; text-transform:uppercase; letter-spacing:0.5px; display:flex; justify-content:space-between; align-items:center;">
               <span style="display:flex; align-items:center; gap:6px;"><span>🤝</span> 5. БЛОК ПАРТНЕРОВ И СПОНСОРОВ</span>
-              <label style="display:flex; align-items:center; gap:4px; font-size:11px; color:#cbd5e1; font-weight:normal; cursor:pointer;">
-                <input type="checkbox" id="introDrawerCbPartners" checked onchange="toggleIntroPartners(this.checked)">
-                <span>Вкл</span>
-              </label>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <label style="display:flex; align-items:center; gap:4px; font-size:11px; color:#cbd5e1; font-weight:normal; cursor:pointer;" title="Включить в интро-заставке">
+                  <input type="checkbox" id="introDrawerCbPartners" checked onchange="toggleIntroPartners(this.checked)">
+                  <span>Интро</span>
+                </label>
+                <label style="display:flex; align-items:center; gap:4px; font-size:11px; color:#cbd5e1; font-weight:normal; cursor:pointer;" title="Отображать спонсоров в зрительском веб-интерфейсе сетки">
+                  <input type="checkbox" id="introDrawerCbSpectatorPartners" checked onchange="toggleSpectatorPartners(this.checked)">
+                  <span>В сетке зрителей</span>
+                </label>
+              </div>
             </div>
             <div style="font-size:11px; color:#94a3b8;">
               Отдельная плашка над бегущей строкой с логотипами и названиями спонсоров турнира.
@@ -16033,6 +16039,15 @@ async function saveData() {
       broadcastIntroState();
     }
 
+    function toggleSpectatorPartners(enabled) {
+      obsIntroState.spectatorPartnersEnabled = !!enabled;
+      var dCb = document.getElementById('introDrawerCbSpectatorPartners');
+      if (dCb) dCb.checked = !!enabled;
+      var mCb = document.getElementById('introModalCbSpectatorPartners');
+      if (mCb) mCb.checked = !!enabled;
+      broadcastIntroState();
+    }
+
     function setIntroPartnersTitle(title) {
       obsIntroState.partnersTitle = title || 'ОФИЦИАЛЬНЫЕ ПАРТНЕРЫ ТУРНИРА';
       var dInput = document.getElementById('introDrawerPartnersTitleInput');
@@ -16408,6 +16423,7 @@ async function saveData() {
       setVal('introDrawerTimerLogoHeightInput', s.timerLogoHeight || 70);
       setText('introDrawerTimerLogoHeightVal', (s.timerLogoHeight || 70) + 'px');
       setCheck('introDrawerCbPartners', (typeof s.partnersEnabled !== 'undefined') ? s.partnersEnabled : true);
+      setCheck('introDrawerCbSpectatorPartners', (typeof s.spectatorPartnersEnabled !== 'undefined') ? s.spectatorPartnersEnabled : true);
       setVal('introDrawerPartnersTitleInput', s.partnersTitle || 'ОФИЦИАЛЬНЫЕ ПАРТНЕРЫ ТУРНИРА');
 
       // Drawer Featured Matchup Elements
@@ -16477,6 +16493,7 @@ async function saveData() {
       setVal('introModalTimerLogoHeightInput', s.timerLogoHeight || 70);
       setText('introModalTimerLogoHeightVal', (s.timerLogoHeight || 70) + 'px');
       setCheck('introModalCbPartners', (typeof s.partnersEnabled !== 'undefined') ? s.partnersEnabled : true);
+      setCheck('introModalCbSpectatorPartners', (typeof s.spectatorPartnersEnabled !== 'undefined') ? s.spectatorPartnersEnabled : true);
       setVal('introModalPartnersTitleInput', s.partnersTitle || 'ОФИЦИАЛЬНЫЕ ПАРТНЕРЫ ТУРНИРА');
 
       // Modal Featured Matchup Elements
@@ -18710,10 +18727,16 @@ async function saveData() {
             <div class="director-tune-card" style="border-color:rgba(0, 240, 255, 0.35);">
               <div class="director-tune-title" style="color:#00f0ff; display:flex; justify-content:space-between; align-items:center;">
                 <span><span>🤝</span> Блок партнеров и спонсоров</span>
-                <label style="display:flex; align-items:center; gap:5px; font-size:11px; color:#cbd5e1; font-weight:normal; cursor:pointer;">
-                  <input type="checkbox" id="introModalCbPartners" checked onchange="toggleIntroPartners(this.checked)">
-                  <span>Вкл</span>
-                </label>
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <label style="display:flex; align-items:center; gap:4px; font-size:11px; color:#cbd5e1; font-weight:normal; cursor:pointer;" title="Включить в интро-заставке">
+                    <input type="checkbox" id="introModalCbPartners" checked onchange="toggleIntroPartners(this.checked)">
+                    <span>Интро</span>
+                  </label>
+                  <label style="display:flex; align-items:center; gap:4px; font-size:11px; color:#cbd5e1; font-weight:normal; cursor:pointer;" title="Отображать спонсоров в зрительском веб-интерфейсе сетки">
+                    <input type="checkbox" id="introModalCbSpectatorPartners" checked onchange="toggleSpectatorPartners(this.checked)">
+                    <span>В сетке зрителей</span>
+                  </label>
+                </div>
               </div>
               <div class="director-tune-desc">
                 Отдельная плашка над бегущей строкой с логотипами и названиями официальных спонсоров турнира.

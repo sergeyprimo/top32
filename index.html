@@ -245,9 +245,145 @@ body.is-obs .stream-broadcast-banner {
   100% { transform: scale(0.9); opacity: 0.6; }
 }
 
+.stage-nav-bar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  background: rgba(15, 23, 42, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 6px 12px;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+  position: sticky;
+  top: 6px;
+  z-index: 95;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+}
+
+body.is-obs .stage-nav-bar-container {
+  display: none !important;
+}
+
 .stage-nav {
   display: flex;
+  align-items: center;
   gap: 6px;
+  flex-wrap: wrap;
+}
+
+.stage-nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* SPECTATOR PARTNERS & SPONSORS BAR */
+.spectator-partners-bar {
+  width: 100%;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, rgba(16, 12, 28, 0.9) 0%, rgba(26, 15, 45, 0.88) 50%, rgba(13, 10, 24, 0.9) 100%);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  border-radius: 8px;
+  padding: 8px 14px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+  transition: opacity 0.3s ease;
+}
+
+body.is-obs .spectator-partners-bar {
+  display: none !important;
+}
+
+.spectator-partners-inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.spectator-partners-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px;
+  background: rgba(168, 85, 247, 0.18);
+  border: 1px solid rgba(168, 85, 247, 0.5);
+  border-radius: 6px;
+  transform: skewX(-8deg);
+  flex-shrink: 0;
+}
+
+.spectator-partners-badge > * {
+  transform: skewX(8deg);
+}
+
+.spectator-partners-title {
+  font-size: 11px;
+  font-weight: 900;
+  color: #c084fc;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.spectator-partners-track {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 2px 0;
+}
+
+.spectator-partners-track::-webkit-scrollbar {
+  display: none;
+}
+
+.spectator-partner-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  padding: 4px 10px;
+  flex-shrink: 0;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.spectator-partner-chip:hover {
+  background: rgba(168, 85, 247, 0.18);
+  border-color: rgba(168, 85, 247, 0.5);
+  transform: translateY(-1px);
+}
+
+.spectator-partner-logo {
+  max-height: 22px;
+  max-width: 70px;
+  object-fit: contain;
+  display: block;
+}
+
+.spectator-partner-name {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #f1f5f9;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.spectator-partner-icon {
+  font-size: 11px;
+  color: #fbbf24;
 }
 
 .nav-tab {
@@ -3527,8 +3663,16 @@ body.clean-style .battle-card {
       .live-indicator {
         display: none !important;
       }
+      .stage-nav-bar-container {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        padding: 5px 6px !important;
+        gap: 5px !important;
+        top: 0 !important;
+        margin-bottom: 8px !important;
+      }
       .stage-nav {
-        grid-column: 1 / -1 !important;
         display: flex !important;
         flex-wrap: nowrap !important;
         overflow-x: auto !important;
@@ -3538,6 +3682,17 @@ body.clean-style .battle-card {
         padding: 2px 1px 4px 1px !important;
         scrollbar-width: none !important;
         -ms-overflow-style: none !important;
+      }
+      .stage-nav-controls {
+        display: none !important;
+      }
+      .spectator-partners-inner {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 6px !important;
+      }
+      .spectator-partners-track {
+        width: 100% !important;
       }
       .stage-nav::-webkit-scrollbar {
         display: none !important;
@@ -3816,19 +3971,7 @@ body.clean-style .battle-card {
           <div class="live-dot"></div>
           <span class="live-text">МАТЧ-ЦЕНТР LIVE</span>
         </div>
-
-        <nav class="stage-nav" id="stageNav">
-          <div class="nav-tab" id="tab_quali" onclick="setStage('quali')"><span>&#128202; &#1050;&#1042;&#1040;&#1051;&#1048;&#1060;&#1048;&#1050;&#1040;&#1062;&#1048;&#1071;</span></div>
-          <div class="nav-tab active" id="tab_top32" onclick="setStage('top32')"><span>&#1058;&#1054;&#1055;-32</span></div>
-          <div class="nav-tab" id="tab_top24" onclick="setStage('top24')"><span>&#1058;&#1054;&#1055;-24</span></div>
-          <div class="nav-tab" id="tab_top16" onclick="setStage('top16')"><span>&#1058;&#1054;&#1055;-16</span></div>
-          <div class="nav-tab" id="tab_top8" onclick="setStage('top8')"><span>&#1058;&#1054;&#1055;-8</span></div>
-          <div class="nav-tab" id="tab_top4" onclick="setStage('top4')"><span>&#1058;&#1054;&#1055;-4 / &#1060;&#1048;&#1053;&#1040;&#1051;</span></div>
-          <div class="nav-tab tree-tab" id="tab_tree" onclick="toggleTreeView()"><span>&#127795; &#1058;&#1059;&#1056;&#1053;&#1048;&#1056;&#1053;&#1054;&#1045; &#1044;&#1056;&#1045;&#1042;&#1054;</span></div>
-        </nav>
-
-        <button class="carousel-btn" id="btnCarousel" onclick="toggleCarousel()"><span>&#9654; &#1040;&#1074;&#1090;&#1086;: &#1042;&#1099;&#1082;&#1083;</span></button>
-        <button class="share-btn" id="btnShare" onclick="openShareModal()" title="&#1057;&#1089;&#1099;&#1083;&#1082;&#1072; &#1076;&#1083;&#1103; &#1087;&#1080;&#1083;&#1086;&#1090;&#1072;&#1084; &#1080; &#1079;&#1088;&#1080;&#1090;&#1077;&#1083;&#1077;&#1081;"><span>&#128279; &#1057;&#1089;&#1099;&#1083;&#1082;&#1072; &#1087;&#1080;&#1083;&#1086;&#1090;&#1072;&#1084;</span></button>
+        <button class="share-btn" id="btnShare" onclick="openShareModal()" title="Ссылка для пилотов и зрителей"><span>🔗 Ссылка пилотам</span></button>
         <a class="twitch-stream-btn" id="btnTwitchStream" href="https://twitch.tv/sergeyprimo" target="_blank" rel="noopener noreferrer" title="Официальная прямая трансляция турнира на Twitch (twitch.tv/sergeyprimo)">
           <span class="twitch-stream-inner">
             <svg class="twitch-svg-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
@@ -3842,6 +3985,33 @@ body.clean-style .battle-card {
         <button class="fs-btn" id="btnFullscreen" onclick="toggleFullscreen()" title="Полноэкранный режим (F11)">⛶</button>
       </div>
     </header>
+
+    <!-- DEDICATED STABLE STAGE NAVIGATION BAR (Фиксированная панель вкладок: никогда не прыгает при переключении) -->
+    <div class="stage-nav-bar-container" id="stageNavBarContainer">
+      <nav class="stage-nav" id="stageNav">
+        <div class="nav-tab" id="tab_quali" onclick="setStage('quali')"><span>📊 КВАЛИФИКАЦИЯ</span></div>
+        <div class="nav-tab active" id="tab_top32" onclick="setStage('top32')"><span>ТОП-32</span></div>
+        <div class="nav-tab" id="tab_top24" onclick="setStage('top24')"><span>ТОП-24</span></div>
+        <div class="nav-tab" id="tab_top16" onclick="setStage('top16')"><span>ТОП-16</span></div>
+        <div class="nav-tab" id="tab_top8" onclick="setStage('top8')"><span>ТОП-8</span></div>
+        <div class="nav-tab" id="tab_top4" onclick="setStage('top4')"><span>ТОП-4 / ФИНАЛ</span></div>
+        <div class="nav-tab tree-tab" id="tab_tree" onclick="toggleTreeView()"><span>🌳 ТУРНИРНОЕ ДРЕВО</span></div>
+      </nav>
+      <div class="stage-nav-controls">
+        <button class="carousel-btn" id="btnCarousel" onclick="toggleCarousel()"><span>▶ Авто: Выкл</span></button>
+      </div>
+    </div>
+
+    <!-- DEDICATED SPECTATOR SPONSORS BAR (Спонсоры от администратора) -->
+    <div class="spectator-partners-bar" id="spectatorPartnersBar" style="display:none;">
+      <div class="spectator-partners-inner">
+        <div class="spectator-partners-badge">
+          <span class="partners-beacon-dot"></span>
+          <span class="spectator-partners-title" id="spectatorPartnersTitle">ОФИЦИАЛЬНЫЕ ПАРТНЕРЫ ТУРНИРА</span>
+        </div>
+        <div class="spectator-partners-track" id="spectatorPartnersTrack"></div>
+      </div>
+    </div>
 
     <!-- OFFICIAL TWITCH STREAM BROADCAST BANNER -->
     <div class="stream-broadcast-banner" id="streamBroadcastBanner">
@@ -4169,12 +4339,67 @@ if (!window.AC_TOP32_DATA) {
         applyDirectorState(newData.obs_director);
       }
 
+      if (typeof renderSpectatorPartners === 'function') {
+        renderSpectatorPartners(newData.intro_settings);
+      }
+
       if (sourceLabel) {
         var statusEl = document.getElementById('syncStatus');
         if (statusEl) statusEl.textContent = 'Синхронизация: ' + sourceLabel;
       }
 
       return true;
+    }
+
+    function renderSpectatorPartners(introSettings) {
+      var bar = document.getElementById('spectatorPartnersBar');
+      if (!bar) return;
+      if (!introSettings) {
+        introSettings = (currentData && currentData.intro_settings) || {};
+      }
+      var isObs = typeof checkIsObsMode === 'function' ? checkIsObsMode() : false;
+      if (isObs) {
+        bar.style.display = 'none';
+        return;
+      }
+
+      var enabled = (typeof introSettings.spectatorPartnersEnabled !== 'undefined')
+        ? (!!introSettings.spectatorPartnersEnabled && introSettings.partnersEnabled !== false)
+        : (introSettings.partnersEnabled !== false);
+
+      var list = introSettings.partnersList || introSettings.partners_list || [];
+      if (!enabled || !Array.isArray(list) || list.length === 0) {
+        bar.style.display = 'none';
+        return;
+      }
+
+      var titleEl = document.getElementById('spectatorPartnersTitle');
+      if (titleEl) {
+        titleEl.textContent = (introSettings.partnersTitle || 'ОФИЦИАЛЬНЫЕ ПАРТНЕРЫ ТУРНИРА').toUpperCase();
+      }
+
+      var track = document.getElementById('spectatorPartnersTrack');
+      if (track) {
+        var html = '';
+        list.forEach(function(item) {
+          if (!item) return;
+          var name = typeof item === 'string' ? item : (item.name || '');
+          var logo = typeof item === 'object' && item.logo ? item.logo : '';
+          if (!name && !logo) return;
+          html += '<div class="spectator-partner-chip">';
+          if (logo) {
+            html += '<img src="' + logo + '" alt="' + name + '" class="spectator-partner-logo">';
+          } else {
+            html += '<span class="spectator-partner-icon">⚡</span>';
+          }
+          if (name) {
+            html += '<span class="spectator-partner-name">' + name + '</span>';
+          }
+          html += '</div>';
+        });
+        track.innerHTML = html;
+      }
+      bar.style.display = 'block';
     }
 
     function applyOverlayTheme(theme) {
@@ -4451,6 +4676,10 @@ if (!window.AC_TOP32_DATA) {
         renderBracket(currentData);
         lastRenderedHash = computeDataHash(currentData);
       }
+
+      if (typeof window !== 'undefined' && window.scrollY > 150) {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
     }
 
     function toggleTreeView() {
@@ -4482,6 +4711,10 @@ if (!window.AC_TOP32_DATA) {
       if (currentData) {
         renderBracket(currentData);
         lastRenderedHash = computeDataHash(currentData);
+      }
+
+      if (typeof window !== 'undefined' && window.scrollY > 150) {
+        window.scrollTo({ top: 0, behavior: 'instant' });
       }
     }
 
@@ -6566,6 +6799,12 @@ if (!window.AC_TOP32_DATA) {
         try {
           applyDirectorState(JSON.parse(e.newValue));
         } catch(err) {}
+      } else if (e.key === 'AC_OBS_INTRO_STATE' && e.newValue) {
+        try {
+          var isState = JSON.parse(e.newValue);
+          if (currentData) currentData.intro_settings = isState;
+          renderSpectatorPartners(isState);
+        } catch(err) {}
       }
     });
 
@@ -7252,6 +7491,10 @@ if (!window.AC_TOP32_DATA) {
         renderBracket(currentData);
         lastRenderedHash = computeDataHash(currentData);
       }
+
+      if (typeof window !== 'undefined' && window.scrollY > 150) {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
     }
 
     function initObsDirectorReceiver() {
@@ -7312,7 +7555,20 @@ if (!window.AC_TOP32_DATA) {
         } catch(e) {}
       }
 
-      // C. Initial read from localStorage (ONLY for OBS mode)
+      // B3. BroadcastChannel for Intro and Sponsors/Partners from judges panel (0 ms latency)
+      if (typeof BroadcastChannel !== 'undefined') {
+        try {
+          var introBus = new BroadcastChannel('ac_obs_intro_bus');
+          introBus.onmessage = function(ev) {
+            if (ev && ev.data) {
+              if (currentData) currentData.intro_settings = ev.data;
+              if (typeof renderSpectatorPartners === 'function') {
+                renderSpectatorPartners(ev.data);
+              }
+            }
+          };
+        } catch(e) {}
+      }
       if (isObs) {
         try {
           var saved = localStorage.getItem('AC_OBS_DIRECTOR_STATE');
