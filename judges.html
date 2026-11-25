@@ -3713,6 +3713,9 @@
       <!-- Update Bracket From Qualification (Judges Only) -->
       <button class="btn judge-only" id="btnJudgeRefreshFromQualiHeader" style="background:linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color:#fff; border:1px solid #38bdf8; font-weight:900; font-size:12px; padding:7px 14px; box-shadow:0 0 12px rgba(56,189,248,0.35);" onclick="refreshCurrentStageFromQuali()" title="Сформировать пары текущего этапа сетки из результатов квалификации">⚡ Обновить из квалификации</button>
 
+      <!-- Sponsors & Partners Modal Button (Admin Only) -->
+      <button class="btn admin-only" id="btnSponsorsHeader" style="background:linear-gradient(135deg, #a855f7 0%, #7e22ce 100%); color:#fff; border-color:#c084fc; font-weight:900; box-shadow:0 0 14px rgba(168,85,247,0.4); font-size:12px; padding:7px 15px;" onclick="openSponsorsModal()" title="Управление спонсорами и партнерами турнира: показ в зрительской сетке и в эфире">🤝 СПОНСОРЫ</button>
+
       <!-- Judge Links Modal (Admin Only) -->
       <button class="btn admin-only" id="btnJudgeLinksHeader" style="background:linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); color:#fff; border-color:#a78bfa; font-weight:900; box-shadow:0 0 14px rgba(139,92,246,0.4); font-size:12px; padding:7px 16px;" onclick="openAccessControlModal()" title="Персональные ссылки для Судьи 1, 2, 3 и настройки PIN-кода">🔐 ССЫЛКИ СУДЕЙ</button>
       
@@ -3730,6 +3733,9 @@
           </div>
           <div class="header-dropdown-item admin-only" onclick="closeHeaderAdminMenu(); toggleSettingsDrawer();">
             <span>⚙️</span> <span>Все настройки турнира и OBS</span>
+          </div>
+          <div class="header-dropdown-item admin-only" onclick="closeHeaderAdminMenu(); openSponsorsModal();">
+            <span>🤝</span> <span>Спонсоры и партнеры (Сетка и эфир)</span>
           </div>
           <div class="header-dropdown-item admin-only" onclick="closeHeaderAdminMenu(); openJudgeGridSettingsModal();">
             <span>📐</span> <span>Параметры и регламент сетки</span>
@@ -3817,6 +3823,46 @@
       <div class="title-field-group" style="flex: 2; min-width: 260px;">
         <label class="title-label">🟣 Ссылка на стрим Twitch:</label>
         <input type="text" id="streamUrlInput" placeholder="https://twitch.tv/sergeyprimo" oninput="updateStreamUrl(this.value)">
+      </div>
+    </div>
+
+    <!-- Dedicated Tournament Sponsors & Partners Card in Main Admin Settings -->
+    <div class="sync-card admin-only" id="cardMainTournamentSponsors" style="margin-top:14px; border-color:rgba(168, 85, 247, 0.45); background:radial-gradient(circle at 10% 20%, rgba(168, 85, 247, 0.12) 0%, rgba(15, 23, 42, 0.95) 70%);">
+      <div class="sync-head" style="border-bottom:1px solid rgba(168, 85, 247, 0.3); padding-bottom:8px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:18px;">🤝</span>
+          <span class="sync-title" style="color:#c084fc; font-size:13px; font-weight:900;">ОФИЦИАЛЬНЫЕ СПОНСОРЫ И ПАРТНЕРЫ ТУРНИРА</span>
+          <span style="font-size:10px; background:rgba(168,85,247,0.18); border:1px solid rgba(168,85,247,0.4); color:#e9d5ff; padding:2px 8px; border-radius:10px; font-weight:800;">ЗРИТЕЛИ + ЭФИР</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+          <label style="display:flex; align-items:center; gap:6px; font-size:12px; color:#e2e8f0; font-weight:800; cursor:pointer; background:rgba(0,0,0,0.3); padding:4px 10px; border-radius:6px; border:1px solid rgba(168,85,247,0.3);">
+            <input type="checkbox" id="mainSettingsCbSpectatorPartners" checked onchange="toggleSpectatorPartners(this.checked)">
+            <span>👁️ В сетке зрителей</span>
+          </label>
+          <label style="display:flex; align-items:center; gap:6px; font-size:12px; color:#e2e8f0; font-weight:800; cursor:pointer; background:rgba(0,0,0,0.3); padding:4px 10px; border-radius:6px; border:1px solid rgba(168,85,247,0.3);">
+            <input type="checkbox" id="mainSettingsCbIntroPartners" checked onchange="toggleIntroPartners(this.checked)">
+            <span>🎬 В интро OBS</span>
+          </label>
+          <button class="btn small" type="button" style="background:#7e22ce; color:#fff; font-weight:800; border-color:#c084fc;" onclick="openSponsorsModal()" title="Открыть расширенное окно спонсоров">⚙️ Настроить спонсоров</button>
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:12px;">
+        <div>
+          <div style="font-size:10px; color:#cbd5e1; font-weight:800; margin-bottom:4px; text-transform:uppercase;">Заголовок плашки спонсоров:</div>
+          <input type="text" id="mainSettingsPartnersTitleInput" placeholder="ОФИЦИАЛЬНЫЕ ПАРТНЕРЫ ТУРНИРА" style="width:100%; padding:6px 10px; font-size:11px; font-weight:bold; background:#0f172a; color:#c084fc; border:1px solid rgba(168,85,247,0.5); border-radius:6px;" oninput="setIntroPartnersTitle(this.value)">
+          <div style="font-size:10px; color:#cbd5e1; font-weight:800; margin:8px 0 4px 0; text-transform:uppercase;">Быстрые пресеты:</div>
+          <div style="display:flex; flex-wrap:wrap; gap:4px;">
+            <button type="button" class="btn mini" style="background:#1e293b; color:#cbd5e1;" onclick="addIntroPartnerPreset('AIMOL')">+ AIMOL</button>
+            <button type="button" class="btn mini" style="background:#1e293b; color:#cbd5e1;" onclick="addIntroPartnerPreset('TOYO TIRES')">+ TOYO</button>
+            <button type="button" class="btn mini" style="background:#1e293b; color:#cbd5e1;" onclick="addIntroPartnerPreset('MOTUL')">+ MOTUL</button>
+            <button type="button" class="btn mini" style="background:#1e293b; color:#cbd5e1;" onclick="addIntroPartnerPreset('SPARCO')">+ SPARCO</button>
+            <button type="button" class="btn mini" style="background:#1e293b; color:#cbd5e1;" onclick="addIntroPartnerPreset('GAZDERZHIM')">+ GAZDERZHIM</button>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:10px; color:#cbd5e1; font-weight:800; margin-bottom:4px; text-transform:uppercase;">Активные спонсоры (отображаются в зрительской сетке):</div>
+          <div id="mainSettingsPartnersList" style="max-height:160px; overflow-y:auto; background:rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.08); border-radius:6px; padding:6px;"></div>
+        </div>
       </div>
     </div>
 
@@ -5715,6 +5761,9 @@ function checkJudgeAuth() {
   updatePersonalJudgeLinks();
   try {
     var autoOpenParams = new URLSearchParams(window.location.search);
+    if (autoOpenParams.get('openSettings') === '1') {
+      toggleSettingsDrawer();
+    }
     if (autoOpenParams.get('openMenu') === '1') {
       toggleHeaderAdminMenu();
     }
@@ -5726,6 +5775,9 @@ function checkJudgeAuth() {
     }
     if (autoOpenParams.get('openAccessControl') === '1' || autoOpenParams.get('access') === '1') {
       setTimeout(function() { openAccessControlModal(); }, 200);
+    }
+    if (autoOpenParams.get('openSponsors') === '1' || autoOpenParams.get('sponsors') === '1') {
+      setTimeout(function() { openSponsorsModal(); }, 200);
     }
     if (autoOpenParams.get('openDirector') === '1' || autoOpenParams.get('director') === '1') {
       setTimeout(function() {
@@ -16029,31 +16081,47 @@ async function saveData() {
       });
     }
 
-    // --- INTRO PARTNERS & SPONSORS BLOCK (ОТКЛЮЧАЕМЫЙ БЛОК ПАРТНЕРОВ) ---
+    // --- INTRO & SPECTATOR PARTNERS BLOCK (УПРАВЛЕНИЕ СПОНСОРАМИ) ---
+    function openSponsorsModal() {
+      if (!isJudgeAuthorized || currentJudgeRole !== 'admin') {
+        showSyncToast('⛔ Управление спонсорами доступно только Администратору');
+        return;
+      }
+      updateIntroUIElements();
+      renderIntroPartnersAdminList();
+      var m = document.getElementById('sponsorsModal');
+      if (m) m.style.display = 'flex';
+    }
+
+    function closeSponsorsModal() {
+      var m = document.getElementById('sponsorsModal');
+      if (m) m.style.display = 'none';
+    }
+
     function toggleIntroPartners(enabled) {
       obsIntroState.partnersEnabled = !!enabled;
-      var dCb = document.getElementById('introDrawerCbPartners');
-      if (dCb) dCb.checked = !!enabled;
-      var mCb = document.getElementById('introModalCbPartners');
-      if (mCb) mCb.checked = !!enabled;
+      ['introDrawerCbPartners', 'introModalCbPartners', 'mainSettingsCbIntroPartners', 'sponsorsModalCbIntro'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) el.checked = !!enabled;
+      });
       broadcastIntroState();
     }
 
     function toggleSpectatorPartners(enabled) {
       obsIntroState.spectatorPartnersEnabled = !!enabled;
-      var dCb = document.getElementById('introDrawerCbSpectatorPartners');
-      if (dCb) dCb.checked = !!enabled;
-      var mCb = document.getElementById('introModalCbSpectatorPartners');
-      if (mCb) mCb.checked = !!enabled;
+      ['introDrawerCbSpectatorPartners', 'introModalCbSpectatorPartners', 'mainSettingsCbSpectatorPartners', 'sponsorsModalCbSpectator'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) el.checked = !!enabled;
+      });
       broadcastIntroState();
     }
 
     function setIntroPartnersTitle(title) {
       obsIntroState.partnersTitle = title || 'ОФИЦИАЛЬНЫЕ ПАРТНЕРЫ ТУРНИРА';
-      var dInput = document.getElementById('introDrawerPartnersTitleInput');
-      if (dInput && dInput !== document.activeElement) dInput.value = obsIntroState.partnersTitle;
-      var mInput = document.getElementById('introModalPartnersTitleInput');
-      if (mInput && mInput !== document.activeElement) mInput.value = obsIntroState.partnersTitle;
+      ['introDrawerPartnersTitleInput', 'introModalPartnersTitleInput', 'mainSettingsPartnersTitleInput', 'sponsorsModalTitleInput'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el && el !== document.activeElement) el.value = obsIntroState.partnersTitle;
+      });
       broadcastIntroState();
     }
 
@@ -16084,8 +16152,8 @@ async function saveData() {
     }
 
     function addIntroPartnerFromInput(prefix) {
-      var nameInputId = (prefix === 'modal') ? 'introModalPartnerNameInput' : 'introDrawerPartnerNameInput';
-      var logoInputId = (prefix === 'modal') ? 'introModalPartnerLogoInput' : 'introDrawerPartnerLogoInput';
+      var nameInputId = (prefix === 'modal') ? 'introModalPartnerNameInput' : (prefix === 'sponsorsModal' ? 'sponsorsModalPartnerNameInput' : 'introDrawerPartnerNameInput');
+      var logoInputId = (prefix === 'modal') ? 'introModalPartnerLogoInput' : (prefix === 'sponsorsModal' ? 'sponsorsModalPartnerLogoInput' : 'introDrawerPartnerLogoInput');
       var nameEl = document.getElementById(nameInputId);
       var logoEl = document.getElementById(logoInputId);
       var name = nameEl ? nameEl.value.trim() : '';
@@ -16102,14 +16170,14 @@ async function saveData() {
     function handleIntroPartnerFileUpload(input, prefix) {
       if (!input || !input.files || !input.files[0]) return;
       var file = input.files[0];
-      var nameInputId = (prefix === 'modal') ? 'introModalPartnerNameInput' : 'introDrawerPartnerNameInput';
+      var nameInputId = (prefix === 'modal') ? 'introModalPartnerNameInput' : (prefix === 'sponsorsModal' ? 'sponsorsModalPartnerNameInput' : 'introDrawerPartnerNameInput');
       var nameEl = document.getElementById(nameInputId);
       var defaultName = file.name.replace(/\.[^/.]+$/, '').toUpperCase();
       if (nameEl && !nameEl.value.trim()) {
         nameEl.value = defaultName;
       }
       resizeImageFileToDataUrl(file, 240, 90, function(scaledDataUrl) {
-        var logoInputId = (prefix === 'modal') ? 'introModalPartnerLogoInput' : 'introDrawerPartnerLogoInput';
+        var logoInputId = (prefix === 'modal') ? 'introModalPartnerLogoInput' : (prefix === 'sponsorsModal' ? 'sponsorsModalPartnerLogoInput' : 'introDrawerPartnerLogoInput');
         var logoEl = document.getElementById(logoInputId);
         if (logoEl) logoEl.value = scaledDataUrl;
       });
@@ -16117,7 +16185,7 @@ async function saveData() {
 
     function renderIntroPartnersAdminList() {
       var list = Array.isArray(obsIntroState.partnersList) ? obsIntroState.partnersList : [];
-      var targets = ['introDrawerPartnersList', 'introModalPartnersList'];
+      var targets = ['introDrawerPartnersList', 'introModalPartnersList', 'mainSettingsPartnersList', 'sponsorsModalPartnersList'];
       targets.forEach(function(targetId) {
         var el = document.getElementById(targetId);
         if (!el) return;
@@ -16424,7 +16492,13 @@ async function saveData() {
       setText('introDrawerTimerLogoHeightVal', (s.timerLogoHeight || 70) + 'px');
       setCheck('introDrawerCbPartners', (typeof s.partnersEnabled !== 'undefined') ? s.partnersEnabled : true);
       setCheck('introDrawerCbSpectatorPartners', (typeof s.spectatorPartnersEnabled !== 'undefined') ? s.spectatorPartnersEnabled : true);
+      setCheck('mainSettingsCbIntroPartners', (typeof s.partnersEnabled !== 'undefined') ? s.partnersEnabled : true);
+      setCheck('mainSettingsCbSpectatorPartners', (typeof s.spectatorPartnersEnabled !== 'undefined') ? s.spectatorPartnersEnabled : true);
+      setCheck('sponsorsModalCbIntro', (typeof s.partnersEnabled !== 'undefined') ? s.partnersEnabled : true);
+      setCheck('sponsorsModalCbSpectator', (typeof s.spectatorPartnersEnabled !== 'undefined') ? s.spectatorPartnersEnabled : true);
       setVal('introDrawerPartnersTitleInput', s.partnersTitle || 'ОФИЦИАЛЬНЫЕ ПАРТНЕРЫ ТУРНИРА');
+      setVal('mainSettingsPartnersTitleInput', s.partnersTitle || 'ОФИЦИАЛЬНЫЕ ПАРТНЕРЫ ТУРНИРА');
+      setVal('sponsorsModalTitleInput', s.partnersTitle || 'ОФИЦИАЛЬНЫЕ ПАРТНЕРЫ ТУРНИРА');
 
       // Drawer Featured Matchup Elements
       setVal('introDrawerFeaturedStageSelect', s.featuredStage || 'auto');
@@ -17270,6 +17344,106 @@ async function saveData() {
 
       <div class="share-modal-footer" style="padding:12px 20px; background:#0f172a; border-top:1px solid #334155; display:flex; justify-content:flex-end;">
         <button class="btn" style="background:#334155; color:#cbd5e1;" onclick="closeAccessControlModal()">Закрыть</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Управление спонсорами и партнерами турнира -->
+  <div class="share-modal-overlay" id="sponsorsModal" style="display:none;" onclick="if(event.target===this)closeSponsorsModal()">
+    <div class="share-modal-card" style="max-width:760px; width:95%; max-height:92vh; display:flex; flex-direction:column; overflow:hidden;">
+      <div class="share-modal-header" style="background:linear-gradient(135deg, #2e1065 0%, #0f172a 100%); border-bottom:1px solid rgba(168,85,247,0.3); padding:16px 20px;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="font-size:24px;">🤝</span>
+          <div>
+            <h3 style="margin:0; font-size:17px; font-weight:900; color:#f8fafc; letter-spacing:0.5px;">СПОНСОРЫ И ПАРТНЕРЫ ТУРНИРА</h3>
+            <p style="margin:2px 0 0; font-size:12px; color:#cbd5e1;">Настройка списка спонсоров и раздельное управление отображением в сетке зрителей и в эфире OBS</p>
+          </div>
+        </div>
+        <button class="close-btn" onclick="closeSponsorsModal()">✕</button>
+      </div>
+
+      <div class="share-modal-body" style="padding:18px 20px; overflow-y:auto; flex:1; display:flex; flex-direction:column; gap:16px;">
+        <!-- Card 1: Toggle switches -->
+        <div style="background:rgba(15,23,42,0.95); border:1px solid rgba(168,85,247,0.35); border-radius:8px; padding:14px; display:flex; flex-direction:column; gap:10px;">
+          <div style="font-size:11px; font-weight:900; color:#c084fc; text-transform:uppercase; letter-spacing:0.5px;">
+            1. ВИДИМОСТЬ СПОНСОРОВ В ИНТЕРФЕЙСАХ
+          </div>
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:10px;">
+            <label style="display:flex; align-items:center; gap:10px; background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:10px 14px; cursor:pointer;">
+              <input type="checkbox" id="sponsorsModalCbSpectator" checked onchange="toggleSpectatorPartners(this.checked)" style="width:18px; height:18px; accent-color:#a855f7; cursor:pointer;">
+              <div>
+                <div style="font-size:13px; font-weight:800; color:#fff;">👁️ В сетке зрителей (top32 / quali)</div>
+                <div style="font-size:11px; color:#94a3b8;">Показывать полосу партнеров прямо под вкладками сетки</div>
+              </div>
+            </label>
+            <label style="display:flex; align-items:center; gap:10px; background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:10px 14px; cursor:pointer;">
+              <input type="checkbox" id="sponsorsModalCbIntro" checked onchange="toggleIntroPartners(this.checked)" style="width:18px; height:18px; accent-color:#00f0ff; cursor:pointer;">
+              <div>
+                <div style="font-size:13px; font-weight:800; color:#fff;">🎬 В заставке эфира OBS (Intro)</div>
+                <div style="font-size:11px; color:#94a3b8;">Показывать плашку над бегущей строкой в заставке 1920x1080</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Card 2: Title & Quick presets -->
+        <div style="background:rgba(15,23,42,0.95); border:1px solid rgba(255,255,255,0.12); border-radius:8px; padding:14px; display:flex; flex-direction:column; gap:10px;">
+          <div style="font-size:11px; font-weight:900; color:#38bdf8; text-transform:uppercase; letter-spacing:0.5px;">
+            2. ЗАГОЛОВОК ПЛАШКИ СПОНСОРОВ
+          </div>
+          <input type="text" id="sponsorsModalTitleInput" placeholder="ОФИЦИАЛЬНЫЕ ПАРТНЕРЫ ТУРНИРА" style="width:100%; padding:8px 12px; font-size:12px; font-weight:bold; background:#0b1120; color:#00f0ff; border:1px solid rgba(0,240,255,0.4); border-radius:6px;" oninput="setIntroPartnersTitle(this.value)">
+          <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+            <span style="font-size:11px; color:#94a3b8; font-weight:700;">Быстрые пресеты:</span>
+            <button type="button" class="btn mini" style="background:#1e293b; color:#cbd5e1;" onclick="addIntroPartnerPreset('AIMOL')">+ AIMOL</button>
+            <button type="button" class="btn mini" style="background:#1e293b; color:#cbd5e1;" onclick="addIntroPartnerPreset('TOYO TIRES')">+ TOYO TIRES</button>
+            <button type="button" class="btn mini" style="background:#1e293b; color:#cbd5e1;" onclick="addIntroPartnerPreset('MOTUL')">+ MOTUL</button>
+            <button type="button" class="btn mini" style="background:#1e293b; color:#cbd5e1;" onclick="addIntroPartnerPreset('SPARCO')">+ SPARCO</button>
+            <button type="button" class="btn mini" style="background:#1e293b; color:#cbd5e1;" onclick="addIntroPartnerPreset('GAZDERZHIM')">+ GAZDERZHIM</button>
+          </div>
+        </div>
+
+        <!-- Card 3: Add new partner -->
+        <div style="background:rgba(15,23,42,0.95); border:1px solid rgba(52,211,153,0.3); border-radius:8px; padding:14px; display:flex; flex-direction:column; gap:10px;">
+          <div style="font-size:11px; font-weight:900; color:#34d399; text-transform:uppercase; letter-spacing:0.5px;">
+            3. ДОБАВИТЬ НОВОГО СПОНСОРА
+          </div>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+            <div>
+              <div style="font-size:10px; color:#94a3b8; font-weight:700; margin-bottom:2px;">НАЗВАНИЕ СПОНСОРА:</div>
+              <input type="text" id="sponsorsModalPartnerNameInput" placeholder="Например: AIMOL" style="width:100%; padding:6px 10px; font-size:12px; background:#0b1120; color:#fff; border:1px solid rgba(255,255,255,0.2); border-radius:6px;">
+            </div>
+            <div>
+              <div style="font-size:10px; color:#94a3b8; font-weight:700; margin-bottom:2px;">ЛОГОТИП (URL ИЛИ ФАЙЛ):</div>
+              <div style="display:flex; gap:4px;">
+                <input type="text" id="sponsorsModalPartnerLogoInput" placeholder="https://... или выберите файл" style="flex:1; padding:6px 10px; font-size:11px; background:#0b1120; color:#fff; border:1px solid rgba(255,255,255,0.2); border-radius:6px;">
+                <label class="btn mini" style="background:#334155; color:#fff; cursor:pointer; display:inline-flex; align-items:center; padding:6px 10px;" title="Загрузить картинку логотипа">
+                  📁
+                  <input type="file" accept="image/*" style="display:none;" onchange="handleIntroPartnerFileUpload(this, 'sponsorsModal')">
+                </label>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn" style="background:linear-gradient(135deg, #10b981 0%, #059669 100%); color:#fff; font-weight:800; border-color:#34d399; width:100%; padding:8px;" onclick="addIntroPartnerFromInput('sponsorsModal')">
+            ➕ Добавить спонсора в список
+          </button>
+        </div>
+
+        <!-- Card 4: Active partners list -->
+        <div style="background:rgba(15,23,42,0.95); border:1px solid rgba(255,255,255,0.12); border-radius:8px; padding:14px; display:flex; flex-direction:column; gap:10px;">
+          <div style="font-size:11px; font-weight:900; color:#e2e8f0; text-transform:uppercase; letter-spacing:0.5px; display:flex; justify-content:space-between; align-items:center;">
+            <span>4. СПИСОК АКТИВНЫХ СПОНСОРОВ</span>
+            <span style="font-size:10px; color:#94a3b8;">Порядок отображения в строке</span>
+          </div>
+          <div id="sponsorsModalPartnersList"></div>
+        </div>
+      </div>
+
+      <div class="share-modal-footer" style="background:#0f172a; border-top:1px solid #334155; padding:12px 20px; display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-size:11px; color:#94a3b8;">Изменения мгновенно транслируются зрителям и в OBS через BroadcastChannel</span>
+        <div style="display:flex; gap:8px;">
+          <button class="btn" style="background:#334155; color:#cbd5e1;" onclick="closeSponsorsModal()">Закрыть</button>
+          <button class="btn" style="background:linear-gradient(135deg, #10b981 0%, #059669 100%); color:#fff; font-weight:800; border-color:#34d399;" onclick="saveAllAdminSettings(true); closeSponsorsModal();">💾 Сохранить и применить</button>
+        </div>
       </div>
     </div>
   </div>
