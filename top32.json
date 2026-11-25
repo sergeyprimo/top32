@@ -2857,7 +2857,7 @@
     "tickerLead": "📢 ИНФОРМАЦИЯ",
     "tickerText": "📺 ПРЯМАЯ ТРАНСЛЯЦИЯ В FULL HD | 💬 ПИШИТЕ В ЧАТ: Поддерживайте своих фаворитов! | 🔔 ПОДПИСЫВАЙТЕСЬ НА КАНАЛ, СТАВЬТЕ ЛАЙКИ И ВКЛЮЧАЙТЕ КОЛОКОЛЬЧИК",
     "tickerFontSize": 15,
-    "timerLabel": "⚔️ ДО ПАРНЫХ ЗАЕЗДОВ ТОП-32",
+    "timerLabel": "🏁 ДО НАЧАЛА КВАЛИФИКАЦИИ",
     "showTimerLabel": true,
     "timerLabelFontSize": 17,
     "timerLabelColor": "gold",
@@ -2904,7 +2904,7 @@
     "showPilot": false,
     "showQr": true,
     "showTicker": true,
-    "lastUpdated": 1795644989716,
+    "lastUpdated": 1795645011538,
     "timerTargetTimestamp": 1795272860852,
     "timerRemainingOnPause": 300
   },
