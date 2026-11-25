@@ -4858,8 +4858,8 @@
     } catch(e) {}
     var tourneyData = null;
     var currentJudgeTab = 'top8';
-    var isJudgeAuthorized = true;
-    var currentJudgeRole = 'admin'; // 'admin', 'judge1', 'judge2', 'judge3', 'viewer'
+    var isJudgeAuthorized = false;
+    var currentJudgeRole = 'viewer'; // 'admin', 'judge1', 'judge2', 'judge3', 'viewer'
     var top32Bus = window.top32Bus || ((typeof BroadcastChannel !== 'undefined') ? new BroadcastChannel('ac_top32_bus') : null);
     window.top32Bus = top32Bus;
     if (top32Bus) {
@@ -5577,39 +5577,54 @@ function checkJudgeAuth() {
     var roleParam = urlParams.get('role');
     var judgeParam = urlParams.get('judge');
 
+    // 1. Explicit Viewer Request
     if (roleParam === 'viewer') {
       isJudgeAuthorized = false;
       currentJudgeRole = 'viewer';
       clearAuthSession();
-    } else if (pinParam) {
-      // 1. PIN provided in URL query: authenticate immediately & clean URL
-      var isAdmin = verifyAdminPin(pinParam);
-      var isJudge = verifyJudgePin(pinParam);
+      updateAuthUI();
+      updatePersonalJudgeLinks();
+      return;
+    }
 
-      if (!isAdmin && !isJudge) {
+    // 2. Determine target role from URL parameters
+    var targetRole = null;
+    if (judgeParam === '1' || roleParam === 'judge1') targetRole = 'judge1';
+    else if (judgeParam === '2' || roleParam === 'judge2') targetRole = 'judge2';
+    else if (judgeParam === '3' || roleParam === 'judge3') targetRole = 'judge3';
+    else if (roleParam === 'judge' || judgeParam === 'judge') targetRole = 'judge1';
+    else if (roleParam === 'admin') targetRole = 'admin';
+
+    // 3. If PIN is provided in URL:
+    if (pinParam) {
+      var cleanPin = String(pinParam).trim();
+      var isAdminPin = verifyAdminPin(cleanPin);
+      var isJudgePin = verifyJudgePin(cleanPin);
+
+      if (!isAdminPin && !isJudgePin) {
+        // Invalid PIN
         isJudgeAuthorized = false;
         currentJudgeRole = 'viewer';
         clearAuthSession();
         setTimeout(function() {
           var err = document.getElementById('judgePinError');
           if (err) { err.textContent = '❌ Неверный PIN-код доступа'; err.style.display = 'block'; }
-          showJudgePinModal();
+          showJudgePinModal(targetRole || 'judge1');
         }, 350);
       } else {
-        // Determine role
-        if (roleParam === 'admin' && isAdmin) {
-          currentJudgeRole = 'admin';
-        } else if (judgeParam === '2' || roleParam === 'judge2') {
-          currentJudgeRole = 'judge2';
-        } else if (judgeParam === '3' || roleParam === 'judge3') {
-          currentJudgeRole = 'judge3';
-        } else if (judgeParam === '1' || roleParam === 'judge1') {
-          currentJudgeRole = 'judge1';
+        // Valid PIN!
+        // STRICT: If URL requested a judge role, STRICTLY enforce that judge role! NEVER grant admin!
+        if (targetRole && targetRole !== 'admin') {
+          currentJudgeRole = targetRole;
+        } else if (targetRole === 'admin') {
+          // Admin requested: strictly requires matching Admin PIN!
+          currentJudgeRole = isAdminPin ? 'admin' : 'judge1';
         } else {
-          currentJudgeRole = isAdmin ? 'admin' : 'judge1';
+          // No role param in URL: if Admin PIN was entered -> admin, if Judge PIN -> judge1
+          currentJudgeRole = isAdminPin ? 'admin' : 'judge1';
         }
 
-        // Check if stage is completed for judges
+        // Check if stage is closed for judges
         var isStageBlocked = (currentJudgeRole !== 'admin') && tourneyData && (tourneyData.stage_status === 'completed' || tourneyData.stage_status === 'locked');
         if (isStageBlocked) {
           isJudgeAuthorized = false;
@@ -5618,7 +5633,7 @@ function checkJudgeAuth() {
           setTimeout(function() {
             var err = document.getElementById('judgePinError');
             if (err) { err.textContent = '🔒 Текущий этап турнира завершён. Доступ закрыт.'; err.style.display = 'block'; }
-            showJudgePinModal();
+            showJudgePinModal(currentJudgeRole);
           }, 350);
         } else {
           isJudgeAuthorized = true;
@@ -5640,9 +5655,27 @@ function checkJudgeAuth() {
         }
       }
     } else {
-      // 2. No PIN in URL: validate existing ephemeral session
+      // 4. No PIN in URL: check existing session
       var session = getAuthSession();
-      if (session && session.role) {
+
+      if (targetRole && targetRole !== 'admin') {
+        // The URL explicitly specifies a judge role (e.g. ?judge=1 or ?role=judge1):
+        // If stored session is already this exact judge:
+        if (session && session.role === targetRole) {
+          isJudgeAuthorized = true;
+          currentJudgeRole = targetRole;
+          touchAuthActivity();
+        } else {
+          // Stored session was admin or different judge or absent:
+          // STRICT: DO NOT open admin interface! Prompt for PIN for this judge!
+          isJudgeAuthorized = false;
+          currentJudgeRole = 'viewer';
+          setTimeout(function() {
+            showJudgePinModal(targetRole);
+          }, 350);
+        }
+      } else if (session && session.role) {
+        // No role specified in URL, but valid session exists
         var isStageClosed = (session.role !== 'admin') && tourneyData && (tourneyData.stage_status === 'completed' || tourneyData.stage_status === 'locked');
         if (isStageClosed) {
           isJudgeAuthorized = false;
@@ -5659,11 +5692,12 @@ function checkJudgeAuth() {
           touchAuthActivity();
         }
       } else {
+        // No session and no PIN:
         isJudgeAuthorized = false;
         currentJudgeRole = 'viewer';
         clearAuthSession();
         setTimeout(function() {
-          showJudgePinModal();
+          showJudgePinModal(targetRole || 'judge1');
         }, 350);
       }
     }
@@ -6171,7 +6205,7 @@ function submitJudgePin() {
     }
 
     function getJudgeShareUrl() {
-      return getBaseJudgesUrl() + '?role=admin&pin=' + encodeURIComponent(getAdminPin());
+      return getBaseJudgesUrl() + '?role=judge1&pin=' + encodeURIComponent(getJudgePin());
     }
 
     function getViewerPublicUrl() {
@@ -17242,12 +17276,12 @@ async function saveData() {
             <span class="badge" style="background:#10b981; color:#fff;">СУДЕЙСТВО</span>
           </div>
           <p class="option-desc">
-            Ссылка для судей матча. Позволяет выставлять победителей, давать OMT и переключать заезды с любого телефона, планшета или ноутбука (авторизация по PIN 3667 уже вшита):
+            Ссылка для судей матча. Позволяет выставлять победителей, давать OMT и оценивать заезды с любого телефона, планшета или ноутбука (авторизация по судейскому PIN 2468 уже вшита):
           </p>
           <div class="share-input-row">
             <input type="text" id="viewerJudgeUrlInput" readonly style="border-color:#34d399; font-weight:700;">
             <button class="btn primary" onclick="copyViewerUrl('viewerJudgeUrlInput')">📋 Скопировать</button>
-            <a class="btn gold" id="btnOpenJudgeOnline" href="judges.html?pin=3667" target="_blank">🚀 Открыть</a>
+            <a class="btn gold" id="btnOpenJudgeOnline" href="judges.html?role=judge1&pin=2468" target="_blank">🚀 Открыть</a>
           </div>
         </div>
 
