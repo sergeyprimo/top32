@@ -2149,6 +2149,83 @@
     .director-tune-select:focus, .director-tune-input:focus {
       border-color: #f59e0b;
     }
+
+    /* Live Ticker Preview in Modal */
+    .ticker-preview-wrap {
+      width: 100%;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+      margin-bottom: 16px;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .ticker-preview-bar {
+      width: 100%;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      overflow: hidden;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    .ticker-preview-bar.theme-carbon {
+      background: linear-gradient(90deg, #070a12 0%, #0d121f 50%, #070a12 100%);
+      border-top: 1px solid rgba(56, 189, 248, 0.4);
+    }
+    .ticker-preview-bar.theme-carbon .ticker-preview-brand {
+      background: #f59e0b;
+      color: #000;
+    }
+    .ticker-preview-bar.theme-rds {
+      background: linear-gradient(90deg, #140d00 0%, #291b03 50%, #140d00 100%);
+      border-top: 1px solid rgba(245, 158, 11, 0.6);
+    }
+    .ticker-preview-bar.theme-rds .ticker-preview-brand {
+      background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+      color: #000;
+    }
+    .ticker-preview-bar.theme-neon {
+      background: linear-gradient(90deg, #030712 0%, #0f172a 50%, #030712 100%);
+      border-top: 1px solid rgba(0, 240, 255, 0.6);
+    }
+    .ticker-preview-bar.theme-neon .ticker-preview-brand {
+      background: #00f0ff;
+      color: #000;
+    }
+    .ticker-preview-brand {
+      font-size: 11px;
+      font-weight: 900;
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-right: 14px;
+      flex-shrink: 0;
+      letter-spacing: 0.6px;
+      white-space: nowrap;
+    }
+    .ticker-preview-scroll {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+    .ticker-preview-track {
+      display: inline-flex;
+      white-space: nowrap;
+      animation: tickerPreviewScroll 24s linear infinite;
+      gap: 36px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #cbd5e1;
+    }
+    .ticker-preview-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    @keyframes tickerPreviewScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
   
     /* Dynamic Stage Action Bar & Seeding Cards */
     .stage-action-bar {
@@ -5265,6 +5342,13 @@ function checkJudgeAuth() {
     }
     if (autoOpenParams.get('openQualiSettings') === '1') {
       openQualiProSettingsModal();
+    }
+    if (autoOpenParams.get('openDirector') === '1' || autoOpenParams.get('director') === '1') {
+      setTimeout(function() {
+        openObsDirectorModal();
+        var dt = autoOpenParams.get('directorTab');
+        if (dt) switchDirectorTab(dt);
+      }, 250);
     }
   } catch(e) {}
 }
@@ -10213,6 +10297,15 @@ function applyQualiPreset(type) {
       var startTab = urlTabParam || (tourneyData && (tourneyData.stage_mode || tourneyData.stage)) || 'quali';
       switchJudgeTab(startTab);
 
+      var urlParamsObj = new URLSearchParams(window.location.search);
+      if (urlParamsObj.get('director') === '1' || urlParamsObj.get('modal') === 'director') {
+        setTimeout(function() {
+          openObsDirectorModal();
+          var dt = urlParamsObj.get('directorTab');
+          if (dt) switchDirectorTab(dt);
+        }, 400);
+      }
+
       // Pre-warm GitHub SHA cache in background
       try {
         var _apiUrl = 'https://api.github.com/repos/sergeyprimo/top32/contents/top32.json';
@@ -10321,6 +10414,14 @@ function applyQualiPreset(type) {
               if (serverIntroTs > currentIntroTs) {
                 obsIntroState = Object.assign(obsIntroState, tourneyData.intro_settings);
                 if (typeof updateIntroUIElements === 'function') updateIntroUIElements();
+              }
+            }
+            if (tourneyData.ticker && typeof obsTickerState !== 'undefined') {
+              var serverTickerTs = normalizeTimestamp(tourneyData.ticker.lastUpdated || 0);
+              var currentTickerTs = normalizeTimestamp(obsTickerState.lastUpdated || 0);
+              if (serverTickerTs > currentTickerTs) {
+                obsTickerState = Object.assign(obsTickerState, tourneyData.ticker);
+                if (typeof updateTickerUIElements === 'function') updateTickerUIElements();
               }
             }
             if (tourneyData.saved_presets && Array.isArray(tourneyData.saved_presets)) {
@@ -14365,6 +14466,7 @@ async function saveData() {
     startJudgeLivePoller();
     initObsDirector();
     initObsIntroState();
+    initObsTicker();
     window.addEventListener('DOMContentLoaded', updateAuthUI);
     window.addEventListener('load', updateAuthUI);
 
@@ -15976,7 +16078,8 @@ async function saveData() {
       populateDirectorBattlesList();
       updateDirectorUI();
       updateIntroUIElements();
-      }
+      updateTickerUIElements();
+    }
 
     function closeObsDirectorModal() {
       var modal = document.getElementById('obsDirectorModal');
@@ -15984,7 +16087,7 @@ async function saveData() {
     }
 
     function switchDirectorTab(tab) {
-      ['Air', 'Tune', 'Urls', 'Intro'].forEach(function(t) {
+      ['Air', 'Tune', 'Urls', 'Intro', 'Ticker'].forEach(function(t) {
         var content = document.getElementById('directorTabContent' + t);
         var btn = document.getElementById('directorTabBtn' + t);
         var match = (t.toLowerCase() === tab.toLowerCase());
@@ -15993,6 +16096,9 @@ async function saveData() {
       });
       if (tab.toLowerCase() === 'intro') {
         updateIntroUIElements();
+      }
+      if (tab.toLowerCase() === 'ticker') {
+        updateTickerUIElements();
       }
     }
 
@@ -16268,7 +16374,7 @@ async function saveData() {
         btn.style.fontWeight = '800';
       }
 
-      var ids = ['obsPlateBattle', 'obsPlateQuali', 'obsPlateTower', 'obsPlateTelemetry', 'obsPlateZones', 'obsPlateDecision', 'obsPlateNext'];
+      var ids = ['obsPlateBattle', 'obsPlateQuali', 'obsPlateTower', 'obsPlateTelemetry', 'obsPlateZones', 'obsPlateDecision', 'obsPlateNext', 'obsPlateTicker'];
       ids.forEach(function(id) {
         var el = document.getElementById(id);
         if (el) {
@@ -16277,6 +16383,240 @@ async function saveData() {
           el.textContent = u;
         }
       });
+    }
+
+    /* ============================================================
+       OBS INFO TICKER (БЕГУЩАЯ СТРОКА) CONTROLLER & BROADCASTER
+       ============================================================ */
+    var obsTickerState = {
+      enabled: true,
+      title: '⚡ DRIFT BANDA CUP',
+      speed: 'medium', // 'slow', 'medium', 'fast'
+      theme: 'carbon', // 'carbon', 'rds', 'neon'
+      pos: 'bottom',   // 'bottom', 'top'
+      text: "🌐 САЙТ СОРЕВНОВАНИЙ: ГАЗДЕРЖИМ.РФ\n📺 ПРЯМАЯ ТРАНСЛЯЦИЯ: TWITCH.TV/SERGEYPRIMO\n💬 ГРУППА VK: VK.COM/DRIFTBANDA\n🏆 СУДЕЙСТВО: RDS GP RULES • ТОП-32 ПАРНЫЕ ЗАЕЗДЫ\n⭐ ГОЛОСУЙ ЗА ПИЛОТА ДНЯ В ЧАТЕ СТРИМА!",
+      lastUpdated: Date.now()
+    };
+
+    var tickerBroadcastChannel = (typeof BroadcastChannel !== 'undefined') ? new BroadcastChannel('ac_obs_ticker_bus') : null;
+
+    var TICKER_PRESETS = {
+      default: {
+        title: '⚡ DRIFT BANDA CUP',
+        text: "🌐 САЙТ СОРЕВНОВАНИЙ: ГАЗДЕРЖИМ.РФ\n📺 ПРЯМАЯ ТРАНСЛЯЦИЯ: TWITCH.TV/SERGEYPRIMO\n💬 ГРУППА VK: VK.COM/DRIFTBANDA\n🏆 СУДЕЙСТВО: RDS GP RULES • ТОП-32 ПАРНЫЕ ЗАЕЗДЫ\n⭐ ГОЛОСУЙ ЗА ПИЛОТА ДНЯ В ЧАТЕ СТРИМА!"
+      },
+      quali: {
+        title: '🏁 КВАЛИФИКАЦИЯ',
+        text: "🏁 ИДЕТ ОДИНОЧНАЯ КВАЛИФИКАЦИЯ • 2 ПОПЫТКИ НА КАЖДОГО ПИЛОТА\n📐 СУДЕЙСКИЕ КРИТЕРИИ: ТРАЕКТОРИЯ (40) • УГОЛ (30) • СТИЛЬ (30)\n🌐 ОНЛАЙН СЕТКА И ТАБЛИЦА БАЛЛОВ: ГАЗДЕРЖИМ.РФ\n🔥 ЛУЧШИЕ 32 ПИЛОТА ВЫХОДЯТ В ОСНОВНУЮ СЕТКУ ПАРНЫХ ЗАЕЗДОВ"
+      },
+      top32: {
+        title: '🏆 ТОП-32 ПАРНЫЕ ЗАЕЗДЫ',
+        text: "🏎️ ОСНОВНАЯ СЕТКА ТОП-32 • ХИТЫ НА ВЫБЫВАНИЕ ПО ОЛИМПИЙСКОЙ СИСТЕМЕ\n⚖️ В СЛУЧАЕ РАВЕНСТВА БАЛЛОВ СУДЬИ НАЗНАЧАЮТ ПЕРЕЗАЕЗД (ONE MORE TIME)\n📺 ТРАНСЛЯЦИЯ: TWITCH.TV/SERGEYPRIMO • ОБЩАЙТЕСЬ В ЧАТЕ!\n🌐 ОНЛАЙН РЕЗУЛЬТАТЫ СЕТКИ: ГАЗДЕРЖИМ.РФ"
+      },
+      break: {
+        title: '⏸️ ТЕХНИЧЕСКИЙ ПЕРЕРЫВ',
+        text: "⏸️ ПЕРЕРЫВ 10 МИНУТ • СКОРО ПРОДОЛЖИМ ЗАЕЗДЫ!\n🎧 СЛУШАЙТЕ МУЗЫКУ И ОБЩАЙТЕСЬ В ЧАТЕ ТРАНСЛЯЦИИ\n🌐 АКТУАЛЬНОЕ ПОЛОЖЕНИЕ СЕТКИ: ГАЗДЕРЖИМ.РФ\n🏎️ СЛЕДУЮЩИЙ ХИТ НА ТРАССЕ УЖЕ СОВСЕМ СКОРО!"
+      },
+      sponsors: {
+        title: '🤝 СПОНСОРЫ И ПАРТНЕРЫ',
+        text: "🤝 ОФИЦИАЛЬНЫЙ ПАРТНЕР ТУРНИРА: DRIFT BANDA\n🏎️ ТРАССЫ И АВТОМОБИЛИ: ASSETTO CORSA DRIFT COMMUNITY\n🌐 ГЛАВНЫЙ САЙТ СОРЕВНОВАНИЙ: ГАЗДЕРЖИМ.РФ\n📺 СМОТРИТЕ СТРИМ НА TWITCH И ВКОНТАКТЕ"
+      }
+    };
+
+    function initObsTicker() {
+      try {
+        var saved = localStorage.getItem('AC_OBS_TICKER_STATE');
+        if (saved) {
+          obsTickerState = Object.assign(obsTickerState, JSON.parse(saved));
+        }
+      } catch(e) {}
+
+      if (tourneyData && tourneyData.ticker) {
+        obsTickerState = Object.assign(obsTickerState, tourneyData.ticker);
+      } else if (tourneyData && tourneyData.obs_director && tourneyData.obs_director.overlayTicker) {
+        obsTickerState.text = tourneyData.obs_director.overlayTicker.split('•').map(function(s){ return s.trim(); }).join('\n');
+      }
+    }
+
+    function updateTickerUIElements() {
+      initObsTicker();
+      var s = obsTickerState;
+      var cb = document.getElementById('tickerModalEnabled');
+      if (cb) cb.checked = !!s.enabled;
+
+      var titleInp = document.getElementById('tickerModalTitleInput');
+      if (titleInp && titleInp !== document.activeElement) titleInp.value = s.title || '⚡ DRIFT BANDA CUP';
+
+      var textInp = document.getElementById('tickerModalTextInput');
+      if (textInp && textInp !== document.activeElement) textInp.value = s.text || '';
+
+      var spd = document.getElementById('tickerModalSpeedSelect');
+      if (spd) spd.value = s.speed || 'medium';
+
+      var thm = document.getElementById('tickerModalThemeSelect');
+      if (thm) thm.value = s.theme || 'carbon';
+
+      var pos = document.getElementById('tickerModalPosSelect');
+      if (pos) pos.value = s.pos || 'bottom';
+
+      updateTickerLivePreview();
+      updateTickerObsUrl();
+    }
+
+    function updateTickerFromInputs(isSave) {
+      var cb = document.getElementById('tickerModalEnabled');
+      var titleInp = document.getElementById('tickerModalTitleInput');
+      var textInp = document.getElementById('tickerModalTextInput');
+      var spd = document.getElementById('tickerModalSpeedSelect');
+      var thm = document.getElementById('tickerModalThemeSelect');
+      var pos = document.getElementById('tickerModalPosSelect');
+
+      if (cb) obsTickerState.enabled = cb.checked;
+      if (titleInp) obsTickerState.title = titleInp.value.trim() || '⚡ DRIFT BANDA CUP';
+      if (textInp) obsTickerState.text = textInp.value.trim();
+      if (spd) obsTickerState.speed = spd.value;
+      if (thm) obsTickerState.theme = thm.value;
+      if (pos) obsTickerState.pos = pos.value;
+      obsTickerState.lastUpdated = Date.now();
+
+      try {
+        localStorage.setItem('AC_OBS_TICKER_STATE', JSON.stringify(obsTickerState));
+      } catch(e) {}
+
+      if (tickerBroadcastChannel) {
+        try {
+          tickerBroadcastChannel.postMessage({ type: 'TICKER_UPDATE', state: obsTickerState });
+        } catch(e) {}
+      }
+      if (typeof directorBus !== 'undefined' && directorBus) {
+        try {
+          directorBus.postMessage({ type: 'TICKER_UPDATE', ticker: obsTickerState });
+        } catch(e) {}
+      }
+
+      if (tourneyData) {
+        tourneyData.ticker = JSON.parse(JSON.stringify(obsTickerState));
+        if (!tourneyData.obs_director) tourneyData.obs_director = {};
+        tourneyData.obs_director.overlayTicker = obsTickerState.text.split('\n').filter(function(s){ return s.trim().length > 0; }).join(' • ');
+        tourneyData.obs_director.overlayTitle = obsTickerState.title.replace(/^[^a-zA-Zа-яА-Я0-9]+/, '').trim();
+        tourneyData.last_updated = Date.now();
+      }
+
+      updateTickerLivePreview();
+      updateTickerObsUrl();
+
+      if (isSave) {
+        if (typeof autoSave === 'function') autoSave(true);
+        if (typeof syncToGitHub === 'function') syncToGitHub(true);
+        showSyncToast('💾 Бегущая строка успешно обновлена и отправлена в эфир OBS!');
+      }
+    }
+
+    function applyTickerPreset(presetKey) {
+      var p = TICKER_PRESETS[presetKey];
+      if (!p) return;
+      var titleInp = document.getElementById('tickerModalTitleInput');
+      var textInp = document.getElementById('tickerModalTextInput');
+      if (titleInp) titleInp.value = p.title;
+      if (textInp) textInp.value = p.text;
+      updateTickerFromInputs(false);
+      showSyncToast('📋 Применен шаблон: ' + p.title);
+    }
+
+    function insertTickerTag(tag) {
+      var txt = document.getElementById('tickerModalTextInput');
+      if (!txt) return;
+      var start = txt.selectionStart || txt.value.length;
+      var end = txt.selectionEnd || txt.value.length;
+      var val = txt.value;
+      txt.value = val.substring(0, start) + tag + ' ' + val.substring(end);
+      txt.focus();
+      txt.selectionStart = txt.selectionEnd = start + tag.length + 1;
+      updateTickerFromInputs(false);
+    }
+
+    function updateTickerLivePreview() {
+      var bar = document.getElementById('tickerPreviewBar');
+      var brand = document.getElementById('tickerPreviewBrand');
+      var track = document.getElementById('tickerPreviewTrack');
+      var statusBadge = document.getElementById('tickerLiveStatusBadge');
+
+      if (statusBadge) {
+        if (obsTickerState.enabled) {
+          statusBadge.textContent = '🟢 В ЭФИРЕ';
+          statusBadge.style.color = '#34d399';
+          statusBadge.style.background = 'rgba(16,185,129,0.15)';
+          statusBadge.style.borderColor = 'rgba(16,185,129,0.4)';
+        } else {
+          statusBadge.textContent = '⚪ ОТКЛЮЧЕН';
+          statusBadge.style.color = '#94a3b8';
+          statusBadge.style.background = 'rgba(148,163,184,0.15)';
+          statusBadge.style.borderColor = 'rgba(148,163,184,0.3)';
+        }
+      }
+
+      if (!bar || !brand || !track) return;
+
+      brand.textContent = obsTickerState.title || '⚡ DRIFT BANDA CUP';
+
+      var lines = (obsTickerState.text || '').split(/\n|\|/);
+      var items = [];
+      lines.forEach(function(line) {
+        var trimmed = line.trim();
+        if (trimmed.length > 0) {
+          items.push(formatTickerItemHtml(trimmed));
+        }
+      });
+      if (items.length === 0) {
+        items = ['<span>ГАЗДЕРЖИМ.РФ • ТРАНСЛЯЦИЯ В ЭФИРЕ</span>'];
+      }
+
+      var html = '';
+      for (var repeat = 0; repeat < 3; repeat++) {
+        items.forEach(function(it) {
+          html += '<div class="ticker-preview-item">' + it + '</div>';
+        });
+      }
+      track.innerHTML = html;
+
+      bar.className = 'ticker-preview-bar theme-' + (obsTickerState.theme || 'carbon');
+
+      var dur = (obsTickerState.speed === 'slow') ? '38s' : ((obsTickerState.speed === 'fast') ? '14s' : '24s');
+      track.style.animationDuration = dur;
+      bar.style.opacity = obsTickerState.enabled ? '1' : '0.4';
+    }
+
+    function formatTickerItemHtml(str) {
+      return str.replace(/(https?:\/\/[^\s]+|twitch\.tv\/[^\s]+|vk\.com\/[^\s]+|газдержим\.рф|[a-z0-9_-]+\.(?:ru|com|net|рф))/gi, function(match) {
+        return '<span style="color:#38bdf8; font-weight:800;">' + match + '</span>';
+      });
+    }
+
+    function updateTickerObsUrl() {
+      var urlEl = document.getElementById('tickerObsUrlDisplay');
+      if (!urlEl) return;
+      var baseUrl = 'https://sergeyprimo.github.io/top32/plate_ticker.html';
+      var params = [];
+      if (obsTickerState.speed && obsTickerState.speed !== 'medium') params.push('speed=' + obsTickerState.speed);
+      if (obsTickerState.theme && obsTickerState.theme !== 'carbon') params.push('theme=' + obsTickerState.theme);
+      if (obsTickerState.pos && obsTickerState.pos !== 'bottom') params.push('pos=' + obsTickerState.pos);
+      var finalUrl = baseUrl + (params.length > 0 ? ('?' + params.join('&')) : '');
+      urlEl.textContent = finalUrl;
+    }
+
+    function copyTickerObsUrl() {
+      var urlEl = document.getElementById('tickerObsUrlDisplay');
+      if (!urlEl) return;
+      var url = urlEl.textContent.trim();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function() {
+          alert('📋 Ссылка бегущей строки для OBS скопирована в буфер обмена!\n\n' + url + '\n\nВставьте в OBS Studio как источник «Браузер» (Browser Source) шириной 1920 и высотой 34.');
+        }).catch(function() {
+          prompt('Скопируйте ссылку для OBS:', url);
+        });
+      } else {
+        prompt('Скопируйте ссылку для OBS:', url);
+      }
     }
 </script>
 
@@ -17166,6 +17506,7 @@ async function saveData() {
         <button class="director-tab-btn" id="directorTabBtnTune" onclick="switchDirectorTab('tune')">⚙️ Тонкая настройка графики</button>
         <button class="director-tab-btn" id="directorTabBtnUrls" onclick="switchDirectorTab('urls')">🔗 Ссылки для OBS Studio</button>
         <button class="director-tab-btn" id="directorTabBtnIntro" onclick="switchDirectorTab('intro')">🎬 Заставка (Intro)</button>
+        <button class="director-tab-btn" id="directorTabBtnTicker" onclick="switchDirectorTab('ticker')">🏷️ Инфо-тикер (Бегущая строка)</button>
       </div>
 
       <div class="share-modal-body" style="overflow-y:auto; flex:1; padding-top:4px;">
@@ -17920,6 +18261,142 @@ async function saveData() {
             <div style="display:flex; gap:8px;">
               <button class="btn small" style="background:#0ea5e9; color:#fff;" onclick="openIntroPreview()">👁️ Превью</button>
               <button class="btn primary small" onclick="copyIntroObsUrl()">📋 Копировать</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 5: INFO TICKER (БЕГУЩАЯ СТРОКА) CONTROLS -->
+        <div id="directorTabContentTicker" style="display:none;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+            <div class="director-section-title" style="margin-bottom:0;">🏷️ Управление Инфо-Тикером (Бегущая строка на стриме в OBS):</div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span id="tickerLiveStatusBadge" style="font-size:11px; font-weight:800; color:#34d399; background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.4); padding:3px 8px; border-radius:6px;">🟢 В ЭФИРЕ</span>
+              <button type="button" class="btn small" style="background:linear-gradient(135deg, #10b981 0%, #059669 100%); color:#fff; font-weight:800; box-shadow:0 0 10px rgba(16,185,129,0.4);" onclick="updateTickerFromInputs(true)">💾 Сохранить и в эфир (Live)</button>
+            </div>
+          </div>
+
+          <!-- Live Interactive Ticker Preview -->
+          <div style="margin-bottom:8px; font-size:11px; font-weight:800; color:#38bdf8; text-transform:uppercase; display:flex; align-items:center; gap:6px;">
+            <span>👁️</span> Живой предпросмотр бегущей строки (как в OBS):
+          </div>
+          <div class="ticker-preview-wrap">
+            <div class="ticker-preview-bar theme-carbon" id="tickerPreviewBar">
+              <div class="ticker-preview-brand" id="tickerPreviewBrand">⚡ DRIFT BANDA CUP</div>
+              <div class="ticker-preview-scroll">
+                <div class="ticker-preview-track" id="tickerPreviewTrack"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2 Columns Grid: Left (Text & Presets), Right (Tuning & Settings) -->
+          <div class="director-tune-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap:14px; margin-bottom:16px;">
+            
+            <!-- Box 1: Text & Presets -->
+            <div class="director-tune-card" style="border-color:rgba(245, 158, 11, 0.35);">
+              <div class="director-tune-title" style="color:#fbbf24; display:flex; justify-content:space-between; align-items:center;">
+                <span><span>✏️</span> Текст и сообщения бегущей строки</span>
+              </div>
+              <div class="director-tune-desc">
+                Пропишите собственные сообщения для стрима. Каждая строка — отдельное сообщение, плавно сменяющееся на экране.
+              </div>
+
+              <!-- Brand Title input -->
+              <div style="margin-bottom:10px;">
+                <div style="font-size:10px; color:#94a3b8; font-weight:800; margin-bottom:4px; text-transform:uppercase;">Бейдж / Префикс бегущей строки (слева):</div>
+                <input type="text" id="tickerModalTitleInput" class="director-tune-select" style="width:100%; font-weight:800; color:#fbbf24;" value="⚡ DRIFT BANDA CUP" oninput="updateTickerFromInputs(false)">
+              </div>
+
+              <!-- Quick Presets -->
+              <div style="margin-bottom:10px;">
+                <div style="font-size:10px; color:#94a3b8; font-weight:800; margin-bottom:4px; text-transform:uppercase;">Готовые пресеты в 1 клик:</div>
+                <div style="display:flex; flex-wrap:wrap; gap:5px;">
+                  <button type="button" class="btn mini" style="background:#1e293b; color:#cbd5e1;" onclick="applyTickerPreset('default')">🏎️ Стандарт</button>
+                  <button type="button" class="btn mini" style="background:#1e293b; color:#cbd5e1;" onclick="applyTickerPreset('quali')">🏁 Квалификация</button>
+                  <button type="button" class="btn mini" style="background:#1e293b; color:#cbd5e1;" onclick="applyTickerPreset('top32')">🏆 ТОП-32</button>
+                  <button type="button" class="btn mini" style="background:#1e293b; color:#cbd5e1;" onclick="applyTickerPreset('break')">⏸️ Перерыв</button>
+                  <button type="button" class="btn mini" style="background:#1e293b; color:#cbd5e1;" onclick="applyTickerPreset('sponsors')">🤝 Спонсоры</button>
+                </div>
+              </div>
+
+              <!-- Textarea for Custom Text -->
+              <div style="margin-bottom:8px;">
+                <div style="font-size:10px; color:#94a3b8; font-weight:800; margin-bottom:4px; text-transform:uppercase;">Текст сообщений (каждая строка — отдельный пункт):</div>
+                <textarea id="tickerModalTextInput" rows="5" class="director-tune-select" style="width:100%; font-family:monospace; font-size:12px; line-height:1.5; resize:vertical; padding:8px;" oninput="updateTickerFromInputs(false)"></textarea>
+              </div>
+
+              <!-- Quick Tag Buttons -->
+              <div>
+                <div style="font-size:10px; color:#94a3b8; font-weight:800; margin-bottom:4px; text-transform:uppercase;">Быстрая вставка тегов:</div>
+                <div style="display:flex; flex-wrap:wrap; gap:4px;">
+                  <button type="button" class="btn mini" style="background:rgba(56,189,248,0.15); color:#38bdf8; font-size:10px;" onclick="insertTickerTag('🌐 САЙТ:')">+ 🌐 САЙТ</button>
+                  <button type="button" class="btn mini" style="background:rgba(168,85,247,0.15); color:#c084fc; font-size:10px;" onclick="insertTickerTag('📺 СТРИМ TWITCH:')">+ 📺 СТРИМ</button>
+                  <button type="button" class="btn mini" style="background:rgba(14,165,233,0.15); color:#38bdf8; font-size:10px;" onclick="insertTickerTag('💬 ГРУППА VK:')">+ 💬 VK</button>
+                  <button type="button" class="btn mini" style="background:rgba(245,158,11,0.15); color:#fbbf24; font-size:10px;" onclick="insertTickerTag('🏆 СУДЕЙСТВО RDS GP:')">+ 🏆 СУДЕЙСТВО</button>
+                  <button type="button" class="btn mini" style="background:rgba(239,68,68,0.15); color:#f87171; font-size:10px;" onclick="insertTickerTag('⚡ ПЕРЕЗАЕЗД OMT:')">+ ⚡ OMT</button>
+                  <button type="button" class="btn mini" style="background:rgba(16,185,129,0.15); color:#34d399; font-size:10px;" onclick="insertTickerTag('⭐ ПИЛОТ ДНЯ:')">+ ⭐ ПИЛОТ ДНЯ</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Box 2: Display, Theme & Speed Settings -->
+            <div class="director-tune-card" style="border-color:rgba(56, 189, 248, 0.35);">
+              <div class="director-tune-title" style="color:#38bdf8; display:flex; justify-content:space-between; align-items:center;">
+                <span><span>⚙️</span> Параметры и отображение в OBS</span>
+                <label style="display:flex; align-items:center; gap:6px; cursor:pointer; font-size:12px; font-weight:800; color:#fff;">
+                  <input type="checkbox" id="tickerModalEnabled" checked onchange="updateTickerFromInputs(false)">
+                  <span>Включен</span>
+                </label>
+              </div>
+              <div class="director-tune-desc">
+                Тонкая настройка скорости прокрутки, цветовой стилизации под турнир и позиции плашки на холсте стрима.
+              </div>
+
+              <!-- Speed Selector -->
+              <div style="margin-bottom:12px;">
+                <div style="font-size:10px; color:#94a3b8; font-weight:800; margin-bottom:4px; text-transform:uppercase;">Скорость движения бегущей строки:</div>
+                <select id="tickerModalSpeedSelect" class="director-tune-select" style="width:100%;" onchange="updateTickerFromInputs(false)">
+                  <option value="slow">🐢 Медленно (38 сек — длинный текст, легко читать)</option>
+                  <option value="medium" selected>🏎️ Средне (24 сек — оптимально для трансляции)</option>
+                  <option value="fast">⚡ Быстро (14 сек — динамичные короткие анонсы)</option>
+                </select>
+              </div>
+
+              <!-- Theme Selector -->
+              <div style="margin-bottom:12px;">
+                <div style="font-size:10px; color:#94a3b8; font-weight:800; margin-bottom:4px; text-transform:uppercase;">Стиль оформления (Тема):</div>
+                <select id="tickerModalThemeSelect" class="director-tune-select" style="width:100%;" onchange="updateTickerFromInputs(false)">
+                  <option value="carbon" selected>⚡ Carbon (Тёмный карбон с синим неоном)</option>
+                  <option value="rds">🏆 RDS Gold (Золотой официальный стиль RDS)</option>
+                  <option value="neon">🚀 Cyber Neon (Лазурный неоновый киберпанк)</option>
+                </select>
+              </div>
+
+              <!-- Position Selector -->
+              <div style="margin-bottom:14px;">
+                <div style="font-size:10px; color:#94a3b8; font-weight:800; margin-bottom:4px; text-transform:uppercase;">Позиция на экране:</div>
+                <select id="tickerModalPosSelect" class="director-tune-select" style="width:100%;" onchange="updateTickerFromInputs(false)">
+                  <option value="bottom" selected>Внизу экрана (Нижний титр / Lower-third)</option>
+                  <option value="top">Вверху экрана (Верхний инфо-бар)</option>
+                </select>
+              </div>
+
+              <div style="background:rgba(14, 165, 233, 0.1); border:1px solid rgba(14, 165, 233, 0.35); border-radius:8px; padding:10px 12px; font-size:11px; color:#cbd5e1; line-height:1.5;">
+                💡 <b>Мгновенная трансляция:</b> Изменения отправляются в OBS Studio по внутреннему каналу без задержки (0 мс). Нажмите <b>«Сохранить и в эфир»</b> для сохранения текста в турнирный файл на сервере.
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Card: OBS Link -->
+          <div class="access-link-card" style="border-color:rgba(245, 158, 11, 0.35);">
+            <div class="access-link-info">
+              <div class="access-link-title"><span>🏷️</span> Прямая ссылка бегущей строки для OBS Studio (1920x34)</div>
+              <div class="access-link-url" id="tickerObsUrlDisplay">https://sergeyprimo.github.io/top32/plate_ticker.html</div>
+              <div style="font-size:11px; color:#94a3b8;">Добавьте в OBS Studio источник <b>«Браузер» (Browser Source)</b> с разрешением 1920x34 (или 1920x1080). Плашка управляется с этой страницы в реальном времени!</div>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <button type="button" class="btn small" style="background:#0ea5e9; color:#fff;" onclick="window.open(document.getElementById('tickerObsUrlDisplay').textContent, '_blank')">👁️ Открыть в новой вкладке</button>
+              <button type="button" class="btn primary small" onclick="copyTickerObsUrl()">📋 Копировать ссылку</button>
             </div>
           </div>
         </div>

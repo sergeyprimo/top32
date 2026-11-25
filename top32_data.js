@@ -8,10 +8,10 @@ window.AC_TOP32_DATA = {
   "judge_pin": "2468",
   "admin_pin": "3667",
   "backup_sheet_webhook": "https://script.google.com/macros/s/AKfycbwiJ6dGQyGtrHhoi5Ri1OOJD5RuPbkQAF8JfgAGZ3RiObIXpbBywmFEJmyGVjpJ6G_6uQ/exec",
-  "stage": "top4",
-  "active_battle_id": 302,
+  "stage": "top32",
+  "active_battle_id": 5,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795190009211,
+  "last_updated": 1795563859652,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -22,865 +22,866 @@ window.AC_TOP32_DATA = {
       "rank": 1,
       "seed": 1,
       "name": "Иван Самарин",
-      "group": "A",
+      "group": "",
       "car": "db_ft_ford_mustang_rtr_samarin",
       "number": "—",
-      "run1": 98.7,
-      "run2": 99,
-      "best": 99,
+      "run1": 52,
+      "run2": 0,
+      "best": 52,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 197.7,
-      "single_best": 99,
-      "worse": 98.7
+      "total": 52,
+      "single_best": 52,
+      "worse": 0,
+      "_local_edit_time": 1795554377042
     },
     {
       "rank": 2,
       "seed": 2,
       "name": "Леонтьев Вячеслав",
-      "group": "A",
+      "group": "",
       "car": "db_bmw_e92_vyacheslav_leontev",
       "number": "—",
-      "run1": 94.8,
-      "run2": 98.5,
-      "best": 98.5,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 193.3,
-      "single_best": 98.5,
-      "worse": 94.8
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 3,
       "seed": 3,
       "name": "Даниил Грошевой",
-      "group": "A",
+      "group": "",
       "car": "VDC BMW E46 HGK Public 5.0",
       "number": "—",
-      "run1": 93.6,
-      "run2": 97.5,
-      "best": 97.5,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 191.1,
-      "single_best": 97.5,
-      "worse": 93.6
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 4,
       "seed": 4,
       "name": "ДЕНИС ИСТРАТИЙ",
-      "group": "A",
+      "group": "",
       "car": "db_nissan_180sx_denis_istratiy",
       "number": "—",
-      "run1": 92.4,
-      "run2": 96,
-      "best": 96,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 188.4,
-      "single_best": 96,
-      "worse": 92.4
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 5,
       "seed": 5,
       "name": "Соболев Павед",
-      "group": "A",
+      "group": "",
       "car": "db_toyota_supra_mk4_a80_pavel_sobolev",
       "number": "—",
-      "run1": 94.2,
-      "run2": 95.5,
-      "best": 95.5,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 189.7,
-      "single_best": 95.5,
-      "worse": 94.2
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 6,
       "seed": 6,
       "name": "Николай Краевский",
-      "group": "A",
+      "group": "",
       "car": "db_toyota_jzx90_nikolay_kraevskiy",
       "number": "—",
-      "run1": 90.2,
-      "run2": 94,
-      "best": 94,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 184.2,
-      "single_best": 94,
-      "worse": 90.2
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 7,
       "seed": 7,
       "name": "Алмаз Муртазин",
-      "group": "A",
+      "group": "",
       "car": "db_bmw_m2_g87_almaz_murtazin",
       "number": "—",
-      "run1": 89.7,
-      "run2": 93.5,
-      "best": 93.5,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 183.2,
-      "single_best": 93.5,
-      "worse": 89.7
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 8,
       "seed": 8,
       "name": "Тимофей Никитин",
-      "group": "A",
+      "group": "",
       "car": "VDC Shelby Mustang Super Snake Public 5.0",
       "number": "—",
-      "run1": 89.9,
-      "run2": 92,
-      "best": 92,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 181.9,
-      "single_best": 92,
-      "worse": 89.9
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 9,
       "seed": 9,
       "name": "Марк Хороший",
-      "group": "A",
+      "group": "",
       "car": "db_ford_mustang_s550_mark_horoshiy",
       "number": "—",
-      "run1": 89.9,
-      "run2": 91.5,
-      "best": 91.5,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 181.4,
-      "single_best": 91.5,
-      "worse": 89.9
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 10,
       "seed": 10,
       "name": "Данила Арефьев",
-      "group": "A",
+      "group": "",
       "car": "VDC Toyota Mark II JZX100 Public 5.0",
       "number": "—",
-      "run1": 90,
-      "run2": 91,
-      "best": 91,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 181,
-      "single_best": 91,
-      "worse": 90
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 11,
       "seed": 11,
       "name": "Даниил Кузнецов",
-      "group": "A",
+      "group": "",
       "car": "db_ford_mustang_s550_kuznetsov_daniil",
       "number": "—",
-      "run1": 86.9,
-      "run2": 90,
-      "best": 90,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 176.9,
-      "single_best": 90,
-      "worse": 86.9
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 12,
       "seed": 12,
       "name": "Дмитрий Анохин",
-      "group": "A",
+      "group": "",
       "car": "VDC BMW E92 M3 Public 5.0",
       "number": "—",
-      "run1": 87.7,
-      "run2": 89.5,
-      "best": 89.5,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 177.2,
-      "single_best": 89.5,
-      "worse": 87.7
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 13,
       "seed": 13,
       "name": "Роман Контиевский",
-      "group": "A",
+      "group": "",
       "car": "db_bmw_e92_roman_kontievskii",
       "number": "—",
-      "run1": 85.3,
-      "run2": 88,
-      "best": 88,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 173.3,
-      "single_best": 88,
-      "worse": 85.3
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 14,
       "seed": 14,
       "name": "Артем Евдокимов",
-      "group": "A",
+      "group": "",
       "car": "db_lada_priora_evdokimov_artem",
       "number": "—",
-      "run1": 85.1,
-      "run2": 87.5,
-      "best": 87.5,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 172.6,
-      "single_best": 87.5,
-      "worse": 85.1
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 15,
       "seed": 15,
       "name": "Владимир Шапошников",
-      "group": "B",
+      "group": "",
       "car": "db_toyota_supra_a80_vladimir_shaposhnikov",
       "number": "—",
-      "run1": 83.3,
-      "run2": 86,
-      "best": 86,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 169.3,
-      "single_best": 86,
-      "worse": 83.3
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 16,
       "seed": 16,
       "name": "Данила Козлов",
-      "group": "B",
+      "group": "",
       "car": "db_subaru_brz_danila_kozlov",
       "number": "—",
-      "run1": 81.6,
-      "run2": 85,
-      "best": 85,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 166.6,
-      "single_best": 85,
-      "worse": 81.6
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 17,
       "seed": 17,
       "name": "Степан Безуглов",
-      "group": "B",
+      "group": "",
       "car": "db_bmw_m4_Stepan_Bezuglov",
       "number": "—",
-      "run1": 83.2,
-      "run2": 84.5,
-      "best": 84.5,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 167.7,
-      "single_best": 84.5,
-      "worse": 83.2
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 18,
       "seed": 18,
       "name": "Вадим Киселев",
-      "group": "B",
+      "group": "",
       "car": "VDC Toyota Supra A80 Public 5.0",
       "number": "—",
-      "run1": 80.4,
-      "run2": 83,
-      "best": 83,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 163.4,
-      "single_best": 83,
-      "worse": 80.4
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 19,
       "seed": 19,
       "name": "Мокрицкий Владислав",
-      "group": "B",
+      "group": "",
       "car": "VDC BMW E92 M3 Public 5.0",
       "number": "—",
-      "run1": 81.2,
-      "run2": 82.5,
-      "best": 82.5,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 163.7,
-      "single_best": 82.5,
-      "worse": 81.2
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 20,
       "seed": 20,
       "name": "Никита Бушев",
-      "group": "B",
+      "group": "",
       "car": "db_bmw_m2_f22_nikita_bushev",
       "number": "—",
-      "run1": 78.4,
-      "run2": 81,
-      "best": 81,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 159.4,
-      "single_best": 81,
-      "worse": 78.4
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 21,
       "seed": 21,
       "name": "Майгарин Азамат",
-      "group": "B",
+      "group": "",
       "car": "db_nissan_silvia_s15_azamat_maigarin",
       "number": "—",
-      "run1": 76.5,
-      "run2": 80.5,
-      "best": 80.5,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 157,
-      "single_best": 80.5,
-      "worse": 76.5
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 22,
       "seed": 22,
       "name": "Владимир Мский",
-      "group": "B",
+      "group": "",
       "car": "VDC Toyota GT86 Public 5.0",
       "number": "—",
-      "run1": 76.2,
-      "run2": 79,
-      "best": 79,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 155.2,
-      "single_best": 79,
-      "worse": 76.2
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 23,
       "seed": 23,
       "name": "Виктор Бондаренко",
-      "group": "B",
+      "group": "",
       "car": "db_toyota_supra_a80_viktor_bondarenko",
       "number": "—",
-      "run1": 75.3,
-      "run2": 78.5,
-      "best": 78.5,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 153.8,
-      "single_best": 78.5,
-      "worse": 75.3
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 24,
       "seed": 24,
       "name": "Влад Трофимов",
-      "group": "B",
+      "group": "",
       "car": "DB BMW E91 Vlad Trofimov",
       "number": "—",
-      "run1": 74.8,
-      "run2": 77,
-      "best": 77,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 151.8,
-      "single_best": 77,
-      "worse": 74.8
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 25,
       "seed": 25,
       "name": "Нешадим Алексей",
-      "group": "B",
+      "group": "",
       "car": "db_toyota_mark_ii_neshadim_aleksey",
       "number": "—",
-      "run1": 73.5,
-      "run2": 76.5,
-      "best": 76.5,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 150,
-      "single_best": 76.5,
-      "worse": 73.5
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 26,
       "seed": 26,
       "name": "Николай Леднев",
-      "group": "B",
+      "group": "",
       "car": "db_lexus_rcf_nikolay_lednev",
       "number": "—",
-      "run1": 74.7,
-      "run2": 75,
-      "best": 75,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 149.7,
-      "single_best": 75,
-      "worse": 74.7
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 27,
       "seed": 27,
       "name": "Илья Лопатин",
-      "group": "B",
+      "group": "",
       "car": "db_toyota_supra_a80_ilya_lopatin",
       "number": "—",
-      "run1": 70.1,
-      "run2": 74,
-      "best": 74,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 144.1,
-      "single_best": 74,
-      "worse": 70.1
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 28,
       "seed": 28,
       "name": "Истратий Дмитрий",
-      "group": "B",
+      "group": "",
       "car": "db_bmw_m2_f20_istratiy_dima",
       "number": "—",
-      "run1": 71.5,
-      "run2": 73.5,
-      "best": 73.5,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 145,
-      "single_best": 73.5,
-      "worse": 71.5
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 29,
       "seed": 29,
       "name": "Александр Адамович",
-      "group": "C",
+      "group": "",
       "car": "db_z0_mb_e63_w212_aleksandr_adamovich",
       "number": "—",
-      "run1": 70.6,
-      "run2": 72,
-      "best": 72,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 142.6,
-      "single_best": 72,
-      "worse": 70.6
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 30,
       "seed": 30,
       "name": "Илья Гештарев",
-      "group": "C",
+      "group": "",
       "car": "db_bmw_e92_ilja_gestarevs",
       "number": "—",
-      "run1": 67.9,
-      "run2": 70.5,
-      "best": 70.5,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 138.4,
-      "single_best": 70.5,
-      "worse": 67.9
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 31,
       "seed": 31,
       "name": "Савельев Алексей",
-      "group": "C",
+      "group": "",
       "car": "db_nissan_silvia_s14_alexey_saveliev",
       "number": "—",
-      "run1": 67.1,
-      "run2": 68,
-      "best": 68,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 135.1,
-      "single_best": 68,
-      "worse": 67.1
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 32,
       "seed": 32,
       "name": "Георги Неделчев",
-      "group": "C",
+      "group": "",
       "car": "VDC BMW E82 1M Public 5.0",
       "number": "—",
-      "run1": 62.5,
-      "run2": 65,
-      "best": 65,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 127.5,
-      "single_best": 65,
-      "worse": 62.5
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 33,
       "seed": 33,
       "name": "Павел Хазанов",
-      "group": "C",
+      "group": "",
       "car": "VDC BMW E36 HGK Public 5.0",
       "number": "—",
-      "run1": 46.2,
-      "run2": 48,
-      "best": 48,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 94.2,
-      "single_best": 48,
-      "worse": 46.2
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 34,
       "seed": 34,
       "name": "Алекс Шелко",
-      "group": "C",
+      "group": "",
       "car": "VDC BMW E92 M3 Public 5.0",
       "number": "—",
-      "run1": 47,
-      "run2": 47,
-      "best": 47,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 94,
-      "single_best": 47,
-      "worse": 47
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 35,
       "seed": 35,
       "name": "Максим Шевченко",
-      "group": "C",
+      "group": "",
       "car": "Личная машина (по ссылке)",
       "number": "—",
-      "run1": 45.7,
-      "run2": 46,
-      "best": 46,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 91.7,
-      "single_best": 46,
-      "worse": 45.7
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 36,
       "seed": 36,
       "name": "Дмитрий Родин",
-      "group": "C",
+      "group": "",
       "car": "VDC Nissan Silvia S15 Public RB30 5.0",
       "number": "—",
-      "run1": 43.6,
-      "run2": 45,
-      "best": 45,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 88.6,
-      "single_best": 45,
-      "worse": 43.6
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 37,
       "seed": 37,
       "name": "Геворк Арутюнян",
-      "group": "C",
+      "group": "",
       "car": "Личная машина (по ссылке)",
       "number": "—",
-      "run1": 42.1,
-      "run2": 44,
-      "best": 44,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 86.1,
-      "single_best": 44,
-      "worse": 42.1
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 38,
       "seed": 38,
       "name": "Владимир Кротов",
-      "group": "C",
+      "group": "",
       "car": "db_ford_mustang_s550_vladimir_krotov",
       "number": "—",
-      "run1": 39.7,
-      "run2": 43,
-      "best": 43,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 82.7,
-      "single_best": 43,
-      "worse": 39.7
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 39,
       "seed": 39,
       "name": "Роман Михайлов",
-      "group": "C",
+      "group": "",
       "car": "VDC Shelby Mustang Super Snake Public 5.0",
       "number": "—",
-      "run1": 38.7,
-      "run2": 42,
-      "best": 42,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 80.7,
-      "single_best": 42,
-      "worse": 38.7
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 40,
       "seed": 40,
       "name": "Руслан Невский",
-      "group": "C",
+      "group": "",
       "car": "VDC Toyota Supra A70 Public 5.0",
       "number": "—",
-      "run1": 40.6,
-      "run2": 41,
-      "best": 41,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 81.6,
-      "single_best": 41,
-      "worse": 40.6
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 41,
       "seed": 41,
-      "name": "Никита Демидов",
-      "group": "D",
-      "car": "VDC BMW E92 M3 Public 5.0",
+      "name": "Савелий Мардас",
+      "group": "",
+      "car": "VDC BMW M2 G87 Public 5.0",
       "number": "—",
-      "run1": 39.9,
-      "run2": 40,
-      "best": 40,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 79.9,
-      "single_best": 40,
-      "worse": 39.9
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 42,
       "seed": 42,
-      "name": "Антон Козлов",
-      "group": "D",
-      "car": "G87 BMW",
-      "number": "50",
-      "run1": 39.9,
-      "run2": 40,
-      "best": 40,
+      "name": "Роман Фридман",
+      "group": "",
+      "car": "db_nissan_180sx_roman_fridman",
+      "number": "—",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 79.9,
-      "single_best": 40,
-      "worse": 39.9
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 43,
-      "seed": 47,
-      "name": "Роман Ловкис",
-      "group": "D",
-      "car": "vdc Silvia s15 vr",
-      "number": "53",
-      "run1": 39.5,
-      "run2": 40,
-      "best": 40,
+      "seed": 43,
+      "name": "Даниил Королёв",
+      "group": "",
+      "car": "flanker",
+      "number": "—",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 79.5,
-      "single_best": 40,
-      "worse": 39.5
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 44,
-      "seed": 55,
-      "name": "Олег Шпинер",
-      "group": "D",
-      "car": "bmw m3 e36",
-      "number": "52",
-      "run1": 39.1,
-      "run2": 40,
-      "best": 40,
+      "seed": 44,
+      "name": "Никита Демидов",
+      "group": "",
+      "car": "VDC BMW E92 M3 Public 5.0",
+      "number": "—",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 79.1,
-      "single_best": 40,
-      "worse": 39.1
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 45,
-      "seed": 58,
-      "name": "Роман Фридман",
-      "group": "C",
-      "car": "db_nissan_180sx_roman_fridman",
+      "seed": 45,
+      "name": "Антропов Артём",
+      "group": "",
+      "car": "db_bmw_f380_antropov_artem",
       "number": "—",
-      "run1": 39,
-      "run2": 40,
-      "best": 40,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 79,
-      "single_best": 40,
-      "worse": 39
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 46,
-      "seed": 59,
-      "name": "Игорь Рыжий",
-      "group": "D",
-      "car": "VDC BMW E92 M3 Public 5.0",
+      "seed": 46,
+      "name": "Ильнур Сембаев",
+      "group": "",
+      "car": "Личная машина (по ссылке)",
       "number": "—",
-      "run1": 39,
-      "run2": 40,
-      "best": 40,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 79,
-      "single_best": 40,
-      "worse": 39
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 47,
-      "seed": 64,
-      "name": "Данил Мигунов",
-      "group": "D",
-      "car": "G87 BMW",
-      "number": "49",
-      "run1": 38.7,
-      "run2": 40,
-      "best": 40,
+      "seed": 47,
+      "name": "Макс Козстапенн",
+      "group": "",
+      "car": "Личная машина (по ссылке)",
+      "number": "—",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 78.7,
-      "single_best": 40,
-      "worse": 38.7
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 48,
-      "seed": 72,
-      "name": "Ильнур Сембаев",
-      "group": "D",
-      "car": "Личная машина (по ссылке)",
+      "seed": 48,
+      "name": "Игорь Рыжий",
+      "group": "",
+      "car": "VDC BMW E92 M3 Public 5.0",
       "number": "—",
-      "run1": 38.1,
-      "run2": 40,
-      "best": 40,
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 78.1,
-      "single_best": 40,
-      "worse": 38.1
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 49,
-      "seed": 78,
-      "name": "Михаил Литвинюк",
-      "group": "D",
-      "car": "VDC Silvia s15 2jz",
-      "number": "51",
-      "run1": 37.7,
-      "run2": 40,
-      "best": 40,
+      "seed": 49,
+      "name": "Данил Мигунов",
+      "group": "",
+      "car": "G87 BMW",
+      "number": "49",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 77.7,
-      "single_best": 40,
-      "worse": 37.7
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 50,
-      "seed": 86,
-      "name": "Даниил Королёв",
-      "group": "D",
-      "car": "flanker",
-      "number": "—",
-      "run1": 37,
-      "run2": 40,
-      "best": 40,
+      "seed": 50,
+      "name": "Антон Козлов",
+      "group": "",
+      "car": "G87 BMW",
+      "number": "50",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 77,
-      "single_best": 40,
-      "worse": 37
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 51,
-      "seed": 92,
-      "name": "Антропов Артём",
-      "group": "D",
-      "car": "db_bmw_f380_antropov_artem",
-      "number": "—",
-      "run1": 36.5,
-      "run2": 40,
-      "best": 40,
+      "seed": 51,
+      "name": "Михаил Литвинюк",
+      "group": "",
+      "car": "VDC Silvia s15 2jz",
+      "number": "51",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 76.5,
-      "single_best": 40,
-      "worse": 36.5
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 52,
-      "seed": 93,
-      "name": "Максим Двоеглазов",
-      "group": "D",
-      "car": "db_mark_",
-      "number": "54",
-      "run1": 36.5,
-      "run2": 40,
-      "best": 40,
+      "seed": 52,
+      "name": "Олег Шпинер",
+      "group": "",
+      "car": "bmw m3 e36",
+      "number": "52",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 76.5,
-      "single_best": 40,
-      "worse": 36.5
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 53,
-      "seed": 97,
-      "name": "Макс Козстапенн",
-      "group": "D",
-      "car": "Личная машина (по ссылке)",
-      "number": "—",
-      "run1": 36.2,
-      "run2": 40,
-      "best": 40,
+      "seed": 53,
+      "name": "Роман Ловкис",
+      "group": "",
+      "car": "vdc Silvia s15 vr",
+      "number": "53",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 76.2,
-      "single_best": 40,
-      "worse": 36.2
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 54,
-      "seed": 98,
-      "name": "Савелий Мардас",
-      "group": "C",
-      "car": "VDC BMW M2 G87 Public 5.0",
-      "number": "—",
-      "run1": 36.1,
-      "run2": 40,
-      "best": 40,
+      "seed": 54,
+      "name": "Максим Двоеглазов",
+      "group": "",
+      "car": "db_toyota_chaser_dvoeglazov",
+      "number": "54",
+      "run1": 0,
+      "run2": 0,
+      "best": 0,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 76.1,
-      "single_best": 40,
-      "worse": 36.1
+      "total": 0,
+      "single_best": 0,
+      "worse": 0
     },
     {
       "rank": 55,
@@ -1584,9 +1585,9 @@ window.AC_TOP32_DATA = {
         "name": "Иван Самарин",
         "car": "db_ft_ford_mustang_rtr_samarin",
         "number": "1",
-        "quali_score": 99,
+        "quali_score": 52,
         "is_placeholder": false,
-        "best": 99
+        "best": 52
       },
       "chase": {
         "seed": 32,
@@ -1597,8 +1598,8 @@ window.AC_TOP32_DATA = {
         "is_placeholder": false,
         "best": 65
       },
-      "winner": "lead",
-      "status": "finished",
+      "winner": null,
+      "status": "live",
       "is_direct_quali": true,
       "judges": [
         {
@@ -1638,21 +1639,21 @@ window.AC_TOP32_DATA = {
         "is_placeholder": false,
         "best": 84.5
       },
-      "winner": "chase",
+      "winner": "lead",
       "status": "finished",
       "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": "chase"
+          "vote": "lead"
         },
         {
           "name": "С2",
-          "vote": "chase"
+          "vote": "lead"
         },
         {
           "name": "С3",
-          "vote": "chase"
+          "vote": "lead"
         }
       ]
     },
@@ -1679,21 +1680,21 @@ window.AC_TOP32_DATA = {
         "is_placeholder": false,
         "best": 76.5
       },
-      "winner": "lead",
+      "winner": "chase",
       "status": "finished",
       "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": "lead"
+          "vote": "chase"
         },
         {
           "name": "С2",
-          "vote": "lead"
+          "vote": "chase"
         },
         {
           "name": "С3",
-          "vote": "lead"
+          "vote": "chase"
         }
       ]
     },
@@ -1720,21 +1721,21 @@ window.AC_TOP32_DATA = {
         "is_placeholder": false,
         "best": 77
       },
-      "winner": "lead",
+      "winner": "chase",
       "status": "finished",
       "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": "lead"
+          "vote": "chase"
         },
         {
           "name": "С2",
-          "vote": "lead"
+          "vote": "chase"
         },
         {
           "name": "С3",
-          "vote": "lead"
+          "vote": "chase"
         }
       ]
     },
@@ -1761,21 +1762,21 @@ window.AC_TOP32_DATA = {
         "is_placeholder": false,
         "best": 72
       },
-      "winner": "chase",
-      "status": "finished",
+      "winner": null,
+      "status": "live",
       "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": "chase"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "chase"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "chase"
+          "vote": null
         }
       ]
     },
@@ -1802,21 +1803,21 @@ window.AC_TOP32_DATA = {
         "is_placeholder": false,
         "best": 81
       },
-      "winner": "lead",
-      "status": "finished",
+      "winner": null,
+      "status": "upcoming",
       "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "lead"
+          "vote": null
         }
       ]
     },
@@ -1843,21 +1844,21 @@ window.AC_TOP32_DATA = {
         "is_placeholder": false,
         "best": 73.5
       },
-      "winner": "chase",
-      "status": "finished",
+      "winner": null,
+      "status": "upcoming",
       "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": "chase"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "chase"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "chase"
+          "vote": null
         }
       ]
     },
@@ -1884,21 +1885,21 @@ window.AC_TOP32_DATA = {
         "is_placeholder": false,
         "best": 80.5
       },
-      "winner": "chase",
-      "status": "finished",
+      "winner": null,
+      "status": "upcoming",
       "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": "chase"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "chase"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "chase"
+          "vote": null
         }
       ]
     },
@@ -1925,21 +1926,21 @@ window.AC_TOP32_DATA = {
         "is_placeholder": false,
         "best": 68
       },
-      "winner": "lead",
-      "status": "finished",
+      "winner": null,
+      "status": "upcoming",
       "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "lead"
+          "vote": null
         }
       ]
     },
@@ -1966,21 +1967,21 @@ window.AC_TOP32_DATA = {
         "is_placeholder": false,
         "best": 83
       },
-      "winner": "chase",
-      "status": "finished",
+      "winner": null,
+      "status": "upcoming",
       "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": "chase"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "chase"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "chase"
+          "vote": null
         }
       ]
     },
@@ -2007,21 +2008,21 @@ window.AC_TOP32_DATA = {
         "is_placeholder": false,
         "best": 75
       },
-      "winner": "lead",
-      "status": "finished",
+      "winner": null,
+      "status": "upcoming",
       "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "lead"
+          "vote": null
         }
       ]
     },
@@ -2048,21 +2049,21 @@ window.AC_TOP32_DATA = {
         "is_placeholder": false,
         "best": 78.5
       },
-      "winner": "lead",
-      "status": "finished",
+      "winner": null,
+      "status": "upcoming",
       "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "lead"
+          "vote": null
         }
       ]
     },
@@ -2089,21 +2090,21 @@ window.AC_TOP32_DATA = {
         "is_placeholder": false,
         "best": 70.5
       },
-      "winner": "chase",
-      "status": "finished",
+      "winner": null,
+      "status": "upcoming",
       "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": "chase"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "chase"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "chase"
+          "vote": null
         }
       ]
     },
@@ -2130,21 +2131,21 @@ window.AC_TOP32_DATA = {
         "is_placeholder": false,
         "best": 82.5
       },
-      "winner": "lead",
-      "status": "finished",
+      "winner": null,
+      "status": "upcoming",
       "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "lead"
+          "vote": null
         }
       ]
     },
@@ -2171,21 +2172,21 @@ window.AC_TOP32_DATA = {
         "is_placeholder": false,
         "best": 74
       },
-      "winner": "lead",
-      "status": "finished",
+      "winner": null,
+      "status": "upcoming",
       "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "lead"
+          "vote": null
         }
       ]
     },
@@ -2212,21 +2213,21 @@ window.AC_TOP32_DATA = {
         "is_placeholder": false,
         "best": 79
       },
-      "winner": "chase",
-      "status": "finished",
+      "winner": null,
+      "status": "upcoming",
       "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": "chase"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "chase"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "chase"
+          "vote": null
         }
       ]
     }
@@ -2239,37 +2240,37 @@ window.AC_TOP32_DATA = {
       "bracket": "left",
       "pair_title": "ТОП-16 • ХИТ #1",
       "lead": {
-        "seed": 1,
-        "name": "Иван Самарин",
-        "car": "db_ft_ford_mustang_rtr_samarin",
-        "number": "1",
-        "quali_score": 99,
+        "seed": 16,
+        "name": "Данила Козлов",
+        "car": "db_subaru_brz_danila_kozlov",
+        "number": "16",
+        "quali_score": 85,
         "is_placeholder": false,
-        "best": 99
+        "best": 85
       },
       "chase": {
-        "seed": 17,
-        "name": "Степан Безуглов",
-        "car": "db_bmw_m4_Stepan_Bezuglov",
-        "number": "17",
-        "quali_score": 84.5,
+        "seed": 16,
+        "name": "Данила Козлов",
+        "car": "db_subaru_brz_danila_kozlov",
+        "number": "16",
+        "quali_score": 85,
         "is_placeholder": false,
-        "best": 84.5
+        "best": 85
       },
-      "winner": "lead",
-      "status": "finished",
+      "winner": null,
+      "status": "waiting",
       "judges": [
         {
           "name": "С1",
-          "vote": "chase"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "chase"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "chase"
+          "vote": null
         }
       ]
     },
@@ -2280,37 +2281,37 @@ window.AC_TOP32_DATA = {
       "bracket": "left",
       "pair_title": "ТОП-16 • ХИТ #2",
       "lead": {
-        "seed": 8,
-        "name": "Тимофей Никитин",
-        "car": "VDC Shelby Mustang Super Snake Public 5.0",
-        "number": "8",
-        "quali_score": 92,
+        "seed": 24,
+        "name": "Влад Трофимов",
+        "car": "DB BMW E91 Vlad Trofimov",
+        "number": "24",
+        "quali_score": 77,
         "is_placeholder": false,
-        "best": 92
+        "best": 77
       },
       "chase": {
-        "seed": 9,
-        "name": "Марк Хороший",
-        "car": "db_ford_mustang_s550_mark_horoshiy",
-        "number": "9",
-        "quali_score": 91.5,
+        "seed": 25,
+        "name": "Нешадим Алексей",
+        "car": "db_toyota_mark_ii_neshadim_aleksey",
+        "number": "25",
+        "quali_score": 76.5,
         "is_placeholder": false,
-        "best": 91.5
+        "best": 76.5
       },
-      "winner": "chase",
-      "status": "finished",
+      "winner": null,
+      "status": "upcoming",
       "judges": [
         {
           "name": "С1",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "lead"
+          "vote": null
         }
       ]
     },
@@ -2321,37 +2322,31 @@ window.AC_TOP32_DATA = {
       "bracket": "left",
       "pair_title": "ТОП-16 • ХИТ #3",
       "lead": {
-        "seed": 13,
-        "name": "Роман Контиевский",
-        "car": "db_bmw_e92_roman_kontievskii",
-        "number": "13",
-        "quali_score": 88,
-        "is_placeholder": false,
-        "best": 88
+        "seed": "—",
+        "name": "Победитель Хита #5",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
       },
       "chase": {
-        "seed": 29,
-        "name": "Александр Адамович",
-        "car": "db_z0_mb_e63_w212_aleksandr_adamovich",
-        "number": "29",
-        "quali_score": 72,
-        "is_placeholder": false,
-        "best": 72
+        "seed": "—",
+        "name": "Победитель Хита #6",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
       },
-      "winner": "chase",
-      "status": "finished",
+      "winner": null,
+      "status": "waiting",
       "judges": [
         {
           "name": "С1",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "lead"
+          "vote": null
         }
       ]
     },
@@ -2362,37 +2357,31 @@ window.AC_TOP32_DATA = {
       "bracket": "left",
       "pair_title": "ТОП-16 • ХИТ #4",
       "lead": {
-        "seed": 21,
-        "name": "Майгарин Азамат",
-        "car": "db_nissan_silvia_s15_azamat_maigarin",
-        "number": "21",
-        "quali_score": 80.5,
-        "is_placeholder": false,
-        "best": 80.5
+        "seed": "—",
+        "name": "Победитель Хита #7",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
       },
       "chase": {
-        "seed": 28,
-        "name": "Истратий Дмитрий",
-        "car": "db_bmw_m2_f20_istratiy_dima",
-        "number": "28",
-        "quali_score": 73.5,
-        "is_placeholder": false,
-        "best": 73.5
+        "seed": "—",
+        "name": "Победитель Хита #8",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
       },
-      "winner": "chase",
-      "status": "finished",
+      "winner": null,
+      "status": "waiting",
       "judges": [
         {
           "name": "С1",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "lead"
+          "vote": null
         }
       ]
     },
@@ -2403,37 +2392,31 @@ window.AC_TOP32_DATA = {
       "bracket": "right",
       "pair_title": "ТОП-16 • ХИТ #5",
       "lead": {
-        "seed": 2,
-        "name": "Леонтьев Вячеслав",
-        "car": "db_bmw_e92_vyacheslav_leontev",
-        "number": "2",
-        "quali_score": 98.5,
-        "is_placeholder": false,
-        "best": 98.5
+        "seed": "—",
+        "name": "Победитель Хита #9",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
       },
       "chase": {
-        "seed": 18,
-        "name": "Вадим Киселев",
-        "car": "VDC Toyota Supra A80 Public 5.0",
-        "number": "18",
-        "quali_score": 83,
-        "is_placeholder": false,
-        "best": 83
+        "seed": "—",
+        "name": "Победитель Хита #10",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
       },
-      "winner": "lead",
-      "status": "finished",
+      "winner": null,
+      "status": "waiting",
       "judges": [
         {
           "name": "С1",
-          "vote": "chase"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "chase"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "chase"
+          "vote": null
         }
       ]
     },
@@ -2444,37 +2427,31 @@ window.AC_TOP32_DATA = {
       "bracket": "right",
       "pair_title": "ТОП-16 • ХИТ #6",
       "lead": {
-        "seed": 7,
-        "name": "Алмаз Муртазин",
-        "car": "db_bmw_m2_g87_almaz_murtazin",
-        "number": "7",
-        "quali_score": 93.5,
-        "is_placeholder": false,
-        "best": 93.5
+        "seed": "—",
+        "name": "Победитель Хита #11",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
       },
       "chase": {
-        "seed": 10,
-        "name": "Данила Арефьев",
-        "car": "VDC Toyota Mark II JZX100 Public 5.0",
-        "number": "10",
-        "quali_score": 91,
-        "is_placeholder": false,
-        "best": 91
+        "seed": "—",
+        "name": "Победитель Хита #12",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
       },
-      "winner": "lead",
-      "status": "finished",
+      "winner": null,
+      "status": "waiting",
       "judges": [
         {
           "name": "С1",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "lead"
+          "vote": null
         }
       ]
     },
@@ -2485,37 +2462,31 @@ window.AC_TOP32_DATA = {
       "bracket": "right",
       "pair_title": "ТОП-16 • ХИТ #7",
       "lead": {
-        "seed": 14,
-        "name": "Артем Евдокимов",
-        "car": "db_lada_priora_evdokimov_artem",
-        "number": "14",
-        "quali_score": 87.5,
-        "is_placeholder": false,
-        "best": 87.5
+        "seed": "—",
+        "name": "Победитель Хита #13",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
       },
       "chase": {
-        "seed": 30,
-        "name": "Илья Гештарев",
-        "car": "db_bmw_e92_ilja_gestarevs",
-        "number": "30",
-        "quali_score": 70.5,
-        "is_placeholder": false,
-        "best": 70.5
+        "seed": "—",
+        "name": "Победитель Хита #14",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
       },
-      "winner": "chase",
-      "status": "finished",
+      "winner": null,
+      "status": "waiting",
       "judges": [
         {
           "name": "С1",
-          "vote": "chase"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "chase"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "chase"
+          "vote": null
         }
       ]
     },
@@ -2526,37 +2497,31 @@ window.AC_TOP32_DATA = {
       "bracket": "right",
       "pair_title": "ТОП-16 • ХИТ #8",
       "lead": {
-        "seed": 6,
-        "name": "Николай Краевский",
-        "car": "db_toyota_jzx90_nikolay_kraevskiy",
-        "number": "6",
-        "quali_score": 94,
-        "is_placeholder": false,
-        "best": 94
+        "seed": "—",
+        "name": "Победитель Хита #15",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
       },
       "chase": {
-        "seed": 22,
-        "name": "Владимир Мский",
-        "car": "VDC Toyota GT86 Public 5.0",
-        "number": "22",
-        "quali_score": 79,
-        "is_placeholder": false,
-        "best": 79
+        "seed": "—",
+        "name": "Победитель Хита #16",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
       },
-      "winner": "lead",
-      "status": "finished",
+      "winner": null,
+      "status": "waiting",
       "judges": [
         {
           "name": "С1",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "lead"
+          "vote": null
         }
       ]
     }
@@ -2569,37 +2534,31 @@ window.AC_TOP32_DATA = {
       "bracket": "left",
       "pair_title": "ТОП-8 • ХИТ #1",
       "lead": {
-        "seed": 1,
-        "name": "Иван Самарин",
-        "car": "db_ft_ford_mustang_rtr_samarin",
-        "number": "1",
-        "quali_score": 99,
-        "is_placeholder": false,
-        "best": 99
+        "seed": "—",
+        "name": "Победитель ТОП-16 #1",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
       },
       "chase": {
-        "seed": 9,
-        "name": "Марк Хороший",
-        "car": "db_ford_mustang_s550_mark_horoshiy",
-        "number": "9",
-        "quali_score": 91.5,
-        "is_placeholder": false,
-        "best": 91.5
+        "seed": "—",
+        "name": "Победитель ТОП-16 #2",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
       },
-      "winner": "lead",
-      "status": "finished",
+      "winner": null,
+      "status": "waiting",
       "judges": [
         {
           "name": "С1",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "lead"
+          "vote": null
         }
       ]
     },
@@ -2610,37 +2569,31 @@ window.AC_TOP32_DATA = {
       "bracket": "left",
       "pair_title": "ТОП-8 • ХИТ #2",
       "lead": {
-        "seed": 28,
-        "name": "Истратий Дмитрий",
-        "car": "db_bmw_m2_f20_istratiy_dima",
-        "number": "28",
-        "quali_score": 73.5,
-        "is_placeholder": false,
-        "best": 73.5
+        "seed": "—",
+        "name": "Победитель ТОП-16 #3",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
       },
       "chase": {
-        "seed": 29,
-        "name": "Александр Адамович",
-        "car": "db_z0_mb_e63_w212_aleksandr_adamovich",
-        "number": "29",
-        "quali_score": 72,
-        "is_placeholder": false,
-        "best": 72
+        "seed": "—",
+        "name": "Победитель ТОП-16 #4",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
       },
-      "winner": "chase",
-      "status": "finished",
+      "winner": null,
+      "status": "waiting",
       "judges": [
         {
           "name": "С1",
-          "vote": "chase"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "chase"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "chase"
+          "vote": null
         }
       ]
     },
@@ -2651,37 +2604,31 @@ window.AC_TOP32_DATA = {
       "bracket": "right",
       "pair_title": "ТОП-8 • ХИТ #3",
       "lead": {
-        "seed": 2,
-        "name": "Леонтьев Вячеслав",
-        "car": "db_bmw_e92_vyacheslav_leontev",
-        "number": "2",
-        "quali_score": 98.5,
-        "is_placeholder": false,
-        "best": 98.5
+        "seed": "—",
+        "name": "Победитель ТОП-16 #5",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
       },
       "chase": {
-        "seed": 7,
-        "name": "Алмаз Муртазин",
-        "car": "db_bmw_m2_g87_almaz_murtazin",
-        "number": "7",
-        "quali_score": 93.5,
-        "is_placeholder": false,
-        "best": 93.5
+        "seed": "—",
+        "name": "Победитель ТОП-16 #6",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
       },
-      "winner": "lead",
-      "status": "finished",
+      "winner": null,
+      "status": "waiting",
       "judges": [
         {
           "name": "С1",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "lead"
+          "vote": null
         }
       ]
     },
@@ -2692,37 +2639,31 @@ window.AC_TOP32_DATA = {
       "bracket": "right",
       "pair_title": "ТОП-8 • ХИТ #4",
       "lead": {
-        "seed": 6,
-        "name": "Николай Краевский",
-        "car": "db_toyota_jzx90_nikolay_kraevskiy",
-        "number": "6",
-        "quali_score": 94,
-        "is_placeholder": false,
-        "best": 94
+        "seed": "—",
+        "name": "Победитель ТОП-16 #7",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
       },
       "chase": {
-        "seed": 30,
-        "name": "Илья Гештарев",
-        "car": "db_bmw_e92_ilja_gestarevs",
-        "number": "30",
-        "quali_score": 70.5,
-        "is_placeholder": false,
-        "best": 70.5
+        "seed": "—",
+        "name": "Победитель ТОП-16 #8",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
       },
-      "winner": "chase",
-      "status": "finished",
+      "winner": null,
+      "status": "waiting",
       "judges": [
         {
           "name": "С1",
-          "vote": "chase"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "chase"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "chase"
+          "vote": null
         }
       ]
     }
@@ -2735,22 +2676,16 @@ window.AC_TOP32_DATA = {
       "stage": "semifinal",
       "pair_title": "ПОЛУФИНАЛ 1",
       "lead": {
-        "seed": 1,
-        "name": "Иван Самарин",
-        "car": "db_ft_ford_mustang_rtr_samarin",
-        "number": "1",
-        "quali_score": 99,
-        "is_placeholder": false,
-        "best": 99
+        "seed": "—",
+        "name": "Победитель ТОП-16 #1",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
       },
       "chase": {
-        "seed": 29,
-        "name": "Александр Адамович",
-        "car": "db_z0_mb_e63_w212_aleksandr_adamovich",
-        "number": "29",
-        "quali_score": 72,
-        "is_placeholder": false,
-        "best": 72
+        "seed": "—",
+        "name": "Победитель ТОП-16 #2",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
       },
       "winner": null,
       "status": "waiting",
@@ -2776,25 +2711,19 @@ window.AC_TOP32_DATA = {
       "stage": "semifinal",
       "pair_title": "ПОЛУФИНАЛ 2",
       "lead": {
-        "seed": 2,
-        "name": "Леонтьев Вячеслав",
-        "car": "db_bmw_e92_vyacheslav_leontev",
-        "number": "2",
-        "quali_score": 98.5,
-        "is_placeholder": false,
-        "best": 98.5
+        "seed": "—",
+        "name": "Победитель ТОП-16 #3",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
       },
       "chase": {
-        "seed": 30,
-        "name": "Илья Гештарев",
-        "car": "db_bmw_e92_ilja_gestarevs",
-        "number": "30",
-        "quali_score": 70.5,
-        "is_placeholder": false,
-        "best": 70.5
+        "seed": "—",
+        "name": "Победитель ТОП-16 #4",
+        "car": "Ожидание заезда",
+        "is_placeholder": true
       },
       "winner": null,
-      "status": "live",
+      "status": "waiting",
       "judges": [
         {
           "name": "С1",
@@ -2894,7 +2823,7 @@ window.AC_TOP32_DATA = {
     "tickerLead": "📢 ИНФОРМАЦИЯ",
     "tickerText": "📺 ПРЯМАЯ ТРАНСЛЯЦИЯ В FULL HD | 💬 ПИШИТЕ В ЧАТ: Поддерживайте своих фаворитов! | 🔔 ПОДПИСЫВАЙТЕСЬ НА КАНАЛ, СТАВЬТЕ ЛАЙКИ И ВКЛЮЧАЙТЕ КОЛОКОЛЬЧИК",
     "tickerFontSize": 15,
-    "timerLabel": "🏁 ДО НАЧАЛА КВАЛИФИКАЦИИ",
+    "timerLabel": "⚔️ ДО ПАРНЫХ ЗАЕЗДОВ ТОП-32",
     "showTimerLabel": true,
     "timerLabelFontSize": 17,
     "timerLabelColor": "gold",
@@ -2926,30 +2855,30 @@ window.AC_TOP32_DATA = {
         "logo": ""
       }
     ],
-    "featuredStage": "quali",
+    "featuredStage": "top32",
     "featuredIndex": 0,
     "featuredRunAttempt": 1,
-    "featuredTitle": "🏁 БЛИЖАЙШИЙ ЗАЕЗД • КВАЛИФИКАЦИЯ",
-    "featuredBadge": "ПОПЫТКА #1",
+    "featuredTitle": "⚔️ БЛИЖАЙШИЙ ЗАЕЗД • ТОП-32",
+    "featuredBadge": "ХИТ #1",
     "featuredLeadName": "",
     "featuredLeadCar": "",
     "featuredChaseName": "",
     "featuredChaseCar": "",
     "layout": "compact",
-    "timerMinutes": 20,
-    "timerSeconds": 1200,
+    "timerMinutes": 5,
+    "timerSeconds": 300,
     "timerPaused": false,
     "bgTransparent": true,
     "showTimer": true,
-    "showBattle": true,
+    "showBattle": false,
     "showPilot": false,
     "showQr": true,
     "showTicker": true,
-    "lastUpdated": 1795109398624,
-    "timerTargetTimestamp": 1794742968921,
-    "timerRemainingOnPause": 1200
+    "lastUpdated": 1795272560852,
+    "timerTargetTimestamp": 1795272860852,
+    "timerRemainingOnPause": 300
   },
-  "stage_mode": "top4",
+  "stage_mode": "top32",
   "custom_stage_titles": {
     "top32": "СЕТКА ТОП-32",
     "top16": "СЕТКА ТОП-16",
@@ -2959,8 +2888,8 @@ window.AC_TOP32_DATA = {
   "custom_stage_title": "СЕТКА ТОП-32",
   "quali_capacity": 100,
   "obs_director": {
-    "mode": "grid",
-    "stage": "top32",
+    "mode": "hero",
+    "stage": "quali",
     "activeBattleIndex": 0,
     "cleanBorder": true,
     "heroPos": "top",
@@ -2968,333 +2897,25 @@ window.AC_TOP32_DATA = {
     "opacity": 100,
     "accentColor": "gold",
     "omtActive": false,
-    "omtDuration": 5,
-    "omtTimestamp": 1792982334808,
-    "lastUpdated": 1793930291549
+    "omtDuration": 8,
+    "omtTimestamp": 1795474444519,
+    "overlayTitle": "",
+    "overlaySubtitle": "",
+    "overlayTicker": "",
+    "nextBattleCustomText": "",
+    "showBattleBar": true,
+    "showTelemetry": false,
+    "showZones": false,
+    "showTower": true,
+    "showNextBattle": false,
+    "showReplayBug": false,
+    "showTicker": true,
+    "headerMode": "battle",
+    "forcedRun": "auto",
+    "lastUpdated": 1795478682451
   },
   "qualification_cleared": false,
-  "battles_top24": [
-    {
-      "id": 51,
-      "pair_num": 1,
-      "stage": "top24",
-      "bracket": "left",
-      "pair_title": "ТОП-24 • ХИТ #1",
-      "lead": {
-        "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
-        "is_placeholder": true
-      },
-      "chase": {
-        "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
-        "is_placeholder": true
-      },
-      "winner": null,
-      "status": "waiting",
-      "is_direct_quali": false,
-      "judges": [
-        {
-          "name": "С1",
-          "vote": null
-        },
-        {
-          "name": "С2",
-          "vote": null
-        },
-        {
-          "name": "С3",
-          "vote": null
-        }
-      ]
-    },
-    {
-      "id": 52,
-      "pair_num": 2,
-      "stage": "top24",
-      "bracket": "left",
-      "pair_title": "ТОП-24 • ХИТ #2",
-      "lead": {
-        "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
-        "is_placeholder": true
-      },
-      "chase": {
-        "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
-        "is_placeholder": true
-      },
-      "winner": null,
-      "status": "waiting",
-      "is_direct_quali": false,
-      "judges": [
-        {
-          "name": "С1",
-          "vote": null
-        },
-        {
-          "name": "С2",
-          "vote": null
-        },
-        {
-          "name": "С3",
-          "vote": null
-        }
-      ]
-    },
-    {
-      "id": 53,
-      "pair_num": 3,
-      "stage": "top24",
-      "bracket": "left",
-      "pair_title": "ТОП-24 • ХИТ #3",
-      "lead": {
-        "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
-        "is_placeholder": true
-      },
-      "chase": {
-        "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
-        "is_placeholder": true
-      },
-      "winner": null,
-      "status": "waiting",
-      "is_direct_quali": false,
-      "judges": [
-        {
-          "name": "С1",
-          "vote": null
-        },
-        {
-          "name": "С2",
-          "vote": null
-        },
-        {
-          "name": "С3",
-          "vote": null
-        }
-      ]
-    },
-    {
-      "id": 54,
-      "pair_num": 4,
-      "stage": "top24",
-      "bracket": "left",
-      "pair_title": "ТОП-24 • ХИТ #4",
-      "lead": {
-        "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
-        "is_placeholder": true
-      },
-      "chase": {
-        "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
-        "is_placeholder": true
-      },
-      "winner": null,
-      "status": "waiting",
-      "is_direct_quali": false,
-      "judges": [
-        {
-          "name": "С1",
-          "vote": null
-        },
-        {
-          "name": "С2",
-          "vote": null
-        },
-        {
-          "name": "С3",
-          "vote": null
-        }
-      ]
-    },
-    {
-      "id": 55,
-      "pair_num": 5,
-      "stage": "top24",
-      "bracket": "right",
-      "pair_title": "ТОП-24 • ХИТ #5",
-      "lead": {
-        "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
-        "is_placeholder": true
-      },
-      "chase": {
-        "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
-        "is_placeholder": true
-      },
-      "winner": null,
-      "status": "waiting",
-      "is_direct_quali": false,
-      "judges": [
-        {
-          "name": "С1",
-          "vote": null
-        },
-        {
-          "name": "С2",
-          "vote": null
-        },
-        {
-          "name": "С3",
-          "vote": null
-        }
-      ]
-    },
-    {
-      "id": 56,
-      "pair_num": 6,
-      "stage": "top24",
-      "bracket": "right",
-      "pair_title": "ТОП-24 • ХИТ #6",
-      "lead": {
-        "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
-        "is_placeholder": true
-      },
-      "chase": {
-        "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
-        "is_placeholder": true
-      },
-      "winner": null,
-      "status": "waiting",
-      "is_direct_quali": false,
-      "judges": [
-        {
-          "name": "С1",
-          "vote": null
-        },
-        {
-          "name": "С2",
-          "vote": null
-        },
-        {
-          "name": "С3",
-          "vote": null
-        }
-      ]
-    },
-    {
-      "id": 57,
-      "pair_num": 7,
-      "stage": "top24",
-      "bracket": "right",
-      "pair_title": "ТОП-24 • ХИТ #7",
-      "lead": {
-        "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
-        "is_placeholder": true
-      },
-      "chase": {
-        "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
-        "is_placeholder": true
-      },
-      "winner": null,
-      "status": "waiting",
-      "is_direct_quali": false,
-      "judges": [
-        {
-          "name": "С1",
-          "vote": null
-        },
-        {
-          "name": "С2",
-          "vote": null
-        },
-        {
-          "name": "С3",
-          "vote": null
-        }
-      ]
-    },
-    {
-      "id": 58,
-      "pair_num": 8,
-      "stage": "top24",
-      "bracket": "right",
-      "pair_title": "ТОП-24 • ХИТ #8",
-      "lead": {
-        "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
-        "is_placeholder": true
-      },
-      "chase": {
-        "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
-        "is_placeholder": true
-      },
-      "winner": null,
-      "status": "waiting",
-      "is_direct_quali": false,
-      "judges": [
-        {
-          "name": "С1",
-          "vote": null
-        },
-        {
-          "name": "С2",
-          "vote": null
-        },
-        {
-          "name": "С3",
-          "vote": null
-        }
-      ]
-    }
-  ],
+  "battles_top24": [],
   "bracket_mode": "top32",
   "top24_enabled": false,
   "stream_url": "https://twitch.tv/sergeyprimo",
@@ -3373,5 +2994,15 @@ window.AC_TOP32_DATA = {
     }
   ],
   "brackets_cleared": false,
-  "force_sync_token": 1795190009211
+  "force_sync_token": 1795478336478,
+  "has_demo_scores": true,
+  "ticker": {
+    "enabled": true,
+    "title": "⚡ DRIFT BANDA CUP",
+    "speed": "medium",
+    "theme": "carbon",
+    "pos": "bottom",
+    "text": "🌐 САЙТ СОРЕВНОВАНИЙ: ГАЗДЕРЖИМ.РФ\n📺 ПРЯМАЯ ТРАНСЛЯЦИЯ: TWITCH.TV/SERGEYPRIMO\n💬 ГРУППА VK: VK.COM/DRIFTBANDA\n🏆 СУДЕЙСТВО: RDS GP RULES • ТОП-32 ПАРНЫЕ ЗАЕЗДЫ\n⭐ ГОЛОСУЙ ЗА ПИЛОТА ДНЯ В ЧАТЕ СТРИМА!",
+    "lastUpdated": 1795567890000
+  }
 };

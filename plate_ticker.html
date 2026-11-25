@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OBS Plate: Stream Ticker (Бегущая строка)</title>
+  <title>OBS Plate: Stream Info Ticker (Инфо-тикер и Бегущая строка)</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
+    html, body {
       background: transparent !important;
       color: #f8fafc;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -14,24 +14,96 @@
       height: 100vh;
       overflow: hidden;
       display: flex;
-      align-items: flex-end;
       user-select: none;
     }
+
+    body.pos-bottom { align-items: flex-end; }
+    body.pos-top { align-items: flex-start; }
 
     .ticker-bar {
       width: 100%;
       height: 34px;
-      background: linear-gradient(90deg, #070a12 0%, #0d121f 50%, #070a12 100%);
-      border-top: 1px solid rgba(255, 255, 255, 0.12);
       display: flex;
       align-items: center;
       padding: 0 28px;
       overflow: hidden;
+      position: relative;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      opacity: 1;
+    }
+
+    .ticker-bar.hidden {
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+
+    /* THEME 1: CARBON (Default) */
+    .ticker-bar.theme-carbon {
+      background: linear-gradient(90deg, #070a12 0%, #0d121f 50%, #070a12 100%);
+      border-top: 1px solid rgba(56, 189, 248, 0.4);
+      box-shadow: 0 -4px 14px rgba(0, 0, 0, 0.6);
+    }
+    body.pos-top .ticker-bar.theme-carbon {
+      border-top: none;
+      border-bottom: 1px solid rgba(56, 189, 248, 0.4);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+    }
+    .ticker-bar.theme-carbon .ticker-brand {
+      background: #f59e0b;
+      color: #000;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.45);
+    }
+    .ticker-bar.theme-carbon .ticker-item span {
+      color: #38bdf8;
+    }
+
+    /* THEME 2: RDS GOLD */
+    .ticker-bar.theme-rds {
+      background: linear-gradient(90deg, #140d00 0%, #291b03 50%, #140d00 100%);
+      border-top: 1px solid rgba(245, 158, 11, 0.65);
+      box-shadow: 0 -4px 16px rgba(245, 158, 11, 0.25);
+    }
+    body.pos-top .ticker-bar.theme-rds {
+      border-top: none;
+      border-bottom: 1px solid rgba(245, 158, 11, 0.65);
+      box-shadow: 0 4px 16px rgba(245, 158, 11, 0.25);
+    }
+    .ticker-bar.theme-rds .ticker-brand {
+      background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+      color: #000;
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.6);
+    }
+    .ticker-bar.theme-rds .ticker-item span {
+      color: #fbbf24;
+    }
+
+    /* THEME 3: CYBER NEON */
+    .ticker-bar.theme-neon {
+      background: linear-gradient(90deg, #030712 0%, #0f172a 50%, #030712 100%);
+      border-top: 1px solid rgba(0, 240, 255, 0.7);
+      box-shadow: 0 -4px 18px rgba(0, 240, 255, 0.35);
+    }
+    body.pos-top .ticker-bar.theme-neon {
+      border-top: none;
+      border-bottom: 1px solid rgba(0, 240, 255, 0.7);
+      box-shadow: 0 4px 18px rgba(0, 240, 255, 0.35);
+    }
+    .ticker-bar.theme-neon .ticker-brand {
+      background: #00f0ff;
+      color: #000;
+      box-shadow: 0 0 14px rgba(0, 240, 255, 0.7);
+    }
+    .ticker-bar.theme-neon .ticker-item span {
+      color: #00f0ff;
+    }
+
+    /* Clean mode (anti-halo) */
+    .clean-border {
+      box-shadow: none !important;
+      text-shadow: none !important;
     }
 
     .ticker-brand {
-      background: #f59e0b;
-      color: #000;
       font-size: 11px;
       font-weight: 900;
       padding: 3px 10px;
@@ -39,6 +111,9 @@
       margin-right: 20px;
       flex-shrink: 0;
       letter-spacing: 0.8px;
+      white-space: nowrap;
+      text-transform: uppercase;
+      z-index: 10;
     }
 
     .ticker-scroll-window {
@@ -55,16 +130,22 @@
       font-size: 12px;
       font-weight: 700;
       color: #cbd5e1;
+      will-change: transform;
     }
-    .ticker-track.speed-slow { animation-duration: 36s; }
-    .ticker-track.speed-fast { animation-duration: 16s; }
+
+    .ticker-track.speed-slow { animation-duration: 38s !important; }
+    .ticker-track.speed-medium { animation-duration: 24s !important; }
+    .ticker-track.speed-fast { animation-duration: 14s !important; }
 
     .ticker-item {
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      white-space: nowrap;
     }
-    .ticker-item span { color: #38bdf8; }
+    .ticker-item span {
+      font-weight: 800;
+    }
 
     @keyframes tickerScroll {
       0% { transform: translateX(0); }
@@ -72,46 +153,193 @@
     }
   </style>
 </head>
-<body>
+<body class="pos-bottom">
 
-  <div class="ticker-bar">
+  <div class="ticker-bar theme-carbon" id="tickerBar">
     <div class="ticker-brand" id="tickerBrandBadge">⚡ DRIFT BANDA CUP</div>
     <div class="ticker-scroll-window">
-      <div class="ticker-track" id="tickerTrack">
-        <div class="ticker-item">🌐 САЙТ СОРЕВНОВАНИЙ: <span>ГАЗДЕРЖИМ.РФ</span></div>
-        <div class="ticker-item">📺 ПРЯМАЯ ТРАНСЛЯЦИЯ: <span>TWITCH.TV/SERGEYPRIMO</span></div>
-        <div class="ticker-item">💬 ГРУППА VK: <span>VK.COM/DRIFTBANDA</span></div>
-        <div class="ticker-item">🏆 СУДЕЙСТВО: <span>RDS GP RULES • ТОП-32 ПАРНЫЕ ЗАЕЗДЫ</span></div>
-        <div class="ticker-item">⭐ ГОЛОСУЙ ЗА ПИЛОТА ДНЯ В ЧАТЕ СТРИМА!</div>
-        <!-- Duplicated for seamless infinite loop -->
-        <div class="ticker-item">🌐 САЙТ СОРЕВНОВАНИЙ: <span>ГАЗДЕРЖИМ.РФ</span></div>
-        <div class="ticker-item">📺 ПРЯМАЯ ТРАНСЛЯЦИЯ: <span>TWITCH.TV/SERGEYPRIMO</span></div>
-        <div class="ticker-item">💬 ГРУППА VK: <span>VK.COM/DRIFTBANDA</span></div>
-        <div class="ticker-item">🏆 СУДЕЙСТВО: <span>RDS GP RULES • ТОП-32 ПАРНЫЕ ЗАЕЗДЫ</span></div>
-        <div class="ticker-item">⭐ ГОЛОСУЙ ЗА ПИЛОТА ДНЯ В ЧАТЕ СТРИМА!</div>
+      <div class="ticker-track speed-medium" id="tickerTrack">
+        <!-- Rendered dynamically -->
       </div>
     </div>
   </div>
 
   <script>
     var params = new URLSearchParams(window.location.search);
-    var pSpeed = params.get('speed') || 'medium';
-    var track = document.getElementById('tickerTrack');
-    if (pSpeed === 'slow') track.classList.add('speed-slow');
-    else if (pSpeed === 'fast') track.classList.add('speed-fast');
+    var pSpeed = params.get('speed') || '';
+    var pTheme = params.get('theme') || '';
+    var pPos = params.get('pos') || 'bottom';
+    var pClean = params.get('clean') === '1';
 
-    // Optional director override for ticker text
-    function pollDirector() {
+    // State object
+    var currentTickerState = {
+      enabled: true,
+      title: '⚡ DRIFT BANDA CUP',
+      speed: 'medium',
+      theme: 'carbon',
+      pos: 'bottom',
+      text: "🌐 САЙТ СОРЕВНОВАНИЙ: ГАЗДЕРЖИМ.РФ\n📺 ПРЯМАЯ ТРАНСЛЯЦИЯ: TWITCH.TV/SERGEYPRIMO\n💬 ГРУППА VK: VK.COM/DRIFTBANDA\n🏆 СУДЕЙСТВО: RDS GP RULES • ТОП-32 ПАРНЫЕ ЗАЕЗДЫ\n⭐ ГОЛОСУЙ ЗА ПИЛОТА ДНЯ В ЧАТЕ СТРИМА!",
+      lastUpdated: 0
+    };
+
+    function formatTickerItem(str) {
+      if (!str) return '';
+      // Highlight URLs, websites, and handles into colored span
+      return str.replace(/(https?:\/\/[^\s]+|twitch\.tv\/[^\s]+|vk\.com\/[^\s]+|газдержим\.рф|[a-z0-9_-]+\.(?:ru|com|net|рф))/gi, function(match) {
+        return '<span>' + match.toUpperCase() + '</span>';
+      });
+    }
+
+    function renderTicker(state) {
+      if (!state) return;
+
+      var bar = document.getElementById('tickerBar');
+      var badge = document.getElementById('tickerBrandBadge');
+      var track = document.getElementById('tickerTrack');
+
+      if (!bar || !badge || !track) return;
+
+      // 1. Visibility toggle
+      if (state.enabled === false) {
+        bar.classList.add('hidden');
+      } else {
+        bar.classList.remove('hidden');
+      }
+
+      // 2. Brand badge title
+      var titleText = (state.title || '⚡ DRIFT BANDA CUP').trim();
+      badge.textContent = titleText;
+
+      // 3. Theme
+      var theme = pTheme || state.theme || 'carbon';
+      bar.className = 'ticker-bar theme-' + theme + (state.enabled === false ? ' hidden' : '') + (pClean ? ' clean-border' : '');
+
+      // 4. Position
+      var pos = pPos || state.pos || 'bottom';
+      document.body.className = (pos === 'top') ? 'pos-top' : 'pos-bottom';
+
+      // 5. Speed
+      var speed = pSpeed || state.speed || 'medium';
+      track.className = 'ticker-track speed-' + speed;
+
+      // 6. Ticker items from custom text
+      var raw = state.text || '';
+      var lines = raw.split(/\n|\|/);
+      var validItems = [];
+      lines.forEach(function(l) {
+        var trimmed = l.trim();
+        if (trimmed.length > 0) {
+          validItems.push(formatTickerItem(trimmed));
+        }
+      });
+
+      if (validItems.length === 0) {
+        validItems = [
+          '🌐 САЙТ СОРЕВНОВАНИЙ: <span>ГАЗДЕРЖИМ.РФ</span>',
+          '📺 ПРЯМАЯ ТРАНСЛЯЦИЯ: <span>TWITCH.TV/SERGEYPRIMO</span>',
+          '💬 ГРУППА VK: <span>VK.COM/DRIFTBANDA</span>',
+          '🏆 СУДЕЙСТВО: <span>RDS GP RULES • ТОП-32</span>'
+        ];
+      }
+
+      // Duplicate items for seamless continuous looping
+      var innerHtml = '';
+      for (var rep = 0; rep < 3; rep++) {
+        validItems.forEach(function(item) {
+          innerHtml += '<div class="ticker-item">' + item + '</div>';
+        });
+      }
+      track.innerHTML = innerHtml;
+    }
+
+    // Load initial local state
+    try {
+      var saved = localStorage.getItem('AC_OBS_TICKER_STATE');
+      if (saved) {
+        var parsed = JSON.parse(saved);
+        currentTickerState = Object.assign(currentTickerState, parsed);
+      }
+    } catch(e) {}
+
+    renderTicker(currentTickerState);
+
+    // 1. Realtime BroadcastChannel listeners
+    if (typeof BroadcastChannel !== 'undefined') {
+      try {
+        var tickerBus = new BroadcastChannel('ac_obs_ticker_bus');
+        tickerBus.onmessage = function(ev) {
+          if (ev && ev.data && (ev.data.type === 'TICKER_UPDATE' || ev.data.text || ev.data.title)) {
+            var st = ev.data.state || ev.data;
+            currentTickerState = Object.assign(currentTickerState, st);
+            renderTicker(currentTickerState);
+          }
+        };
+
+        var directorBus = new BroadcastChannel('ac_obs_director_bus');
+        directorBus.onmessage = function(ev) {
+          if (ev && ev.data) {
+            if (ev.data.ticker) {
+              currentTickerState = Object.assign(currentTickerState, ev.data.ticker);
+              renderTicker(currentTickerState);
+            } else if (ev.data.overlayTitle) {
+              currentTickerState.title = '⚡ ' + ev.data.overlayTitle.toUpperCase();
+              renderTicker(currentTickerState);
+            }
+          }
+        };
+      } catch(e) {}
+    }
+
+    // 2. Storage event listener (cross-tab in browser)
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'AC_OBS_TICKER_STATE' && e.newValue) {
+        try {
+          var parsed = JSON.parse(e.newValue);
+          currentTickerState = Object.assign(currentTickerState, parsed);
+          renderTicker(currentTickerState);
+        } catch(err) {}
+      }
+    });
+
+    // 3. Periodic network polling (top32.json for remote OBS)
+    function pollServer() {
       fetch('top32.json?nocache=' + Date.now(), { cache: 'no-store' })
-        .then(function(r) { return r.json(); })
+        .then(function(r) { return r.ok ? r.json() : null; })
         .then(function(data) {
-          if (data && data.obs_director && data.obs_director.overlayTitle) {
-            document.getElementById('tickerBrandBadge').textContent = '⚡ ' + data.obs_director.overlayTitle.toUpperCase();
+          if (!data) return;
+          var changed = false;
+
+          if (data.ticker && typeof data.ticker === 'object') {
+            if (!currentTickerState.lastUpdated || (data.ticker.lastUpdated && data.ticker.lastUpdated >= currentTickerState.lastUpdated)) {
+              currentTickerState = Object.assign(currentTickerState, data.ticker);
+              changed = true;
+            }
+          } else if (data.obs_director) {
+            if (data.obs_director.overlayTicker && (!currentTickerState.text || currentTickerState.text.indexOf('ГАЗДЕРЖИМ') !== -1)) {
+              var sText = data.obs_director.overlayTicker.split('•').map(function(s){ return s.trim(); }).join('\n');
+              if (sText !== currentTickerState.text) {
+                currentTickerState.text = sText;
+                changed = true;
+              }
+            }
+            if (data.obs_director.overlayTitle) {
+              var sTitle = '⚡ ' + data.obs_director.overlayTitle.toUpperCase();
+              if (sTitle !== currentTickerState.title) {
+                currentTickerState.title = sTitle;
+                changed = true;
+              }
+            }
+          }
+
+          if (changed) {
+            renderTicker(currentTickerState);
           }
         })
         .catch(function() {});
     }
-    pollDirector();
+
+    setInterval(pollServer, 2500);
+    pollServer();
   </script>
 </body>
 </html>

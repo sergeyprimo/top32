@@ -1405,8 +1405,8 @@
 
           <!-- 7. LOWER THIRD STREAM TICKER -->
           <div class="widget-ticker" id="liveWidgetTicker">
-            <div class="ticker-brand">⚡ DRIFT BANDA CUP</div>
-            <div class="ticker-marquee">
+            <div class="ticker-brand" id="studioTickerBrand">⚡ DRIFT BANDA CUP</div>
+            <div class="ticker-marquee" id="studioTickerMarquee">
               <div class="ticker-item">🌐 САЙТ: <span>ГАЗДЕРЖИМ.РФ</span></div>
               <div class="ticker-item">📺 СТРИМ: <span>TWITCH.TV/SERGEYPRIMO</span></div>
               <div class="ticker-item">💬 VK: <span>VK.COM/DRIFTBANDA</span></div>
@@ -2072,6 +2072,39 @@
         anEl.textContent = rAn + '°';
       }
     }, 400);
+
+    // Live Ticker Realtime Synchronization
+    function updateStudioTicker(st) {
+      if (!st) return;
+      var brand = document.getElementById('studioTickerBrand');
+      var marq = document.getElementById('studioTickerMarquee');
+      if (brand && st.title) brand.textContent = st.title;
+      if (marq && st.text) {
+        var lines = st.text.split(/\n|\|/).map(function(s){ return s.trim(); }).filter(function(s){ return s.length > 0; });
+        if (lines.length > 0) {
+          marq.innerHTML = lines.map(function(l) {
+            var f = l.replace(/(https?:\/\/[^\s]+|twitch\.tv\/[^\s]+|vk\.com\/[^\s]+|газдержим\.рф|[a-z0-9_-]+\.(?:ru|com|net|рф))/gi, function(m){ return '<span>' + m.toUpperCase() + '</span>'; });
+            return '<div class="ticker-item">' + f + '</div>';
+          }).join('');
+        }
+      }
+    }
+
+    try {
+      var savedTicker = localStorage.getItem('AC_OBS_TICKER_STATE');
+      if (savedTicker) updateStudioTicker(JSON.parse(savedTicker));
+    } catch(e) {}
+
+    if (typeof BroadcastChannel !== 'undefined') {
+      try {
+        var tb = new BroadcastChannel('ac_obs_ticker_bus');
+        tb.onmessage = function(ev) {
+          if (ev && ev.data && (ev.data.state || ev.data.text)) {
+            updateStudioTicker(ev.data.state || ev.data);
+          }
+        };
+      } catch(e) {}
+    }
   </script>
 </body>
 </html>
