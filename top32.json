@@ -2847,7 +2847,7 @@
   "quali_calc_mode": "best",
   "tournament_title": "RACE CREW DRIFT CUP",
   "intro_settings": {
-    "headerLogo": "DB",
+    "headerLogo": "R",
     "tournamentTitle": "RACE CREW DRIFT CUP",
     "tournamentSub": "ГАЗДЕРЖИМ",
     "statusText": "Технический перерыв",
@@ -2908,7 +2908,7 @@
     "showPilot": false,
     "showQr": true,
     "showTicker": true,
-    "lastUpdated": 1795644896621,
+    "lastUpdated": 1795644898826,
     "timerTargetTimestamp": 1795272860852,
     "timerRemainingOnPause": 300
   },
