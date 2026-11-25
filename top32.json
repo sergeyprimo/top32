@@ -2851,7 +2851,7 @@
     "tournamentTitle": "RACE CREW DRIFT CUP",
     "tournamentSub": "ГАЗДЕРЖИМ",
     "statusText": "Технический перерыв",
-    "metaServer": "RACECREW",
+    "metaServer": "RACE CREW",
     "metaTrack": "РУССКИЕ ГОРКИ ",
     "headerFontSize": 24,
     "tickerLead": "📢 ИНФОРМАЦИЯ",
@@ -2900,7 +2900,7 @@
     "showPilot": false,
     "showQr": true,
     "showTicker": true,
-    "lastUpdated": 1795644932293,
+    "lastUpdated": 1795644934770,
     "timerTargetTimestamp": 1795272860852,
     "timerRemainingOnPause": 300
   },
