@@ -1,5 +1,5 @@
 {
-  "tournament_name": "RACE CREW DR",
+  "tournament_name": "RACE CREW DRIF",
   "badge_text": "ГАЗДЕРЖИМ.РФ",
   "badge_brand": "ГАЗДЕРЖИМ",
   "badge_domain": "РФ",
@@ -2845,10 +2845,10 @@
     }
   ],
   "quali_calc_mode": "best",
-  "tournament_title": "RACE CREW DR",
+  "tournament_title": "RACE CREW DRIF",
   "intro_settings": {
     "headerLogo": "DB",
-    "tournamentTitle": "RACE CREW DR",
+    "tournamentTitle": "RACE CREW DRIF",
     "tournamentSub": "ГАЗДЕРЖИМ",
     "statusText": "Технический перерыв",
     "metaServer": "DRIFT BANDA",
@@ -2908,7 +2908,7 @@
     "showPilot": false,
     "showQr": true,
     "showTicker": true,
-    "lastUpdated": 1795644893141,
+    "lastUpdated": 1795644895106,
     "timerTargetTimestamp": 1795272860852,
     "timerRemainingOnPause": 300
   },
