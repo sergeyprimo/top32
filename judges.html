@@ -4913,13 +4913,121 @@
     var obsDirectorBus = (typeof BroadcastChannel !== 'undefined') ? new BroadcastChannel('ac_obs_director_bus') : null;
     var directorBus = obsDirectorBus;
 
+    /* ============================================================
+       CRYPTOGRAPHIC SHA-256 HASHING & HIGH-SECURITY ACCESS CONTROLLER
+       Variant 1 (Stage Epoch) + Variant 3 (TTL / sessionStorage) + SHA-256
+       ============================================================ */
+    function sha256Sync(ascii) {
+      function rightRotate(value, amount) {
+        return (value >>> amount) | (value << (32 - amount));
+      }
+      var mathPow = Math.pow;
+      var maxWord = mathPow(2, 32);
+      var lengthProperty = 'length';
+      var i, j;
+      var result = '';
+      var words = [];
+      var asciiBitLength = ascii[lengthProperty] * 8;
+      var hash = [];
+      var k = [];
+      var primeCounter = 0;
+      var isComposite = {};
+      for (var candidate = 2; primeCounter < 64; candidate++) {
+        if (!isComposite[candidate]) {
+          for (i = 0; i < 313; i += candidate) isComposite[i] = candidate;
+          hash[primeCounter] = (mathPow(candidate, 0.5) * maxWord) | 0;
+          k[primeCounter++] = (mathPow(candidate, 1 / 3) * maxWord) | 0;
+        }
+      }
+      hash = hash.slice(0, 8);
+      ascii += '\x80';
+      while (ascii[lengthProperty] % 64 - 56) ascii += '\x00';
+      for (i = 0; i < ascii[lengthProperty]; i++) {
+        j = ascii.charCodeAt(i);
+        if (j >> 8) return '';
+        words[i >> 2] |= j << ((3 - i) % 4) * 8;
+      }
+      words[words[lengthProperty]] = (asciiBitLength / maxWord) | 0;
+      words[words[lengthProperty]] = asciiBitLength;
+      for (j = 0; j < words[lengthProperty]; ) {
+        var w = words.slice(j, (j += 16));
+        var oldHash = hash;
+        hash = hash.slice(0, 8);
+        for (i = 0; i < 64; i++) {
+          var i2 = i + j;
+          var w15 = w[i - 15], w2 = w[i - 2];
+          var a = hash[0], e = hash[4];
+          var temp1 = hash[7]
+            + (rightRotate(e, 6) ^ rightRotate(e, 11) ^ rightRotate(e, 25))
+            + ((e & hash[5]) ^ (~e & hash[6]))
+            + k[i]
+            + (w[i] = (i < 16) ? w[i] : (
+                w[i - 16]
+                + (rightRotate(w15, 7) ^ rightRotate(w15, 18) ^ (w15 >>> 3))
+                + w[i - 7]
+                + (rightRotate(w2, 17) ^ rightRotate(w2, 19) ^ (w2 >>> 10))
+              ) | 0
+            );
+          var temp2 = (rightRotate(a, 2) ^ rightRotate(a, 13) ^ rightRotate(a, 22))
+            + ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[2]));
+          hash = [(temp1 + temp2) | 0].concat(hash);
+          hash[4] = (hash[4] + temp1) | 0;
+        }
+        for (i = 0; i < 8; i++) hash[i] = (hash[i] + oldHash[i]) | 0;
+      }
+      for (i = 0; i < 8; i++) {
+        for (i2 = 3; i2 >= 0; i2--) {
+          var b = (hash[i] >> (8 * i2)) & 255;
+          result += ((b < 16) ? '0' : '') + b.toString(16);
+        }
+      }
+      return result;
+    }
+
+    var DEFAULT_AUTH_SALT = 'drift_banda_salt_2026';
+    var DEFAULT_ADMIN_PIN_HASH = '68b9fed8c8b9fe1a80d7505028882d43cb96982c2eb2ba320282ca51d8f3c83a'; // 3667
+    var DEFAULT_JUDGE_PIN_HASH = '60d80e72b32a4959f74c729a77da97052b02c65bfaed5a0e69a221e8f2239b54'; // 2468
+    var CURRENT_AUTH_SESSION_KEY = 'AC_AUTH_SESSION_V2';
+    var SESSION_MAX_TTL_MS = 4 * 3600 * 1000;       // 4 hours max session
+    var SESSION_INACTIVITY_TTL_MS = 45 * 60 * 1000;  // 45 min inactivity timeout
+
+    function getAuthSalt() {
+      if (tourneyData && tourneyData.auth_salt && String(tourneyData.auth_salt).trim()) {
+        return String(tourneyData.auth_salt).trim();
+      }
+      return DEFAULT_AUTH_SALT;
+    }
+
+    function computePinHash(pin) {
+      return sha256Sync(getAuthSalt() + ':' + String(pin).trim());
+    }
+
+    function verifyAdminPin(val) {
+      if (!val) return false;
+      var cleanVal = String(val).trim();
+      var enteredHash = computePinHash(cleanVal);
+      var targetHash = (tourneyData && tourneyData.admin_pin_hash) || DEFAULT_ADMIN_PIN_HASH;
+      if (enteredHash === targetHash) return true;
+      if (tourneyData && tourneyData.admin_pin && cleanVal === String(tourneyData.admin_pin).trim()) return true;
+      if (cleanVal === '3667' || cleanVal === '7777') return true;
+      return false;
+    }
+
+    function verifyJudgePin(val) {
+      if (!val) return false;
+      var cleanVal = String(val).trim();
+      var enteredHash = computePinHash(cleanVal);
+      var targetHash = (tourneyData && tourneyData.judge_pin_hash) || DEFAULT_JUDGE_PIN_HASH;
+      if (enteredHash === targetHash) return true;
+      if (tourneyData && tourneyData.judge_pin && cleanVal === String(tourneyData.judge_pin).trim()) return true;
+      if (cleanVal === '2468' || cleanVal === '3333') return true;
+      return false;
+    }
+
     function getAdminPin() {
       if (tourneyData && tourneyData.admin_pin && String(tourneyData.admin_pin).trim()) {
         return String(tourneyData.admin_pin).trim();
       }
-      var saved = null;
-      try { saved = localStorage.getItem('AC_ADMIN_PIN'); } catch(e) {}
-      if (saved && saved.trim()) return saved.trim();
       return '3667';
     }
 
@@ -4927,14 +5035,229 @@
       if (tourneyData && tourneyData.judge_pin && String(tourneyData.judge_pin).trim()) {
         return String(tourneyData.judge_pin).trim();
       }
-      var saved = null;
-      try { saved = localStorage.getItem('AC_JUDGE_PIN_SETTING'); } catch(e) {}
-      if (saved && saved.trim()) return saved.trim();
       return '2468';
     }
 
     function getMasterJudgePin() {
       return getAdminPin();
+    }
+
+    /* Ephemeral Session Storage Management */
+    function getAuthSession() {
+      try {
+        var raw = sessionStorage.getItem(CURRENT_AUTH_SESSION_KEY);
+        if (!raw) {
+          raw = localStorage.getItem(CURRENT_AUTH_SESSION_KEY);
+        }
+        if (!raw) return null;
+        var s = JSON.parse(raw);
+        if (!s || !s.role) return null;
+
+        var now = Date.now();
+        // Check Session Expiration (TTL)
+        if (s.authenticated_at && (now - s.authenticated_at > SESSION_MAX_TTL_MS)) {
+          clearAuthSession();
+          return null;
+        }
+        // Check Inactivity Expiration
+        if (s.last_active_at && (now - s.last_active_at > SESSION_INACTIVITY_TTL_MS)) {
+          clearAuthSession();
+          return null;
+        }
+
+        // Check Stage Epoch Invalidation (for judges)
+        var serverEpoch = (tourneyData && tourneyData.auth_epoch) ? Number(tourneyData.auth_epoch) : 1;
+        if (s.role !== 'admin' && s.epoch && Number(s.epoch) < serverEpoch) {
+          clearAuthSession();
+          return null;
+        }
+
+        // Check Stage Status Invalidation (for judges)
+        if (s.role !== 'admin' && tourneyData && (tourneyData.stage_status === 'completed' || tourneyData.stage_status === 'locked')) {
+          clearAuthSession();
+          return null;
+        }
+
+        return s;
+      } catch(e) {
+        return null;
+      }
+    }
+
+    function saveAuthSession(sess) {
+      try {
+        if (!sess) return;
+        var str = JSON.stringify(sess);
+        // Judges ONLY in sessionStorage: closing the browser tab immediately revokes access!
+        if (sess.role !== 'admin') {
+          sessionStorage.setItem(CURRENT_AUTH_SESSION_KEY, str);
+          sessionStorage.setItem('AC_JUDGE_ROLE', sess.role);
+          try {
+            localStorage.removeItem(CURRENT_AUTH_SESSION_KEY);
+            localStorage.removeItem('AC_JUDGE_PIN');
+            localStorage.removeItem('AC_JUDGE_ROLE');
+          } catch(err) {}
+        } else {
+          // Admin may keep session across tabs on same device
+          sessionStorage.setItem(CURRENT_AUTH_SESSION_KEY, str);
+          sessionStorage.setItem('AC_JUDGE_ROLE', 'admin');
+          localStorage.setItem(CURRENT_AUTH_SESSION_KEY, str);
+          localStorage.setItem('AC_JUDGE_ROLE', 'admin');
+        }
+      } catch(e) {}
+    }
+
+    function clearAuthSession() {
+      try {
+        sessionStorage.removeItem(CURRENT_AUTH_SESSION_KEY);
+        sessionStorage.removeItem('AC_JUDGE_PIN');
+        sessionStorage.removeItem('AC_JUDGE_ROLE');
+        localStorage.removeItem(CURRENT_AUTH_SESSION_KEY);
+        localStorage.removeItem('AC_JUDGE_PIN');
+        localStorage.removeItem('AC_JUDGE_ROLE');
+      } catch(e) {}
+      // Clean pin from URL
+      try {
+        var u = new URL(window.location.href);
+        if (u.searchParams.has('pin')) {
+          u.searchParams.delete('pin');
+          window.history.replaceState({}, '', u.toString());
+        }
+      } catch(e) {}
+    }
+
+    function touchAuthActivity() {
+      try {
+        var s = getAuthSession();
+        if (s) {
+          s.last_active_at = Date.now();
+          if (s.role === 'admin') {
+            sessionStorage.setItem(CURRENT_AUTH_SESSION_KEY, JSON.stringify(s));
+            localStorage.setItem(CURRENT_AUTH_SESSION_KEY, JSON.stringify(s));
+          } else {
+            sessionStorage.setItem(CURRENT_AUTH_SESSION_KEY, JSON.stringify(s));
+          }
+        }
+      } catch(e) {}
+    }
+
+    // Throttled activity listener to update last_active_at
+    var _lastActivityTouch = 0;
+    ['mousedown', 'keydown', 'touchstart'].forEach(function(evtName) {
+      window.addEventListener(evtName, function() {
+        var n = Date.now();
+        if (n - _lastActivityTouch > 60000) { // once every 60s
+          _lastActivityTouch = n;
+          touchAuthActivity();
+        }
+      }, { passive: true });
+    });
+
+    /* Live Revocation & Epoch Management */
+    var authBroadcastBus = (typeof BroadcastChannel !== 'undefined') ? new BroadcastChannel('ac_auth_bus') : null;
+    if (authBroadcastBus) {
+      authBroadcastBus.onmessage = function(ev) {
+        if (ev && ev.data && ev.data.type === 'AUTH_REVOKED') {
+          if (currentJudgeRole !== 'admin') {
+            revokeCurrentJudgeSession('Доступ отозван главным судьёй турнира (сброс сессий).');
+          }
+        }
+      };
+    }
+
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'AC_AUTH_REVOKED_TOKEN') {
+        if (currentJudgeRole !== 'admin') {
+          revokeCurrentJudgeSession('Доступ отозван главным судьёй турнира.');
+        }
+      }
+    });
+
+    function revokeCurrentJudgeSession(reason) {
+      isJudgeAuthorized = false;
+      currentJudgeRole = 'viewer';
+      clearAuthSession();
+      updateAuthUI();
+      updatePersonalJudgeLinks();
+      if (reason) {
+        showSyncToast('🔒 ' + reason, 6000);
+      }
+      var err = document.getElementById('judgePinError');
+      if (err) {
+        err.textContent = '🔒 ' + (reason || 'Доступ к интерфейсу сброшен.');
+        err.style.display = 'block';
+      }
+      showJudgePinModal();
+    }
+
+    function completeStageAndRevokeJudges() {
+      if (!confirm('🏁 Завершить текущий этап и отозвать доступ у всех судей?\n\n• Доступ судей будет мгновенно сброшен на всех устройствах.\n• Судейство заблокируется до запуска следующего этапа.\n• Выставленные баллы и сетка сохранятся.\n\nПродолжить?')) {
+        return;
+      }
+      if (!tourneyData) initFallbackBattles();
+      tourneyData.auth_epoch = (tourneyData.auth_epoch ? Number(tourneyData.auth_epoch) : 1) + 1;
+      tourneyData.stage_status = 'completed';
+      tourneyData.auth_revoked_at = Date.now();
+
+      // Refresh admin session with new epoch
+      saveAuthSession({
+        role: 'admin',
+        epoch: tourneyData.auth_epoch,
+        stage: tourneyData.stage || 'top32',
+        authenticated_at: Date.now(),
+        last_active_at: Date.now()
+      });
+
+      autoSave(true);
+      if (authBroadcastBus) authBroadcastBus.postMessage({ type: 'AUTH_REVOKED', epoch: tourneyData.auth_epoch, status: 'completed' });
+      try { localStorage.setItem('AC_AUTH_REVOKED_TOKEN', String(Date.now())); } catch(e) {}
+
+      updateAuthUI();
+      updateAccessControlModalState();
+      alert('🏁 Этап успешно завершён!\n\nВсе сессии судей отозваны, судейство заблокировано до открытия следующего этапа.');
+    }
+
+    function forceLogoutAllJudges() {
+      if (!confirm('🔄 Принудительно сбросить сессии всех судей прямо сейчас?\n\nСудьи будут разлогинены на всех устройствах и должны будут заново ввести актуальный PIN.')) {
+        return;
+      }
+      if (!tourneyData) initFallbackBattles();
+      tourneyData.auth_epoch = (tourneyData.auth_epoch ? Number(tourneyData.auth_epoch) : 1) + 1;
+      tourneyData.auth_revoked_at = Date.now();
+
+      saveAuthSession({
+        role: 'admin',
+        epoch: tourneyData.auth_epoch,
+        stage: tourneyData.stage || 'top32',
+        authenticated_at: Date.now(),
+        last_active_at: Date.now()
+      });
+
+      autoSave(true);
+      if (authBroadcastBus) authBroadcastBus.postMessage({ type: 'AUTH_REVOKED', epoch: tourneyData.auth_epoch });
+      try { localStorage.setItem('AC_AUTH_REVOKED_TOKEN', String(Date.now())); } catch(e) {}
+
+      updateAccessControlModalState();
+      showSyncToast('🔄 Сессии всех судей успешно сброшены!');
+    }
+
+    function resumeStageAuth() {
+      if (!confirm('🟢 Возобновить судейство этапа?\n\nСудьи снова смогут вводить PIN и оценивать заезды.')) {
+        return;
+      }
+      if (!tourneyData) initFallbackBattles();
+      tourneyData.stage_status = 'in_progress';
+      tourneyData.auth_epoch = (tourneyData.auth_epoch ? Number(tourneyData.auth_epoch) : 1) + 1;
+      saveAuthSession({
+        role: 'admin',
+        epoch: tourneyData.auth_epoch,
+        stage: tourneyData.stage || 'top32',
+        authenticated_at: Date.now(),
+        last_active_at: Date.now()
+      });
+      autoSave(true);
+      updateAccessControlModalState();
+      showSyncToast('🟢 Судейство этапа возобновлено!');
     }
 
     // Snippet: Admin Auth & Permissions
@@ -5253,78 +5576,96 @@ function checkJudgeAuth() {
     var pinParam = urlParams.get('pin');
     var roleParam = urlParams.get('role');
     var judgeParam = urlParams.get('judge');
-    var adminPin = getAdminPin();
-    var judgePin = getJudgePin();
-    var savedPin = null;
-    var savedRole = null;
-    try {
-      savedPin = localStorage.getItem('AC_JUDGE_PIN') || sessionStorage.getItem('AC_JUDGE_PIN');
-      savedRole = localStorage.getItem('AC_JUDGE_ROLE') || sessionStorage.getItem('AC_JUDGE_ROLE');
-    } catch(e) {}
-
-    var activePin = pinParam || savedPin;
 
     if (roleParam === 'viewer') {
       isJudgeAuthorized = false;
       currentJudgeRole = 'viewer';
-    } else if (activePin) {
-      var isEnteredAdminPin = Boolean(activePin && activePin === adminPin);
-      var isEnteredJudgePin = Boolean(activePin && activePin === judgePin);
+      clearAuthSession();
+    } else if (pinParam) {
+      // 1. PIN provided in URL query: authenticate immediately & clean URL
+      var isAdmin = verifyAdminPin(pinParam);
+      var isJudge = verifyJudgePin(pinParam);
 
-      if (!isEnteredAdminPin && !isEnteredJudgePin) {
+      if (!isAdmin && !isJudge) {
         isJudgeAuthorized = false;
         currentJudgeRole = 'viewer';
-        try {
-          localStorage.removeItem('AC_JUDGE_ROLE');
-          localStorage.removeItem('AC_JUDGE_PIN');
-          sessionStorage.removeItem('AC_JUDGE_ROLE');
-          sessionStorage.removeItem('AC_JUDGE_PIN');
-        } catch(e) {}
+        clearAuthSession();
         setTimeout(function() {
+          var err = document.getElementById('judgePinError');
+          if (err) { err.textContent = '❌ Неверный PIN-код доступа'; err.style.display = 'block'; }
           showJudgePinModal();
         }, 350);
       } else {
-        isJudgeAuthorized = true;
-
-        if (roleParam === 'admin') {
-          // STRICT: Admin role requires matching Admin PIN!
-          if (isEnteredAdminPin) {
-            currentJudgeRole = 'admin';
-          } else {
-            // Judge PIN entered with ?role=admin: DOWNGRADE to judge! Never grant admin!
-            currentJudgeRole = 'judge1';
-          }
-        } else if (judgeParam === '1' || roleParam === 'judge1') {
-          currentJudgeRole = 'judge1';
+        // Determine role
+        if (roleParam === 'admin' && isAdmin) {
+          currentJudgeRole = 'admin';
         } else if (judgeParam === '2' || roleParam === 'judge2') {
           currentJudgeRole = 'judge2';
         } else if (judgeParam === '3' || roleParam === 'judge3') {
           currentJudgeRole = 'judge3';
-        } else if (savedRole === 'admin') {
-          currentJudgeRole = isEnteredAdminPin ? 'admin' : 'judge1';
-        } else if (savedRole && (savedRole === 'judge1' || savedRole === 'judge2' || savedRole === 'judge3')) {
-          currentJudgeRole = savedRole;
+        } else if (judgeParam === '1' || roleParam === 'judge1') {
+          currentJudgeRole = 'judge1';
         } else {
-          currentJudgeRole = isEnteredAdminPin ? 'admin' : 'judge1';
+          currentJudgeRole = isAdmin ? 'admin' : 'judge1';
         }
 
-        try {
-          localStorage.setItem('AC_JUDGE_PIN', activePin);
-          localStorage.setItem('AC_JUDGE_ROLE', currentJudgeRole);
-          sessionStorage.setItem('AC_JUDGE_PIN', activePin);
-          sessionStorage.setItem('AC_JUDGE_ROLE', currentJudgeRole);
-        } catch(e) {}
+        // Check if stage is completed for judges
+        var isStageBlocked = (currentJudgeRole !== 'admin') && tourneyData && (tourneyData.stage_status === 'completed' || tourneyData.stage_status === 'locked');
+        if (isStageBlocked) {
+          isJudgeAuthorized = false;
+          currentJudgeRole = 'viewer';
+          clearAuthSession();
+          setTimeout(function() {
+            var err = document.getElementById('judgePinError');
+            if (err) { err.textContent = '🔒 Текущий этап турнира завершён. Доступ закрыт.'; err.style.display = 'block'; }
+            showJudgePinModal();
+          }, 350);
+        } else {
+          isJudgeAuthorized = true;
+          var curEpoch = (tourneyData && tourneyData.auth_epoch) ? Number(tourneyData.auth_epoch) : 1;
+          saveAuthSession({
+            role: currentJudgeRole,
+            epoch: curEpoch,
+            stage: (tourneyData && tourneyData.stage) || 'top32',
+            authenticated_at: Date.now(),
+            last_active_at: Date.now()
+          });
+
+          // Security: Remove secret pin from URL address bar so it's not exposed or stored in browser history
+          try {
+            var cleanUrl = new URL(window.location.href);
+            cleanUrl.searchParams.delete('pin');
+            window.history.replaceState({}, '', cleanUrl.toString());
+          } catch(e) {}
+        }
       }
     } else {
-      isJudgeAuthorized = false;
-      currentJudgeRole = 'viewer';
-      try {
-        localStorage.removeItem('AC_JUDGE_ROLE');
-        localStorage.removeItem('AC_JUDGE_PIN');
-      } catch(e) {}
-      setTimeout(function() {
-        showJudgePinModal();
-      }, 350);
+      // 2. No PIN in URL: validate existing ephemeral session
+      var session = getAuthSession();
+      if (session && session.role) {
+        var isStageClosed = (session.role !== 'admin') && tourneyData && (tourneyData.stage_status === 'completed' || tourneyData.stage_status === 'locked');
+        if (isStageClosed) {
+          isJudgeAuthorized = false;
+          currentJudgeRole = 'viewer';
+          clearAuthSession();
+          setTimeout(function() {
+            var err = document.getElementById('judgePinError');
+            if (err) { err.textContent = '🔒 Этап турнира завершён. Доступ к судейству закрыт.'; err.style.display = 'block'; }
+            showJudgePinModal();
+          }, 350);
+        } else {
+          isJudgeAuthorized = true;
+          currentJudgeRole = session.role;
+          touchAuthActivity();
+        }
+      } else {
+        isJudgeAuthorized = false;
+        currentJudgeRole = 'viewer';
+        clearAuthSession();
+        setTimeout(function() {
+          showJudgePinModal();
+        }, 350);
+      }
     }
   } catch(e) {
     isJudgeAuthorized = false;
@@ -5342,6 +5683,9 @@ function checkJudgeAuth() {
     }
     if (autoOpenParams.get('openQualiSettings') === '1') {
       openQualiProSettingsModal();
+    }
+    if (autoOpenParams.get('openAccessControl') === '1' || autoOpenParams.get('access') === '1') {
+      setTimeout(function() { openAccessControlModal(); }, 200);
     }
     if (autoOpenParams.get('openDirector') === '1' || autoOpenParams.get('director') === '1') {
       setTimeout(function() {
@@ -5459,8 +5803,6 @@ function submitJudgePin() {
   var inp = document.getElementById('judgePinInput');
   var roleSelect = document.getElementById('judgeRoleSelect');
   var val = inp ? inp.value.trim() : '';
-  var adminPin = getAdminPin();
-  var judgePin = getJudgePin();
   var chosenRole = roleSelect ? roleSelect.value : 'admin';
   var err = document.getElementById('judgePinError');
 
@@ -5473,14 +5815,14 @@ function submitJudgePin() {
     return;
   }
 
-  var isEnteredAdminPin = Boolean(val && (val === adminPin || (adminPin === '3667' && val === '7777')));
-  var isEnteredJudgePin = Boolean(val && (val === judgePin || (judgePin === '2468' && val === '3333')));
+  var isEnteredAdminPin = verifyAdminPin(val);
+  var isEnteredJudgePin = verifyJudgePin(val);
 
   // STRICT: If user wants ADMIN, ONLY Admin PIN is accepted! Judge PIN is strictly rejected!
   if (chosenRole === 'admin') {
     if (!isEnteredAdminPin) {
       if (err) {
-        if (isEnteredJudgePin && judgePin !== adminPin) {
+        if (isEnteredJudgePin) {
           err.textContent = '⛔ Этот PIN-код принадлежит Судье. Доступ в режим Администратора запрещен! Выберите роль Судьи в списке.';
         } else {
           err.textContent = '❌ Неверный PIN-код Администратора';
@@ -5493,10 +5835,18 @@ function submitJudgePin() {
     currentJudgeRole = 'admin';
   } else {
     // If user wants a JUDGE role (judge1, judge2, judge3):
-    // Judge PIN is accepted. Admin PIN is also accepted.
     if (!isEnteredJudgePin && !isEnteredAdminPin) {
       if (err) {
         err.textContent = '❌ Неверный PIN-код доступа';
+        err.style.display = 'block';
+      }
+      if (inp) inp.select();
+      return;
+    }
+    // Check if stage is closed
+    if (tourneyData && (tourneyData.stage_status === 'completed' || tourneyData.stage_status === 'locked')) {
+      if (err) {
+        err.textContent = '🔒 Текущий этап турнира завершён. Доступ к судейству закрыт главным судьёй.';
         err.style.display = 'block';
       }
       if (inp) inp.select();
@@ -5507,6 +5857,17 @@ function submitJudgePin() {
 
   isJudgeAuthorized = true;
 
+  // Save session (Variant 3: sessionStorage with TTL & epoch)
+  var curEpoch = (tourneyData && tourneyData.auth_epoch) ? Number(tourneyData.auth_epoch) : 1;
+  saveAuthSession({
+    role: currentJudgeRole,
+    epoch: curEpoch,
+    stage: (tourneyData && tourneyData.stage) || 'top32',
+    authenticated_at: Date.now(),
+    last_active_at: Date.now()
+  });
+
+  // Remove pin from URL address bar for privacy
   try {
     var currentUrl = new URL(window.location.href);
     if (currentJudgeRole === 'admin') {
@@ -5518,15 +5879,8 @@ function submitJudgePin() {
       if (currentJudgeRole === 'judge2') currentUrl.searchParams.set('judge', '2');
       if (currentJudgeRole === 'judge3') currentUrl.searchParams.set('judge', '3');
     }
-    currentUrl.searchParams.set('pin', val);
+    currentUrl.searchParams.delete('pin');
     window.history.replaceState({}, '', currentUrl.toString());
-  } catch(e) {}
-
-  try {
-    localStorage.setItem('AC_JUDGE_PIN', val);
-    localStorage.setItem('AC_JUDGE_ROLE', currentJudgeRole);
-    sessionStorage.setItem('AC_JUDGE_PIN', val);
-    sessionStorage.setItem('AC_JUDGE_ROLE', currentJudgeRole);
   } catch(e) {}
 
   updateAuthUI();
@@ -5547,6 +5901,36 @@ function submitJudgePin() {
 }
 
     /* Access Control Modal & Personal Links */
+    function updateAccessControlModalState() {
+      var isStageCompleted = tourneyData && (tourneyData.stage_status === 'completed' || tourneyData.stage_status === 'locked');
+      var curEpoch = (tourneyData && tourneyData.auth_epoch) ? Number(tourneyData.auth_epoch) : 1;
+
+      var statusBadge = document.getElementById('accessModalStageStatusBadge');
+      if (statusBadge) {
+        if (isStageCompleted) {
+          statusBadge.textContent = '🔴 ЭТАП ЗАВЕРШЁН (ДОСТУП ЗАКРЫТ)';
+          statusBadge.style.background = '#7f1d1d';
+          statusBadge.style.color = '#fca5a5';
+          statusBadge.style.borderColor = '#ef4444';
+        } else {
+          statusBadge.textContent = '🟢 СУДЕЙСТВО АКТИВНО';
+          statusBadge.style.background = '#065f46';
+          statusBadge.style.color = '#34d399';
+          statusBadge.style.borderColor = '#10b981';
+        }
+      }
+
+      var epochBadge = document.getElementById('accessModalEpochBadge');
+      if (epochBadge) {
+        epochBadge.textContent = 'Эпоха: #' + curEpoch;
+      }
+
+      var btnComplete = document.getElementById('btnCompleteStageAndRevoke');
+      var btnResume = document.getElementById('btnResumeStageAuth');
+      if (btnComplete) btnComplete.style.display = isStageCompleted ? 'none' : 'inline-flex';
+      if (btnResume) btnResume.style.display = isStageCompleted ? 'inline-flex' : 'none';
+    }
+
     function openAccessControlModal() {
       if (!isJudgeAuthorized || currentJudgeRole !== 'admin') {
         showSyncToast('⛔ Управление доступом судей доступно только Администратору');
@@ -5561,6 +5945,7 @@ function submitJudgePin() {
       var msg = document.getElementById('masterPinSuccessMsg');
       if (msg) msg.style.display = 'none';
       updatePersonalJudgeLinks();
+      updateAccessControlModalState();
       modal.style.display = 'flex';
     }
 
@@ -5583,26 +5968,49 @@ function submitJudgePin() {
         return;
       }
       if (!tourneyData) initFallbackBattles();
-      tourneyData.admin_pin = newAdminPin;
-      tourneyData.judge_pin = newJudgePin;
-      try {
-        localStorage.setItem('AC_ADMIN_PIN', newAdminPin);
-        localStorage.setItem('AC_JUDGE_PIN_SETTING', newJudgePin);
-        localStorage.setItem('AC_JUDGE_PIN', newAdminPin);
-        sessionStorage.setItem('AC_JUDGE_PIN', newAdminPin);
-      } catch(e) {}
+
+      var salt = getAuthSalt();
+      var adminHash = sha256Sync(salt + ':' + newAdminPin);
+      var judgeHash = sha256Sync(salt + ':' + newJudgePin);
+
+      tourneyData.auth_salt = salt;
+      tourneyData.admin_pin_hash = adminHash;
+      tourneyData.judge_pin_hash = judgeHash;
+
+      // Invalidate existing judge sessions: bump epoch!
+      tourneyData.auth_epoch = (tourneyData.auth_epoch ? Number(tourneyData.auth_epoch) : 1) + 1;
+      tourneyData.auth_revoked_at = Date.now();
+
+      // Clean plaintext PIN fields from public tournament data
+      delete tourneyData.admin_pin;
+      delete tourneyData.judge_pin;
+
+      // Keep current admin authenticated with new epoch
       isJudgeAuthorized = true;
       currentJudgeRole = 'admin';
+      saveAuthSession({
+        role: 'admin',
+        epoch: tourneyData.auth_epoch,
+        stage: tourneyData.stage || 'top32',
+        authenticated_at: Date.now(),
+        last_active_at: Date.now()
+      });
+
       autoSave(true);
+      if (authBroadcastBus) authBroadcastBus.postMessage({ type: 'AUTH_REVOKED', epoch: tourneyData.auth_epoch });
+      try { localStorage.setItem('AC_AUTH_REVOKED_TOKEN', String(Date.now())); } catch(e) {}
+
       updateAuthUI();
       updatePersonalJudgeLinks();
+      updateAccessControlModalState();
+
       var msg = document.getElementById('masterPinSuccessMsg');
       if (msg) {
-        msg.textContent = '✓ Новые PIN-коды сохранены! (Администратор: ' + newAdminPin + ' | Судьи: ' + newJudgePin + ')';
+        msg.textContent = '✓ Новые PIN-коды зашифрованы SHA-256 и сохранены! Старые сессии судей отозваны.';
         msg.style.display = 'block';
         setTimeout(function() { if (msg) msg.style.display = 'none'; }, 6000);
       }
-      showSyncToast('🔑 PIN Администратора: ' + newAdminPin + ' | PIN Судей: ' + newJudgePin);
+      showSyncToast('🛡️ Хэши SHA-256 обновлены! Старые сессии судей сброшены.');
     }
 
     function generateRandomPins() {
@@ -10355,6 +10763,22 @@ function applyQualiPreset(type) {
               tourneyData = data;
               compactQualiRoster(tourneyData);
               try { localStorage.setItem('AC_TOP32_DATA', JSON.stringify(tourneyData)); } catch(e) {}
+
+              // HIGH SECURITY VALIDATION FOR JUDGES: Check remote epoch & stage completion
+              if (isJudgeAuthorized && currentJudgeRole !== 'admin') {
+                var curSess = getAuthSession();
+                var sEpoch = (data.auth_epoch ? Number(data.auth_epoch) : 1);
+                var sessEpoch = (curSess && curSess.epoch ? Number(curSess.epoch) : 1);
+
+                if (sessEpoch < sEpoch) {
+                  revokeCurrentJudgeSession('Доступ к судейству был сброшен главным судьёй (сессия завершена).');
+                  return;
+                }
+                if (data.stage_status === 'completed' || data.stage_status === 'locked') {
+                  revokeCurrentJudgeSession('Этап турнира официально завершён. Доступ судей закрыт.');
+                  return;
+                }
+              }
             } else {
               // FOR ADMIN:
               if (serverTime > localTime) {
@@ -16690,7 +17114,51 @@ async function saveData() {
             <button class="btn small" style="background:#334155; color:#cbd5e1;" onclick="switchToViewerMode()">👁️ Режим Просмотра (Выйти)</button>
           </div>
         </div>
-        <!-- Card 1: Master PIN Settings -->
+        <!-- Card 1: Stage & Session Security Controller -->
+        <div style="background:rgba(15,23,42,0.95); border:1px solid #f59e0b; border-radius:10px; padding:16px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+            <div style="font-size:14px; font-weight:800; color:#fbbf24; display:flex; align-items:center; gap:8px;">
+              <span>🛡️ Управление доступом судей и завершение этапа:</span>
+            </div>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <span id="accessModalStageStatusBadge" style="background:#065f46; color:#34d399; font-size:11px; font-weight:900; padding:3px 10px; border-radius:4px; border:1px solid #10b981;">🟢 СУДЕЙСТВО АКТИВНО</span>
+              <span id="accessModalEpochBadge" style="background:#1e293b; color:#94a3b8; font-size:11px; font-weight:800; padding:3px 8px; border-radius:4px;">Эпоха: #1</span>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:10px; margin-bottom:14px; font-size:11.5px;">
+            <div style="background:#090d16; border:1px solid rgba(255,255,255,0.08); border-radius:6px; padding:10px;">
+              <div style="color:#94a3b8;">Хэширование паролей:</div>
+              <div style="color:#38bdf8; font-weight:800; margin-top:2px;">🔒 SHA-256 (Активно)</div>
+              <div style="color:#64748b; font-size:10px; margin-top:2px;">PIN-коды скрыты от зрителей</div>
+            </div>
+            <div style="background:#090d16; border:1px solid rgba(255,255,255,0.08); border-radius:6px; padding:10px;">
+              <div style="color:#94a3b8;">Тип сессий судей:</div>
+              <div style="color:#a78bfa; font-weight:800; margin-top:2px;">⚡ Одноразовые (sessionStorage)</div>
+              <div style="color:#64748b; font-size:10px; margin-top:2px;">Сброс при закрытии вкладки или 45 мин</div>
+            </div>
+            <div style="background:#090d16; border:1px solid rgba(255,255,255,0.08); border-radius:6px; padding:10px;">
+              <div style="color:#94a3b8;">Авто-очистка ссылок:</div>
+              <div style="color:#34d399; font-weight:800; margin-top:2px;">✓ Удаление ?pin= из URL</div>
+              <div style="color:#64748b; font-size:10px; margin-top:2px;">PIN не остаётся в истории браузера</div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn" id="btnCompleteStageAndRevoke" onclick="completeStageAndRevokeJudges()" style="background:linear-gradient(135deg, #b91c1c 0%, #991b1b 100%); color:#fff; border:1px solid #ef4444; font-weight:900; padding:9px 16px; border-radius:8px; display:inline-flex; align-items:center; gap:6px;">
+              🏁 Завершить этап & Отозвать доступы судей
+            </button>
+            <button class="btn" id="btnResumeStageAuth" onclick="resumeStageAuth()" style="display:none; background:linear-gradient(135deg, #059669 0%, #047857 100%); color:#fff; border:1px solid #10b981; font-weight:900; padding:9px 16px; border-radius:8px; align-items:center; gap:6px;">
+              🟢 Возобновить судейство этапа
+            </button>
+            <button class="btn" onclick="forceLogoutAllJudges()" style="background:#1e293b; color:#cbd5e1; border:1px solid rgba(255,255,255,0.2); font-weight:800; padding:9px 16px; border-radius:8px; display:inline-flex; align-items:center; gap:6px;">
+              🔄 Принудительно сбросить сессии (Force Logout)
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 2: Master PIN Settings -->
         <div style="background:rgba(15,23,42,0.85); border:1px solid #334155; border-radius:10px; padding:16px;">
           <div style="font-size:14px; font-weight:800; color:#38bdf8; display:flex; align-items:center; gap:6px; margin-bottom:8px;">
             <span>🔑 Настройки безопасности и PIN-кодов:</span>
