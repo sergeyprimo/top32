@@ -2850,7 +2850,7 @@
     "headerLogo": "RC",
     "tournamentTitle": "RACE CREW DRIFT CUP",
     "tournamentSub": "ГАЗДЕРЖИМ",
-    "statusText": "Технический перерыв",
+    "statusText": "Скоро квалификация",
     "metaServer": "RACE CREW",
     "metaTrack": "РУССКИЕ ГОРКИ ",
     "headerFontSize": 24,
@@ -2904,7 +2904,7 @@
     "showPilot": false,
     "showQr": true,
     "showTicker": true,
-    "lastUpdated": 1795644961248,
+    "lastUpdated": 1795644989716,
     "timerTargetTimestamp": 1795272860852,
     "timerRemainingOnPause": 300
   },
