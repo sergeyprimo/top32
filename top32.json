@@ -7,9 +7,9 @@
   "public_url": "https://sergeyprimo.github.io/top32/",
   "backup_sheet_webhook": "https://script.google.com/macros/s/AKfycbwiJ6dGQyGtrHhoi5Ri1OOJD5RuPbkQAF8JfgAGZ3RiObIXpbBywmFEJmyGVjpJ6G_6uQ/exec",
   "stage": "top4",
-  "active_battle_id": 302,
+  "active_battle_id": 303,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795724858677,
+  "last_updated": 1795724860096,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2847,20 +2847,20 @@
         "is_placeholder": false,
         "best": 87.5
       },
-      "winner": null,
-      "status": "live",
+      "winner": "lead",
+      "status": "finished",
       "judges": [
         {
           "name": "С1",
-          "vote": null
+          "vote": "lead"
         },
         {
           "name": "С2",
-          "vote": null
+          "vote": "lead"
         },
         {
           "name": "С3",
-          "vote": null
+          "vote": "lead"
         }
       ]
     },
@@ -2880,13 +2880,16 @@
         "best": 88
       },
       "chase": {
-        "seed": "—",
-        "name": "Проигравший ПФ 2",
-        "car": "Ожидание заезда",
-        "is_placeholder": true
+        "seed": 14,
+        "name": "Артем Евдокимов",
+        "car": "db_lada_priora_evdokimov_artem",
+        "number": "14",
+        "quali_score": 87.5,
+        "is_placeholder": false,
+        "best": 87.5
       },
       "winner": null,
-      "status": "waiting",
+      "status": "live",
       "judges": [
         {
           "name": "С1",
@@ -2909,6 +2912,15 @@
       "stage": "final",
       "pair_title": "🥇 ГЛАВНЫЙ ФИНАЛ (1-Е И 2-Е МЕСТО) 🏆",
       "lead": {
+        "seed": 2,
+        "name": "Леонтьев Вячеслав",
+        "car": "db_bmw_e92_vyacheslav_leontev",
+        "number": "2",
+        "quali_score": 98.5,
+        "is_placeholder": false,
+        "best": 98.5
+      },
+      "chase": {
         "seed": 16,
         "name": "Данила Козлов",
         "car": "db_subaru_brz_danila_kozlov",
@@ -2916,12 +2928,6 @@
         "quali_score": 85,
         "is_placeholder": false,
         "best": 85
-      },
-      "chase": {
-        "seed": "—",
-        "name": "Победитель ПФ 2",
-        "car": "Ожидание заезда",
-        "is_placeholder": true
       },
       "winner": null,
       "status": "waiting",
