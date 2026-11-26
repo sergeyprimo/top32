@@ -7,9 +7,9 @@
   "public_url": "https://sergeyprimo.github.io/top32/",
   "backup_sheet_webhook": "https://script.google.com/macros/s/AKfycbwiJ6dGQyGtrHhoi5Ri1OOJD5RuPbkQAF8JfgAGZ3RiObIXpbBywmFEJmyGVjpJ6G_6uQ/exec",
   "stage": "top32",
-  "active_battle_id": 12,
+  "active_battle_id": 13,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795724791996,
+  "last_updated": 1795724792946,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2102,21 +2102,21 @@
         "is_placeholder": false,
         "best": 78.5
       },
-      "winner": null,
-      "status": "live",
+      "winner": "lead",
+      "status": "finished",
       "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": null
+          "vote": "lead"
         },
         {
           "name": "С2",
-          "vote": null
+          "vote": "lead"
         },
         {
           "name": "С3",
-          "vote": null
+          "vote": "lead"
         }
       ]
     },
@@ -2144,7 +2144,7 @@
         "best": 70.5
       },
       "winner": null,
-      "status": "upcoming",
+      "status": "live",
       "is_direct_quali": true,
       "judges": [
         {
@@ -2507,13 +2507,16 @@
         "best": 93.5
       },
       "chase": {
-        "seed": "—",
-        "name": "Победитель Хита #12",
-        "car": "Ожидание заезда",
-        "is_placeholder": true
+        "seed": 10,
+        "name": "Данила Арефьев",
+        "car": "VDC Toyota Mark II JZX100 Public 5.0",
+        "number": "10",
+        "quali_score": 91,
+        "is_placeholder": false,
+        "best": 91
       },
       "winner": null,
-      "status": "waiting",
+      "status": "upcoming",
       "judges": [
         {
           "name": "С1",
