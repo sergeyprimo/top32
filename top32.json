@@ -9,7 +9,7 @@
   "stage": "top32",
   "active_battle_id": 16,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795724796121,
+  "last_updated": 1795724797419,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2266,21 +2266,21 @@
         "is_placeholder": false,
         "best": 79
       },
-      "winner": null,
-      "status": "live",
+      "winner": "lead",
+      "status": "finished",
       "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": null
+          "vote": "lead"
         },
         {
           "name": "С2",
-          "vote": null
+          "vote": "lead"
         },
         {
           "name": "С3",
-          "vote": null
+          "vote": "lead"
         }
       ]
     }
@@ -2589,13 +2589,16 @@
         "best": 94
       },
       "chase": {
-        "seed": "—",
-        "name": "Победитель Хита #16",
-        "car": "Ожидание заезда",
-        "is_placeholder": true
+        "seed": 11,
+        "name": "Даниил Кузнецов",
+        "car": "db_ford_mustang_s550_kuznetsov_daniil",
+        "number": "11",
+        "quali_score": 90,
+        "is_placeholder": false,
+        "best": 90
       },
       "winner": null,
-      "status": "waiting",
+      "status": "upcoming",
       "judges": [
         {
           "name": "С1",
