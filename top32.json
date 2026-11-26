@@ -9,7 +9,7 @@
   "stage": "quali",
   "active_battle_id": 101,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795724694874,
+  "last_updated": 1795724696092,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -39,15 +39,15 @@
       "group": "",
       "car": "db_bmw_e92_vyacheslav_leontev",
       "number": "—",
-      "run1": 10,
-      "run2": 0,
-      "best": 10,
+      "run1": 100,
+      "run2": 1,
+      "best": 100,
       "status": "qualified",
       "is_placeholder": false,
-      "total": 10,
-      "single_best": 10,
-      "worse": 0,
-      "_local_edit_time": 1795724694873
+      "total": 101,
+      "single_best": 100,
+      "worse": 1,
+      "_local_edit_time": 1795724696092
     },
     {
       "rank": 3,
