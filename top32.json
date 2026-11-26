@@ -9,7 +9,7 @@
   "stage": "top32",
   "active_battle_id": 101,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795724740831,
+  "last_updated": 1795724744960,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -1635,35 +1635,37 @@
       "stage": "top32",
       "lead": {
         "seed": 1,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Иван Самарин",
+        "car": "db_ft_ford_mustang_rtr_samarin",
         "number": "1",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 98.6,
+        "is_placeholder": false,
+        "best": 98.6
       },
       "chase": {
         "seed": 32,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Георги Неделчев",
+        "car": "VDC BMW E82 1M Public 5.0",
         "number": "32",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 65,
+        "is_placeholder": false,
+        "best": 65
       },
-      "winner": "lead",
-      "status": "finished",
-      "is_direct_quali": false,
+      "winner": null,
+      "status": "live",
+      "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "lead"
+          "vote": null
         }
       ]
     },
@@ -1674,35 +1676,37 @@
       "stage": "top32",
       "lead": {
         "seed": 16,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Данила Козлов",
+        "car": "db_subaru_brz_danila_kozlov",
         "number": "16",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 85,
+        "is_placeholder": false,
+        "best": 85
       },
       "chase": {
         "seed": 17,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Степан Безуглов",
+        "car": "db_bmw_m4_Stepan_Bezuglov",
         "number": "17",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 84.5,
+        "is_placeholder": false,
+        "best": 84.5
       },
-      "winner": "chase",
-      "status": "finished",
-      "is_direct_quali": false,
+      "winner": null,
+      "status": "upcoming",
+      "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": "omt"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "omt"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "omt"
+          "vote": null
         }
       ]
     },
@@ -1713,35 +1717,37 @@
       "stage": "top32",
       "lead": {
         "seed": 8,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Тимофей Никитин",
+        "car": "VDC Shelby Mustang Super Snake Public 5.0",
         "number": "8",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 92,
+        "is_placeholder": false,
+        "best": 92
       },
       "chase": {
         "seed": 25,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Нешадим Алексей",
+        "car": "db_toyota_mark_ii_neshadim_aleksey",
         "number": "25",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 76.5,
+        "is_placeholder": false,
+        "best": 76.5
       },
-      "winner": "lead",
-      "status": "finished",
-      "is_direct_quali": false,
+      "winner": null,
+      "status": "upcoming",
+      "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "lead"
+          "vote": null
         }
       ]
     },
@@ -1752,35 +1758,37 @@
       "stage": "top32",
       "lead": {
         "seed": 9,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Марк Хороший",
+        "car": "db_ford_mustang_s550_mark_horoshiy",
         "number": "9",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 91.5,
+        "is_placeholder": false,
+        "best": 91.5
       },
       "chase": {
         "seed": 24,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Влад Трофимов",
+        "car": "DB BMW E91 Vlad Trofimov",
         "number": "24",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 77,
+        "is_placeholder": false,
+        "best": 77
       },
-      "winner": "lead",
-      "status": "finished",
-      "is_direct_quali": false,
+      "winner": null,
+      "status": "upcoming",
+      "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "lead"
+          "vote": null
         }
       ]
     },
@@ -1791,35 +1799,37 @@
       "stage": "top32",
       "lead": {
         "seed": 4,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "ДЕНИС ИСТРАТИЙ",
+        "car": "db_nissan_180sx_denis_istratiy",
         "number": "4",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 96,
+        "is_placeholder": false,
+        "best": 96
       },
       "chase": {
         "seed": 29,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Александр Адамович",
+        "car": "db_z0_mb_e63_w212_aleksandr_adamovich",
         "number": "29",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 72,
+        "is_placeholder": false,
+        "best": 72
       },
-      "winner": "lead",
-      "status": "finished",
-      "is_direct_quali": false,
+      "winner": null,
+      "status": "upcoming",
+      "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "lead"
+          "vote": null
         }
       ]
     },
@@ -1830,35 +1840,37 @@
       "stage": "top32",
       "lead": {
         "seed": 13,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Роман Контиевский",
+        "car": "db_bmw_e92_roman_kontievskii",
         "number": "13",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 88,
+        "is_placeholder": false,
+        "best": 88
       },
       "chase": {
         "seed": 20,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Никита Бушев",
+        "car": "db_bmw_m2_f22_nikita_bushev",
         "number": "20",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 81,
+        "is_placeholder": false,
+        "best": 81
       },
-      "winner": "lead",
-      "status": "finished",
-      "is_direct_quali": false,
+      "winner": null,
+      "status": "upcoming",
+      "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "lead"
+          "vote": null
         }
       ]
     },
@@ -1869,23 +1881,25 @@
       "stage": "top32",
       "lead": {
         "seed": 5,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Соболев Павед",
+        "car": "db_toyota_supra_mk4_a80_pavel_sobolev",
         "number": "5",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 95.5,
+        "is_placeholder": false,
+        "best": 95.5
       },
       "chase": {
         "seed": 28,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Истратий Дмитрий",
+        "car": "db_bmw_m2_f20_istratiy_dima",
         "number": "28",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 73.5,
+        "is_placeholder": false,
+        "best": 73.5
       },
       "winner": null,
       "status": "upcoming",
-      "is_direct_quali": false,
+      "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
@@ -1908,23 +1922,25 @@
       "stage": "top32",
       "lead": {
         "seed": 12,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Дмитрий Анохин",
+        "car": "VDC BMW E92 M3 Public 5.0",
         "number": "12",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 89.5,
+        "is_placeholder": false,
+        "best": 89.5
       },
       "chase": {
         "seed": 21,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Майгарин Азамат",
+        "car": "db_nissan_silvia_s15_azamat_maigarin",
         "number": "21",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 80.5,
+        "is_placeholder": false,
+        "best": 80.5
       },
       "winner": null,
       "status": "upcoming",
-      "is_direct_quali": false,
+      "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
@@ -1947,35 +1963,37 @@
       "stage": "top32",
       "lead": {
         "seed": 2,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Леонтьев Вячеслав",
+        "car": "db_bmw_e92_vyacheslav_leontev",
         "number": "2",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 98.5,
+        "is_placeholder": false,
+        "best": 98.5
       },
       "chase": {
         "seed": 31,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Савельев Алексей",
+        "car": "db_nissan_silvia_s14_alexey_saveliev",
         "number": "31",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 68,
+        "is_placeholder": false,
+        "best": 68
       },
-      "winner": "lead",
-      "status": "finished",
-      "is_direct_quali": false,
+      "winner": null,
+      "status": "upcoming",
+      "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "lead"
+          "vote": null
         }
       ]
     },
@@ -1986,23 +2004,25 @@
       "stage": "top32",
       "lead": {
         "seed": 15,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Владимир Шапошников",
+        "car": "db_toyota_supra_a80_vladimir_shaposhnikov",
         "number": "15",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 86,
+        "is_placeholder": false,
+        "best": 86
       },
       "chase": {
         "seed": 18,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Вадим Киселев",
+        "car": "VDC Toyota Supra A80 Public 5.0",
         "number": "18",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 83,
+        "is_placeholder": false,
+        "best": 83
       },
       "winner": null,
       "status": "upcoming",
-      "is_direct_quali": false,
+      "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
@@ -2025,23 +2045,25 @@
       "stage": "top32",
       "lead": {
         "seed": 7,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Алмаз Муртазин",
+        "car": "db_bmw_m2_g87_almaz_murtazin",
         "number": "7",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 93.5,
+        "is_placeholder": false,
+        "best": 93.5
       },
       "chase": {
         "seed": 26,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Николай Леднев",
+        "car": "db_lexus_rcf_nikolay_lednev",
         "number": "26",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 75,
+        "is_placeholder": false,
+        "best": 75
       },
       "winner": null,
       "status": "upcoming",
-      "is_direct_quali": false,
+      "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
@@ -2064,23 +2086,25 @@
       "stage": "top32",
       "lead": {
         "seed": 10,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Данила Арефьев",
+        "car": "VDC Toyota Mark II JZX100 Public 5.0",
         "number": "10",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 91,
+        "is_placeholder": false,
+        "best": 91
       },
       "chase": {
         "seed": 23,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Виктор Бондаренко",
+        "car": "db_toyota_supra_a80_viktor_bondarenko",
         "number": "23",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 78.5,
+        "is_placeholder": false,
+        "best": 78.5
       },
       "winner": null,
       "status": "upcoming",
-      "is_direct_quali": false,
+      "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
@@ -2103,23 +2127,25 @@
       "stage": "top32",
       "lead": {
         "seed": 3,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Даниил Грошевой",
+        "car": "VDC BMW E46 HGK Public 5.0",
         "number": "3",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 97.5,
+        "is_placeholder": false,
+        "best": 97.5
       },
       "chase": {
         "seed": 30,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Илья Гештарев",
+        "car": "db_bmw_e92_ilja_gestarevs",
         "number": "30",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 70.5,
+        "is_placeholder": false,
+        "best": 70.5
       },
       "winner": null,
       "status": "upcoming",
-      "is_direct_quali": false,
+      "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
@@ -2142,23 +2168,25 @@
       "stage": "top32",
       "lead": {
         "seed": 14,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Артем Евдокимов",
+        "car": "db_lada_priora_evdokimov_artem",
         "number": "14",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 87.5,
+        "is_placeholder": false,
+        "best": 87.5
       },
       "chase": {
         "seed": 19,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Мокрицкий Владислав",
+        "car": "VDC BMW E92 M3 Public 5.0",
         "number": "19",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 82.5,
+        "is_placeholder": false,
+        "best": 82.5
       },
       "winner": null,
       "status": "upcoming",
-      "is_direct_quali": false,
+      "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
@@ -2181,23 +2209,25 @@
       "stage": "top32",
       "lead": {
         "seed": 6,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Николай Краевский",
+        "car": "db_toyota_jzx90_nikolay_kraevskiy",
         "number": "6",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 94,
+        "is_placeholder": false,
+        "best": 94
       },
       "chase": {
         "seed": 27,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Илья Лопатин",
+        "car": "db_toyota_supra_a80_ilya_lopatin",
         "number": "27",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 74,
+        "is_placeholder": false,
+        "best": 74
       },
       "winner": null,
       "status": "upcoming",
-      "is_direct_quali": false,
+      "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
@@ -2220,23 +2250,25 @@
       "stage": "top32",
       "lead": {
         "seed": 11,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Даниил Кузнецов",
+        "car": "db_ford_mustang_s550_kuznetsov_daniil",
         "number": "11",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 90,
+        "is_placeholder": false,
+        "best": 90
       },
       "chase": {
         "seed": 22,
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
+        "name": "Владимир Мский",
+        "car": "VDC Toyota GT86 Public 5.0",
         "number": "22",
-        "country": "RU",
-        "is_placeholder": true
+        "quali_score": 79,
+        "is_placeholder": false,
+        "best": 79
       },
       "winner": null,
       "status": "upcoming",
-      "is_direct_quali": false,
+      "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
@@ -2262,35 +2294,30 @@
       "pair_title": "ТОП-16 • ХИТ #1",
       "lead": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Победитель Хита #1",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "chase": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Победитель Хита #2",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
-      "winner": "lead",
-      "status": "finished",
-      "is_direct_quali": false,
+      "winner": null,
+      "status": "waiting",
       "judges": [
         {
           "name": "С1",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С2",
-          "vote": "lead"
+          "vote": null
         },
         {
           "name": "С3",
-          "vote": "lead"
+          "vote": null
         }
       ]
     },
@@ -2302,23 +2329,18 @@
       "pair_title": "ТОП-16 • ХИТ #2",
       "lead": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Победитель Хита #3",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "chase": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Победитель Хита #4",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "winner": null,
       "status": "waiting",
-      "is_direct_quali": false,
       "judges": [
         {
           "name": "С1",
@@ -2342,23 +2364,18 @@
       "pair_title": "ТОП-16 • ХИТ #3",
       "lead": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Победитель Хита #5",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "chase": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Победитель Хита #6",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "winner": null,
       "status": "waiting",
-      "is_direct_quali": false,
       "judges": [
         {
           "name": "С1",
@@ -2382,23 +2399,18 @@
       "pair_title": "ТОП-16 • ХИТ #4",
       "lead": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Победитель Хита #7",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "chase": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Победитель Хита #8",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "winner": null,
       "status": "waiting",
-      "is_direct_quali": false,
       "judges": [
         {
           "name": "С1",
@@ -2422,23 +2434,18 @@
       "pair_title": "ТОП-16 • ХИТ #5",
       "lead": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Победитель Хита #9",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "chase": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Победитель Хита #10",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "winner": null,
       "status": "waiting",
-      "is_direct_quali": false,
       "judges": [
         {
           "name": "С1",
@@ -2462,23 +2469,18 @@
       "pair_title": "ТОП-16 • ХИТ #6",
       "lead": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Победитель Хита #11",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "chase": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Победитель Хита #12",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "winner": null,
       "status": "waiting",
-      "is_direct_quali": false,
       "judges": [
         {
           "name": "С1",
@@ -2502,23 +2504,18 @@
       "pair_title": "ТОП-16 • ХИТ #7",
       "lead": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Победитель Хита #13",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "chase": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Победитель Хита #14",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "winner": null,
       "status": "waiting",
-      "is_direct_quali": false,
       "judges": [
         {
           "name": "С1",
@@ -2542,23 +2539,18 @@
       "pair_title": "ТОП-16 • ХИТ #8",
       "lead": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Победитель Хита #15",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "chase": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Победитель Хита #16",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "winner": null,
       "status": "waiting",
-      "is_direct_quali": false,
       "judges": [
         {
           "name": "С1",
@@ -2584,23 +2576,18 @@
       "pair_title": "ТОП-8 • ХИТ #1",
       "lead": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Победитель ТОП-32 #1",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "chase": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Победитель ТОП-32 #2",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "winner": null,
       "status": "waiting",
-      "is_direct_quali": false,
       "judges": [
         {
           "name": "С1",
@@ -2624,23 +2611,18 @@
       "pair_title": "ТОП-8 • ХИТ #2",
       "lead": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Победитель ТОП-32 #3",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "chase": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Победитель ТОП-32 #4",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "winner": null,
       "status": "waiting",
-      "is_direct_quali": false,
       "judges": [
         {
           "name": "С1",
@@ -2664,23 +2646,18 @@
       "pair_title": "ТОП-8 • ХИТ #3",
       "lead": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Победитель ТОП-32 #5",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "chase": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Победитель ТОП-32 #6",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "winner": null,
       "status": "waiting",
-      "is_direct_quali": false,
       "judges": [
         {
           "name": "С1",
@@ -2704,23 +2681,18 @@
       "pair_title": "ТОП-8 • ХИТ #4",
       "lead": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Победитель ТОП-32 #7",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "chase": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Победитель ТОП-32 #8",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "winner": null,
       "status": "waiting",
-      "is_direct_quali": false,
       "judges": [
         {
           "name": "С1",
@@ -2746,23 +2718,18 @@
       "pair_title": "ПОЛУФИНАЛ 1",
       "lead": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Победитель ТОП-16 #1",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "chase": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Победитель ТОП-16 #2",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "winner": null,
       "status": "waiting",
-      "is_direct_quali": false,
       "judges": [
         {
           "name": "С1",
@@ -2786,23 +2753,18 @@
       "pair_title": "ПОЛУФИНАЛ 2",
       "lead": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Победитель ТОП-16 #3",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "chase": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Победитель ТОП-16 #4",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "winner": null,
       "status": "waiting",
-      "is_direct_quali": false,
       "judges": [
         {
           "name": "С1",
@@ -2826,23 +2788,18 @@
       "pair_title": "🥉 ЗАЕЗД ЗА 3-Е МЕСТО (БРОНЗА)",
       "lead": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Проигравший ПФ 1",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "chase": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Проигравший ПФ 2",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "winner": null,
       "status": "waiting",
-      "is_direct_quali": false,
       "judges": [
         {
           "name": "С1",
@@ -2866,23 +2823,18 @@
       "pair_title": "🥇 ГЛАВНЫЙ ФИНАЛ (1-Е И 2-Е МЕСТО) 🏆",
       "lead": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Победитель ПФ 1",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "chase": {
         "seed": "—",
-        "name": "ОЖИДАНИЕ ПИЛОТА",
-        "car": "---",
-        "number": "—",
-        "country": "RU",
+        "name": "Победитель ПФ 2",
+        "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "winner": null,
       "status": "waiting",
-      "is_direct_quali": false,
       "judges": [
         {
           "name": "С1",
