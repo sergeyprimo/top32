@@ -7,9 +7,9 @@
   "public_url": "https://sergeyprimo.github.io/top32/",
   "backup_sheet_webhook": "https://script.google.com/macros/s/AKfycbwiJ6dGQyGtrHhoi5Ri1OOJD5RuPbkQAF8JfgAGZ3RiObIXpbBywmFEJmyGVjpJ6G_6uQ/exec",
   "stage": "top16",
-  "active_battle_id": 104,
+  "active_battle_id": 105,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795724820831,
+  "last_updated": 1795724823698,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2433,20 +2433,20 @@
         "is_placeholder": false,
         "best": 89.5
       },
-      "winner": null,
-      "status": "live",
+      "winner": "chase",
+      "status": "finished",
       "judges": [
         {
           "name": "С1",
-          "vote": null
+          "vote": "chase"
         },
         {
           "name": "С2",
-          "vote": null
+          "vote": "chase"
         },
         {
           "name": "С3",
-          "vote": null
+          "vote": "chase"
         }
       ]
     },
@@ -2475,7 +2475,7 @@
         "best": 86
       },
       "winner": null,
-      "status": "upcoming",
+      "status": "live",
       "judges": [
         {
           "name": "С1",
@@ -2664,6 +2664,15 @@
       "bracket": "left",
       "pair_title": "ТОП-8 • ХИТ #2",
       "lead": {
+        "seed": 12,
+        "name": "Дмитрий Анохин",
+        "car": "VDC BMW E92 M3 Public 5.0",
+        "number": "12",
+        "quali_score": 89.5,
+        "is_placeholder": false,
+        "best": 89.5
+      },
+      "chase": {
         "seed": 13,
         "name": "Роман Контиевский",
         "car": "db_bmw_e92_roman_kontievskii",
@@ -2672,14 +2681,8 @@
         "is_placeholder": false,
         "best": 88
       },
-      "chase": {
-        "seed": "—",
-        "name": "Победитель ТОП-16 #4",
-        "car": "Ожидание заезда",
-        "is_placeholder": true
-      },
       "winner": null,
-      "status": "waiting",
+      "status": "upcoming",
       "judges": [
         {
           "name": "С1",
