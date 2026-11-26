@@ -7,9 +7,9 @@
   "public_url": "https://sergeyprimo.github.io/top32/",
   "backup_sheet_webhook": "https://script.google.com/macros/s/AKfycbwiJ6dGQyGtrHhoi5Ri1OOJD5RuPbkQAF8JfgAGZ3RiObIXpbBywmFEJmyGVjpJ6G_6uQ/exec",
   "stage": "top16",
-  "active_battle_id": 103,
+  "active_battle_id": 104,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795724818913,
+  "last_updated": 1795724820831,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2392,20 +2392,20 @@
         "is_placeholder": false,
         "best": 88
       },
-      "winner": null,
-      "status": "live",
+      "winner": "chase",
+      "status": "finished",
       "judges": [
         {
           "name": "С1",
-          "vote": null
+          "vote": "chase"
         },
         {
           "name": "С2",
-          "vote": null
+          "vote": "chase"
         },
         {
           "name": "С3",
-          "vote": null
+          "vote": "chase"
         }
       ]
     },
@@ -2434,7 +2434,7 @@
         "best": 89.5
       },
       "winner": null,
-      "status": "upcoming",
+      "status": "live",
       "judges": [
         {
           "name": "С1",
@@ -2664,10 +2664,13 @@
       "bracket": "left",
       "pair_title": "ТОП-8 • ХИТ #2",
       "lead": {
-        "seed": "—",
-        "name": "Победитель ТОП-16 #3",
-        "car": "Ожидание заезда",
-        "is_placeholder": true
+        "seed": 13,
+        "name": "Роман Контиевский",
+        "car": "db_bmw_e92_roman_kontievskii",
+        "number": "13",
+        "quali_score": 88,
+        "is_placeholder": false,
+        "best": 88
       },
       "chase": {
         "seed": "—",
