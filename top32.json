@@ -9,7 +9,7 @@
   "stage": "top32",
   "active_battle_id": 6,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795724782326,
+  "last_updated": 1795724783384,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -1815,8 +1815,8 @@
         "is_placeholder": false,
         "best": 72
       },
-      "winner": null,
-      "status": "live",
+      "winner": "lead",
+      "status": "finished",
       "is_direct_quali": true,
       "judges": [
         {
@@ -2375,13 +2375,13 @@
       "bracket": "left",
       "pair_title": "ТОП-16 • ХИТ #3",
       "lead": {
-        "seed": 29,
-        "name": "Александр Адамович",
-        "car": "db_z0_mb_e63_w212_aleksandr_adamovich",
-        "number": "29",
-        "quali_score": 72,
+        "seed": 4,
+        "name": "ДЕНИС ИСТРАТИЙ",
+        "car": "db_nissan_180sx_denis_istratiy",
+        "number": "4",
+        "quali_score": 96,
         "is_placeholder": false,
-        "best": 72
+        "best": 96
       },
       "chase": {
         "seed": "—",
