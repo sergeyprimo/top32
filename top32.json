@@ -7,9 +7,9 @@
   "public_url": "https://sergeyprimo.github.io/top32/",
   "backup_sheet_webhook": "https://script.google.com/macros/s/AKfycbwiJ6dGQyGtrHhoi5Ri1OOJD5RuPbkQAF8JfgAGZ3RiObIXpbBywmFEJmyGVjpJ6G_6uQ/exec",
   "stage": "top32",
-  "active_battle_id": 5,
+  "active_battle_id": 6,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795724779338,
+  "last_updated": 1795724780954,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -1815,21 +1815,21 @@
         "is_placeholder": false,
         "best": 72
       },
-      "winner": null,
-      "status": "live",
+      "winner": "chase",
+      "status": "finished",
       "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": null
+          "vote": "chase"
         },
         {
           "name": "С2",
-          "vote": null
+          "vote": "chase"
         },
         {
           "name": "С3",
-          "vote": null
+          "vote": "chase"
         }
       ]
     },
@@ -1857,7 +1857,7 @@
         "best": 81
       },
       "winner": null,
-      "status": "upcoming",
+      "status": "live",
       "is_direct_quali": true,
       "judges": [
         {
@@ -2375,10 +2375,13 @@
       "bracket": "left",
       "pair_title": "ТОП-16 • ХИТ #3",
       "lead": {
-        "seed": "—",
-        "name": "Победитель Хита #5",
-        "car": "Ожидание заезда",
-        "is_placeholder": true
+        "seed": 29,
+        "name": "Александр Адамович",
+        "car": "db_z0_mb_e63_w212_aleksandr_adamovich",
+        "number": "29",
+        "quali_score": 72,
+        "is_placeholder": false,
+        "best": 72
       },
       "chase": {
         "seed": "—",
