@@ -7,9 +7,9 @@
   "public_url": "https://sergeyprimo.github.io/top32/",
   "backup_sheet_webhook": "https://script.google.com/macros/s/AKfycbwiJ6dGQyGtrHhoi5Ri1OOJD5RuPbkQAF8JfgAGZ3RiObIXpbBywmFEJmyGVjpJ6G_6uQ/exec",
   "stage": "top32",
-  "active_battle_id": 13,
+  "active_battle_id": 14,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795724792946,
+  "last_updated": 1795724794045,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2143,21 +2143,21 @@
         "is_placeholder": false,
         "best": 70.5
       },
-      "winner": null,
-      "status": "live",
+      "winner": "lead",
+      "status": "finished",
       "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": null
+          "vote": "lead"
         },
         {
           "name": "С2",
-          "vote": null
+          "vote": "lead"
         },
         {
           "name": "С3",
-          "vote": null
+          "vote": "lead"
         }
       ]
     },
@@ -2185,7 +2185,7 @@
         "best": 82.5
       },
       "winner": null,
-      "status": "upcoming",
+      "status": "live",
       "is_direct_quali": true,
       "judges": [
         {
@@ -2539,10 +2539,13 @@
       "bracket": "right",
       "pair_title": "ТОП-16 • ХИТ #7",
       "lead": {
-        "seed": "—",
-        "name": "Победитель Хита #13",
-        "car": "Ожидание заезда",
-        "is_placeholder": true
+        "seed": 3,
+        "name": "Даниил Грошевой",
+        "car": "VDC BMW E46 HGK Public 5.0",
+        "number": "3",
+        "quali_score": 97.5,
+        "is_placeholder": false,
+        "best": 97.5
       },
       "chase": {
         "seed": "—",
