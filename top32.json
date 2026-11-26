@@ -9,7 +9,7 @@
   "stage": "top32",
   "active_battle_id": 16,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795724797419,
+  "last_updated": 1795724799444,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2266,7 +2266,7 @@
         "is_placeholder": false,
         "best": 79
       },
-      "winner": "lead",
+      "winner": "chase",
       "status": "finished",
       "is_direct_quali": true,
       "judges": [
@@ -2589,13 +2589,13 @@
         "best": 94
       },
       "chase": {
-        "seed": 11,
-        "name": "Даниил Кузнецов",
-        "car": "db_ford_mustang_s550_kuznetsov_daniil",
-        "number": "11",
-        "quali_score": 90,
+        "seed": 22,
+        "name": "Владимир Мский",
+        "car": "VDC Toyota GT86 Public 5.0",
+        "number": "22",
+        "quali_score": 79,
         "is_placeholder": false,
-        "best": 90
+        "best": 79
       },
       "winner": null,
       "status": "upcoming",
