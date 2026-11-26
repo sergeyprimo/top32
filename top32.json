@@ -7,9 +7,9 @@
   "public_url": "https://sergeyprimo.github.io/top32/",
   "backup_sheet_webhook": "https://script.google.com/macros/s/AKfycbwiJ6dGQyGtrHhoi5Ri1OOJD5RuPbkQAF8JfgAGZ3RiObIXpbBywmFEJmyGVjpJ6G_6uQ/exec",
   "stage": "top32",
-  "active_battle_id": 8,
+  "active_battle_id": 9,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795724787690,
+  "last_updated": 1795724788811,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -1938,21 +1938,21 @@
         "is_placeholder": false,
         "best": 80.5
       },
-      "winner": null,
-      "status": "live",
+      "winner": "lead",
+      "status": "finished",
       "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": null
+          "vote": "lead"
         },
         {
           "name": "С2",
-          "vote": null
+          "vote": "lead"
         },
         {
           "name": "С3",
-          "vote": null
+          "vote": "lead"
         }
       ]
     },
@@ -1980,7 +1980,7 @@
         "best": 68
       },
       "winner": null,
-      "status": "upcoming",
+      "status": "live",
       "is_direct_quali": true,
       "judges": [
         {
@@ -2425,13 +2425,16 @@
         "best": 95.5
       },
       "chase": {
-        "seed": "—",
-        "name": "Победитель Хита #8",
-        "car": "Ожидание заезда",
-        "is_placeholder": true
+        "seed": 12,
+        "name": "Дмитрий Анохин",
+        "car": "VDC BMW E92 M3 Public 5.0",
+        "number": "12",
+        "quali_score": 89.5,
+        "is_placeholder": false,
+        "best": 89.5
       },
       "winner": null,
-      "status": "waiting",
+      "status": "upcoming",
       "judges": [
         {
           "name": "С1",
