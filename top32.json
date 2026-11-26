@@ -9,7 +9,7 @@
   "stage": "quali",
   "active_battle_id": 1,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795737220368,
+  "last_updated": 1795737222307,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2797,7 +2797,7 @@
     "tournamentSub": "ГАЗДЕРЖИМ",
     "statusText": "Скоро квалификация",
     "metaServer": "RACE CREW",
-    "metaTrack": "РУССКИЕ ГОРКИ ",
+    "metaTrack": "РУССКИЕ ГОРКИ",
     "headerFontSize": 24,
     "tickerLead": "📢 ИНФОРМАЦИЯ",
     "tickerText": "📺 ПРЯМАЯ ТРАНСЛЯЦИЯ В FULL HD | 💬 ПИШИТЕ В ЧАТ: Поддерживайте своих фаворитов! | 🔔 ПОДПИСЫВАЙТЕСЬ НА КАНАЛ, СТАВЬТЕ ЛАЙКИ И ВКЛЮЧАЙТЕ КОЛОКОЛЬЧИК",
@@ -2849,7 +2849,7 @@
     "showPilot": false,
     "showQr": true,
     "showTicker": true,
-    "lastUpdated": 1795645011538,
+    "lastUpdated": 1795737222307,
     "timerTargetTimestamp": 1795272860852,
     "timerRemainingOnPause": 300
   },
