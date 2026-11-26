@@ -1542,6 +1542,26 @@ body.is-obs .spectator-partners-bar {
   color: #34d399;
   border: 1px solid rgba(52, 211, 153, 0.45);
 }
+.quali-group-tag.group-e {
+  background: rgba(168, 85, 247, 0.2);
+  color: #c084fc;
+  border: 1px solid rgba(168, 85, 247, 0.45);
+}
+.quali-group-tag.group-f {
+  background: rgba(249, 115, 22, 0.2);
+  color: #fb923c;
+  border: 1px solid rgba(249, 115, 22, 0.45);
+}
+.quali-group-tag.group-g {
+  background: rgba(99, 102, 241, 0.2);
+  color: #818cf8;
+  border: 1px solid rgba(99, 102, 241, 0.45);
+}
+.quali-group-tag.group-h {
+  background: rgba(236, 72, 153, 0.2);
+  color: #f472b6;
+  border: 1px solid rgba(236, 72, 153, 0.45);
+}
 
 .spectator-quali-groups-bar {
   grid-column: 1 / -1 !important;
@@ -1593,6 +1613,26 @@ body.is-obs .spectator-partners-bar {
   border-color: #34d399;
   color: #34d399;
   background: rgba(52, 211, 153, 0.25);
+}
+.spectator-group-chip.chip-e.active {
+  border-color: #c084fc;
+  color: #c084fc;
+  background: rgba(168, 85, 247, 0.25);
+}
+.spectator-group-chip.chip-f.active {
+  border-color: #fb923c;
+  color: #fb923c;
+  background: rgba(249, 115, 22, 0.25);
+}
+.spectator-group-chip.chip-g.active {
+  border-color: #818cf8;
+  color: #818cf8;
+  background: rgba(99, 102, 241, 0.25);
+}
+.spectator-group-chip.chip-h.active {
+  border-color: #f472b6;
+  color: #f472b6;
+  background: rgba(236, 72, 153, 0.25);
 }
 .spectator-group-chip .chip-count {
   display: inline-block;
@@ -6306,10 +6346,19 @@ if (!window.AC_TOP32_DATA) {
       var hasAnyGroups = pilots.some(function(p) { return p.group && p.group.trim(); });
 
       if (hasAnyGroups) {
-        var groupCounts = { all: pilots.length, A: 0, B: 0, C: 0, D: 0 };
+        var groupCounts = { all: pilots.length };
+        var foundGroups = [];
         pilots.forEach(function(p) {
           var g = (p.group || '').toUpperCase().trim();
-          if (groupCounts[g] !== undefined) groupCounts[g]++;
+          if (!g) return;
+          if (groupCounts[g] === undefined) {
+            groupCounts[g] = 0;
+            foundGroups.push(g);
+          }
+          groupCounts[g]++;
+        });
+        foundGroups.sort(function(a, b) {
+          return a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' });
         });
 
         var groupsBar = document.createElement('div');
@@ -6319,7 +6368,7 @@ if (!window.AC_TOP32_DATA) {
         labelSpan.textContent = 'Группа:';
         groupsBar.appendChild(labelSpan);
 
-        ['all', 'A', 'B', 'C', 'D'].forEach(function(g) {
+        ['all'].concat(foundGroups).forEach(function(g) {
           if (g !== 'all' && (!groupCounts[g] || groupCounts[g] === 0)) return;
           var chip = document.createElement('button');
           chip.type = 'button';
