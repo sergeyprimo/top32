@@ -7,9 +7,9 @@
   "public_url": "https://sergeyprimo.github.io/top32/",
   "backup_sheet_webhook": "https://script.google.com/macros/s/AKfycbwiJ6dGQyGtrHhoi5Ri1OOJD5RuPbkQAF8JfgAGZ3RiObIXpbBywmFEJmyGVjpJ6G_6uQ/exec",
   "stage": "top32",
-  "active_battle_id": 2,
+  "active_battle_id": 3,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795724772000,
+  "last_updated": 1795724776665,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -1692,21 +1692,21 @@
         "is_placeholder": false,
         "best": 84.5
       },
-      "winner": null,
-      "status": "live",
+      "winner": "lead",
+      "status": "finished",
       "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": null
+          "vote": "lead"
         },
         {
           "name": "С2",
-          "vote": null
+          "vote": "lead"
         },
         {
           "name": "С3",
-          "vote": null
+          "vote": "lead"
         }
       ]
     },
@@ -1734,7 +1734,7 @@
         "best": 76.5
       },
       "winner": null,
-      "status": "upcoming",
+      "status": "live",
       "is_direct_quali": true,
       "judges": [
         {
@@ -2302,13 +2302,16 @@
         "best": 98.6
       },
       "chase": {
-        "seed": "—",
-        "name": "Победитель Хита #2",
-        "car": "Ожидание заезда",
-        "is_placeholder": true
+        "seed": 16,
+        "name": "Данила Козлов",
+        "car": "db_subaru_brz_danila_kozlov",
+        "number": "16",
+        "quali_score": 85,
+        "is_placeholder": false,
+        "best": 85
       },
       "winner": null,
-      "status": "waiting",
+      "status": "upcoming",
       "judges": [
         {
           "name": "С1",
