@@ -9,7 +9,7 @@
   "stage": "top8",
   "active_battle_id": 203,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795724847644,
+  "last_updated": 1795724849549,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2722,20 +2722,20 @@
         "is_placeholder": false,
         "best": 91
       },
-      "winner": null,
-      "status": "live",
+      "winner": "lead",
+      "status": "finished",
       "judges": [
         {
           "name": "С1",
-          "vote": null
+          "vote": "lead"
         },
         {
           "name": "С2",
-          "vote": null
+          "vote": "lead"
         },
         {
           "name": "С3",
-          "vote": null
+          "vote": "lead"
         }
       ]
     },
@@ -2830,6 +2830,15 @@
       "stage": "semifinal",
       "pair_title": "ПОЛУФИНАЛ 2",
       "lead": {
+        "seed": 2,
+        "name": "Леонтьев Вячеслав",
+        "car": "db_bmw_e92_vyacheslav_leontev",
+        "number": "2",
+        "quali_score": 98.5,
+        "is_placeholder": false,
+        "best": 98.5
+      },
+      "chase": {
         "seed": 14,
         "name": "Артем Евдокимов",
         "car": "db_lada_priora_evdokimov_artem",
@@ -2837,12 +2846,6 @@
         "quali_score": 87.5,
         "is_placeholder": false,
         "best": 87.5
-      },
-      "chase": {
-        "seed": "—",
-        "name": "Победитель ТОП-8 #3",
-        "car": "Ожидание заезда",
-        "is_placeholder": true
       },
       "winner": null,
       "status": "waiting",
