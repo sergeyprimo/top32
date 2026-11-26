@@ -9,7 +9,7 @@
   "stage": "top16",
   "active_battle_id": 107,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795724831783,
+  "last_updated": 1795724834088,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2556,20 +2556,20 @@
         "is_placeholder": false,
         "best": 87.5
       },
-      "winner": null,
-      "status": "live",
+      "winner": "chase",
+      "status": "finished",
       "judges": [
         {
           "name": "С1",
-          "vote": null
+          "vote": "chase"
         },
         {
           "name": "С2",
-          "vote": null
+          "vote": "chase"
         },
         {
           "name": "С3",
-          "vote": null
+          "vote": "chase"
         }
       ]
     },
@@ -2746,6 +2746,15 @@
       "bracket": "right",
       "pair_title": "ТОП-8 • ХИТ #4",
       "lead": {
+        "seed": 14,
+        "name": "Артем Евдокимов",
+        "car": "db_lada_priora_evdokimov_artem",
+        "number": "14",
+        "quali_score": 87.5,
+        "is_placeholder": false,
+        "best": 87.5
+      },
+      "chase": {
         "seed": 22,
         "name": "Владимир Мский",
         "car": "VDC Toyota GT86 Public 5.0",
@@ -2754,14 +2763,8 @@
         "is_placeholder": false,
         "best": 79
       },
-      "chase": {
-        "seed": "—",
-        "name": "Победитель ТОП-16 #7",
-        "car": "Ожидание заезда",
-        "is_placeholder": true
-      },
       "winner": null,
-      "status": "waiting",
+      "status": "upcoming",
       "judges": [
         {
           "name": "С1",
