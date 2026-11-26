@@ -7,9 +7,9 @@
   "public_url": "https://sergeyprimo.github.io/top32/",
   "backup_sheet_webhook": "https://script.google.com/macros/s/AKfycbwiJ6dGQyGtrHhoi5Ri1OOJD5RuPbkQAF8JfgAGZ3RiObIXpbBywmFEJmyGVjpJ6G_6uQ/exec",
   "stage": "top32",
-  "active_battle_id": 10,
+  "active_battle_id": 12,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795724789946,
+  "last_updated": 1795724791996,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2020,21 +2020,21 @@
         "is_placeholder": false,
         "best": 83
       },
-      "winner": null,
-      "status": "live",
+      "winner": "lead",
+      "status": "finished",
       "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": null
+          "vote": "lead"
         },
         {
           "name": "С2",
-          "vote": null
+          "vote": "lead"
         },
         {
           "name": "С3",
-          "vote": null
+          "vote": "lead"
         }
       ]
     },
@@ -2061,21 +2061,21 @@
         "is_placeholder": false,
         "best": 75
       },
-      "winner": null,
-      "status": "upcoming",
+      "winner": "lead",
+      "status": "finished",
       "is_direct_quali": true,
       "judges": [
         {
           "name": "С1",
-          "vote": null
+          "vote": "lead"
         },
         {
           "name": "С2",
-          "vote": null
+          "vote": "lead"
         },
         {
           "name": "С3",
-          "vote": null
+          "vote": "lead"
         }
       ]
     },
@@ -2103,7 +2103,7 @@
         "best": 78.5
       },
       "winner": null,
-      "status": "upcoming",
+      "status": "live",
       "is_direct_quali": true,
       "judges": [
         {
@@ -2466,13 +2466,16 @@
         "best": 98.5
       },
       "chase": {
-        "seed": "—",
-        "name": "Победитель Хита #10",
-        "car": "Ожидание заезда",
-        "is_placeholder": true
+        "seed": 15,
+        "name": "Владимир Шапошников",
+        "car": "db_toyota_supra_a80_vladimir_shaposhnikov",
+        "number": "15",
+        "quali_score": 86,
+        "is_placeholder": false,
+        "best": 86
       },
       "winner": null,
-      "status": "waiting",
+      "status": "upcoming",
       "judges": [
         {
           "name": "С1",
@@ -2495,10 +2498,13 @@
       "bracket": "right",
       "pair_title": "ТОП-16 • ХИТ #6",
       "lead": {
-        "seed": "—",
-        "name": "Победитель Хита #11",
-        "car": "Ожидание заезда",
-        "is_placeholder": true
+        "seed": 7,
+        "name": "Алмаз Муртазин",
+        "car": "db_bmw_m2_g87_almaz_murtazin",
+        "number": "7",
+        "quali_score": 93.5,
+        "is_placeholder": false,
+        "best": 93.5
       },
       "chase": {
         "seed": "—",
