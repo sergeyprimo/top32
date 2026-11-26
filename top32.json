@@ -7,9 +7,9 @@
   "public_url": "https://sergeyprimo.github.io/top32/",
   "backup_sheet_webhook": "https://script.google.com/macros/s/AKfycbwiJ6dGQyGtrHhoi5Ri1OOJD5RuPbkQAF8JfgAGZ3RiObIXpbBywmFEJmyGVjpJ6G_6uQ/exec",
   "stage": "top16",
-  "active_battle_id": 106,
+  "active_battle_id": 107,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795724825446,
+  "last_updated": 1795724828606,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2515,20 +2515,20 @@
         "is_placeholder": false,
         "best": 91
       },
-      "winner": null,
-      "status": "live",
+      "winner": "lead",
+      "status": "finished",
       "judges": [
         {
           "name": "С1",
-          "vote": null
+          "vote": "lead"
         },
         {
           "name": "С2",
-          "vote": null
+          "vote": "lead"
         },
         {
           "name": "С3",
-          "vote": null
+          "vote": "lead"
         }
       ]
     },
@@ -2557,7 +2557,7 @@
         "best": 87.5
       },
       "winner": null,
-      "status": "upcoming",
+      "status": "live",
       "judges": [
         {
           "name": "С1",
@@ -2714,13 +2714,16 @@
         "best": 98.5
       },
       "chase": {
-        "seed": "—",
-        "name": "Победитель ТОП-16 #6",
-        "car": "Ожидание заезда",
-        "is_placeholder": true
+        "seed": 7,
+        "name": "Алмаз Муртазин",
+        "car": "db_bmw_m2_g87_almaz_murtazin",
+        "number": "7",
+        "quali_score": 93.5,
+        "is_placeholder": false,
+        "best": 93.5
       },
       "winner": null,
-      "status": "waiting",
+      "status": "upcoming",
       "judges": [
         {
           "name": "С1",
