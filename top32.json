@@ -7,9 +7,9 @@
   "public_url": "https://sergeyprimo.github.io/top32/",
   "backup_sheet_webhook": "https://script.google.com/macros/s/AKfycbwiJ6dGQyGtrHhoi5Ri1OOJD5RuPbkQAF8JfgAGZ3RiObIXpbBywmFEJmyGVjpJ6G_6uQ/exec",
   "stage": "top4",
-  "active_battle_id": 203,
+  "active_battle_id": 302,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795724851846,
+  "last_updated": 1795724858677,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2806,20 +2806,20 @@
         "is_placeholder": false,
         "best": 85
       },
-      "winner": null,
-      "status": "waiting",
+      "winner": "chase",
+      "status": "finished",
       "judges": [
         {
           "name": "С1",
-          "vote": null
+          "vote": "chase"
         },
         {
           "name": "С2",
-          "vote": null
+          "vote": "chase"
         },
         {
           "name": "С3",
-          "vote": null
+          "vote": "chase"
         }
       ]
     },
@@ -2848,7 +2848,7 @@
         "best": 87.5
       },
       "winner": null,
-      "status": "waiting",
+      "status": "live",
       "judges": [
         {
           "name": "С1",
@@ -2871,10 +2871,13 @@
       "stage": "bronze",
       "pair_title": "🥉 ЗАЕЗД ЗА 3-Е МЕСТО (БРОНЗА)",
       "lead": {
-        "seed": "—",
-        "name": "Проигравший ПФ 1",
-        "car": "Ожидание заезда",
-        "is_placeholder": true
+        "seed": 13,
+        "name": "Роман Контиевский",
+        "car": "db_bmw_e92_roman_kontievskii",
+        "number": "13",
+        "quali_score": 88,
+        "is_placeholder": false,
+        "best": 88
       },
       "chase": {
         "seed": "—",
@@ -2906,10 +2909,13 @@
       "stage": "final",
       "pair_title": "🥇 ГЛАВНЫЙ ФИНАЛ (1-Е И 2-Е МЕСТО) 🏆",
       "lead": {
-        "seed": "—",
-        "name": "Победитель ПФ 1",
-        "car": "Ожидание заезда",
-        "is_placeholder": true
+        "seed": 16,
+        "name": "Данила Козлов",
+        "car": "db_subaru_brz_danila_kozlov",
+        "number": "16",
+        "quali_score": 85,
+        "is_placeholder": false,
+        "best": 85
       },
       "chase": {
         "seed": "—",
