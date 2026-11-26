@@ -9,7 +9,7 @@
   "stage": "top16",
   "active_battle_id": 107,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795724828606,
+  "last_updated": 1795724831783,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2515,7 +2515,7 @@
         "is_placeholder": false,
         "best": 91
       },
-      "winner": "lead",
+      "winner": "chase",
       "status": "finished",
       "judges": [
         {
@@ -2714,13 +2714,13 @@
         "best": 98.5
       },
       "chase": {
-        "seed": 7,
-        "name": "Алмаз Муртазин",
-        "car": "db_bmw_m2_g87_almaz_murtazin",
-        "number": "7",
-        "quali_score": 93.5,
+        "seed": 10,
+        "name": "Данила Арефьев",
+        "car": "VDC Toyota Mark II JZX100 Public 5.0",
+        "number": "10",
+        "quali_score": 91,
         "is_placeholder": false,
-        "best": 93.5
+        "best": 91
       },
       "winner": null,
       "status": "upcoming",
