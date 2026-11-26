@@ -9,7 +9,7 @@
   "stage": "top16",
   "active_battle_id": 16,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795724805436,
+  "last_updated": 1795724809653,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2597,20 +2597,20 @@
         "is_placeholder": false,
         "best": 79
       },
-      "winner": null,
-      "status": "upcoming",
+      "winner": "chase",
+      "status": "finished",
       "judges": [
         {
           "name": "С1",
-          "vote": null
+          "vote": "chase"
         },
         {
           "name": "С2",
-          "vote": null
+          "vote": "chase"
         },
         {
           "name": "С3",
-          "vote": null
+          "vote": "chase"
         }
       ]
     }
@@ -2728,14 +2728,17 @@
       "bracket": "right",
       "pair_title": "ТОП-8 • ХИТ #4",
       "lead": {
-        "seed": "—",
-        "name": "Победитель ТОП-16 #7",
-        "car": "Ожидание заезда",
-        "is_placeholder": true
+        "seed": 22,
+        "name": "Владимир Мский",
+        "car": "VDC Toyota GT86 Public 5.0",
+        "number": "22",
+        "quali_score": 79,
+        "is_placeholder": false,
+        "best": 79
       },
       "chase": {
         "seed": "—",
-        "name": "Победитель ТОП-16 #8",
+        "name": "Победитель ТОП-16 #7",
         "car": "Ожидание заезда",
         "is_placeholder": true
       },
@@ -2766,13 +2769,13 @@
       "pair_title": "ПОЛУФИНАЛ 1",
       "lead": {
         "seed": "—",
-        "name": "Победитель ТОП-16 #1",
+        "name": "Победитель ТОП-8 #1",
         "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "chase": {
         "seed": "—",
-        "name": "Победитель ТОП-16 #2",
+        "name": "Победитель ТОП-8 #2",
         "car": "Ожидание заезда",
         "is_placeholder": true
       },
@@ -2801,13 +2804,13 @@
       "pair_title": "ПОЛУФИНАЛ 2",
       "lead": {
         "seed": "—",
-        "name": "Победитель ТОП-16 #3",
+        "name": "Победитель ТОП-8 #3",
         "car": "Ожидание заезда",
         "is_placeholder": true
       },
       "chase": {
         "seed": "—",
-        "name": "Победитель ТОП-16 #4",
+        "name": "Победитель ТОП-8 #4",
         "car": "Ожидание заезда",
         "is_placeholder": true
       },
