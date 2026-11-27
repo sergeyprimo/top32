@@ -1,5 +1,5 @@
 {
-  "tournament_name": "DRIFT BANDA",
+  "tournament_name": "R",
   "badge_text": "ГАЗДЕРЖИМ.РФ",
   "badge_brand": "ГАЗДЕРЖИМ",
   "badge_domain": "РФ",
@@ -9,7 +9,7 @@
   "stage": "quali",
   "active_battle_id": 101,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795739510655,
+  "last_updated": 1795739543265,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2844,10 +2844,10 @@
     }
   ],
   "quali_calc_mode": "best",
-  "tournament_title": "DRIFT BANDA",
+  "tournament_title": "R",
   "intro_settings": {
     "headerLogo": "RC",
-    "tournamentTitle": "DRIFT BANDA",
+    "tournamentTitle": "R",
     "tournamentSub": "ГАЗДЕРЖИМ",
     "statusText": "Скоро квалификация",
     "metaServer": "RACE CREW",
