@@ -9,7 +9,7 @@
   "stage": "quali",
   "active_battle_id": 101,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795738564525,
+  "last_updated": 1795738595771,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2928,9 +2928,9 @@
     "omtActive": false,
     "omtDuration": 8,
     "omtTimestamp": 1795474444519,
-    "overlayTitle": "",
+    "overlayTitle": "СПОНСОРЫ И ПАРТНЕРЫ",
     "overlaySubtitle": "",
-    "overlayTicker": "",
+    "overlayTicker": "🤝 ОФИЦИАЛЬНЫЙ ПАРТНЕР ТУРНИРА: DRIFT BANDA • 🏎️ ТРАССЫ И АВТОМОБИЛИ: ASSETTO CORSA DRIFT COMMUNITY • 🌐 ГЛАВНЫЙ САЙТ СОРЕВНОВАНИЙ: ГАЗДЕРЖИМ.РФ • 📺 СМОТРИТЕ СТРИМ НА TWITCH И ВКОНТАКТЕ",
     "nextBattleCustomText": "",
     "showBattleBar": true,
     "showTelemetry": false,
@@ -3348,12 +3348,12 @@
   "has_demo_scores": true,
   "ticker": {
     "enabled": true,
-    "title": "⚡ DRIFT BANDA CUP",
+    "title": "🤝 СПОНСОРЫ И ПАРТНЕРЫ",
     "speed": "medium",
     "theme": "carbon",
     "pos": "bottom",
-    "text": "🌐 САЙТ СОРЕВНОВАНИЙ: ГАЗДЕРЖИМ.РФ\n📺 ПРЯМАЯ ТРАНСЛЯЦИЯ: TWITCH.TV/SERGEYPRIMO\n💬 ГРУППА VK: VK.COM/DRIFTBANDA\n🏆 СУДЕЙСТВО: RDS GP RULES • ТОП-32 ПАРНЫЕ ЗАЕЗДЫ\n⭐ ГОЛОСУЙ ЗА ПИЛОТА ДНЯ В ЧАТЕ СТРИМА!",
-    "lastUpdated": 1795567890000
+    "text": "🤝 ОФИЦИАЛЬНЫЙ ПАРТНЕР ТУРНИРА: DRIFT BANDA\n🏎️ ТРАССЫ И АВТОМОБИЛИ: ASSETTO CORSA DRIFT COMMUNITY\n🌐 ГЛАВНЫЙ САЙТ СОРЕВНОВАНИЙ: ГАЗДЕРЖИМ.РФ\n📺 СМОТРИТЕ СТРИМ НА TWITCH И ВКОНТАКТЕ",
+    "lastUpdated": 1795738595770
   },
   "is_bracket_cleared": true,
   "auth_salt": "drift_banda_salt_2026",
