@@ -172,6 +172,7 @@
     var pClean = params.get('clean') === '1';
     var lastRenderedSignature = '';
     var lastGithubEtag = '';
+    var ghApiBlockedUntil = 0;
 
     // State object
     var currentTickerState = {
@@ -342,12 +343,16 @@
     // 3. Periodic network polling (GitHub API instant + top32.json fallback)
     function pollServer() {
       var isGhPages = (window.location.hostname || '').indexOf('github.io') !== -1;
-      if (isGhPages) {
+      if (isGhPages && Date.now() > ghApiBlockedUntil) {
         var hdrs = { 'Accept': 'application/vnd.github.v3+json' };
         if (lastGithubEtag) hdrs['If-None-Match'] = lastGithubEtag;
         fetch('https://api.github.com/repos/sergeyprimo/top32/contents/top32.json', { cache: 'no-store', headers: hdrs })
           .then(function(r) {
             if (r.status === 304) return null;
+            if (r.status === 403 || r.status === 429) {
+              ghApiBlockedUntil = Date.now() + 5 * 60 * 1000;
+              throw new Error('GH API rate limit');
+            }
             if (!r.ok) throw new Error('GH API ' + r.status);
             var etag = r.headers.get('ETag');
             if (etag) lastGithubEtag = etag;

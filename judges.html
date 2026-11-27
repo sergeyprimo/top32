@@ -14979,6 +14979,39 @@ async function saveData() {
       };
     }
 
+    var obsTickerState = {
+      enabled: true,
+      title: '⚡ DRIFT BANDA CUP',
+      speed: 'medium',
+      theme: 'carbon',
+      pos: 'bottom',
+      text: "🌐 САЙТ СОРЕВНОВАНИЙ: ГАЗДЕРЖИМ.РФ\n📺 ПРЯМАЯ ТРАНСЛЯЦИЯ: TWITCH.TV/SERGEYPRIMO\n💬 ГРУППА VK: VK.COM/DRIFTBANDA\n🏆 СУДЕЙСТВО: RDS GP RULES • ТОП-32 ПАРНЫЕ ЗАЕЗДЫ\n⭐ ГОЛОСУЙ ЗА ПИЛОТА ДНЯ В ЧАТЕ СТРИМА!",
+      lastUpdated: 0
+    };
+    var tickerBroadcastChannel = (typeof BroadcastChannel !== 'undefined') ? new BroadcastChannel('ac_obs_ticker_bus') : null;
+    var TICKER_PRESETS = {
+      default: {
+        title: '⚡ DRIFT BANDA CUP',
+        text: "🌐 САЙТ СОРЕВНОВАНИЙ: ГАЗДЕРЖИМ.РФ\n📺 ПРЯМАЯ ТРАНСЛЯЦИЯ: TWITCH.TV/SERGEYPRIMO\n💬 ГРУППА VK: VK.COM/DRIFTBANDA\n🏆 СУДЕЙСТВО: RDS GP RULES • ТОП-32 ПАРНЫЕ ЗАЕЗДЫ\n⭐ ГОЛОСУЙ ЗА ПИЛОТА ДНЯ В ЧАТЕ СТРИМА!"
+      },
+      quali: {
+        title: '🏁 КВАЛИФИКАЦИЯ',
+        text: "🏁 ИДЕТ ОДИНОЧНАЯ КВАЛИФИКАЦИЯ • 2 ПОПЫТКИ НА КАЖДОГО ПИЛОТА\n📐 СУДЕЙСКИЕ КРИТЕРИИ: ТРАЕКТОРИЯ (40) • УГОЛ (30) • СТИЛЬ (30)\n🌐 ОНЛАЙН СЕТКА И ТАБЛИЦА БАЛЛОВ: ГАЗДЕРЖИМ.РФ\n🔥 ЛУЧШИЕ 32 ПИЛОТА ВЫХОДЯТ В ОСНОВНУЮ СЕТКУ ПАРНЫХ ЗАЕЗДОВ"
+      },
+      top32: {
+        title: '🏆 ТОП-32 ПАРНЫЕ ЗАЕЗДЫ',
+        text: "🏎️ ОСНОВНАЯ СЕТКА ТОП-32 • ХИТЫ НА ВЫБЫВАНИЕ ПО ОЛИМПИЙСКОЙ СИСТЕМЕ\n⚖️ В СЛУЧАЕ РАВЕНСТВА БАЛЛОВ СУДЬИ НАЗНАЧАЮТ ПЕРЕЗАЕЗД (ONE MORE TIME)\n📺 ТРАНСЛЯЦИЯ: TWITCH.TV/SERGEYPRIMO • ОБЩАЙТЕСЬ В ЧАТЕ!\n🌐 ОНЛАЙН РЕЗУЛЬТАТЫ СЕТКИ: ГАЗДЕРЖИМ.РФ"
+      },
+      break: {
+        title: '⏸️ ТЕХНИЧЕСКИЙ ПЕРЕРЫВ',
+        text: "⏸️ ПЕРЕРЫВ 10 МИНУТ • СКОРО ПРОДОЛЖИМ ЗАЕЗДЫ!\n🎧 СЛУШАЙТЕ МУЗЫКУ И ОБЩАЙТЕСЬ В ЧАТЕ ТРАНСЛЯЦИИ\n🌐 АКТУАЛЬНОЕ ПОЛОЖЕНИЕ СЕТКИ: ГАЗДЕРЖИМ.РФ\n🏎️ СЛЕДУЮЩИЙ ХИТ НА ТРАССЕ УЖЕ СОВСЕМ СКОРО!"
+      },
+      sponsors: {
+        title: '🤝 СПОНСОРЫ И ПАРТНЕРЫ',
+        text: "🤝 ОФИЦИАЛЬНЫЙ ПАРТНЕР ТУРНИРА: DRIFT BANDA\n🏎️ ТРАССЫ И АВТОМОБИЛИ: ASSETTO CORSA DRIFT COMMUNITY\n🌐 ГЛАВНЫЙ САЙТ СОРЕВНОВАНИЙ: ГАЗДЕРЖИМ.РФ\n📺 СМОТРИТЕ СТРИМ НА TWITCH И ВКОНТАКТЕ"
+      }
+    };
+
     loadData();
     checkJudgeAuth();
     startJudgeLivePoller();
@@ -16942,42 +16975,18 @@ async function saveData() {
     /* ============================================================
        OBS INFO TICKER (БЕГУЩАЯ СТРОКА) CONTROLLER & BROADCASTER
        ============================================================ */
-    var obsTickerState = {
-      enabled: true,
-      title: '⚡ DRIFT BANDA CUP',
-      speed: 'medium', // 'slow', 'medium', 'fast'
-      theme: 'carbon', // 'carbon', 'rds', 'neon'
-      pos: 'bottom',   // 'bottom', 'top'
-      text: "🌐 САЙТ СОРЕВНОВАНИЙ: ГАЗДЕРЖИМ.РФ\n📺 ПРЯМАЯ ТРАНСЛЯЦИЯ: TWITCH.TV/SERGEYPRIMO\n💬 ГРУППА VK: VK.COM/DRIFTBANDA\n🏆 СУДЕЙСТВО: RDS GP RULES • ТОП-32 ПАРНЫЕ ЗАЕЗДЫ\n⭐ ГОЛОСУЙ ЗА ПИЛОТА ДНЯ В ЧАТЕ СТРИМА!",
-      lastUpdated: 0
-    };
-
-    var tickerBroadcastChannel = (typeof BroadcastChannel !== 'undefined') ? new BroadcastChannel('ac_obs_ticker_bus') : null;
-
-    var TICKER_PRESETS = {
-      default: {
-        title: '⚡ DRIFT BANDA CUP',
-        text: "🌐 САЙТ СОРЕВНОВАНИЙ: ГАЗДЕРЖИМ.РФ\n📺 ПРЯМАЯ ТРАНСЛЯЦИЯ: TWITCH.TV/SERGEYPRIMO\n💬 ГРУППА VK: VK.COM/DRIFTBANDA\n🏆 СУДЕЙСТВО: RDS GP RULES • ТОП-32 ПАРНЫЕ ЗАЕЗДЫ\n⭐ ГОЛОСУЙ ЗА ПИЛОТА ДНЯ В ЧАТЕ СТРИМА!"
-      },
-      quali: {
-        title: '🏁 КВАЛИФИКАЦИЯ',
-        text: "🏁 ИДЕТ ОДИНОЧНАЯ КВАЛИФИКАЦИЯ • 2 ПОПЫТКИ НА КАЖДОГО ПИЛОТА\n📐 СУДЕЙСКИЕ КРИТЕРИИ: ТРАЕКТОРИЯ (40) • УГОЛ (30) • СТИЛЬ (30)\n🌐 ОНЛАЙН СЕТКА И ТАБЛИЦА БАЛЛОВ: ГАЗДЕРЖИМ.РФ\n🔥 ЛУЧШИЕ 32 ПИЛОТА ВЫХОДЯТ В ОСНОВНУЮ СЕТКУ ПАРНЫХ ЗАЕЗДОВ"
-      },
-      top32: {
-        title: '🏆 ТОП-32 ПАРНЫЕ ЗАЕЗДЫ',
-        text: "🏎️ ОСНОВНАЯ СЕТКА ТОП-32 • ХИТЫ НА ВЫБЫВАНИЕ ПО ОЛИМПИЙСКОЙ СИСТЕМЕ\n⚖️ В СЛУЧАЕ РАВЕНСТВА БАЛЛОВ СУДЬИ НАЗНАЧАЮТ ПЕРЕЗАЕЗД (ONE MORE TIME)\n📺 ТРАНСЛЯЦИЯ: TWITCH.TV/SERGEYPRIMO • ОБЩАЙТЕСЬ В ЧАТЕ!\n🌐 ОНЛАЙН РЕЗУЛЬТАТЫ СЕТКИ: ГАЗДЕРЖИМ.РФ"
-      },
-      break: {
-        title: '⏸️ ТЕХНИЧЕСКИЙ ПЕРЕРЫВ',
-        text: "⏸️ ПЕРЕРЫВ 10 МИНУТ • СКОРО ПРОДОЛЖИМ ЗАЕЗДЫ!\n🎧 СЛУШАЙТЕ МУЗЫКУ И ОБЩАЙТЕСЬ В ЧАТЕ ТРАНСЛЯЦИИ\n🌐 АКТУАЛЬНОЕ ПОЛОЖЕНИЕ СЕТКИ: ГАЗДЕРЖИМ.РФ\n🏎️ СЛЕДУЮЩИЙ ХИТ НА ТРАССЕ УЖЕ СОВСЕМ СКОРО!"
-      },
-      sponsors: {
-        title: '🤝 СПОНСОРЫ И ПАРТНЕРЫ',
-        text: "🤝 ОФИЦИАЛЬНЫЙ ПАРТНЕР ТУРНИРА: DRIFT BANDA\n🏎️ ТРАССЫ И АВТОМОБИЛИ: ASSETTO CORSA DRIFT COMMUNITY\n🌐 ГЛАВНЫЙ САЙТ СОРЕВНОВАНИЙ: ГАЗДЕРЖИМ.РФ\n📺 СМОТРИТЕ СТРИМ НА TWITCH И ВКОНТАКТЕ"
-      }
-    };
-
     function initObsTicker() {
+      if (!obsTickerState || typeof obsTickerState !== 'object') {
+        obsTickerState = {
+          enabled: true,
+          title: '⚡ DRIFT BANDA CUP',
+          speed: 'medium',
+          theme: 'carbon',
+          pos: 'bottom',
+          text: "🌐 САЙТ СОРЕВНОВАНИЙ: ГАЗДЕРЖИМ.РФ\n📺 ПРЯМАЯ ТРАНСЛЯЦИЯ: TWITCH.TV/SERGEYPRIMO\n💬 ГРУППА VK: VK.COM/DRIFTBANDA\n🏆 СУДЕЙСТВО: RDS GP RULES • ТОП-32 ПАРНЫЕ ЗАЕЗДЫ\n⭐ ГОЛОСУЙ ЗА ПИЛОТА ДНЯ В ЧАТЕ СТРИМА!",
+          lastUpdated: 0
+        };
+      }
       var localObj = null;
       try {
         var saved = localStorage.getItem('AC_OBS_TICKER_STATE');
