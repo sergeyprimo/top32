@@ -9,7 +9,7 @@
   "stage": "quali",
   "active_battle_id": 101,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795738595771,
+  "last_updated": 1795738941571,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2930,7 +2930,7 @@
     "omtTimestamp": 1795474444519,
     "overlayTitle": "СПОНСОРЫ И ПАРТНЕРЫ",
     "overlaySubtitle": "",
-    "overlayTicker": "🤝 ОФИЦИАЛЬНЫЙ ПАРТНЕР ТУРНИРА: DRIFT BANDA • 🏎️ ТРАССЫ И АВТОМОБИЛИ: ASSETTO CORSA DRIFT COMMUNITY • 🌐 ГЛАВНЫЙ САЙТ СОРЕВНОВАНИЙ: ГАЗДЕРЖИМ.РФ • 📺 СМОТРИТЕ СТРИМ НА TWITCH И ВКОНТАКТЕ",
+    "overlayTicker": "🤝 ОФИЦИАЛЬНЫЙ ПАРТНЕР ТУРНИРА: DRIFT BANDA • 🏎️ ТРАССЫ И АВТОМОБИЛИ: VEDRO DRIFT | РУССКИЕ ГОРКИ • 🌐 ГЛАВНЫЙ САЙТ СОРЕВНОВАНИЙ: ГАЗДЕРЖИМ.РФ • 📺 СМОТРИТЕ СТРИМ НА TWITCH И ВКОНТАКТЕ",
     "nextBattleCustomText": "",
     "showBattleBar": true,
     "showTelemetry": false,
@@ -3352,8 +3352,8 @@
     "speed": "medium",
     "theme": "carbon",
     "pos": "bottom",
-    "text": "🤝 ОФИЦИАЛЬНЫЙ ПАРТНЕР ТУРНИРА: DRIFT BANDA\n🏎️ ТРАССЫ И АВТОМОБИЛИ: ASSETTO CORSA DRIFT COMMUNITY\n🌐 ГЛАВНЫЙ САЙТ СОРЕВНОВАНИЙ: ГАЗДЕРЖИМ.РФ\n📺 СМОТРИТЕ СТРИМ НА TWITCH И ВКОНТАКТЕ",
-    "lastUpdated": 1795738595770
+    "text": "🤝 ОФИЦИАЛЬНЫЙ ПАРТНЕР ТУРНИРА: DRIFT BANDA\n🏎️ ТРАССЫ И АВТОМОБИЛИ: VEDRO DRIFT | РУССКИЕ ГОРКИ\n🌐 ГЛАВНЫЙ САЙТ СОРЕВНОВАНИЙ: ГАЗДЕРЖИМ.РФ\n📺 СМОТРИТЕ СТРИМ НА TWITCH И ВКОНТАКТЕ",
+    "lastUpdated": 1795738941571
   },
   "is_bracket_cleared": true,
   "auth_salt": "drift_banda_salt_2026",
