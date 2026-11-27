@@ -168,8 +168,10 @@
     var params = new URLSearchParams(window.location.search);
     var pSpeed = params.get('speed') || '';
     var pTheme = params.get('theme') || '';
-    var pPos = params.get('pos') || 'bottom';
+    var pPos = params.get('pos') || '';
     var pClean = params.get('clean') === '1';
+    var lastRenderedSignature = '';
+    var lastGithubEtag = '';
 
     // State object
     var currentTickerState = {
@@ -192,6 +194,17 @@
 
     function renderTicker(state) {
       if (!state) return;
+
+      var sig = JSON.stringify([
+        state.enabled !== false,
+        (state.title || '⚡ DRIFT BANDA CUP').trim(),
+        pTheme || state.theme || 'carbon',
+        pPos || state.pos || 'bottom',
+        pSpeed || state.speed || 'medium',
+        state.text || ''
+      ]);
+      if (sig === lastRenderedSignature) return;
+      lastRenderedSignature = sig;
 
       var bar = document.getElementById('tickerBar');
       var badge = document.getElementById('tickerBrandBadge');
@@ -301,44 +314,66 @@
       }
     });
 
-    // 3. Periodic network polling (top32.json for remote OBS)
-    function pollServer() {
-      fetch('top32.json?nocache=' + Date.now(), { cache: 'no-store' })
-        .then(function(r) { return r.ok ? r.json() : null; })
-        .then(function(data) {
-          if (!data) return;
-          var changed = false;
-
-          if (data.ticker && typeof data.ticker === 'object') {
-            if (!currentTickerState.lastUpdated || (data.ticker.lastUpdated && data.ticker.lastUpdated >= currentTickerState.lastUpdated)) {
-              currentTickerState = Object.assign(currentTickerState, data.ticker);
-              changed = true;
-            }
-          } else if (data.obs_director) {
-            if (data.obs_director.overlayTicker && (!currentTickerState.text || currentTickerState.text.indexOf('ГАЗДЕРЖИМ') !== -1)) {
-              var sText = data.obs_director.overlayTicker.split('•').map(function(s){ return s.trim(); }).join('\n');
-              if (sText !== currentTickerState.text) {
-                currentTickerState.text = sText;
-                changed = true;
-              }
-            }
-            if (data.obs_director.overlayTitle) {
-              var sTitle = '⚡ ' + data.obs_director.overlayTitle.toUpperCase();
-              if (sTitle !== currentTickerState.title) {
-                currentTickerState.title = sTitle;
-                changed = true;
-              }
-            }
-          }
-
-          if (changed) {
-            renderTicker(currentTickerState);
-          }
-        })
-        .catch(function() {});
+    function applyServerData(data) {
+      if (!data) return;
+      if (data.ticker && typeof data.ticker === 'object') {
+        if (!currentTickerState.lastUpdated || !data.ticker.lastUpdated || Number(data.ticker.lastUpdated) >= Number(currentTickerState.lastUpdated)) {
+          currentTickerState = Object.assign(currentTickerState, data.ticker);
+          renderTicker(currentTickerState);
+        }
+      } else if (data.obs_director) {
+        if (data.obs_director.overlayTicker) {
+          currentTickerState.text = data.obs_director.overlayTicker.split('•').map(function(s){ return s.trim(); }).join('\n');
+        }
+        if (data.obs_director.overlayTitle) {
+          currentTickerState.title = '⚡ ' + data.obs_director.overlayTitle.toUpperCase();
+        }
+        renderTicker(currentTickerState);
+      }
     }
 
-    setInterval(pollServer, 2500);
+    function utf8FromBase64(b64) {
+      var binStr = atob(b64.replace(/\s/g, ''));
+      var bytes = new Uint8Array(binStr.length);
+      for (var i = 0; i < binStr.length; i++) bytes[i] = binStr.charCodeAt(i);
+      return new TextDecoder('utf-8').decode(bytes);
+    }
+
+    // 3. Periodic network polling (GitHub API instant + top32.json fallback)
+    function pollServer() {
+      var isGhPages = (window.location.hostname || '').indexOf('github.io') !== -1;
+      if (isGhPages) {
+        var hdrs = { 'Accept': 'application/vnd.github.v3+json' };
+        if (lastGithubEtag) hdrs['If-None-Match'] = lastGithubEtag;
+        fetch('https://api.github.com/repos/sergeyprimo/top32/contents/top32.json', { cache: 'no-store', headers: hdrs })
+          .then(function(r) {
+            if (r.status === 304) return null;
+            if (!r.ok) throw new Error('GH API ' + r.status);
+            var etag = r.headers.get('ETag');
+            if (etag) lastGithubEtag = etag;
+            return r.json();
+          })
+          .then(function(res) {
+            if (res && res.content) {
+              var data = JSON.parse(utf8FromBase64(res.content));
+              applyServerData(data);
+            }
+          })
+          .catch(function() {
+            fetch('top32.json?nocache=' + Date.now(), { cache: 'no-store' })
+              .then(function(r) { return r.ok ? r.json() : null; })
+              .then(applyServerData)
+              .catch(function() {});
+          });
+      } else {
+        fetch('top32.json?nocache=' + Date.now(), { cache: 'no-store' })
+          .then(function(r) { return r.ok ? r.json() : null; })
+          .then(applyServerData)
+          .catch(function() {});
+      }
+    }
+
+    setInterval(pollServer, 3000);
     pollServer();
   </script>
 </body>

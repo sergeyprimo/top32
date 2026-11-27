@@ -13464,6 +13464,9 @@ function populateDriversIntoTourney(pilots) {
         if (typeof obsDirectorState !== 'undefined' && obsDirectorState) {
           tourneyData.obs_director = obsDirectorState;
         }
+        if (typeof obsTickerState !== 'undefined' && obsTickerState) {
+          tourneyData.ticker = JSON.parse(JSON.stringify(obsTickerState));
+        }
 
         if (tourneyData.google_sheet_url && tourneyData.google_sheet_url.indexOf('1g-MtRQQoow5ZtnDfQF_kHEAKgHviXQ4gerlChzjHGVg') !== -1) {
           tourneyData.google_sheet_url = '';
@@ -15615,6 +15618,9 @@ async function saveData() {
         if (typeof obsDirectorState !== 'undefined' && obsDirectorState) {
           tourneyData.obs_director = obsDirectorState;
         }
+        if (typeof obsTickerState !== 'undefined' && obsTickerState) {
+          tourneyData.ticker = JSON.parse(JSON.stringify(obsTickerState));
+        }
 
         if (tourneyData) {
           tourneyData.intro_settings = obsIntroState;
@@ -16943,7 +16949,7 @@ async function saveData() {
       theme: 'carbon', // 'carbon', 'rds', 'neon'
       pos: 'bottom',   // 'bottom', 'top'
       text: "🌐 САЙТ СОРЕВНОВАНИЙ: ГАЗДЕРЖИМ.РФ\n📺 ПРЯМАЯ ТРАНСЛЯЦИЯ: TWITCH.TV/SERGEYPRIMO\n💬 ГРУППА VK: VK.COM/DRIFTBANDA\n🏆 СУДЕЙСТВО: RDS GP RULES • ТОП-32 ПАРНЫЕ ЗАЕЗДЫ\n⭐ ГОЛОСУЙ ЗА ПИЛОТА ДНЯ В ЧАТЕ СТРИМА!",
-      lastUpdated: Date.now()
+      lastUpdated: 0
     };
 
     var tickerBroadcastChannel = (typeof BroadcastChannel !== 'undefined') ? new BroadcastChannel('ac_obs_ticker_bus') : null;
@@ -16972,16 +16978,23 @@ async function saveData() {
     };
 
     function initObsTicker() {
+      var localObj = null;
       try {
         var saved = localStorage.getItem('AC_OBS_TICKER_STATE');
-        if (saved) {
-          obsTickerState = Object.assign(obsTickerState, JSON.parse(saved));
-        }
+        if (saved) localObj = JSON.parse(saved);
       } catch(e) {}
 
-      if (tourneyData && tourneyData.ticker) {
-        obsTickerState = Object.assign(obsTickerState, tourneyData.ticker);
-      } else if (tourneyData && tourneyData.obs_director && tourneyData.obs_director.overlayTicker) {
+      var serverObj = (tourneyData && tourneyData.ticker && typeof tourneyData.ticker === 'object') ? tourneyData.ticker : null;
+
+      var localTs = (localObj && localObj.lastUpdated) ? Number(localObj.lastUpdated) : 0;
+      var serverTs = (serverObj && serverObj.lastUpdated) ? Number(serverObj.lastUpdated) : 0;
+      var curTs = obsTickerState.lastUpdated ? Number(obsTickerState.lastUpdated) : 0;
+
+      if (serverObj && serverTs >= localTs && serverTs >= curTs) {
+        obsTickerState = Object.assign(obsTickerState, serverObj);
+      } else if (localObj && localTs >= curTs) {
+        obsTickerState = Object.assign(obsTickerState, localObj);
+      } else if (!serverObj && tourneyData && tourneyData.obs_director && tourneyData.obs_director.overlayTicker && curTs === 0) {
         obsTickerState.text = tourneyData.obs_director.overlayTicker.split('•').map(function(s){ return s.trim(); }).join('\n');
       }
     }
