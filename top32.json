@@ -1,5 +1,5 @@
 {
-  "tournament_name": "R",
+  "tournament_name": "Race Crew Drift Cup",
   "badge_text": "ГАЗДЕРЖИМ.РФ",
   "badge_brand": "ГАЗДЕРЖИМ",
   "badge_domain": "РФ",
@@ -9,7 +9,7 @@
   "stage": "quali",
   "active_battle_id": 101,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795739543265,
+  "last_updated": 1795739544638,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2844,10 +2844,10 @@
     }
   ],
   "quali_calc_mode": "best",
-  "tournament_title": "R",
+  "tournament_title": "Race Crew Drift Cup",
   "intro_settings": {
     "headerLogo": "RC",
-    "tournamentTitle": "R",
+    "tournamentTitle": "Race Crew Drift Cup",
     "tournamentSub": "ГАЗДЕРЖИМ",
     "statusText": "Скоро квалификация",
     "metaServer": "RACE CREW",
