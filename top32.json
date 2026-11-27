@@ -9,7 +9,7 @@
   "stage": "quali",
   "active_battle_id": 101,
   "google_sheet_url": "https://docs.google.com/spreadsheets/d/18MzACup3xJOxFxOrceMZekuFm2nAISroVrrO2-UYfCE/export?format=csv",
-  "last_updated": 1795738941571,
+  "last_updated": 1795738958452,
   "judges_names": [
     "Судья 1 (Траектория)",
     "Судья 2 (Угол)",
@@ -2928,7 +2928,7 @@
     "omtActive": false,
     "omtDuration": 8,
     "omtTimestamp": 1795474444519,
-    "overlayTitle": "СПОНСОРЫ И ПАРТНЕРЫ",
+    "overlayTitle": "ИНФОРМАЦИЯ",
     "overlaySubtitle": "",
     "overlayTicker": "🤝 ОФИЦИАЛЬНЫЙ ПАРТНЕР ТУРНИРА: DRIFT BANDA • 🏎️ ТРАССЫ И АВТОМОБИЛИ: VEDRO DRIFT | РУССКИЕ ГОРКИ • 🌐 ГЛАВНЫЙ САЙТ СОРЕВНОВАНИЙ: ГАЗДЕРЖИМ.РФ • 📺 СМОТРИТЕ СТРИМ НА TWITCH И ВКОНТАКТЕ",
     "nextBattleCustomText": "",
@@ -3348,12 +3348,12 @@
   "has_demo_scores": true,
   "ticker": {
     "enabled": true,
-    "title": "🤝 СПОНСОРЫ И ПАРТНЕРЫ",
+    "title": "ИНФОРМАЦИЯ",
     "speed": "medium",
     "theme": "carbon",
     "pos": "bottom",
     "text": "🤝 ОФИЦИАЛЬНЫЙ ПАРТНЕР ТУРНИРА: DRIFT BANDA\n🏎️ ТРАССЫ И АВТОМОБИЛИ: VEDRO DRIFT | РУССКИЕ ГОРКИ\n🌐 ГЛАВНЫЙ САЙТ СОРЕВНОВАНИЙ: ГАЗДЕРЖИМ.РФ\n📺 СМОТРИТЕ СТРИМ НА TWITCH И ВКОНТАКТЕ",
-    "lastUpdated": 1795738941571
+    "lastUpdated": 1795738958452
   },
   "is_bracket_cleared": true,
   "auth_salt": "drift_banda_salt_2026",
